@@ -45,8 +45,8 @@ https://github.com/DarthTon/Xenos/releases/tag/2.3.2
 
 7) Boot up Garry's Mod (x86-64 branch), and wait for it to load to the main menu.
 
-8) Once you're at the main menu, alt-tab over to Xenos and press the box that says "process" next to it. Scroll down once you see 3 gmod.exe processes. Select the 3rd one, aka the one with the lowest number next to it. Then, hit the 'Inject' button to inject it in-game. 
-- Note: if that doesn't work, try the other two. If Xenos crashes, that's fine, just launch the injector again and ensure your settings are still saved and try the remaining gmod.exe processes
+8) Once you're at the main menu, alt-tab over to Xenos and press the box that says "process" next to it. Scroll down once you see 3 gmod.exe processes. Select the 2nd or 3rd one (usually the ones with the lowest process ID number next to it). Then, hit the 'Inject' button to inject it in-game. 
+- Note: if that doesn't work, try the other two. If Xenos crashes, that's fine. Just launch the injector again, ensure your settings are correct, and try the remaining gmod.exe processes
 
 9) If the menu loads up, you should see a minimized ImGui window. Congrats; it works! Be sure to resize the menu.
 - Note: clicking around on it may cause you to accidentally click other menu options behind it. 
@@ -60,7 +60,8 @@ https://github.com/DarthTon/Xenos/releases/tag/2.3.2
 - Load up Garry's Mod
 - Load into the server
 - Once you're on the server and able to play (i.e., able to walk around), launch Xenos64.exe
-- Inject the .dll (your settings for the injector should be saved)
+- Inject the .dll
+- Note: your settings for the injector should be saved from the first initial successful injection. Which means, the correct gmod.exe process will be selected. FattyMenu.dll will need to be replaced over time as updates are added. 
 
 ## Controls
 - RCTRL key -> opens or closes the menu
