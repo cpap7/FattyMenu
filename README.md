@@ -79,7 +79,8 @@ Will this make me better at playing Civil Protection?
 
 Why make this?
 - While Project Synapse is a fantastic server, it has a distinct lack of QOL features in a few key areas, which I felt needed to be rectified.
-- This was originally an in-game crafting calculator for rebel gameplay, however, it quickly proved to be unnecessary in-game, and became deprecated pretty quickly. 
+- This was originally an in-game crafting calculator for rebel gameplay, however, it quickly became apparent to me that it was unnecessary to have in-game. With crafting updates, the module became deprecated pretty quickly, so it eventually got axed entirely. 
+- Playing Civil Protection became a bit of hassle in terms of having the SOP readily available to read and learn from. Granted, yes, you could have it open on another monitor and CTRL+f, or use your phone, but I needed something faster.
 - I used to develop a few Source-engine hacks in my time, so making a menu like this without being too invasive on the source engine itself was no issue. The only problem was that the SOP info was locked such that no-one could copy/paste from it (understandably so), and as such, strings had to be manually copied. Despite being sent over the SOP pdfs, it still became a hassle as they changed a LOT over time.
 - For those curious, here's a video showcasing an internal CS:GO cheat I developed a long time ago, which I loosely based this project off of:
 ``https://www.youtube.com/watch?v=MCxxw203-LM&feature=youtu.be``
