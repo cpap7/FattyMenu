@@ -26,15 +26,16 @@ if the .dll is recompiled as Release x86 in Visual Studio. Project Synapse shoul
 - Windows 11, Garry's Mod x86-64 branch
 
 # Installation / Setup
-1) Download the latest version of FattyMenu.dll under the 'Releases' tab of this repository. Then, download the latest version of Xenos Injector:
+1) Download the latest version of FattyMenu.dll under the 'Releases' tab of this repository. FattyMenu.dll can be loaded in-game using any injector that supports manual map injection.
+- For this tutorial we'll be using Xenos, as it's open source and fairly easy to use. Download the latest version of Xenos Injector here:
 ``
 https://github.com/DarthTon/Xenos/releases/tag/2.3.2
 ``
-2) Extract the files to your desktop (or wherever is convenient for you) 
+3) Extract the files to your desktop (or wherever is convenient for you) 
 
-3) Run Xenos64.exe. Your anti-virus will likely flag it, but do not worry. This is a false positive, so make sure you have it set up to ignore it.
+4) Run Xenos64.exe. Your anti-virus will likely flag it, but do not worry. This is a false positive, so make sure you have it set up to ignore it.
 
-4) Once the injector is opened, navigate over to the 'Advanced' button and click on it. Change the injection type to Manual map, then check off 'No exception support,' 'Manually resolve imports,' 'Ignore TLS,' and 'Erase PE headers.' In other words, it should look like this:
+5) Once the injector is opened, navigate over to the 'Advanced' button and click on it. Change the injection type to Manual map, then check off 'No exception support,' 'Manually resolve imports,' 'Ignore TLS,' and 'Erase PE headers.' In other words, it should look like this:
 
 ![alt text](https://puu.sh/Kt6GG/ec592af606.png)
 
@@ -102,7 +103,7 @@ Why make this?
 
 - Add a settings tab for configurable keybinds, and setting different themes (i.e., one for transhuman)
 
-## Contributing
+# Contributing
 
 Pull requests are welcome. For major changes, please either message me on Discord (@wiener_water88) or open an issue 
 to discuss what you would like to change.
