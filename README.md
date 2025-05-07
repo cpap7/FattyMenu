@@ -98,6 +98,8 @@ Why make this?
 
 - Include search / filtering functions for the Voiceline Libary and SOP tabs
 
+- Add a settings tab for configurable keybinds, and setting different themes (i.e., one for transhuman)
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please either message me on Discord (@wiener_water88) or open an issue 
