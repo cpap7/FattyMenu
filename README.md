@@ -1,6 +1,6 @@
 # Project Synapse: FattyMenu
 
-This repository contains the source code to a little side-project I've been working on while playing Project Synapse. FattyMenu is a .dll file that can be loaded onto Garry's Mod via manual map injection. It uses Direct3D9 render hooks and a hook for EndSceneFn to render an ImGui window in-game.
+This repository contains the source code to a little side-project I've been working on while playing Project Synapse. FattyMenu is a lightweight, .dll file that can be loaded onto Garry's Mod via manual map injection. It uses Direct3D9 render hooks and a hook for EndSceneFn to render an ImGui window in-game.
 
 # Compatibility
 This menu is confirmed to work with the following OS and Garry's Mod versions:
@@ -24,7 +24,7 @@ The code itself uses classes as containers for organization purposes, and separa
 The UI tabs are managed under 
 ``GUI.cpp.``  
 
-## Installation
+## Installation / Setup
 1) Download the .dll under the 'Releases' tab of this repository. Then, download the latest version of Xenos Injector:
 ``
 https://github.com/DarthTon/Xenos/releases/tag/2.3.2
@@ -56,9 +56,10 @@ https://github.com/DarthTon/Xenos/releases/tag/2.3.2
 ![alt text](https://puu.sh/Kt6Jq/05c9c24f2a.jpg)
 
 10) Verify it works while in-game. In most cases, it should be fine to just load into a singleplayer  map or server and open/close the menu without issue. However, for the safest results, I'd recommend doing the following from now on:
-- Reboot the game
+- Load up Garry's Mod
 - Load into the server
-- Once you're in the server and able to play, launch Xenos64.exe, and inject the .dll (your settings for the injector should be saved)
+- Once you're on the server and able to play (i.e., able to walk around), launch Xenos64.exe
+- Inject the .dll (your settings for the injector should be saved)
 
 ## Controls
 - RCTRL key -> opens or closes the menu
@@ -73,11 +74,12 @@ Will this get me banned from the server?
 Is Xenos64 a virus?
 - No. Be sure to have your anti-virus set up to ignore it; it's a false-positive because it's an injector.
 
-Will this make me a better at playing Civil Protection?
+Will this make me better at playing Civil Protection?
 - I've been making this since I was a probationary, and now I'm a CPTL without ever needing to memorize anything from the actual SOP itself. So, yes I'd say so.
 
 Why make this?
-- While Project Synapse is a fantastic server, it has a distinct lack of QOL features in a few key areas, which I felt needed to be rectified. 
+- While Project Synapse is a fantastic server, it has a distinct lack of QOL features in a few key areas, which I felt needed to be rectified.
+- This was originally an in-game crafting calculator for rebel gameplay, however, it quickly proved to be unnecessary in-game, and became deprecated pretty quickly. 
 - I used to develop a few Source-engine hacks in my time, so making a menu like this without being too invasive on the source engine itself was no issue. The only problem was that the SOP info was locked such that no-one could copy/paste from it (understandably so), and as such, strings had to be manually copied. Despite being sent over the SOP pdfs, it still became a hassle as they changed a LOT over time.
 - For those curious, here's a video showcasing an internal CS:GO cheat I developed a long time ago, which I loosely based this project off of:
 ``https://www.youtube.com/watch?v=MCxxw203-LM&feature=youtu.be``
@@ -91,7 +93,9 @@ Why make this?
 
 - Finish up comments/documentation that I either forgot to write or was otherwise too lazy to write
 
-- Rework rendering methods for the SOP with a cleaner approach. 
+- Rework rendering methods for the SOP using a cleaner approach. 
+
+- Include search / filtering functions for the Voiceline Libary and SOP tabs
 
 ## Contributing
 
