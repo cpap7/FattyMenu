@@ -19,7 +19,7 @@ The UI tabs are managed under
 ``GUI.cpp.``  
 
 # Compatibility
-This menu is confirmed to work with the following OS and Garry's Mod versions:
+This menu works with the following operating systems and versions of Garry's Mod:
 - Windows 10, Garry's Mod x86-64 branch
 - Windows 10, Garry's Mod 32-bit branch 
 if the .dll is recompiled as Release x86 in Visual Studio. Project Synapse shouldn't be played on the 32-bit version of Garry's Mod anyhow.
@@ -102,6 +102,8 @@ Why make this?
 - Include search / filtering functions for the Voiceline Libary and SOP tabs
 
 - Add a settings tab for configurable keybinds, and setting different themes (i.e., one for transhuman)
+
+- Add additional support for other operating systems (for MAC and Linux users specifically)
 
 # Contributing
 
