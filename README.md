@@ -7,6 +7,7 @@ This menu is confirmed to work with the following OS and Garry's Mod versions:
 - Windows 10, Garry's Mod x86-64 branch
 - Windows 10, Garry's Mod 32-bit branch 
 if the .dll is recompiled as Release x86 in Visual Studio. Project Synapse shouldn't be played on the 32-bit version of Garry's Mod anyhow.
+- Windows 11, Garry's Mod x86-64 branch 
 
 # Content
 The menu itself contains the following tabs: 
