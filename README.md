@@ -15,7 +15,7 @@ The menu itself contains the following tabs:
 
 - A built-in library containing all the voicelines across each class on the server (except Transhuman Soldier and Ordinal, still WIP)
 
-- Distribution permit info, including prerequisite civic point count costs for permits, alongside their associate packages (except the water permit, still need to gather data and implement that)
+- Distribution permit info, including prerequisite civic point count & costs for permits, alongside costs for their associate packages (except the water permit, still need to gather data and implement that)
 
 - Notepads for writing Patrol Logs, Probationary Recommendations, and regular note-taking
 
