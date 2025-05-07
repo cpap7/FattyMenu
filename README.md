@@ -61,7 +61,7 @@ https://github.com/DarthTon/Xenos/releases/tag/2.3.2
 - Load into the server
 - Once you're on the server and able to play (i.e., able to walk around), launch Xenos64.exe
 - Inject the .dll
-- Note: your settings for the injector should be saved from the first initial successful injection. Which means, the correct gmod.exe process will be selected. FattyMenu.dll will need to be replaced over time as updates are added. 
+- Note: your settings for the injector should be saved from the first initial successful injection. Which means, the correct gmod.exe process will be selected every time Xenos64.exe is ran. FattyMenu.dll will need to be replaced over time as updates are added. 
 
 ## Controls
 - RCTRL key -> opens or closes the menu
@@ -83,7 +83,7 @@ Why make this?
 - While Project Synapse is a fantastic server, it has a distinct lack of QOL features in a few key areas, which I felt needed to be rectified.
 - This was originally an in-game crafting calculator for rebel gameplay, however, it quickly became apparent to me that it was unnecessary to have in-game. With crafting updates, the module became deprecated over time, and it eventually got axed entirely. 
 - Playing Civil Protection became a bit of hassle in terms of having the SOP readily available to reference from. Granted, yes, you could have it open on another monitor and CTRL+f, or use your phone, but I needed something faster.
-- I used to develop a few hacks for Source-engine games in my time, so making a menu like this without being too invasive on the source engine itself was no issue. The only problem was that the SOP info was locked such that no-one could copy/paste from it (understandably so), and as such, strings had to be manually copied. Despite being sent over the SOP pdfs, it still became a hassle as they changed a LOT over time.
+- I used to develop a few hacks for Source engine games in my time, so making a menu like this without being too invasive on the engine itself was no issue. The only problem was that the SOP info was locked such that no-one could copy/paste from it (understandably so), and as such, strings had to be manually typed out. Despite being sent over the SOP pdfs, it still became a hassle as they changed a LOT over time.
 - For those curious, here's a video showcasing an internal CS:GO cheat I developed a long time ago, which I loosely based this project off of:
 ``https://www.youtube.com/watch?v=MCxxw203-LM&feature=youtu.be``
 
