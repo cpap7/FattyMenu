@@ -6,7 +6,7 @@ This repository contains the source code to a little side-project I've been work
 This menu is confirmed to work with the following OS and Garry's Mod versions:
 - Windows 10, Garry's Mod x86-64 branch
 - Windows 10, Garry's Mod 32-bit branch 
-if the .dll is recompiled as Release x86 on Visual Studio. Project Synapse shouldn't be played on the 32-bit version anyhow.
+if the .dll is recompiled as Release x86 in Visual Studio. Project Synapse shouldn't be played on the 32-bit version of Garry's Mod anyhow.
 
 # Content
 The menu itself contains the following tabs: 
@@ -58,7 +58,7 @@ https://github.com/DarthTon/Xenos/releases/tag/2.3.2
 10) Verify it works while in-game. In most cases, it should be fine to just load into a singleplayer  map or server and open/close the menu without issue. However, for the safest results, I'd recommend doing the following from now on:
 - Reboot the game
 - Load into the server
-- Launch Xenos64.exe, and inject the .dll (your settings for the injector should be saved)
+- Once you're in the server and able to play, launch Xenos64.exe, and inject the .dll (your settings for the injector should be saved)
 
 ## Controls
 - RCTRL key -> opens or closes the menu
