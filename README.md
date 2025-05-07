@@ -2,13 +2,6 @@
 
 This repository contains the source code to a little side-project I've been working on while playing Project Synapse. FattyMenu is a lightweight, .dll file that can be loaded onto Garry's Mod via manual map injection. It uses Direct3D9 render hooks and a hook for EndSceneFn to render an ImGui window in-game.
 
-# Compatibility
-This menu is confirmed to work with the following OS and Garry's Mod versions:
-- Windows 10, Garry's Mod x86-64 branch
-- Windows 10, Garry's Mod 32-bit branch 
-if the .dll is recompiled as Release x86 in Visual Studio. Project Synapse shouldn't be played on the 32-bit version of Garry's Mod anyhow.
-- Windows 11, Garry's Mod x86-64 branch 
-
 # Content
 The menu itself contains the following tabs: 
 
@@ -25,7 +18,14 @@ The code itself uses classes as containers for organization purposes, and separa
 The UI tabs are managed under 
 ``GUI.cpp.``  
 
-## Installation / Setup
+# Compatibility
+This menu is confirmed to work with the following OS and Garry's Mod versions:
+- Windows 10, Garry's Mod x86-64 branch
+- Windows 10, Garry's Mod 32-bit branch 
+if the .dll is recompiled as Release x86 in Visual Studio. Project Synapse shouldn't be played on the 32-bit version of Garry's Mod anyhow.
+- Windows 11, Garry's Mod x86-64 branch
+
+# Installation / Setup
 1) Download the latest version of FattyMenu.dll under the 'Releases' tab of this repository. Then, download the latest version of Xenos Injector:
 ``
 https://github.com/DarthTon/Xenos/releases/tag/2.3.2
@@ -63,13 +63,13 @@ https://github.com/DarthTon/Xenos/releases/tag/2.3.2
 - Inject the .dll
 - Note: your settings for the injector should be saved from the first initial successful injection. Which means, the correct gmod.exe process will be selected every time Xenos64.exe is ran. FattyMenu.dll will need to be replaced over time as updates are added. 
 
-## Controls
+# Controls
 - RCTRL key -> opens or closes the menu
 - END key -> uninjects the menu
 - C key -> pressing this in-game allows you to navigate the menu without needing to press escape. Very handy if you're simply browsing the in-game SOP, voiceline library or distribution permit info. 
 - Pressing escape to access the menu is preferable if you're writing notes. 
 
-## FAQ
+# FAQ
 Will this get me banned from the server?
 - No
 
@@ -87,7 +87,7 @@ Why make this?
 - For those curious, here's a video showcasing an internal CS:GO cheat I developed a long time ago, which I loosely based this project off of:
 ``https://www.youtube.com/watch?v=MCxxw203-LM&feature=youtu.be``
 
-## Developer Roadmap
+# Developer Roadmap
 - Include all the voiceline data for Transhuman Ordinal and Transhuman Soldier
 
 - Include a built-in SOP and AOP for Transhuman and Airwatch classes, respectively. Might not be needed, but it would be nice to have.
