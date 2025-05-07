@@ -26,7 +26,7 @@ The UI tabs are managed under
 ``GUI.cpp.``  
 
 ## Installation / Setup
-1) Download the .dll under the 'Releases' tab of this repository. Then, download the latest version of Xenos Injector:
+1) Download the latest version of FattyMenu.dll under the 'Releases' tab of this repository. Then, download the latest version of Xenos Injector:
 ``
 https://github.com/DarthTon/Xenos/releases/tag/2.3.2
 ``
@@ -48,7 +48,7 @@ https://github.com/DarthTon/Xenos/releases/tag/2.3.2
 8) Once you're at the main menu, alt-tab over to Xenos and press the box that says "process" next to it. Scroll down once you see 3 gmod.exe processes. Select the 3rd one, aka the one with the lowest number next to it. Then, hit the 'Inject' button to inject it in-game. 
 - Note: if that doesn't work, try the other two. If Xenos crashes, that's fine, just launch the injector again and ensure your settings are still saved and try the remaining gmod.exe processes
 
-9) If the menu loads up, you should see a minimized ImGui tab. Congrats; it works! Be sure to resize the menu.
+9) If the menu loads up, you should see a minimized ImGui window. Congrats; it works! Be sure to resize the menu.
 - Note: clicking around on it may cause you to accidentally click other menu options behind it. 
 
 - For that reason, I recommend keeping the menu open in the middle of your screen if you only want to open it with the escape menu open. 
@@ -56,7 +56,7 @@ https://github.com/DarthTon/Xenos/releases/tag/2.3.2
 - In-game, I've found having it off to the right works best. 
 ![alt text](https://puu.sh/Kt6Jq/05c9c24f2a.jpg)
 
-10) Verify it works while in-game. In most cases, it should be fine to just load into a singleplayer  map or server and open/close the menu without issue. However, for the safest results, I'd recommend doing the following from now on:
+10) Verify it works while in-game. In most cases, it should be fine to just load into a singleplayer map or server and open/close the menu without issue. However, for the safest results, I'd recommend doing the following from now on:
 - Load up Garry's Mod
 - Load into the server
 - Once you're on the server and able to play (i.e., able to walk around), launch Xenos64.exe
@@ -76,11 +76,11 @@ Is Xenos64 a virus?
 - No. Be sure to have your anti-virus set up to ignore it; it's a false-positive because it's an injector.
 
 Will this make me better at playing Civil Protection?
-- I've been making this since I was a probationary, and now I'm a CPTL without ever needing to memorize anything from the actual SOP itself. So, yes I'd say so.
+- I've been making this since I was a probationary, and now I'm a CPTL. I've never needed to memorize anything from the actual SOP itself, and have only ever relied on this menu for my success. So, yes I'd say so.
 
 Why make this?
 - While Project Synapse is a fantastic server, it has a distinct lack of QOL features in a few key areas, which I felt needed to be rectified.
-- This was originally an in-game crafting calculator for rebel gameplay, however, it quickly became apparent to me that it was unnecessary to have in-game. With crafting updates, the module became deprecated pretty quickly, so it eventually got axed entirely. 
+- This was originally an in-game crafting calculator for rebel gameplay, however, it quickly became apparent to me that it was unnecessary to have in-game. With crafting updates, the module became deprecated over time, and it eventually got axed entirely. 
 - Playing Civil Protection became a bit of hassle in terms of having the SOP readily available to reference from. Granted, yes, you could have it open on another monitor and CTRL+f, or use your phone, but I needed something faster.
 - I used to develop a few hacks for Source-engine games in my time, so making a menu like this without being too invasive on the source engine itself was no issue. The only problem was that the SOP info was locked such that no-one could copy/paste from it (understandably so), and as such, strings had to be manually copied. Despite being sent over the SOP pdfs, it still became a hassle as they changed a LOT over time.
 - For those curious, here's a video showcasing an internal CS:GO cheat I developed a long time ago, which I loosely based this project off of:
@@ -89,7 +89,7 @@ Why make this?
 ## Developer Roadmap
 - Include all the voiceline data for Transhuman Ordinal and Transhuman Soldier
 
-- Include a built-in SOP and AOP for Transhuman and Airwatch classes. Might not be needed, but it would be nice to have.
+- Include a built-in SOP and AOP for Transhuman and Airwatch classes, respectively. Might not be needed, but it would be nice to have.
 
 - Finish the distribution permit tab (currently lacks water-permit package info, and I still need to verify that all the other data is up-to-date)
 
