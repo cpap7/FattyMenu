@@ -1,1 +1,105 @@
-# FattyMenu
+# Project Synapse: FattyMenu
+
+This repository contains the source code to a little side-project I've been working on while playing Project Synapse. FattyMenu is a .dll file that can be loaded onto Garry's Mod via manual map injection. It uses Direct3D9 render hooks and a hook for EndSceneFn to render an ImGui window in-game.
+
+# Compatibility
+This menu is confirmed to work with the following OS and Garry's Mod versions:
+- Windows 10, Garry's Mod x86-64 branch
+- Windows 10, Garry's Mod 32-bit branch 
+if the .dll is recompiled as Release x86 on Visual Studio. Project Synapse shouldn't be played on the 32-bit version anyhow.
+
+# Content
+The menu itself contains the following tabs: 
+
+- An in-game version of roughly ~80% of the Civil Protection SOP (missing a few tables and verbose sections)
+
+- A built-in library containing all the voicelines across each class on the server (except Transhuman Soldier and Ordinal, still WIP)
+
+- Distribution permit info, including prerequisite civic point count costs for permits, alongside their associate packages (except the water permit, still need to gather data and implement that)
+
+- Notepads for writing Patrol Logs, Probationary Recommendations, and regular note-taking
+
+The code itself uses classes as containers for organization purposes, and separate UI files for each tab. Should be pretty boiler-plate and self-explanatory in terms of structure overall. 
+
+The UI tabs are managed under 
+``GUI.cpp.``  
+
+## Installation
+1) Download the .dll under the 'Releases' tab of this repository. Then, download the latest version of Xenos Injector:
+``
+https://github.com/DarthTon/Xenos/releases/tag/2.3.2
+``
+2) Extract the files to your desktop (or wherever is convenient for you) 
+
+3) Run Xenos64.exe. Your anti-virus will likely flag it, but do not worry. This is a false positive, so make sure you have it set up to ignore it.
+
+4) Once the injector is opened, navigate over to the 'Advanced' button and click on it. Change the injection type to Manual map, then check off 'No exception support,' 'Manually resolve imports,' 'Ignore TLS,' and 'Erase PE headers.' In other words, it should look like this:
+
+![alt text](https://puu.sh/Kt6GG/ec592af606.png)
+
+5) Press the 'OK' button at the bottom right.
+
+6) Next, go to the 'Add' button and select FattyMenu.dll. The injector UI should now look like this:
+![alt text](https://puu.sh/Kt6HZ/5dc30ea9cc.png)
+
+7) Boot up Garry's Mod (x86-64 branch), and wait for it to load to the main menu.
+
+8) Once you're at the main menu, alt-tab over to Xenos and press the box that says "process" next to it. Scroll down once you see 3 gmod.exe processes. Select the 3rd one, aka the one with the lowest number next to it. Then, hit the 'Inject' button to inject it in-game. 
+- Note: if that doesn't work, try the other two. If Xenos crashes, that's fine, just launch the injector again and ensure your settings are still saved and try the remaining gmod.exe processes
+
+9) If the menu loads up, you should see a minimized ImGui tab. Congrats; it works! Be sure to resize the menu.
+- Note: clicking around on it may cause you to accidentally click other menu options behind it. 
+
+- For that reason, I recommend keeping the menu open in the middle of your screen if you only want to open it with the escape menu open. 
+![alt text](https://puu.sh/Kt6Jj/f5062ebfcb.jpg)
+- In-game, I've found having it off to the right works best. 
+![alt text](https://puu.sh/Kt6Jq/05c9c24f2a.jpg)
+
+10) Verify it works while in-game. In most cases, it should be fine to just load into a singleplayer  map or server and open/close the menu without issue. However, for the safest results, I'd recommend doing the following from now on:
+- Reboot the game
+- Load into the server
+- Launch Xenos64.exe, and inject the .dll (your settings for the injector should be saved)
+
+## Controls
+- RCTRL key -> opens or closes the menu
+- END key -> uninjects the menu
+- C key -> pressing this in-game allows you to navigate the menu without needing to press escape. Very handy if you're simply browsing the in-game SOP, voiceline library or distribution permit info. 
+- Pressing escape to access the menu is preferable if you're writing notes. 
+
+## FAQ
+Will this get me banned from the server?
+- No
+
+Is Xenos64 a virus?
+- No. Be sure to have your anti-virus set up to ignore it; it's a false-positive because it's an injector.
+
+Will this make me a better at playing Civil Protection?
+- I've been making this since I was a probationary, and now I'm a CPTL without ever needing to memorize anything from the actual SOP itself. So, yes I'd say so.
+
+Why make this?
+- While Project Synapse is a fantastic server, it has a distinct lack of QOL features in a few key areas, which I felt needed to be rectified. 
+- I used to develop a few Source-engine hacks in my time, so making a menu like this without being too invasive on the source engine itself was no issue. The only problem was that the SOP info was locked such that no-one could copy/paste from it (understandably so), and as such, strings had to be manually copied. Despite being sent over the SOP pdfs, it still became a hassle as they changed a LOT over time.
+- For those curious, here's a video showcasing an internal CS:GO cheat I developed a long time ago, which I loosely based this project off of:
+``https://www.youtube.com/watch?v=MCxxw203-LM&feature=youtu.be``
+
+## Developer Roadmap
+- Include all the voiceline data for Transhuman Ordinal and Transhuman Soldier
+
+- Include a built-in SOP and AOP for Transhuman and Airwatch classes. Might not be needed, but it would be nice to have.
+
+- Finish the distribution permit tab (currently lacks water-permit package info, and I still need to verify that all the other data is up-to-date)
+
+- Finish up comments/documentation that I either forgot to write or was otherwise too lazy to write
+
+- Rework rendering methods for the SOP with a cleaner approach. 
+
+## Contributing
+
+Pull requests are welcome. For major changes, please either message me on Discord (@wiener_water88) or open an issue 
+to discuss what you would like to change.
+
+Please make sure to update tests as appropriate.
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
