@@ -13,7 +13,7 @@ The menu itself contains the following tabs:
 
 - Notepads for writing Patrol Logs, Probationary Recommendations, and regular note-taking
 
-The code itself uses classes as containers for organization purposes, and separate UI files for each tab. Should be pretty boiler-plate and self-explanatory in terms of structure overall. 
+The code itself uses classes as containers for data organization purposes, and separate UI files for each tab. Should be easy to navigate given the project's overall structure. 
 
 The UI tabs are managed under 
 ``GUI.cpp.``  
