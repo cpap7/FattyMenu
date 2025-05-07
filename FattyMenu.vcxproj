@@ -180,7 +180,7 @@
     <ClInclude Include="src\core\sop\civil_protection\definitions\CPTerminologyIndex.h" />
     <ClInclude Include="src\core\sop\civil_protection\definitions\PolitiScheduleEvent.h" />
     <ClInclude Include="src\core\sop\civil_protection\gui\CPSOPLookupTables.h" />
-    <ClInclude Include="src\core\sop\civil_protection\gui\PocketSOP.h" />
+    <ClInclude Include="src\core\sop\civil_protection\gui\CPSOP.h" />
     <ClInclude Include="src\core\sop\global_classes\CAssignment.h" />
     <ClInclude Include="src\core\sop\global_classes\CCivicReward.h" />
     <ClInclude Include="src\core\sop\global_classes\CCivilStatus.h" />
@@ -228,7 +228,7 @@
     <ClCompile Include="src\core\sop\civil_protection\definitions\CPDuties.cpp" />
     <ClCompile Include="src\core\sop\civil_protection\definitions\CPTerminologyIndex.cpp" />
     <ClCompile Include="src\core\sop\civil_protection\definitions\PolitiScheduleEvent.cpp" />
-    <ClCompile Include="src\core\sop\civil_protection\gui\PocketSOP.cpp" />
+    <ClCompile Include="src\core\sop\civil_protection\gui\CPSOP.cpp" />
     <ClCompile Include="src\core\sop\global_classes\CAssignment.cpp" />
     <ClCompile Include="src\core\sop\global_classes\CCivicReward.cpp" />
     <ClCompile Include="src\core\sop\global_classes\CCivilStatus.cpp" />

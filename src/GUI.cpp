@@ -1,7 +1,7 @@
 #include "GUI.h"
 
 // ImGui menu tabs
-#include "core/sop/civil_protection/gui/PocketSOP.h"
+#include "core/sop/civil_protection/gui/CPSOP.h"
 #include "core/voicelines/gui/VoicelineLibrary.h"
 #include "core/distribution_permit/gui/PermitMenu.h"
 #include "core/notepads/gui/Notepad.h"
@@ -281,7 +281,7 @@ void GUI::Render() noexcept {
 
 		// Render operating procedures tab
 		if (ImGui::BeginTabItem("Operating Procedures")) {
-			PocketSOP::RenderCivilProtectionSOP();
+			CPSOP::RenderCivilProtectionSOP();
 			ImGui::EndTabItem();
 		}
 

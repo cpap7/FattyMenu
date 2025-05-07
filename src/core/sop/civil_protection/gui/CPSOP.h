@@ -19,10 +19,10 @@
 /* TODO:
 	- Fix shitty jank code I made for prototyping, replace it with lambda function calls to the template function, which is easier to maintain
 */
-namespace PocketSOP {
+namespace CPSOP {
 	/* Template helper function for displaying items in a static vector list
 	* @param &item_list -> address of vector containing items to be displayed
-	* @param Render(const T&) -> placeholder function for displaying the item in memory
+	* @param Render(const T&) -> placeholder function for displaying the item from a list stored in memory
 	*/
 	template<typename T>
 	inline void DisplayList(const std::vector<T>& item_list, std::function<void(const T&)> RenderItem) {

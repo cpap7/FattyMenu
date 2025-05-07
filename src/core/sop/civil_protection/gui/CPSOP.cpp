@@ -1,7 +1,7 @@
-#include "PocketSOP.h"
+#include "CPSOP.h"
 
 /* Displays ASCII art of the Civil Protection symbol */
-void PocketSOP::DisplayLogo() {
+void CPSOP::DisplayLogo() {
 	// Could probably format this better, but too lazy to bother 
 	ImGui::Text("							----   -----");
 	ImGui::Text("							----   -----");
@@ -47,8 +47,8 @@ void PocketSOP::DisplayLogo() {
 
 }
 
-/* TODO: fix lambda functions and streamline everything to use template structure outlined in PocketSOP.h
-	PocketSOP::DisplayList(codes_list, [] (const CCode& code) {
+/* TODO: fix lambda functions and streamline everything to use template structure outlined in CPSOP.h
+	CPSOP::DisplayList(codes_list, [] (const CCode& code) {
 		ImGui::TextWrapped("%s: %s", code.GetCodeName(), code.GetCodeDescription());
 
 		if (code.IsViolationCode()) {
@@ -79,7 +79,7 @@ void PocketSOP::DisplayLogo() {
 
 // Function for displaying radio codes
 // @param codes_list -> vector containing a list of radio codes to be looped through and displayed
-void PocketSOP::DisplayCodes(const std::vector<CCode> codes_list) {
+void CPSOP::DisplayCodes(const std::vector<CCode> codes_list) {
 	// Loop through the radio codes
 	for (const auto& code : codes_list) {
 		// Check if the code is an override code, which contains lists of strings
@@ -115,7 +115,7 @@ void PocketSOP::DisplayCodes(const std::vector<CCode> codes_list) {
 
 // Function for displaying civic point and ration rewards for public service details and civic deeds
 // @param reward_list -> vector containing each type of civic duty that a unit can issue a reward for, which is looped through and displayed
-void PocketSOP::DisplayRewardInfo(const std::vector<CCivicReward> reward_list) {
+void CPSOP::DisplayRewardInfo(const std::vector<CCivicReward> reward_list) {
 	// Loop through the rewards
 	for (const auto& reward : reward_list) {
 		// Display them as bullet text
@@ -128,7 +128,7 @@ void PocketSOP::DisplayRewardInfo(const std::vector<CCivicReward> reward_list) {
 	}
 }
 
-void PocketSOP::DisplayInteractionDirectives(const std::vector<CCivilStatus> civil_status_list) {
+void CPSOP::DisplayInteractionDirectives(const std::vector<CCivilStatus> civil_status_list) {
 	// Loop through the different status types
 	for (const auto& civil_status : civil_status_list) {
 		// Display the name of the status type, and the civic point range
@@ -149,7 +149,7 @@ void PocketSOP::DisplayInteractionDirectives(const std::vector<CCivilStatus> civ
 
 // Function for displaying Combine terminology
 // @param terms_list -> vector containing a list of terms to be looped through and displayed
-void PocketSOP::DisplayTerms(const std::vector<CTerm> terms_list) {
+void CPSOP::DisplayTerms(const std::vector<CTerm> terms_list) {
 	// Loop through the terms in the vector list
 	for (const auto& term : terms_list) {
 		// Display them as bullet text
@@ -162,7 +162,7 @@ void PocketSOP::DisplayTerms(const std::vector<CTerm> terms_list) {
 
 // Function for displaying Politi-Schedule
 // @param politi_schedule_list -> vector containing a list of events to be looped through and displayed
-void PocketSOP::DisplayPolitiSchedule(const std::vector<CPolitiSchedule> politi_schedule_list) {
+void CPSOP::DisplayPolitiSchedule(const std::vector<CPolitiSchedule> politi_schedule_list) {
 	// Create the table for the schedule
 	ImGui::BeginTable("PolitiSchedule", 4, ImGuiTableFlags_Resizable | ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg);
 	
@@ -211,7 +211,7 @@ void PocketSOP::DisplayPolitiSchedule(const std::vector<CPolitiSchedule> politi_
 
 // Function for displaying mandate and assignment duties
 // @param duties_list -> vector containing a list of duties to be looped through and displayed
-void PocketSOP::DisplayDuties(const std::vector<CAssignment> duties_list) {
+void CPSOP::DisplayDuties(const std::vector<CAssignment> duties_list) {
 	// Loop through the duties in the vector list
 	for (const auto& duty : duties_list) {
 		// Display assignment name and the # of required units
@@ -229,7 +229,7 @@ void PocketSOP::DisplayDuties(const std::vector<CAssignment> duties_list) {
 
 // Function for displaying contraband index
 // @param contraband_list -> vector containing a list of contraband, their verdict codes, and examples to be looped through and displayed
-void PocketSOP::DisplayContrabandIndex(const std::vector<CContraband> contraband_list) {
+void CPSOP::DisplayContrabandIndex(const std::vector<CContraband> contraband_list) {
 	// Loop through the contraband categories
 	for (const auto& category : contraband_list) {
 		// Display the violation code's name, description
@@ -247,7 +247,7 @@ void PocketSOP::DisplayContrabandIndex(const std::vector<CContraband> contraband
 
 
 
-void PocketSOP::RenderCivilProtectionSOP() {
+void CPSOP::RenderCivilProtectionSOP() {
 	// Print the ASCII art logo
 	DisplayLogo();
 
