@@ -248,10 +248,11 @@ void CPSOP::DisplayContrabandIndex(const std::vector<CContraband> contraband_lis
 
 
 void CPSOP::RenderCivilProtectionSOP() {
-	// Print the ASCII art logo
-	DisplayLogo();
-
 	// Collapsing headers render info once the user clicks on them
+	if (ImGui::CollapsingHeader("<:: DISPLAY CIVIL PROTECTION LOGO ::>")) {
+		// Print the ASCII art logo
+		DisplayLogo();
+	}
 
 	// Display the code index, render the subheaders via the inline helper function
 	RenderSOPSection("<:: CODE INDEX ::>", [] {
