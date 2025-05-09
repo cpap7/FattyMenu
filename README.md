@@ -36,14 +36,14 @@ This .dll file can be either injected or loaded by Garry's Mod directly.
 ![alt text](https://puu.sh/Kt6Jq/05c9c24f2a.jpg)
 
 ## Direct Load via Garry's Mod
+- The more popular/convenient method for loading the menu
 1) Download the latest version of FattyMenu.dll under the 'Releases' tab of this repository.
 2) Rename it to ``gmsv_fattymenu_win64.dll``
 3) Navigate to your ``garrysmod > lua > bin `` folder and drop it in there
 - Note: If there is no bin folder present, create one
 4) Navigate over to ``garrysmod > lua > menu `` and open up ``menu.lua`` in a text editor (i.e., Notepad++)
 5) At the bottom of the file, copy and paste this: ``require("fattymenu")`` and save the file
-6) Start Garry's Mod. The file should load. 
-
+6) Start Garry's Mod. The menu should load. 
 
 ## Injection
 - Less convenient, but it's supported. The following steps should allow you to use the menu in-game. 
