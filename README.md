@@ -19,22 +19,23 @@ The UI tabs are managed under
 ``GUI.cpp.``  
 
 # Compatibility
-This menu is confirmed to work with the following OS and Garry's Mod versions:
+This menu works with the following operating systems and versions of Garry's Mod:
 - Windows 10, Garry's Mod x86-64 branch
 - Windows 10, Garry's Mod 32-bit branch 
 if the .dll is recompiled as Release x86 in Visual Studio. Project Synapse shouldn't be played on the 32-bit version of Garry's Mod anyhow.
 - Windows 11, Garry's Mod x86-64 branch
 
 # Installation / Setup
-1) Download the latest version of FattyMenu.dll under the 'Releases' tab of this repository. Then, download the latest version of Xenos Injector:
+1) Download the latest version of FattyMenu.dll under the 'Releases' tab of this repository. FattyMenu.dll can be loaded in-game using any injector that supports manual map injection.
+- For this tutorial we'll be using Xenos, as it's open source and fairly easy to use. Download the latest version of Xenos Injector here:
 ``
 https://github.com/DarthTon/Xenos/releases/tag/2.3.2
 ``
-2) Extract the files to your desktop (or wherever is convenient for you) 
+3) Extract the files to your desktop (or wherever is convenient for you) 
 
-3) Run Xenos64.exe. Your anti-virus will likely flag it, but do not worry. This is a false positive, so make sure you have it set up to ignore it.
+4) Run Xenos64.exe. Your anti-virus will likely flag it, but do not worry. This is a false positive, so make sure you have it set up to ignore it.
 
-4) Once the injector is opened, navigate over to the 'Advanced' button and click on it. Change the injection type to Manual map, then check off 'No exception support,' 'Manually resolve imports,' 'Ignore TLS,' and 'Erase PE headers.' In other words, it should look like this:
+5) Once the injector is opened, navigate over to the 'Advanced' button and click on it. Change the injection type to Manual map, then check off 'No exception support,' 'Manually resolve imports,' 'Ignore TLS,' and 'Erase PE headers.' In other words, it should look like this:
 
 ![alt text](https://puu.sh/Kt6GG/ec592af606.png)
 
@@ -74,7 +75,7 @@ Will this get me banned from the server?
 - No
 
 Is Xenos64 a virus?
-- No. Be sure to have your anti-virus set up to ignore it; it's a false-positive because it's an injector.
+- No. If your anti-virus flags it as malware, bare in mind that it's a false-positive because it's an injector. The software itself is open-source, so you can see for yourself how exactly it functions and compile it yourself if you want. 
 
 Will this make me better at playing Civil Protection?
 - I've been making this since I was a probationary, and now I'm a CPTL. I've never needed to memorize anything from the actual SOP itself, and have only ever relied on this menu for my success. So, yes I'd say so.
@@ -102,7 +103,9 @@ Why make this?
 
 - Add a settings tab for configurable keybinds, and setting different themes (i.e., one for transhuman)
 
-## Contributing
+- Add additional support for other operating systems (for MAC and Linux users specifically)
+
+# Contributing
 
 Pull requests are welcome. For major changes, please either message me on Discord (@wiener_water88) or open an issue 
 to discuss what you would like to change.
