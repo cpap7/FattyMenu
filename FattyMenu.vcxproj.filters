@@ -168,6 +168,60 @@
     <ClInclude Include="src\Hooks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ext_dependencies\garrysmod_common\include\GarrysMod\Lua\Interface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ext_dependencies\garrysmod_common\include\GarrysMod\Lua\LuaBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ext_dependencies\garrysmod_common\include\GarrysMod\Lua\LuaConVars.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ext_dependencies\garrysmod_common\include\GarrysMod\Lua\LuaGameCallback.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ext_dependencies\garrysmod_common\include\GarrysMod\Lua\LuaInterface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ext_dependencies\garrysmod_common\include\GarrysMod\Lua\LuaObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ext_dependencies\garrysmod_common\include\GarrysMod\Lua\LuaShared.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ext_dependencies\garrysmod_common\include\GarrysMod\Lua\SourceCompat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ext_dependencies\garrysmod_common\include\GarrysMod\Lua\Types.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ext_dependencies\garrysmod_common\include\GarrysMod\Lua\UserData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ext_dependencies\garrysmod_common\include\lauxlib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ext_dependencies\garrysmod_common\include\lua.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ext_dependencies\garrysmod_common\include\lua.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ext_dependencies\garrysmod_common\include\luaconf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ext_dependencies\garrysmod_common\include\luajit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ext_dependencies\garrysmod_common\include\lualib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ext_dependencies\garrysmod_common\include\Platform.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\kiero.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ext_dependencies\imgui\imgui.cpp">
@@ -309,6 +363,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Hooks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kiero.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

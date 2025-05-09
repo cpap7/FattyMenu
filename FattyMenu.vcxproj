@@ -151,6 +151,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ext_dependencies\garrysmod_common\include\GarrysMod\Lua\Interface.h" />
+    <ClInclude Include="ext_dependencies\garrysmod_common\include\GarrysMod\Lua\LuaBase.h" />
+    <ClInclude Include="ext_dependencies\garrysmod_common\include\GarrysMod\Lua\LuaConVars.h" />
+    <ClInclude Include="ext_dependencies\garrysmod_common\include\GarrysMod\Lua\LuaGameCallback.h" />
+    <ClInclude Include="ext_dependencies\garrysmod_common\include\GarrysMod\Lua\LuaInterface.h" />
+    <ClInclude Include="ext_dependencies\garrysmod_common\include\GarrysMod\Lua\LuaObject.h" />
+    <ClInclude Include="ext_dependencies\garrysmod_common\include\GarrysMod\Lua\LuaShared.h" />
+    <ClInclude Include="ext_dependencies\garrysmod_common\include\GarrysMod\Lua\SourceCompat.h" />
+    <ClInclude Include="ext_dependencies\garrysmod_common\include\GarrysMod\Lua\Types.h" />
+    <ClInclude Include="ext_dependencies\garrysmod_common\include\GarrysMod\Lua\UserData.h" />
+    <ClInclude Include="ext_dependencies\garrysmod_common\include\lauxlib.h" />
+    <ClInclude Include="ext_dependencies\garrysmod_common\include\lua.h" />
+    <ClInclude Include="ext_dependencies\garrysmod_common\include\lua.hpp" />
+    <ClInclude Include="ext_dependencies\garrysmod_common\include\luaconf.h" />
+    <ClInclude Include="ext_dependencies\garrysmod_common\include\luajit.h" />
+    <ClInclude Include="ext_dependencies\garrysmod_common\include\lualib.h" />
+    <ClInclude Include="ext_dependencies\garrysmod_common\include\Platform.hpp" />
     <ClInclude Include="ext_dependencies\imgui\imconfig.h" />
     <ClInclude Include="ext_dependencies\imgui\imgui.h" />
     <ClInclude Include="ext_dependencies\imgui\imgui_impl_dx9.h" />
@@ -202,6 +219,7 @@
     <ClInclude Include="src\GUI.h" />
     <ClInclude Include="src\GUIUtilities.h" />
     <ClInclude Include="src\Hooks.h" />
+    <ClInclude Include="src\kiero.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ext_dependencies\imgui\imgui.cpp" />
@@ -251,6 +269,7 @@
     <ClCompile Include="src\GUI.cpp" />
     <ClCompile Include="src\GUIUtilities.cpp" />
     <ClCompile Include="src\Hooks.cpp" />
+    <ClCompile Include="src\kiero.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
