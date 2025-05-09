@@ -28,17 +28,22 @@ if the .dll is recompiled as Release x86 in Visual Studio. Project Synapse shoul
 # Installation / Setup
 ## Prelude
 This .dll file can be either injected or loaded by Garry's Mod directly.
-Do note, you will need to ensure the game is running on ``Borderless Window`` mode first. Otherwise, you will run into more bugs.
+- Note: You will need to ensure the game is running on ``Borderless Window`` mode first. Otherwise, you will run into more bugs.
+- Note: clicking around on it may cause you to accidentally click other menu options behind it. 
+- For that reason, I recommend keeping the menu open in the middle of your screen if you only want to open it with the escape menu open. 
+![alt text](https://puu.sh/Kt6Jj/f5062ebfcb.jpg)
+- In-game, I've found having it off to the right works best. 
+![alt text](https://puu.sh/Kt6Jq/05c9c24f2a.jpg)
 
 ## Direct Load via Garry's Mod
+- The more popular/convenient method for loading the menu
 1) Download the latest version of FattyMenu.dll under the 'Releases' tab of this repository.
 2) Rename it to ``gmsv_fattymenu_win64.dll``
 3) Navigate to your ``garrysmod > lua > bin `` folder and drop it in there
 - Note: If there is no bin folder present, create one
 4) Navigate over to ``garrysmod > lua > menu `` and open up ``menu.lua`` in a text editor (i.e., Notepad++)
-5) Add the bottom of the file, copy and paste this: ``require("fattymenu")`` and save the file
-6) Start Garry's Mod. The file should load. 
-- Note: clicking around on it may cause you to accidentally click other menu options behind it. 
+5) At the bottom of the file, copy and paste this: ``require("fattymenu")`` and save the file
+6) Start Garry's Mod. The menu should load. 
 
 ## Injection
 - Less convenient, but it's supported. The following steps should allow you to use the menu in-game. 
@@ -66,12 +71,6 @@ https://github.com/DarthTon/Xenos/releases/tag/2.3.2
 - Note: if that doesn't work, try the other two. If Xenos crashes, that's fine. Just launch the injector again, ensure your settings are correct, and try the remaining gmod.exe processes
 
 9) If the menu loads up, you should see a minimized ImGui window. Congrats; it works! Be sure to resize the menu and close the injector as it's no longer needed.
-- Note: clicking around on it may cause you to accidentally click other menu options behind it. 
-
-- For that reason, I recommend keeping the menu open in the middle of your screen if you only want to open it with the escape menu open. 
-![alt text](https://puu.sh/Kt6Jj/f5062ebfcb.jpg)
-- In-game, I've found having it off to the right works best. 
-![alt text](https://puu.sh/Kt6Jq/05c9c24f2a.jpg)
 
 10) Verify it works while in-game. In most cases, it should be fine to just load into a singleplayer map or server and open/close the menu without issue. However, for the safest results, I'd recommend doing the following from now on:
 - Load up Garry's Mod
