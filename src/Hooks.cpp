@@ -17,12 +17,45 @@ void Hooks::InitializeHooks() {
 		throw std::runtime_error("Minhook could not be initialized.");
 	}
 
+	// Check if Kiero was able to initialize based on the render type (D3D9)
+	if (kiero::init(kiero::RenderType::D3D9) != kiero::Status::Success) {
+		throw std::runtime_error("Kiero initialization failed.");
+	}
+
+	// Check bindings for EndScene and Reset hooks via Kiero
+	/* TODO: Fix weird hook error here for Garry's mod direct load */
+	if (kiero::bind(42, (void**)&OriginalEndScene, EndScene)) {
+		if (GUI::g_load_method == GUI::LoadMethod::ManualMap) {
+			throw std::runtime_error("Failed to hook EndScene function.");
+		}
+		else { /* Hooks correctly for Garry's Mod direct load, but then throws runtime exception for some reason. Menu also continues running as normal, so it'll be used as a message box for now */
+			throw std::runtime_error("[Experimental] FattyMenu 1.6.3 loaded. Bugs may be present.");
+		}
+	}
+	if (kiero::bind(16, (void**)&OriginalReset, Reset)) {
+		throw std::runtime_error("Failed to hook Reset function.");
+	}
+
+	// Ensure hooks are enabled
+	if (MH_EnableHook(MH_ALL_HOOKS)) {
+		// Same deal here as the first if-check, true == failed to enable
+		kiero::shutdown();
+		MH_Uninitialize();
+		
+		throw std::runtime_error("Hooks could not be enabled.");
+	}
+	// Destroy temporary DX objects needed to be created for manual map
+	if (GUI::g_load_method == GUI::LoadMethod::ManualMap) { // Check for manual map
+		GUI::DestroyDirectX9();
+	}
+	
+	/* Old hooks for manual map injection ONLY
 	// Check to see if the EndScene function hook can be created
 	if (MH_CreateHook(
 		GetVirtualFunctions(GUI::d3d9_device, 42), // Might need to change the index
 		&EndScene,
 		(void**)(&OriginalEndScene))
-	   ) 
+	   )
 	{
 		// Throw an error if it fails
 		throw std::runtime_error("Failed to hook EndScene function.");
@@ -38,20 +71,19 @@ void Hooks::InitializeHooks() {
 		throw std::runtime_error("Failed to hook Reset function.");
 	}
 
-	// Ensure hooks are enabled
-	if (MH_EnableHook(MH_ALL_HOOKS)) { // Same deal here as the first if-check
-		throw std::runtime_error("Hooks could not be enabled.");
-	}
 
 	// D3D9 device is no longer needed at this point, so time to destroy it
 	GUI::DestroyDirectX9();
+	*/
+	
+
 }
 
 void Hooks::DestroyHooks() noexcept {
-	MH_DisableHook(MH_ALL_HOOKS);	// Disable all hooks
+	kiero::shutdown();				// Shut down kiero, disable all hooks
+	//MH_DisableHook(MH_ALL_HOOKS);	// Disable all hooks
 	MH_RemoveHook(MH_ALL_HOOKS);	// Remove all hooks
 	MH_Uninitialize();				// Uninitialize Minhook
-
 }
 
 long __stdcall Hooks::EndScene(IDirect3DDevice9* d3d9_device) noexcept {

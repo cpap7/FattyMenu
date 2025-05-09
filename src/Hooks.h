@@ -1,5 +1,6 @@
 #pragma once
 #include "GUI.h"
+#include "kiero.h"
 
 namespace Hooks {
 	/* Function prototypes for hooks */
