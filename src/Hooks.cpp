@@ -23,12 +23,11 @@ void Hooks::InitializeHooks() {
 	}
 
 	// Check bindings for EndScene and Reset hooks via Kiero
-	/* TODO: Fix weird hook error here for Garry's mod direct load */
-	if (kiero::bind(42, (void**)&OriginalEndScene, EndScene)) {
+	if (kiero::bind(42, (void**)&OriginalEndScene, EndScene)) { // Returning true = failed hook
 		if (GUI::g_load_method == GUI::LoadMethod::ManualMap) {
 			throw std::runtime_error("Failed to hook EndScene function.");
 		}
-		else { // For Garry's Mod direct load, there's a delay, so the game window will need to be found after
+		else { // For Garry's Mod direct load, there's a delay, so the game window will need to be found before hooking properly
 			do {
 				GUI::FindGameWindow();
 			} while (GUI::gm_window == NULL);
@@ -51,35 +50,6 @@ void Hooks::InitializeHooks() {
 	if (GUI::g_load_method == GUI::LoadMethod::ManualMap) { // Check for manual map
 		GUI::DestroyDirectX9();
 	}
-	
-	/* Old hooks for manual map injection ONLY
-	// Check to see if the EndScene function hook can be created
-	if (MH_CreateHook(
-		GetVirtualFunctions(GUI::d3d9_device, 42), // Might need to change the index
-		&EndScene,
-		(void**)(&OriginalEndScene))
-	   )
-	{
-		// Throw an error if it fails
-		throw std::runtime_error("Failed to hook EndScene function.");
-	}
-
-	// Check to see if the Reset function hook can be created
-	if (MH_CreateHook(
-		GetVirtualFunctions(GUI::d3d9_device, 16), // Might need to change the index
-		&Reset,
-		(void**)(&OriginalReset))
-		)
-	{
-		throw std::runtime_error("Failed to hook Reset function.");
-	}
-
-
-	// D3D9 device is no longer needed at this point, so time to destroy it
-	GUI::DestroyDirectX9();
-	*/
-	
-
 }
 
 void Hooks::DestroyHooks() noexcept {
