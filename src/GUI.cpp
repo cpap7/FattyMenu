@@ -13,8 +13,6 @@ extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND window, UINT m
 // Window Process
 LRESULT CALLBACK WindowProcess(HWND window, UINT message, WPARAM wide_param, LPARAM long_param);
 
-
-
 // Sets up the window class
 bool GUI::InitializeWindowClass(const char* window_class_name) noexcept {
 	// Populate the window class' attributes
@@ -70,7 +68,6 @@ bool GUI::InitializeWindow(const char* window_name) noexcept {
 
 	// Ensure the window is properly initialized
 	if (!window) {	// Check if the window class is still null
-
 		// Window initialization failed
 		return false;
 	}
@@ -91,7 +88,7 @@ void GUI::DestroyWindow() {
 // Sets up DirectX9
 bool GUI::InitializeDirectX9() noexcept {
 	// Get the module handle to the DirectX dll
-	const HMODULE handle = GetModuleHandle("d3d9.dll"); // TODO: test w/ auto if it doesn't work
+	const HMODULE handle = GetModuleHandle("d3d9.dll");
 
 	// Check if the handle is null
 	if (!handle) {
@@ -146,7 +143,7 @@ bool GUI::InitializeDirectX9() noexcept {
 		window, D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_DISABLE_DRIVER_MANAGEMENT, 
 		&d3d_params, &d3d9_device) < 0) {
 		
-		return false; // Initialized failed (< 0)
+		return false; // Initialization failed (< 0)
 	}
 	
 	// Initialization was successful
@@ -170,33 +167,64 @@ void GUI::DestroyDirectX9() noexcept {
 	}
 }
 
-// Sets up the device
+// Helper function for populating the gm_window variable
+BOOL CALLBACK GUI::EnumWindowsCallback(HWND handle, LPARAM lparam) {
+	DWORD wnd_pid;	// Declare a variable to hold the process id for the window
+	GetWindowThreadProcessId(handle, &wnd_pid);	// Grab the process id of the window 
+
+	// Compare the current process id with the one stored previously
+	if (GetCurrentProcessId() != wnd_pid) {
+		return TRUE;
+	}
+
+	// Otherwise, game window is our handle
+	gm_window = handle;
+	return FALSE;
+}
+
+// Finds the game's window based on Garry's Mod dll load method
+HWND GUI::FindGameWindow() {
+	gm_window = NULL;
+	EnumWindows(EnumWindowsCallback, NULL);
+	return gm_window;
+}
+
+// Hooks the window process when .dll is loaded by Garry's Mod directly
+void GUI::HookWindowProc() {
+	if (window) {
+		OriginalWindowProc = (WNDPROC)SetWindowLongPtr(window, GWLP_WNDPROC, (LONG_PTR)WindowProcess);
+	}
+}
+
+// Sets up the device for manual map injection
 void GUI::InitializeDevice() {
-	// Handle runtime exception errors first
+	// Ensure errors can only be thrown if a manual map injection is performed ONLY
+	if (g_load_method == LoadMethod::ManualMap) { // Garry's Mod direct load relies on existing game window only
+		// Handle runtime exception errors here first
+		
+		// Check to see the window class was initialized properly
+		if (!InitializeWindowClass("FattyMenuWndClass")) {
+			// If not, throw an error
+			throw std::runtime_error("Window class could not be created.");
+		}
 
-	// Check to see the window class was initialized properly
-	if (!InitializeWindowClass("FattyMenuWndClass")) {
-		// If not, throw an error
-		throw std::runtime_error("Window class could not be created.");
+		// Check to see the window was initialized properly
+		if (!InitializeWindow("FattyMenuWnd")) {
+			// If not, throw an error
+			throw std::runtime_error("Window could not be created.");
+		}
+
+		// Check to see the DirectX was initialized properly
+		if (!InitializeDirectX9()) {
+			// If not, throw an error
+			throw std::runtime_error("D3D9 device could not be created.");
+		}
+
+		// Unregister the Window and Window Class
+		DestroyWindow();
+		DestroyWindowClass();
 	}
-
-	// Check to see the window was initialized properly
-	if (!InitializeWindow("FattyMenuWnd")) {
-		// If not, throw an error
-		throw std::runtime_error("Window could not be created.");
-	}
-
-	// Check to see the DirectX was initialized properly
-	if (!InitializeDirectX9()) {
-		// If not, throw an error
-		throw std::runtime_error("D3D9 device could not be created.");
-	}
-
-	// Unregister the Window and Window Class
-	DestroyWindow();
-	DestroyWindowClass();
-
-	// All that's left is the DirectX device
+	// For Garry's Mod loading the .dll, the existing window will be found elsewhere
 }
 
 // Initializes ImGUI menu
@@ -214,7 +242,7 @@ void GUI::InitializeMenu(LPDIRECT3DDEVICE9 d3d9_device) noexcept {
 	window = d3d_params.hFocusWindow;
 
 	// Store the original window process
-	o_window_proc = (WNDPROC)(SetWindowLongPtr( // Might need to change some type-cast conversions to reinterpret_cast for readability/maintainability later
+	OriginalWindowProc = (WNDPROC)(SetWindowLongPtr( // Might need to change some type-cast conversions to reinterpret_cast for readability/maintainability later
 		window, 
 		GWLP_WNDPROC, 
 		(LONG_PTR)(WindowProcess)
@@ -240,7 +268,7 @@ void GUI::Destroy() noexcept {
 	SetWindowLongPtr(
 		window, 
 		GWLP_WNDPROC, 
-		(LONG_PTR)(o_window_proc)  // Might need to change type-cast conversion to reinterpret_cast for readability/maintainability later
+		(LONG_PTR)(OriginalWindowProc)  // Might need to change type-cast conversion to reinterpret_cast for readability/maintainability later
 	);
 
 	// Unregister DirectX
@@ -262,23 +290,10 @@ void GUI::Render() noexcept {
 	GUIUtils::SetThemeCivilProtection();
 
 	// ImGui window begins
-	ImGui::Begin("FattyMenu v1.6.2 | RCTRL = Open or Close | END = Uninject Menu", &open_menu);
+	ImGui::Begin("FattyMenu v1.6.3 | RCTRL = Open or Close | END = Uninject Menu", &open_menu);
 
 	// ImGui tab bar begins
 	if (ImGui::BeginTabBar("Menu Tabs")) {
-		/* Old deprecated tab, source for it not included
-		// Render the calculator tab
-		if (ImGui::BeginTabItem("Item Calculator")) {
-			if (ImGui::CollapsingHeader("FattyCalc - Calculate resources needed for MULTIPLE different items")) {
-				FattyCalc::RenderCalculatorMenu();
-			}
-			if (ImGui::CollapsingHeader("DietCalc - Calculate resources needed for a SINGLE item")) {
-				DietCalc::RenderCalculatorMenu();
-			}
-			ImGui::EndTabItem();
-		}
-		*/
-
 		// Render operating procedures tab
 		if (ImGui::BeginTabItem("Operating Procedures")) {
 			CPSOP::RenderCivilProtectionSOP();
@@ -369,7 +384,7 @@ LRESULT CALLBACK WindowProcess(HWND window, UINT message, WPARAM wide_param, LPA
 
 	// Restore input priority back to the game process
 	return CallWindowProc(
-		GUI::o_window_proc,
+		GUI::OriginalWindowProc,
 		window,
 		message,
 		wide_param,
