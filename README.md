@@ -26,6 +26,21 @@ if the .dll is recompiled as Release x86 in Visual Studio. Project Synapse shoul
 - Windows 11, Garry's Mod x86-64 branch
 
 # Installation / Setup
+## Prelude
+This .dll file can be either injected or loaded by Garry's Mod directly.
+Do note, you will need to ensure the game is running on ``Borderless Window`` mode first. Otherwise, you will run into more bugs.
+
+## Direct Load via Garry's Mod
+1) Download the latest version of FattyMenu.dll under the 'Releases' tab of this repository.
+2) Rename it to ``gmsv_fattymenu_win64.dll``
+3) Navigate to your ``garrysmod > lua > bin `` folder and drop it in there
+- Note: If there is no bin folder present, create one
+4) Navigate over to ``garrysmod > lua > menu `` and open up ``menu.lua`` in a text editor (i.e., Notepad++)
+5) Add the bottom of the file, copy and paste this: ``require("fattymenu")`` and save the file
+6) Start Garry's Mod. The file should load. You may hear and see an error message come up, but that's fine. You can now load into Synapse with the menu fully working.  
+
+## Injection
+- Less convenient, but it's supported. The following steps should allow you to use the menu in-game. 
 1) Download the latest version of FattyMenu.dll under the 'Releases' tab of this repository. FattyMenu.dll can be loaded in-game using any injector that supports manual map injection.
 - For this tutorial we'll be using Xenos, as it's open source and fairly easy to use. Download the latest version of Xenos Injector here:
 ``
