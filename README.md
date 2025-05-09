@@ -37,7 +37,8 @@ Do note, you will need to ensure the game is running on ``Borderless Window`` mo
 - Note: If there is no bin folder present, create one
 4) Navigate over to ``garrysmod > lua > menu `` and open up ``menu.lua`` in a text editor (i.e., Notepad++)
 5) Add the bottom of the file, copy and paste this: ``require("fattymenu")`` and save the file
-6) Start Garry's Mod. The file should load. You may hear and see an error message come up, but that's fine. You can now load into Synapse with the menu fully working.  
+6) Start Garry's Mod. The file should load. 
+- Note: clicking around on it may cause you to accidentally click other menu options behind it. 
 
 ## Injection
 - Less convenient, but it's supported. The following steps should allow you to use the menu in-game. 
@@ -64,7 +65,7 @@ https://github.com/DarthTon/Xenos/releases/tag/2.3.2
 8) Once you're at the main menu, alt-tab over to Xenos and press the box that says "process" next to it. Scroll down once you see 3 gmod.exe processes. Select the 2nd or 3rd one (usually the ones with the lowest process ID number next to it). Then, hit the 'Inject' button to inject it in-game. 
 - Note: if that doesn't work, try the other two. If Xenos crashes, that's fine. Just launch the injector again, ensure your settings are correct, and try the remaining gmod.exe processes
 
-9) If the menu loads up, you should see a minimized ImGui window. Congrats; it works! Be sure to resize the menu.
+9) If the menu loads up, you should see a minimized ImGui window. Congrats; it works! Be sure to resize the menu and close the injector as it's no longer needed.
 - Note: clicking around on it may cause you to accidentally click other menu options behind it. 
 
 - For that reason, I recommend keeping the menu open in the middle of your screen if you only want to open it with the escape menu open. 
@@ -78,6 +79,7 @@ https://github.com/DarthTon/Xenos/releases/tag/2.3.2
 - Once you're on the server and able to play (i.e., able to walk around), launch Xenos64.exe
 - Inject the .dll
 - Note: your settings for the injector should be saved from the first initial successful injection. Which means, the correct gmod.exe process will be selected every time Xenos64.exe is ran. FattyMenu.dll will need to be replaced over time as updates are added. 
+- Close the injector
 
 # Controls
 - RCTRL key -> opens or closes the menu
