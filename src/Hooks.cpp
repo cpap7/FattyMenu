@@ -28,12 +28,15 @@ void Hooks::InitializeHooks() {
 		if (GUI::g_load_method == GUI::LoadMethod::ManualMap) {
 			throw std::runtime_error("Failed to hook EndScene function.");
 		}
-		else { /* Hooks correctly for Garry's Mod direct load, but then throws runtime exception for some reason. Menu also continues running as normal, so it'll be used as a message box for now */
-			throw std::runtime_error("[Experimental] FattyMenu 1.6.3 loaded. Bugs may be present.");
+		else { // For Garry's Mod direct load, there's a delay, so the game window will need to be found after
+			do {
+				GUI::FindGameWindow();
+			} while (GUI::gm_window == NULL);
 		}
 	}
 	if (kiero::bind(16, (void**)&OriginalReset, Reset)) {
 		throw std::runtime_error("Failed to hook Reset function.");
+		// No additional checks for Garry's Mod direct load needed here since the gm_window value shouldn't be null at this point
 	}
 
 	// Ensure hooks are enabled
