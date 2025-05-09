@@ -23,24 +23,24 @@ void Hooks::InitializeHooks() {
 	}
 
 	// Check bindings for EndScene and Reset hooks via Kiero
-	if (kiero::bind(42, (void**)&OriginalEndScene, EndScene)) { // Returning true = failed hook
-		if (GUI::g_load_method == GUI::LoadMethod::ManualMap) {
-			throw std::runtime_error("Failed to hook EndScene function.");
-		}
-		else { // For Garry's Mod direct load, there's a delay, so the game window will need to be found before hooking properly
-			do {
+	if (kiero::bind(42, (void**)&OriginalEndScene, EndScene)) { // Bind for EndScene
+		// For Garry's Mod direct load, there's at startup delay, so the game window will need to be found before hooking properly
+		if (GUI::g_load_method == GUI::LoadMethod::GarrysModLoad) {
+			do { // Perform for at least one iteration
 				GUI::FindGameWindow();
 			} while (GUI::gm_window == NULL);
 		}
+		else { 
+			throw std::runtime_error("Failed to hook EndScene function."); 
+		}
 	}
-	if (kiero::bind(16, (void**)&OriginalReset, Reset)) {
+
+	if (kiero::bind(16, (void**)&OriginalReset, Reset)) {	// Bind for Reset
 		throw std::runtime_error("Failed to hook Reset function.");
-		// No additional checks for Garry's Mod direct load needed here since the gm_window value shouldn't be null at this point
 	}
 
 	// Ensure hooks are enabled
-	if (MH_EnableHook(MH_ALL_HOOKS)) {
-		// Same deal here as the first if-check, true == failed to enable
+	if (MH_EnableHook(MH_ALL_HOOKS)) {  // Same deal here as the first if-check, true == failed to enable
 		kiero::shutdown();
 		MH_Uninitialize();
 		
