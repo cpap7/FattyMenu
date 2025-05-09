@@ -31,7 +31,7 @@
 #endif
 
 #if KIERO_USE_MINHOOK
-#include "../ext_dependencies/minhook/minhook.h"
+#include "../ext_dependencies/minhook/minhook.h" // Fixed file path
 #endif
 
 #ifdef _UNICODE
