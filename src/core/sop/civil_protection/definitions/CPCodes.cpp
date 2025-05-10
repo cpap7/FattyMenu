@@ -1,7 +1,7 @@
 #include "CPCodes.h"
 
 namespace CPCodes {
-	/* CCode declaration format:
+	/* CCode declaration format (most codes):
 	CCode code_name = { 
 		"Title or Name", 
 		"Description", 
