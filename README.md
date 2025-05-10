@@ -88,10 +88,14 @@ https://github.com/DarthTon/Xenos/releases/tag/2.3.2
 
 # FAQ
 Will this get me banned from the server?
-- No
+- No.
 
 Is Xenos64 a virus?
 - No. If your anti-virus flags it as malware, bare in mind that it's a false-positive because it's an injector. The software itself is open-source, so you can see for yourself how exactly it functions and compile it yourself if you want. 
+
+Is FattyMenu a virus?
+- No.
+- ``https://opentip.kaspersky.com/F341057305713D39ACC9FBBF5D01EEA294EAE064E67766934A7D7E4AAC0DC71E/static?tab=upload``
 
 Will this make me better at playing Civil Protection?
 - I've been making this since I was a probationary, and now I'm a CPTL. I've never needed to memorize anything from the actual SOP itself, and have only ever relied on this menu for my success. So, yes I'd say so.
