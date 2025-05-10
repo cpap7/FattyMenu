@@ -108,19 +108,7 @@
     <ClInclude Include="src\core\sop\global_classes\CAssignment.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\sop\global_classes\CCivicReward.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\core\sop\global_classes\CCivilStatus.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\core\sop\global_classes\CCode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\core\sop\global_classes\CContraband.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\core\sop\global_classes\CPolitiSchedule.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\core\sop\global_classes\CTerm.h">
