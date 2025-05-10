@@ -56,7 +56,7 @@ CCode::CCode(const char* new_name, const char* new_code_description, const char*
 	SetAsResponseCode(false);
 	SetAsElevenCode(false);
 	SetAsTenCode(false);
-	SetAsViolationCode(true);
+	SetAsViolationCode(true);	// Specifically true for violations
 	SetAsOverrideCode(false);
 }
 
@@ -79,7 +79,7 @@ CCode::CCode(const char* new_name, std::vector<const char*> new_override_code_de
 	SetAsElevenCode(false);
 	SetAsTenCode(false);
 	SetAsViolationCode(false);
-	SetAsOverrideCode(true);
+	SetAsOverrideCode(true);	// Specifically true for override codes
 }
 
 /* No-arg constructor */

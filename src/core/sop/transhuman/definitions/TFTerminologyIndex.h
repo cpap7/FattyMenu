@@ -26,8 +26,8 @@ namespace TFTerminology {
 	}
 
 	// Hostile entity declarations
-	namespace Hostile {
-		extern CTerm containment;
+	namespace HostileHumansAliens {
+		extern CTerm contaminant;
 		extern CTerm exogen;
 		extern CTerm parasitic;
 		extern CTerm necrotic;
@@ -37,7 +37,7 @@ namespace TFTerminology {
 	// Equipment/asset declarations
 	namespace EquipmentAsset {
 		extern CTerm antibody_protection_force;
-		extern CTerm echo_one;
+		extern CTerm echo;
 		extern CTerm ghost_drop;
 		extern CTerm skyshield;
 		extern CTerm wallhammer;
