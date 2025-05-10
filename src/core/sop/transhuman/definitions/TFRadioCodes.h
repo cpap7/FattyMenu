@@ -2,7 +2,7 @@
 #include "../../global_classes/CTerm.h" // For CTerm class definition
 
 
-namespace TFCodes {
+namespace TFRadioCodes {
 	// Phonetic Alphabet/Code declarations
 	namespace PhoneticAlphabetCode {
 		extern CTerm a;
