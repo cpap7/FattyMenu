@@ -1,7 +1,7 @@
 #pragma once
 
 // Class definition for CCivicReward
-#include "../../global_classes/CCivicReward.h"
+#include "../classes/CCivicReward.h"
 
 /* This header contains declarations of 
 * different public service details and civic deeds

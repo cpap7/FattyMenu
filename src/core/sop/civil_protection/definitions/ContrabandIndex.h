@@ -1,5 +1,5 @@
 #pragma once
-#include "../../global_classes/CContraband.h"
+#include "../classes/CContraband.h"
 #include "CPCodes.h"
 
 /* Contains declarations of different contraband categories */

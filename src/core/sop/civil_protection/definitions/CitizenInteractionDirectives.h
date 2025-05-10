@@ -1,5 +1,5 @@
 #pragma once
-#include "../../global_classes/CCivilStatus.h"
+#include "../classes/CCivilStatus.h"
 
 /* Declarations of different CCivilStatus objects to be displayed in the menu */
 namespace StatusTypes {
