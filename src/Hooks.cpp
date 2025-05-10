@@ -10,9 +10,16 @@
 #include "../ext_dependencies/imgui/imgui_impl_win32.h"
 #include "../ext_dependencies/imgui/imgui_impl_dx9.h"
 
+// TODO: fix this jank
 void Hooks::InitializeHooks() {
 	// Ensure minhook is initialized properly
 	if (MH_Initialize()) {	// When Minhook returns successfully, it returns 0 == false
+		// For Garry's Mod direct load, there's at startup delay, so the game window will need to be found before hooking properly
+		if (GUI::g_load_method == GUI::LoadMethod::GarrysModLoad) {
+			do { // Perform for at least one iteration
+				GUI::FindGameWindow();
+			} while (GUI::gm_window == NULL);
+		}
 		// So if it returns 1 == true, that means it didn't initialize
 		throw std::runtime_error("Minhook could not be initialized.");
 	}
@@ -24,15 +31,7 @@ void Hooks::InitializeHooks() {
 
 	// Check bindings for EndScene and Reset hooks via Kiero
 	if (kiero::bind(42, (void**)&OriginalEndScene, EndScene)) { // Bind for EndScene
-		// For Garry's Mod direct load, there's at startup delay, so the game window will need to be found before hooking properly
-		if (GUI::g_load_method == GUI::LoadMethod::GarrysModLoad) {
-			do { // Perform for at least one iteration
-				GUI::FindGameWindow();
-			} while (GUI::gm_window == NULL);
-		}
-		else { 
-			throw std::runtime_error("Failed to hook EndScene function."); 
-		}
+		throw std::runtime_error("Failed to hook EndScene function."); 
 	}
 
 	if (kiero::bind(16, (void**)&OriginalReset, Reset)) {	// Bind for Reset
