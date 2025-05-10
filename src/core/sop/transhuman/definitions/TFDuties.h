@@ -1,12 +1,11 @@
 #pragma once
 
-// Include CAssignment files
 #include "../../global_classes/CAssignment.h" // For class definition
 #include <vector>
 
-// Declarations of different Transhuman assignments
+// Contains declarations of different Transhuman assignments
 namespace TFAssignments {
-	/* Declarations for assignments */
+	/* Declarations for stabilization duties */
 	namespace StabilizationDuties {
 		extern CAssignment outland_sector_sweep;
 		extern CAssignment stalker_supervisory_detail;
@@ -14,7 +13,5 @@ namespace TFAssignments {
 		extern CAssignment hazmat_scientist_security_oversight;
 		extern CAssignment asset_security_oversight;
 		extern CAssignment breach_containment_protocol;
-
 	}
-
 }
