@@ -1,14 +1,14 @@
 #include "GUIUtilities.h"
 
 // Citizen-related collapsible headers will use ImGUI's default blue color schema
-void GUIUtils::SetHeaderColorBlue() {
+void GUI::Themes::SetHeaderColorBlue() {
 	ImGui::PushStyleColor(ImGuiCol_Header, ImVec4(0.26f, 0.59f, 0.98f, 0.31f));
 	ImGui::PushStyleColor(ImGuiCol_HeaderHovered, ImVec4(0.26f, 0.59f, 0.98f, 0.80f));
 	ImGui::PushStyleColor(ImGuiCol_HeaderActive, ImVec4(0.26f, 0.59f, 0.98f, 1.00f));
 }
 
 // Red for Airwatch-related collapsible headers
-void GUIUtils::SetHeaderColorRed() {
+void GUI::Themes::SetHeaderColorRed() {
 	// Change the color of the header to a custom red color
 	ImGui::PushStyleColor(ImGuiCol_Header, ImVec4(0.50f, 0.00f, 0.00f, 1.00f));			// Dark Red
 	ImGui::PushStyleColor(ImGuiCol_HeaderHovered, ImVec4(0.70f, 0.10f, 0.10f, 1.00f));  // Lighter Red when hovered
@@ -16,7 +16,7 @@ void GUIUtils::SetHeaderColorRed() {
 }
 
 // Green for Vortigaunt-related collapsible headers
-void GUIUtils::SetHeaderColorGreen() {
+void GUI::Themes::SetHeaderColorGreen() {
 	// Change the color of the header to a custom green color
 	ImGui::PushStyleColor(ImGuiCol_Header, ImVec4(0.00f, 0.50f, 0.00f, 1.00f));			// Dark Green
 	ImGui::PushStyleColor(ImGuiCol_HeaderHovered, ImVec4(0.10f, 0.70f, 0.10f, 1.00f));  // Lighter Green when hovered
@@ -24,7 +24,7 @@ void GUIUtils::SetHeaderColorGreen() {
 }
 
 // Cyan for Civil Protection-related collapsible headers 
-void GUIUtils::SetHeaderColorCyan() {
+void GUI::Themes::SetHeaderColorCyan() {
 	// Change the color of the header to a custom cyan color
 	ImGui::PushStyleColor(ImGuiCol_Header, ImVec4(0.00f, 1.00f, 1.00f, 0.33f));			// Cyan
 	ImGui::PushStyleColor(ImGuiCol_HeaderHovered, ImVec4(0.00f, 1.00f, 1.00f, 0.42f));  // Lighter Cyan when hovered
@@ -32,7 +32,7 @@ void GUIUtils::SetHeaderColorCyan() {
 }
 
 // Yellow for Transhuman Forces-related collapsible headers
-void GUIUtils::SetHeaderColorYellow() {
+void GUI::Themes::SetHeaderColorYellow() {
 	// Change the color of the Transhuman Forces header to a custom yellow color
 	ImGui::PushStyleColor(ImGuiCol_Header, ImVec4(0.50f, 0.50f, 0.00f, 1.00f));			// Bright Yellow
 	ImGui::PushStyleColor(ImGuiCol_HeaderHovered, ImVec4(0.50f, 0.50f, 0.30f, 1.00f));  // Lighter Yellow when hovered
@@ -40,7 +40,7 @@ void GUIUtils::SetHeaderColorYellow() {
 }
 
 // For collapsible sub-headers
-void GUIUtils::SetHeaderTransparent() {
+void GUI::Themes::SetHeaderTransparent() {
 	// Set header background to transparent 
 	ImGui::PushStyleColor(ImGuiCol_Header, ImVec4(0.00f, 0.00f, 0.00f, 0.00f));			// Normal state
 	ImGui::PushStyleColor(ImGuiCol_HeaderHovered, ImVec4(0.00f, 0.00f, 0.00f, 0.00f));	// Hovered state
@@ -48,12 +48,12 @@ void GUIUtils::SetHeaderTransparent() {
 }
 
 // For resetting the colors back to default style
-void GUIUtils::PopColorStack() {
+void GUI::Themes::PopColorStack() {
 	ImGui::PopStyleColor(3);
 }
 
 // Configuration for a ImGui theme similar to the Civil Protection color schema
-void GUIUtils::SetThemeCivilProtection() {
+void GUI::Themes::SetThemeCivilProtection() {
 	ImGuiStyle& style = ImGui::GetStyle();
 	style.Alpha = 1.0;
 	//style.WindowFillAlphaDefault = 0.83;
