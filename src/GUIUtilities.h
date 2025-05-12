@@ -79,6 +79,23 @@ namespace GUI {
 			}
 		}
 
+		template <typename T>
+		inline void DisplayAssignment(const std::vector<T>& assignment_list) {
+			for (const auto& duty : assignment_list) {
+				if (duty.IsForCP()) {
+					// Display assignment name and the # of required units
+					ImGui::TextWrapped("%s\n%s", duty.GetAssignmentName(), duty.GetCPUnitsRequired());
+
+					// Display each string description
+					for (const auto& description : duty.GetAssignmentDescription()) {
+						GUI::Helpers::WrappedBulletText("%s", description);
+					}
+
+					// Separate each duty with a line separator
+					ImGui::Separator();
+				}
+			}
+		}
 
 		// Helper function for rendering each section of the SOP
 		/* @param header_label -> string for the header's label
