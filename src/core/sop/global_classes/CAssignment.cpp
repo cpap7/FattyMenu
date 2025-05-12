@@ -4,7 +4,8 @@
 // Constructors
 // For Civil Protection 
 CAssignment::CAssignment(const char* new_assignment_name, const char* new_units_required, std::vector<const char*> new_assignment_description)
-	: tf_units_required(0), shift_duration(0), recommended_class("") { // Set TF values to 0 or empty
+	: tf_units_required(0), shift_duration(0), recommended_class(""), // Set TF values to 0 or empty
+	  is_for_civil_protection(true), is_for_transhuman_forces(false) {	// Set flags
 	SetAssignmentName(new_assignment_name);
 	SetCPUnitsRequired(new_units_required);
 	SetAssignmentDescription(new_assignment_description);
@@ -12,7 +13,8 @@ CAssignment::CAssignment(const char* new_assignment_name, const char* new_units_
 
 // For Transhuman (length of shift + recommended class included)
 CAssignment::CAssignment(const char* new_assignment_name, int new_units_required, int new_duration,
-	const char* new_recommended_class, std::vector<const char*> new_assignment_description) {
+	const char* new_recommended_class, std::vector<const char*> new_assignment_description) 
+	: is_for_civil_protection(false), is_for_transhuman_forces(true) {	// Set flags 
 	SetAssignmentName(new_assignment_name);
 	SetTFUnitsRequired(new_units_required);
 	SetShiftDuration(new_duration);
@@ -79,4 +81,16 @@ const char* CAssignment::GetRecommendedClass() const {
 // For both Civil Protection and Transhuman
 std::vector<const char*> CAssignment::GetAssignmentDescription() const {
 	return this->assignment_description;
+}
+
+
+// Boolean flag getters
+// Getter for Civil Protection flag
+bool CAssignment::IsForCP() const {
+	return this->is_civil_protection;
+}
+
+// Getter for Transhuman flag
+bool CAssignment::IsForTF() const {
+	return this->is_transhuman_forces;
 }
