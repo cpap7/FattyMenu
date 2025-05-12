@@ -29,6 +29,7 @@ DWORD WINAPI SetupMainThread(LPVOID instance) {
 
 		// Main loop
 		while (!GetAsyncKeyState(VK_END)) {
+			// Doesn't need use up crazy amount of resources to run, so we'll compromise here
 			std::this_thread::sleep_for(std::chrono::milliseconds(200));
 		}
 
