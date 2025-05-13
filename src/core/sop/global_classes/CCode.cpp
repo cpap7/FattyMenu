@@ -23,8 +23,8 @@ CCode::CCode(const char* new_name, const char* new_code_description,
 	// For defining most codes based on their type(s)
 	
 	// Set the name & description
-	SetCodeName(new_name);
-	SetCodeDescription(new_code_description);
+	SetName(new_name);
+	SetDescription(new_code_description);
 
 	// Set the flags (for search filtering implementation later)
 	SetAsAbbreviationCode(new_abbreviation_code_flag);
@@ -47,8 +47,8 @@ CCode::CCode(const char* new_name, const char* new_code_description,
 */
 CCode::CCode(const char* new_name, const char* new_code_description, const char* new_violation_description) {
 	// Set the name & description
-	SetCodeName(new_name);
-	SetCodeDescription(new_code_description);
+	SetName(new_name);
+	SetDescription(new_code_description);
 	SetViolationDescription(new_violation_description);
 
 	// Set the flags
@@ -69,7 +69,7 @@ CCode::CCode(const char* new_name, const char* new_code_description, const char*
 * @param new_override_code_directives -> vector containing the directives for the override code
 */
 CCode::CCode(const char* new_name, std::vector<const char*> new_override_code_description, std::vector<const char*> new_directives) {
-	SetCodeName(new_name);
+	SetName(new_name);
 	SetOverrideDescription(new_override_code_description);
 	SetOverrideDirectives(new_directives);
 
@@ -91,14 +91,14 @@ CCode::CCode() : CCode("", "", false, false, false, false) { } // For non-violat
 /* Sets a name for a given CCode object
 * @param new_name -> string containing the name to be set to the CCode object
 */
-void CCode::SetCodeName(const char* new_name) {
+void CCode::SetName(const char* new_name) {
 	this->code_name = new_name;
 }
 
 /* Sets a description for a given CCode object
 * @param new_code_description -> string containing the description to be set to the CCode object
 */
-void CCode::SetCodeDescription(const char* new_code_description) {
+void CCode::SetDescription(const char* new_code_description) {
 	this->code_description = new_code_description;
 }
 
@@ -166,12 +166,12 @@ void CCode::SetAsOverrideCode(bool new_override_code_flag) {
 }
 
 /* @return -> a string containing the name of the CCode */
-const char* CCode::GetCodeName() const {
+const char* CCode::GetName() const {
 	return this->code_name;
 }
 
 /* @return -> a string containing the description of the CCode */
-const char* CCode::GetCodeDescription() const {
+const char* CCode::GetDescription() const {
 	return this->code_description;
 }
 

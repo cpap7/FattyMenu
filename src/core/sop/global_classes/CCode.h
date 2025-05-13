@@ -14,8 +14,8 @@ public: // Function prototypes
 	//~CCode(); // Not needed, leaving it here just in case it's needed in the future 
 
 	// Object attribute setters
-	void SetCodeName(const char*);
-	void SetCodeDescription(const char*);
+	void SetName(const char*);
+	void SetDescription(const char*);
 	void SetViolationDescription(const char*);
 	void SetOverrideDescription(std::vector<const char*>);
 	void SetOverrideDirectives(std::vector<const char*>);
@@ -29,8 +29,8 @@ public: // Function prototypes
 	void SetAsOverrideCode(bool);
 
 	// Getters for attributes
-	const char* GetCodeName() const;
-	const char* GetCodeDescription() const;
+	const char* GetName() const;
+	const char* GetDescription() const;
 	const char* GetViolationDescription() const;						 // For violations
 	std::vector<const char*> GetOverrideDescription() const;			 // For override codes
 	std::vector<const char*> GetOverrideDirectives() const;				 // For override codes
