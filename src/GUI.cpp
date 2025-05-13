@@ -2,6 +2,7 @@
 
 // ImGui menu tabs
 #include "core/sop/civil_protection/gui/CPSOP.h"
+#include "core/sop/transhuman/gui/TFSOP.h"
 #include "core/voicelines/gui/VoicelineLibrary.h"
 #include "core/distribution_permit/gui/PermitMenu.h"
 #include "core/notepads/gui/Notepad.h"
@@ -287,16 +288,22 @@ void GUI::Render() noexcept {
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
 
-	GUIUtils::SetThemeCivilProtection();
+	GUI::Themes::SetThemeCivilProtection();
 
 	// ImGui window begins
-	ImGui::Begin("FattyMenu v1.6.3 | RCTRL = Open or Close | END = Uninject Menu", &open_menu);
+	ImGui::Begin("FattyMenu v1.6.4 | RCTRL = Open or Close | END = Uninject Menu", &open_menu);
 
 	// ImGui tab bar begins
 	if (ImGui::BeginTabBar("Menu Tabs")) {
-		// Render operating procedures tab
-		if (ImGui::BeginTabItem("Operating Procedures")) {
+		// Render Civil Protection operating procedures tab
+		if (ImGui::BeginTabItem("Civil Protection SOP")) {
 			CPSOP::RenderCivilProtectionSOP();
+			ImGui::EndTabItem();
+		}
+
+		// Render Transhuman Forces operating procedures tab
+		if (ImGui::BeginTabItem("Transhuman Forces SOP")) {
+			TFSOP::RenderTranshumanForcesSOP();
 			ImGui::EndTabItem();
 		}
 

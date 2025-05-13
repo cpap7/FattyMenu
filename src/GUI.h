@@ -51,6 +51,7 @@ namespace GUI {
 	bool InitializeWindow(const char* window_name) noexcept;			// Registers the Window
 	void DestroyWindow();												// Unregisters the window
 
+	// Function prototypes for direct via Garry's Mod
 	BOOL CALLBACK EnumWindowsCallback(HWND handle, LPARAM lparam);
 	HWND FindGameWindow();
 	void HookWindowProc();
