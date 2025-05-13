@@ -43,7 +43,21 @@ This .dll file can be either injected or loaded by Garry's Mod directly.
 - Note: If there is no bin folder present, create one
 4) Navigate over to ``garrysmod > lua > menu `` and open up ``menu.lua`` in a text editor (i.e., Notepad++)
 5) At the bottom of the file, copy and paste this: ``require("fattymenu")`` and save the file
-6) Start Garry's Mod. The menu should load. 
+6) Start Garry's Mod. The menu should load.
+
+- Note: If you're on Windows 11, and have Windows Defender, you may need to set an exclusion for the bin folder path and/or file itself. This is because of the way the .dll file attaches to gmod.exe.
+1) Open MS
+2) Click Virus & Threat protection. 
+3) Click Virus & Threat protection settings (manage settings)
+4) Scroll down to the bottom
+5) Click Add or Remove exclusions
+6) Add an exclusion 
+7) Click the File option
+9) Exclude the file path to the bin folder
+- For example: ``C:\Program Files (x86)\Steam\steamapps\common\GarrysMod\garrysmod\lua\bin``
+10) You could also add the file itself to the exclusions list just in case
+- For example: ``C:\Program Files (x86)\Steam\steamapps\common\GarrysMod\garrysmod\lua\bin\gmsv_fattymenu_win64.dll``
+![alt text](https://puu.sh/KtqCT/ffcfd1c47a.png)
 
 ## Injection
 - Less convenient, but it's supported. The following steps should allow you to use the menu in-game. 
@@ -54,7 +68,7 @@ https://github.com/DarthTon/Xenos/releases/tag/2.3.2
 ``
 3) Extract the files to your desktop (or wherever is convenient for you) 
 
-4) Run Xenos64.exe. Your anti-virus will likely flag it, but do not worry. This is a false positive, so make sure you have it set up to ignore it.
+4) Run Xenos64.exe. Your anti-virus will likely flag it, but do not worry. This is a false positive, so make sure you have it set up to exclude / ignore it.
 
 5) Once the injector is opened, navigate over to the 'Advanced' button and click on it. Change the injection type to Manual map, then check off 'No exception support,' 'Manually resolve imports,' 'Ignore TLS,' and 'Erase PE headers.' In other words, it should look like this:
 
