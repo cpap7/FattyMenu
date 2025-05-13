@@ -87,10 +87,10 @@ std::vector<const char*> CAssignment::GetAssignmentDescription() const {
 // Boolean flag getters
 // Getter for Civil Protection flag
 bool CAssignment::IsForCP() const {
-	return this->is_civil_protection;
+	return this->is_for_civil_protection;
 }
 
 // Getter for Transhuman flag
 bool CAssignment::IsForTF() const {
-	return this->is_transhuman_forces;
+	return this->is_for_transhuman_forces;
 }
