@@ -77,7 +77,7 @@ void CPSOP::DisplayCPLogo() {
 	});
 	*/
 
-// Function for displaying radio codes
+// Function for displaying code violations and override codes
 // @param codes_list -> vector containing a list of radio codes to be looped through and displayed
 void CPSOP::DisplayCPCodes(const std::vector<CCode> codes_list) {
 	// Loop through the radio codes
@@ -85,7 +85,7 @@ void CPSOP::DisplayCPCodes(const std::vector<CCode> codes_list) {
 		// Check if the code is an override code, which contains lists of strings
 		if (code.IsOverrideCode()) {
 			// Display the override code, descriptions, and directives
-			ImGui::TextWrapped("%s\n", code.GetCodeName());
+			ImGui::TextWrapped("%s\n", code.GetName());
 
 			// Loop through the descriptions and display them
 			for (const auto& description : code.GetOverrideDescription()) {
@@ -101,13 +101,9 @@ void CPSOP::DisplayCPCodes(const std::vector<CCode> codes_list) {
 		// Check if the code is a violation, which has 3 strings
 		else if (code.IsViolationCode()) {
 			// Display 3 strings as wrapped text
-			GUI::Helpers::WrappedBulletText("%s: %s\n -> %s", code.GetCodeName(), code.GetCodeDescription(), code.GetViolationDescription());
+			GUI::Helpers::WrappedBulletText("%s: %s\n -> %s", code.GetName(), code.GetDescription(), code.GetViolationDescription());
 		}
 
-		else { // Display other codes (10-, 11-, etc.)
-			// Display 2 strings as wrapped bullet text
-			GUI::Helpers::WrappedBulletText("%s: %s", code.GetCodeName(), code.GetCodeDescription());
-		}
 		// Separate each with a line separator
 		ImGui::Separator();
 	}
@@ -143,19 +139,6 @@ void CPSOP::DisplayCPInteractionDirectives(const std::vector<CCivilStatus> civil
 		}
 
 		// Separate each status type with a line separator
-		ImGui::Separator();
-	}
-}
-
-// Function for displaying Combine terminology
-// @param terms_list -> vector containing a list of terms to be looped through and displayed
-void CPSOP::DisplayCPTerms(const std::vector<CTerm> terms_list) {
-	// Loop through the terms in the vector list
-	for (const auto& term : terms_list) {
-		// Display them as bullet text
-		GUI::Helpers::WrappedBulletText("%s: %s", term.GetName(), term.GetDescription());
-
-		// Separate each with a line separator
 		ImGui::Separator();
 	}
 }
@@ -197,32 +180,13 @@ void CPSOP::DisplayCPPolitiSchedule(const std::vector<CPolitiSchedule> politi_sc
 	ImGui::EndTable();
 }
 
-
-// Function for displaying mandate and assignment duties
-// @param duties_list -> vector containing a list of duties to be looped through and displayed
-void CPSOP::DisplayCPDuties(const std::vector<CAssignment> duties_list) {
-	// Loop through the duties in the vector list
-	for (const auto& duty : duties_list) {
-		// Display assignment name and the # of required units
-		ImGui::TextWrapped("%s\n%s", duty.GetAssignmentName(), duty.GetCPUnitsRequired());
-
-		// Display each string description
-		for (const auto& description : duty.GetAssignmentDescription()) {
-			GUI::Helpers::WrappedBulletText("%s", description);
-		}
-
-		// Separate each duty with a line separator
-		ImGui::Separator();
-	}
-}
-
 // Function for displaying contraband index
 // @param contraband_list -> vector containing a list of contraband, their verdict codes, and examples to be looped through and displayed
 void CPSOP::DisplayCPContrabandIndex(const std::vector<CContraband> contraband_list) {
 	// Loop through the contraband categories
 	for (const auto& category : contraband_list) {
 		// Display the violation code's name, description
-		ImGui::TextWrapped("%s: %s\n%s\n", category.GetViolationCode().GetCodeName(), category.GetViolationCode().GetCodeDescription(), category.GetVerdict());
+		ImGui::TextWrapped("%s: %s\n%s\n", category.GetViolationCode().GetName(), category.GetViolationCode().GetDescription(), category.GetVerdict());
 
 		// Loop through each example for each category
 		for (const auto& example : category.GetExamples()) {
@@ -234,8 +198,6 @@ void CPSOP::DisplayCPContrabandIndex(const std::vector<CContraband> contraband_l
 	}
 }
 
-
-
 void CPSOP::RenderCivilProtectionSOP() {
 	// Collapsing headers render info once the user clicks on them
 	if (ImGui::CollapsingHeader("<:: DISPLAY CIVIL PROTECTION LOGO ::>")) {
@@ -246,17 +208,18 @@ void CPSOP::RenderCivilProtectionSOP() {
 	// Display the code index, render the subheaders via the inline helper function
 	GUI::Helpers::RenderSOPSection("<:: CODE INDEX ::>", [] {
 		// Clicking the first header displays these options
+		// Relegate abbreviations, 10-, 11- and response codes to the template function in GUIUtilities.h 
 		if (ImGui::CollapsingHeader("<:: View Abbreviations ::>")) {
-			DisplayCPCodes(CPSOPLookupTables::abbreviation_list);
+			GUI::Helpers::DisplayList(CPSOPLookupTables::abbreviation_list);
 		}
 		if (ImGui::CollapsingHeader("<:: View Response Codes ::>")) {
-			DisplayCPCodes(CPSOPLookupTables::response_code_list);
+			GUI::Helpers::DisplayList(CPSOPLookupTables::response_code_list);
 		}
 		if (ImGui::CollapsingHeader("<:: View 11- Codes ::>")) {
-			DisplayCPCodes(CPSOPLookupTables::eleven_code_list);
+			GUI::Helpers::DisplayList(CPSOPLookupTables::eleven_code_list);
 		}
 		if (ImGui::CollapsingHeader("<:: View 10- Codes ::>")) {
-			DisplayCPCodes(CPSOPLookupTables::ten_code_list);
+			GUI::Helpers::DisplayList(CPSOPLookupTables::ten_code_list);
 		}
 		if (ImGui::CollapsingHeader("<:: View Code Violations ::>")) {
 			ImGui::Text("Anti-Civil Level 5\n -> Verbal warning and/or citation\n");
@@ -289,31 +252,31 @@ void CPSOP::RenderCivilProtectionSOP() {
 		}
 	});
 
-	// Display terminology index sections
+	// Display terminology index sections via helper functions (2 strings per bullet point)
 	GUI::Helpers::RenderSOPSection("<:: TERMINOLOGY INDEX ::>", [] {
 		if (ImGui::CollapsingHeader("<:: View Protocol Terms ::>")) {
-			DisplayCPTerms(CPSOPLookupTables::protocol_list);
+			GUI::Helpers::DisplayList(CPSOPLookupTables::protocol_list);
 		}
 		if (ImGui::CollapsingHeader("<:: View Action Terms ::>")) {
-			DisplayCPTerms(CPSOPLookupTables::action_list);
+			GUI::Helpers::DisplayList(CPSOPLookupTables::action_list);
 		}
-		if (ImGui::CollapsingHeader("<:: View Action-Condition Terms ::>")) {
-			DisplayCPTerms(CPSOPLookupTables::action_condition_list);
+		if (ImGui::CollapsingHeader("<:: View Action/Condition Terms ::>")) {
+			GUI::Helpers::DisplayList(CPSOPLookupTables::action_condition_list);
 		}
-		if (ImGui::CollapsingHeader("<:: View Hostile Terms ::>")) {
-			DisplayCPTerms(CPSOPLookupTables::hostile_list);
+		if (ImGui::CollapsingHeader("<:: View Hostile Entity Terms ::>")) {
+			GUI::Helpers::DisplayList(CPSOPLookupTables::hostile_list);
 		}
 		if (ImGui::CollapsingHeader("<:: View Equipment/Asset Terms ::>")) {
-			DisplayCPTerms(CPSOPLookupTables::equipment_asset_list);
+			GUI::Helpers::DisplayList(CPSOPLookupTables::equipment_asset_list);
 		}
 		if (ImGui::CollapsingHeader("<:: View Organization Terms ::>")) {
-			DisplayCPTerms(CPSOPLookupTables::organization_list);
+			GUI::Helpers::DisplayList(CPSOPLookupTables::organization_list);
 		}
 		if (ImGui::CollapsingHeader("<:: View Sociostability Terms ::>")) {
-			DisplayCPTerms(CPSOPLookupTables::sociostability_list);
+			GUI::Helpers::DisplayList(CPSOPLookupTables::sociostability_list);
 		}
 		if (ImGui::CollapsingHeader("<:: View Area Terms ::>")) {
-			DisplayCPTerms(CPSOPLookupTables::area_list);
+			GUI::Helpers::DisplayList(CPSOPLookupTables::area_list);
 		}
 
 	});
@@ -328,17 +291,17 @@ void CPSOP::RenderCivilProtectionSOP() {
 	GUI::Helpers::RenderSOPSection("<:: DUTY INDEX ::> ", [] {
 		// Display mandate duties
 		if (ImGui::CollapsingHeader("<:: View Mandate Duties ::>")) {
-			DisplayCPDuties(CPSOPLookupTables::mandate_duties_list);
+			GUI::Helpers::DisplayAssignment(CPSOPLookupTables::mandate_duties_list);
 		}
 
 		// Display protection duties
 		if (ImGui::CollapsingHeader("<:: View Protection Duties ::>")) {
-			DisplayCPDuties(CPSOPLookupTables::protection_duties_list);
+			GUI::Helpers::DisplayAssignment(CPSOPLookupTables::protection_duties_list);
 		}
 
 		// Display duty expectations + TAC etiquette
 		if (ImGui::CollapsingHeader("<:: View Duty Expectations and TAC Etiquette ::>")) {
-			DisplayCPDuties(CPSOPLookupTables::miscellaneous_duties_list);
+			GUI::Helpers::DisplayAssignment(CPSOPLookupTables::miscellaneous_duties_list);
 		}
 	});
 
