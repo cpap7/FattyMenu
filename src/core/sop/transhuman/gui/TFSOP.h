@@ -16,6 +16,7 @@ namespace TFSOP {
 
 	void DisplayTFLogo();
 
+	void DisplayTFProtocols(std::vector<CProtocol>);
 	void DisplayTFCodes(std::vector<CTerm>);
 	void DisplayTFTerms(std::vector<CTerm>);
 	void DisplayTFDuties(std::vector<CAssignment>);

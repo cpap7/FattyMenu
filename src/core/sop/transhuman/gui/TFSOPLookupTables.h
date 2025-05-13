@@ -2,6 +2,7 @@
 #include "../definitions/TFDuties.h"
 #include "../definitions/TFCodes.h"
 #include "../definitions/TFTerminologyIndex.h"
+#include "../classes/CProtocol.h"
 
 namespace TFSOPLookupTables {
 	/* Code index */
