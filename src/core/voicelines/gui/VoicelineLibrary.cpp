@@ -40,20 +40,20 @@ void VoicelineLibrary::RenderColoredHeader(const char* header_label, const std::
 	SetHeaderColor(); // Push style color
 
 	if (ImGui::CollapsingHeader(header_label)) {
-		GUIUtils::PopColorStack();  // Pop style if header opened
+		GUI::Themes::PopColorStack(3);  // Pop style if header opened
 		VoicelineLibrary::DisplayVoicelines(VL_LIST);
 	}
 	else {
-		GUIUtils::PopColorStack();  // Pop style if header NOT opened
+		GUI::Themes::PopColorStack(3);  // Pop style if header NOT opened
 	}
 }
 
 /* Function for rendering the menu in the tab */
 void VoicelineLibrary::RenderVoicelineLibraryMenu() {
-	RenderColoredHeader("View Male Citizen Voicelines", male_citizen_vl_list, GUIUtils::SetHeaderColorBlue);
-	RenderColoredHeader("View Female Citizen Voicelines", female_citizen_vl_list, GUIUtils::SetHeaderColorBlue);
-	RenderColoredHeader("View Civil Protection Voicelines", cp_vl_list, GUIUtils::SetHeaderColorCyan);
-	RenderColoredHeader("View Transhuman Grunt Voicelines", tf_grunt_vl_list, GUIUtils::SetHeaderColorYellow);
-	RenderColoredHeader("View Airwatch Voicelines", airwatch_vl_list, GUIUtils::SetHeaderColorRed);
-	RenderColoredHeader("View Vortigaunt Voicelines", vortigaunt_vl_list, GUIUtils::SetHeaderColorGreen);
+	RenderColoredHeader("View Male Citizen Voicelines", male_citizen_vl_list, GUI::Themes::SetHeaderColorBlue);
+	RenderColoredHeader("View Female Citizen Voicelines", female_citizen_vl_list, GUI::Themes::SetHeaderColorBlue);
+	RenderColoredHeader("View Civil Protection Voicelines", cp_vl_list, GUI::Themes::SetHeaderColorCyan);
+	RenderColoredHeader("View Transhuman Grunt Voicelines", tf_grunt_vl_list, GUI::Themes::SetHeaderColorYellow);
+	RenderColoredHeader("View Airwatch Voicelines", airwatch_vl_list, GUI::Themes::SetHeaderColorRed);
+	RenderColoredHeader("View Vortigaunt Voicelines", vortigaunt_vl_list, GUI::Themes::SetHeaderColorGreen);
 }
