@@ -17,7 +17,7 @@ namespace GUI {
 
 		void SetHeaderTransparent();									// For collapsible sub-headers
 
-		void PopColorStack();											// For resetting the colors to default color for current style theme
+		void PopColorStack(int);										// For resetting the colors to default color for current style theme
 
 		void SetThemeCivilProtection();									// Config for a Civil Protection-like theme
 	}
@@ -47,32 +47,8 @@ namespace GUI {
 		inline void DisplayList(const std::vector<T>& item_list) {
 			// Loop through the list
 			for (const auto& item : item_list) {
-				// Check if the item is an override code, which contains lists of strings
-				if (item.IsOverrideCode()) {
-					// Display the override code, descriptions, and directives
-					ImGui::TextWrapped("%s\n", item.GetCodeName());
-
-					// Loop through the descriptions and display them
-					for (const auto& description : item.GetOverrideDescription()) {
-						GUI::Helpers::WrappedBulletText("%s\n", description);
-					}
-
-					// Loop through the directives and display them
-					for (const auto& directive : item.GetOverrideDirectives()) {
-						ImGui::TextWrapped("-> %s\n", directive);
-					}
-				}
-
-				// Check if the item is a code violation, which has 3 strings
-				else if (item.IsViolationCode()) {
-					// Display 3 strings as wrapped text
-					GUI::Helpers::WrappedBulletText("%s: %s\n -> %s", item.GetCodeName(), item.GetCodeDescription(), item.GetViolationDescription());
-				}
-
-				else {
-					// Display them as bullet text
-					GUIUtils::WrappedBulletText("%s: %s", item.GetName(), item.GetDescription());
-				}
+				// Display them as bullet text
+				GUI::Helpers::WrappedBulletText("%s: %s", item.GetName(), item.GetDescription());
 
 				// Add a line separator
 				ImGui::Separator();
@@ -90,10 +66,21 @@ namespace GUI {
 					for (const auto& description : duty.GetAssignmentDescription()) {
 						GUI::Helpers::WrappedBulletText("%s", description);
 					}
-
-					// Separate each duty with a line separator
-					ImGui::Separator();
+					
 				}
+				else if (duty.IsForTF()) {
+					// Display assignment name and the # of required units
+					ImGui::TextWrapped("%s\nREQUIRED:%d+ units\nLENGTH IN SHIFTS:%d\nRecommended Class:%s", duty.GetAssignmentName(), duty.GetTFUnitsRequired(), duty.GetShiftDuration(), duty.GetRecommendedClass());
+
+					// Display each string description
+					for (const auto& description : duty.GetAssignmentDescription()) {
+						GUI::Helpers::WrappedBulletText("%s", description);
+					}
+				}
+
+				// Separate each duty with a line separator
+				ImGui::Separator();
+
 			}
 		}
 
@@ -105,30 +92,9 @@ namespace GUI {
 			if (ImGui::CollapsingHeader(header_label)) {
 				GUI::Themes::SetHeaderTransparent();				// Set the subheaders to transparent
 				RenderContent();									// Call provided render function
-				GUI::Themes::PopColorStack();						// Pop the color stack
+				GUI::Themes::PopColorStack(2);						// Pop the color stack
 			}
 		}
 	}
 
 }
-
-
-
-/*
-
-
-// Function for displaying Combine terminology
-// @param terms_list -> vector containing a list of terms to be looped through and displayed
-void CPSOP::DisplayCPTerms(const std::vector<CTerm> terms_list) {
-	// Loop through the terms in the vector list
-	for (const auto& term : terms_list) {
-		// Display them as bullet text
-		GUIUtils::WrappedBulletText("%s: %s", term.GetName(), term.GetDescription());
-
-		// Separate each with a line separator
-		ImGui::Separator();
-	}
-}
-
-
-*/

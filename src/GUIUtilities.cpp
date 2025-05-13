@@ -43,13 +43,13 @@ void GUI::Themes::SetHeaderColorYellow() {
 void GUI::Themes::SetHeaderTransparent() {
 	// Set header background to transparent 
 	ImGui::PushStyleColor(ImGuiCol_Header, ImVec4(0.00f, 0.00f, 0.00f, 0.00f));			// Normal state
-	ImGui::PushStyleColor(ImGuiCol_HeaderHovered, ImVec4(0.00f, 0.00f, 0.00f, 0.00f));	// Hovered state
+	//ImGui::PushStyleColor(ImGuiCol_HeaderHovered, ImVec4(0.00f, 0.00f, 0.00f, 0.00f));	// Hovered state
 	ImGui::PushStyleColor(ImGuiCol_HeaderActive, ImVec4(0.00f, 0.00f, 0.00f, 0.00f));	// Active state
 }
 
 // For resetting the colors back to default style
-void GUI::Themes::PopColorStack() {
-	ImGui::PopStyleColor(3);
+void GUI::Themes::PopColorStack(int size) {
+	ImGui::PopStyleColor(size);
 }
 
 // Configuration for a ImGui theme similar to the Civil Protection color schema
