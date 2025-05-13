@@ -17,7 +17,7 @@ void Notepad::RenderNotepad(const char* usage_description, const char* label,
                             char* buffer, size_t buffer_size, 
                             const char* default_text, const char* button_text) {
     // Display the purpose of a given notepad
-    GUIUtils::WrappedBulletText(usage_description);
+    GUI::Helpers::WrappedBulletText(usage_description);
 
     // Set up the buffer to display predefined default text
     InitializeBuffer(buffer, buffer_size, default_text);
