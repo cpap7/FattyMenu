@@ -1,8 +1,10 @@
 # Project Synapse: FattyMenu
 ![alt text](https://img.shields.io/github/downloads/cpap7/FattyMenu/total.svg)
 
-This repository contains the source code to a little side-project I've been working on while playing Project Synapse. FattyMenu is a lightweight, .dll file that can be loaded onto Garry's Mod via the game itself, or manual map injection. 
-It uses Direct3D9 render hooks and a hook for EndSceneFn to render an ImGui window in-game, containing useful information relevant to the Combine factions' gameplay.
+This repository contains the source code to a little side-project I've been working on while playing Project Synapse. 
+
+FattyMenu is a lightweight, .dll file that can be loaded onto Garry's Mod via the game itself, or via manual map injection. 
+It uses in-game render hooks to create an ImGui window containing useful gameplay information relevant to the Combine factions on the server.
 
 # Content
 The menu itself contains the following tabs: 
