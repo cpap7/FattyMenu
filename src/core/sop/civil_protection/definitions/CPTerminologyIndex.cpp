@@ -19,7 +19,7 @@ namespace CPTerminology {
 		CTerm administer = { "Administer", "Manage or apply procedures for control or compliance" };
 		CTerm amputate = { "Amputate", "To sever or execute, often used metaphorically to describe cutting off parts of a group or structure" };
 		CTerm apply = { "Apply", "Put into action or use a particular tool or procedure (e.g., apply forward pressure)" };
-		CTerm cauterize = { "Cauterize", "Take drastic or severe action to stop soemthing harmful (e.g., an infection or rebellion)" };
+		CTerm cauterize = { "Cauterize", "Take drastic or severe action to stop something harmful (e.g., an infection or rebellion)" };
 		CTerm document = { "Document", "Record or observe details, possibly about citizens or locations" };
 		CTerm examine = { "Examine", "Inspect closely, potentially for assessment or to find faults" };
 		CTerm inject = { "Inject", "Introduce a substance or directive, into a system or population" };
