@@ -93,7 +93,7 @@ namespace CPAssignments {
 			"Biotic Supervisory Detail",
 			"REQUIRED: At least 1 unit per 2 biotics",
 			{
-				"Release bioptic conscripts from their designated holding area to begin an assignment",
+				"Release biotic conscripts from their designated holding area to begin an assignment",
 				"Oversee labor detail, ensuring efficient contribution from all biotic conscripts",
 				"Ensure biotic conscripts are returned to their holding area upon completion"
 			}
