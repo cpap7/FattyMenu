@@ -1,8 +1,6 @@
 #include "CCode.h"
 
-/* TODO:
-* Implement a search filtering function based on the boolean flags
-*/
+
 
 /* Constructor for a CCode object that takes a specified name, description
 * and boolean flag options. Specifically made for search filtering implementations. 
@@ -11,79 +9,55 @@
 * @param new_name -> string containing the name of the code
 * @param new_description -> string containing the code's description
 * 
-* Bool flag params
-* @param new_abbreviation_code_flag -> true or false depending on if it's an abbreviation code
-* @param new_response_code_flag -> true or false depending on if it's a response code
-* @param new_eleven_code_flag -> true or false depending on if it's a 11- radio code
-* @param new_ten_code_flag -> true or false depending on if it's a 10- radio code
 */
-CCode::CCode(const char* new_name, const char* new_code_description, 
-		   bool new_abbreviation_code_flag, bool new_response_code_flag, 
-		   bool new_eleven_code_flag, bool new_ten_code_flag) {
-	// For defining most codes based on their type(s)
-	
+CCode::CCode(const char* new_name, const char* new_code_description, CodeType new_code_type) {	
 	// Set the name & description
 	SetName(new_name);
 	SetDescription(new_code_description);
-
-	// Set the flags (for search filtering implementation later)
-	SetAsAbbreviationCode(new_abbreviation_code_flag);
-	SetAsResponseCode(new_response_code_flag);
-	SetAsElevenCode(new_eleven_code_flag);
-	SetAsTenCode(new_ten_code_flag);
-
-	// Set the other flags to false. Violation and override codes are relegated to different constructors (see below)
-	SetAsViolationCode(false);
-	SetAsOverrideCode(false); 
+	
+	// Set the flags
+	SetCodeType(new_code_type);
 }
 
-/* Constructor for a CCode object that takes a specified name and description.
-* Specifically for violations.
+/* Constructor for a CCode object that takes a specified name and description strings.
+* This is specifically for violations.
 * 
 * String params
 * @param new_name -> string containing the name of the code
 * @param new_description -> string containing the code's description
 * @param new_violation_description -> string containing the description of the code violation
 */
-CCode::CCode(const char* new_name, const char* new_code_description, const char* new_violation_description) {
+CCode::CCode(const char* new_name, const char* new_code_description, const char* new_violation_description, CodeType new_code_type) {
 	// Set the name & description
 	SetName(new_name);
 	SetDescription(new_code_description);
+	
+	// Set the violation's description as well
 	SetViolationDescription(new_violation_description);
 
 	// Set the flags
-	SetAsAbbreviationCode(false);
-	SetAsResponseCode(false);
-	SetAsElevenCode(false);
-	SetAsTenCode(false);
-	SetAsViolationCode(true); // Specifically true for violations
-	SetAsOverrideCode(false);
+	SetCodeType(new_code_type);
 }
 
-/* Constructor for a CCode object that takes a specified name, description, and vector for strings pertaining to directives.
-* Specifically for override codes.
+/* Constructor for a CCode object that takes a specified name, description, and vector of strings pertaining to directives.
+* This is specifically for override codes.
 *
 * String params
 * @param new_name -> string containing the name of the code
 * @param new_description -> string containing the code's description
 * @param new_override_code_directives -> vector containing the directives for the override code
 */
-CCode::CCode(const char* new_name, std::vector<const char*> new_override_code_description, std::vector<const char*> new_directives) {
+CCode::CCode(const char* new_name, std::vector<const char*> new_override_code_description, std::vector<const char*> new_directives, CodeType new_code_type) {
 	SetName(new_name);
 	SetOverrideDescription(new_override_code_description);
 	SetOverrideDirectives(new_directives);
 
 	// Set the flags
-	SetAsAbbreviationCode(false);
-	SetAsResponseCode(false);
-	SetAsElevenCode(false);
-	SetAsTenCode(false);
-	SetAsViolationCode(false);
-	SetAsOverrideCode(true); // Specifically true for override codes
+	SetCodeType(new_code_type);
 }
 
 /* No-arg constructor */
-CCode::CCode() : CCode("", "", false, false, false, false) { } // For non-violation codes
+CCode::CCode() : CCode("", "", CodeType::None) { } // For non-violation codes
 
 // Destructor
 // CCode::~CCode() { } // Not needed, leaving it here just in case it's needed in the future 
@@ -121,6 +95,32 @@ void CCode::SetOverrideDescription(std::vector<const char*> new_override_descrip
 */
 void CCode::SetOverrideDirectives(std::vector<const char*> new_override_description) {
 	this->override_code_directives = new_override_description;
+}
+
+/* Handles setting the boolean flags based on the code type
+* @param new_code_type -> enum containing the radio code's corresponding type
+*/
+void CCode::SetCodeType(CodeType new_code_type) {
+	// Set the flags to false (true by default)
+	SetAsAbbreviationCode(false);
+	SetAsResponseCode(false);
+	SetAsElevenCode(false);
+	SetAsTenCode(false);
+
+	// Set the special case flags to false
+	SetAsViolationCode(false);
+	SetAsOverrideCode(false);
+
+	// Check the code type value and set its corresponding boolean flag to true
+	switch (new_code_type) {
+		case CodeType::None:										break;
+		case CodeType::Abbreviation:  SetAsAbbreviationCode(true);	break;
+		case CodeType::ResponseCode:  SetAsResponseCode(true);		break;
+		case CodeType::ElevenCode:	  SetAsElevenCode(true);		break;
+		case CodeType::TenCode:		  SetAsTenCode(true);			break;
+		case CodeType::ViolationCode: SetAsViolationCode(true);		break;
+		case CodeType::OverrideCode:  SetAsOverrideCode(true);		break;
+	}
 }
 
 /* Sets a boolean flag for CCode objects that are an abbreviation code

@@ -24,7 +24,8 @@ namespace CPAssignments {
 				"Ensure employed citizens are inside their workstations",
 				"Direct new arrivals at WIH-3 to their assigned tenement building",
 				"Ensure new arrivals do not leave WIH-3 without a protection unit to escort them\n"
-				"NOTE: Residential block inspections can be performed at any time and is not mandatory during curfews"
+				"NOTE: Residential block inspections can be performed at any time and is not mandatory during curfews",
+				"NOTE: 40+ units (and above) may modify containment field access modes at their discretion to better enforce curfew"
 			}
 		};
 		CAssignment ration_intake_detail = {
@@ -71,7 +72,8 @@ namespace CPAssignments {
 				"Deter unauthorized activities",
 				"Disperse any public gatherings",
 				"Investigate any nearby alarms of suspicious individuals",
-				"NOTE: Checkpoints between Precincts should be manned by at least one officer to search for POI and prevent minges from going any further"
+				"NOTE: Checkpoints between Precincts should be manned by at least one officer to search for POI and prevent minges from going any further",
+				"NOTE: 2 units needed MINIMUM to patrol P13-N"
 			}
 		
 		};
@@ -102,8 +104,8 @@ namespace CPAssignments {
 			"Workforce Intake Processing",
 			"REQUIRED: At least 1 unit",
 			{
-				"Process new arrivals at P-6 and ensure they:\n -> Have validated their transfer with a relocation coupon\n -> Received their new ID card\n -> Do not possess contraband\n"
-				"NOTE: Checkpoint at TB-1 (bus station) must be manned at all times."
+				"Process new arrivals at TB-1 or WIH-3 and ensure they:\n -> Have validated their transfer with a relocation coupon\n -> Received their new ID card\n -> Do not possess contraband\n"
+				"NOTE: Checkpoint at TB-1 (bus station) must be manned at all times by at least 2 units. It's strongly recommended that one them be a PTL."
 			}
 		};
 		CAssignment conscript_custody_oversight = {
@@ -128,12 +130,14 @@ namespace CPAssignments {
 	namespace Miscellaneous {
 		CAssignment expectations = {
 			"Duty / Mandate Expectations",
-			"These are expected across all assignments and mandates",
+			"These are what's expected of you as a unit across basically all assignments and mandates",
 			{
 				"Loyalty checks must be common\n -> Even a regular pedestrian stop and questioning do fall under this category",
 				"Status reports must be common as well\n -> Whenever something significant happens to your PT, you will report it to others",
 				"Never leave probationaries alone, and without a partner with a gun",
-				"Always stick close as a team unless you absolutely have to split up"
+				"Always stick close as a team unless you absolutely have to split up",
+				"When Airwatch tags a suspect, do not run over to the person unless they are fleeing or posing a threat (Officers are not exempt from 59)"
+				"When a citizen approaches you to turn in contraband, never allow them to drop it in public. Have them face the wall and confiscate it from them ther"
 			}
 		};
 		CAssignment tac_usage = {

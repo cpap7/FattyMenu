@@ -1,13 +1,22 @@
 #pragma once
 #include <vector>
 
+enum class CodeType {
+	None = 0,
+	Abbreviation = 1,
+	ResponseCode = 2,
+	ElevenCode = 3,
+	TenCode = 4,
+	ViolationCode = 5,
+	OverrideCode = 6
+};
+
 class CCode {
 public: // Function prototypes
 	// Constructors
-	// TODO: Possibly remove some of these flags.
-	CCode(const char*, const char*, bool, bool, bool, bool);
-	CCode(const char*, const char*, const char*);							// For violations
-	CCode(const char*, std::vector<const char*>, std::vector<const char*>); // For override codes
+	CCode(const char*, const char*, CodeType);
+	CCode(const char*, const char*, const char*, CodeType);							// For violations
+	CCode(const char*, std::vector<const char*>, std::vector<const char*>, CodeType);  // For override codes
 	CCode();
 
 	// Destructor
@@ -21,6 +30,7 @@ public: // Function prototypes
 	void SetOverrideDirectives(std::vector<const char*>);
 
 	// Boolean flag setters
+	void SetCodeType(CodeType);
 	void SetAsAbbreviationCode(bool);
 	void SetAsResponseCode(bool);
 	void SetAsElevenCode(bool);
