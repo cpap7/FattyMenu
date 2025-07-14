@@ -9,7 +9,7 @@ class CProtocol {
 public:
 	// Constructors
 	CProtocol(const char*, std::vector<const char*>); // For most protocols
-	CProtocol(std::vector<const char*>, const char*); // Default label = "Specialized Deployment Restrictions"
+	//CProtocol(std::vector<const char*>, const char*); // Default label = "Specialized Deployment Restrictions"
 	CProtocol();									  // No-arg constructor
 
 	// Destructor

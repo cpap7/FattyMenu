@@ -218,6 +218,8 @@
     <ClInclude Include="src\core\voicelines\definitions\FemaleCitizen.h" />
     <ClInclude Include="src\core\voicelines\definitions\MaleCitizen.h" />
     <ClInclude Include="src\core\voicelines\definitions\TranshumanGrunt.h" />
+    <ClInclude Include="src\core\voicelines\definitions\TranshumanOrdinal.h" />
+    <ClInclude Include="src\core\voicelines\definitions\TranshumanSoldier.h" />
     <ClInclude Include="src\core\voicelines\definitions\Vortigaunt.h" />
     <ClInclude Include="src\core\voicelines\gui\VoicelineLibrary.h" />
     <ClInclude Include="src\GUI.h" />

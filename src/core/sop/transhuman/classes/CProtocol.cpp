@@ -6,11 +6,14 @@ CProtocol::CProtocol(const char* new_protocol_label, std::vector<const char*> ne
 	SetProtocolDirectives(new_directives);
 	SetSpecializedDeploymentClass("N / A");
 } 
+/*
 CProtocol::CProtocol(std::vector<const char*> new_directives, const char* new_specialized_class) { // Constructor for protocols specific to Specialized Deployment Restrictions
 	SetProtocolLabel("Specialized Deployment Restrictions");
 	SetProtocolDirectives(new_directives);
 	SetSpecializedDeploymentClass(new_specialized_class);
-} 
+}
+
+*/
 CProtocol::CProtocol() : CProtocol("", { "" }) {  } // No-arg constructor
 
 // Destructor

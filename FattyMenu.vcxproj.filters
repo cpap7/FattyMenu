@@ -117,9 +117,6 @@
     <ClInclude Include="src\core\sop\transhuman\definitions\TFDuties.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\sop\transhuman\definitions\TFRadioCodes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\core\sop\transhuman\definitions\TFTerminologyIndex.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -210,6 +207,39 @@
     <ClInclude Include="src\kiero.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\core\sop\civil_protection\classes\CCivicReward.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\sop\civil_protection\classes\CCivilStatus.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\sop\civil_protection\classes\CContraband.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\sop\civil_protection\classes\CPolitiSchedule.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\sop\transhuman\classes\CProtocol.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\sop\transhuman\definitions\DeploymentProtocols.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\sop\transhuman\definitions\TFCodes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\sop\transhuman\gui\TFSOP.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\sop\transhuman\gui\TFSOPLookupTables.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\voicelines\definitions\TranshumanSoldier.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\voicelines\definitions\TranshumanOrdinal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ext_dependencies\imgui\imgui.cpp">
@@ -290,28 +320,13 @@
     <ClCompile Include="src\core\sop\global_classes\CAssignment.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\sop\global_classes\CCivicReward.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\core\sop\global_classes\CCivilStatus.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\core\sop\global_classes\CCode.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\core\sop\global_classes\CContraband.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\core\sop\global_classes\CPolitiSchedule.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\core\sop\global_classes\CTerm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\core\sop\transhuman\definitions\TFDuties.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\core\sop\transhuman\definitions\TFRadioCodes.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\core\sop\transhuman\definitions\TFTerminologyIndex.cpp">
@@ -354,6 +369,30 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\kiero.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\sop\civil_protection\classes\CCivicReward.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\sop\civil_protection\classes\CCivilStatus.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\sop\civil_protection\classes\CContraband.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\sop\civil_protection\classes\CPolitiSchedule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\sop\transhuman\classes\CProtocol.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\sop\transhuman\definitions\DeploymentProtocols.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\sop\transhuman\definitions\TFCodes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\sop\transhuman\gui\TFSOP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
