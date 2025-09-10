@@ -25,20 +25,17 @@ namespace PermitTypes {
 	CPermit hydration = {
 		"Hydration", 50, 25,
 		{
-			{ "Packaged Blue >B Drinks (x5)", 0 },
-			{ "Packaged Red >B Drinks (x5)", 0 },
+			{ "Packaged Blue >B Drinks (x5)", 10 },
+			{ "Packaged Red >B Drinks (x5)", 35 },
 			{ "Packaged Yellow >B Drinks (x5)", 75 },
-			{ "Packaged Desiccated Sustenance Bars (x5)", 0 },
-			{ "Packaged Solidified Nutrient Tablets (x5)", 0 },
-			{ "Packaged Sweetened Hydration Bars (x5)", 0 },
-			{ "Packaged Fermented Vitality Tablets (x5)", 0 } 
+			{ "Packaged Desiccated Sustenance Bars (x5)", 8 },
+			{ "Packaged Solidified Nutrient Tablets (x5)", 13 },
+			{ "Packaged Sweetened Hydration Bars (x5)", 18 },
+			{ "Packaged Fermented Vitality Tablets (x5)", 23 } 
 		},
 		{ 
-			"Drinks",
-			"Tea",
-			"Coffee",
-			"Coffee mugs",
-			"Coffee maker"
+			"Water",
+			"Tea"
 		}
 	};
 	CPermit nourishment = {
@@ -51,8 +48,7 @@ namespace PermitTypes {
 		},
 		{
 			"Foodstuffs",
-			"Ingredients",
-			"Cookware (food)"
+			"Ingredients"
 		}
 	};
 	CPermit garment = {
@@ -87,6 +83,10 @@ namespace PermitTypes {
 			{ "Packaged >B Radios (x5)", 250 }
 		},
 		{
+			"Coffee",
+			"Coffee Maker",
+			"Cookware",
+			"Soda",
 			"Electronics",
 			"Tobacco",
 			"Ingredients",
