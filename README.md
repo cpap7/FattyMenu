@@ -145,7 +145,7 @@ Why make this?
 
 # Contributing
 
-Pull requests are welcome. For major changes, please either message me on Discord (@wiener_water88) or open an issue 
+Pull requests are welcome. For major changes, please either message me on Discord or open an issue 
 to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
