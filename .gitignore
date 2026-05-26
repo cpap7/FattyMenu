@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/bin-int/Release-windows-x86_64/FattyMenu-Lib
+/FattyMenu-Lib/FattyMenu-Lib.vcxproj
+/FattyMenu-Lib/FattyMenu-Lib.vcxproj.filters
