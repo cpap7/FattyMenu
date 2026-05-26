@@ -5,7 +5,7 @@ project "FattyMenu-Lib"
    targetdir "bin/%{cfg.buildcfg}"
    staticruntime "off"
    characterset "MBCS"
-   targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+   targetdir ("../bin/" .. outputdir .. "/%{prj.name}")
    objdir ("../bin-int/" .. outputdir .. "/%{prj.name}")
 
    files 
