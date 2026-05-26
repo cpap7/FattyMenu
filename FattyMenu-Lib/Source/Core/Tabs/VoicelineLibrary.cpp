@@ -46,11 +46,11 @@ namespace FattyMenu {
 
 	/* Function for rendering the menu in the tab */
 	void VoicelineLibrary::RenderVoicelineLibraryMenu() {
-		RenderColoredHeader("View Male Citizen Voicelines", male_citizen_vl_list, GUI::Themes::SetHeaderColorBlue);
-		RenderColoredHeader("View Female Citizen Voicelines", female_citizen_vl_list, GUI::Themes::SetHeaderColorBlue);
-		RenderColoredHeader("View Civil Protection Voicelines", cp_vl_list, GUI::Themes::SetHeaderColorCyan);
-		RenderColoredHeader("View Transhuman Grunt Voicelines", tf_grunt_vl_list, GUI::Themes::SetHeaderColorYellow);
-		RenderColoredHeader("View Airwatch Voicelines", airwatch_vl_list, GUI::Themes::SetHeaderColorRed);
-		RenderColoredHeader("View Vortigaunt Voicelines", vortigaunt_vl_list, GUI::Themes::SetHeaderColorGreen);
+		RenderColoredHeader("View Male Citizen Voicelines",		GetMaleCitizenVoicelines(),			GUI::Themes::SetHeaderColorBlue);
+		RenderColoredHeader("View Female Citizen Voicelines",	GetFemaleCitizenVoicelines(),		GUI::Themes::SetHeaderColorBlue);
+		RenderColoredHeader("View Civil Protection Voicelines", GetCivilProtectionVoicelines(),		GUI::Themes::SetHeaderColorCyan);
+		RenderColoredHeader("View Transhuman Grunt Voicelines", GetTranshumanGruntVoicelines(),		GUI::Themes::SetHeaderColorYellow);
+		RenderColoredHeader("View Airwatch Voicelines",			GetAirwatchVoicelines(),			GUI::Themes::SetHeaderColorRed);
+		RenderColoredHeader("View Vortigaunt Voicelines",		GetVortigauntVoicelines(),			GUI::Themes::SetHeaderColorGreen);
 	}
 }
