@@ -1,0 +1,56 @@
+#include "VoicelineLibrary.h"
+
+
+namespace FattyMenu {
+	
+	void VoicelineLibrary::DisplayVoicelines(const std::vector<CVoiceline>& a_voiceline_list) {
+		// Display necessary instructions to the user
+		ImGui::TextWrapped("Click a button to save the voiceline's trigger text to your clipboard.\n\n");
+
+		ImGui::TextWrapped("\n\t\tTRIGGER TEXT\t\t\tFull Voiceline Description");
+		ImGui::Separator();
+		// Loop through all of the lines in a vector list
+		for (const auto& voiceline : a_voiceline_list) {
+			// Create a button displaying the trigger text, using the predefined button width (200.0f)
+			if (ImGui::Button(voiceline.GetTriggerText(), ImVec2(button_width, 0))) {
+				ImGui::SetClipboardText(voiceline.GetTriggerText());  // Set clipboard to the trigger text if button is clicked
+			}
+
+			//  Ensure the description and button are on the same line
+			ImGui::SameLine();
+
+			// Adjust position for description and make sure it fits the remaining space
+			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 10.0f);	  // Add a small padding between the button and the text
+
+			// Display the description
+			ImGui::TextWrapped("%s", voiceline.GetVoicelineDescription());
+		}
+	}
+
+	/* Helper function for rendering colored headers
+	* @param header_label -> string for labelling the collapsing header
+	* @param VL_LIST -> address of the vector of voicelines being displayed
+	* @param SetHeaderColor() -> placeholder for function call to change the color of the collapsing header
+	*/
+	void VoicelineLibrary::RenderColoredHeader(const char* a_header_label, const std::vector<CVoiceline>& a_voiceline_list, const std::function<void()>& a_set_header_color_callback) {
+		a_set_header_color_callback(); // Push style color
+
+		if (ImGui::CollapsingHeader(a_header_label)) {
+			GUI::Themes::PopColorStack(3);  // Pop style if header opened
+			VoicelineLibrary::DisplayVoicelines(a_voiceline_list);
+		}
+		else {
+			GUI::Themes::PopColorStack(3);  // Pop style if header NOT opened
+		}
+	}
+
+	/* Function for rendering the menu in the tab */
+	void VoicelineLibrary::RenderVoicelineLibraryMenu() {
+		RenderColoredHeader("View Male Citizen Voicelines", male_citizen_vl_list, GUI::Themes::SetHeaderColorBlue);
+		RenderColoredHeader("View Female Citizen Voicelines", female_citizen_vl_list, GUI::Themes::SetHeaderColorBlue);
+		RenderColoredHeader("View Civil Protection Voicelines", cp_vl_list, GUI::Themes::SetHeaderColorCyan);
+		RenderColoredHeader("View Transhuman Grunt Voicelines", tf_grunt_vl_list, GUI::Themes::SetHeaderColorYellow);
+		RenderColoredHeader("View Airwatch Voicelines", airwatch_vl_list, GUI::Themes::SetHeaderColorRed);
+		RenderColoredHeader("View Vortigaunt Voicelines", vortigaunt_vl_list, GUI::Themes::SetHeaderColorGreen);
+	}
+}
