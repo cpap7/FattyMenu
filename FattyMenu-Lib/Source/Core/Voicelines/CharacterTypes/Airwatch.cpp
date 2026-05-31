@@ -222,7 +222,7 @@ namespace FattyMenu {
 		CVoiceline _shield_key_migrate = { "~ SHIELD KEY MIGRATE", "Response code: Shield. Key. Migrate." };
 		CVoiceline _socio_endangerment_1 = { "~ SOCIO-ENDANGERMENT 1", "Individual, you are charged with socio-endangerment level one. Protection unit prosecution code: Duty. Sword. Midnight." };
 		CVoiceline _socio_endangerment_5 = { "~ SOCIO-ENDANGERMENT 5", "Individual, you are now charged with socio-endangerment level five. Cease evasion, immediately. Recieve your verdict." };
-		CVoiceline _status_evasion = { "~STATUS EVASION", "Attention, protection team. Status evasion in progress in this community. Respond. Isolate. Inquire." };
+		CVoiceline _status_evasion = { "~ STATUS EVASION", "Attention, protection team. Status evasion in progress in this community. Respond. Isolate. Inquire." };
 		CVoiceline _target_primary_1 = { "~ TARGET PRIMARY ONE", "Converge sector station one, weapons free. Target has been designated as primary one objective. Prosecute on sight." };
 		CVoiceline _unrest_procedure = { "~ UNREST PROCEDURE", "Attention, community. Unrest procedure code is now in effect. Innoculate. Shield. Pacify. Code: Pressure. Sword. Sterilize." };
 		CVoiceline _unrest_structure = { "~ UNREST STRUCTURE", "Alert, community ground protection units. Local unrest structure detected. Assemble. Administer. Pacify." };

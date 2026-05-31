@@ -5,6 +5,17 @@
 
 namespace FattyMenu {
 
+	// For the override code table
+	struct SOverrideCodeRow {
+		// Columns = Status | Sociostable | Unrest | Containment | Lockdown
+		// Each member contains row data to be displayed under each column 
+		const char* m_status_index		= "";
+		const char* m_sociostable_index = "";
+		const char* m_unrest_index		= "";
+		const char* m_containment_index = "";
+		const char* m_lockdown_index	= "";
+	};
+
 	enum class ECodeType {
 		None			= 0,
 		Abbreviation	= 1,

@@ -148,7 +148,7 @@ namespace FattyMenu {
 	// @param politi_schedule_list -> vector containing a list of events to be looped through and displayed
 	void CPSOP::DisplayCPPolitiSchedule(const std::vector<CPolitiSchedule>& a_politi_schedule_list) {
 		// Create the table for the schedule
-		ImGui::BeginTable("PolitiSchedule", 4, ImGuiTableFlags_Resizable | ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg);
+		ImGui::BeginTable("PolitiSchedule", 4, ImGuiTableFlags_Resizable | ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg | ImGuiTableFlags_SizingStretchProp);
 
 		// Set up columns
 		ImGui::TableSetupColumn("TIME START");
@@ -176,6 +176,51 @@ namespace FattyMenu {
 			// Display the time length
 			ImGui::TableSetColumnIndex(3);
 			ImGui::Text("%s", event.GetTimeLength());
+		}
+
+		ImGui::EndTable();
+	}
+
+	void CPSOP::DisplayOverrideCodeTable() {
+		static const SOverrideCodeRow rows[] = {
+			// Columns:
+			// Status 				 Sociostable			Unrest			 Containment	  Lockdown
+			{ "Ration Intake",		"Active",			"Discretionary",	"Suspended",	"Suspended"		},
+			{ "Workforce Status",	"Active",			"Discretionary",	"Suspended",	"Suspended"		},
+			{ "Shield Access",		"Civic Populace",	"Workforce",		"Ground Units", "Ground Units"	}
+		};
+
+		
+		// Create the table for the override code directives
+		ImGui::BeginTable("OverrideCodes", 5, ImGuiTableFlags_Resizable | ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg | ImGuiTableFlags_SizingStretchProp);
+
+		// Set up columns
+		ImGui::TableSetupColumn("STATUS");
+		ImGui::TableSetupColumn("SOCIOSTABLE");
+		ImGui::TableSetupColumn("UNREST");
+		ImGui::TableSetupColumn("CONTAINMENT");
+		ImGui::TableSetupColumn("LOCKDOWN");
+
+		ImGui::TableHeadersRow();
+
+		// Iterate over rows 
+		for (const auto& row : rows) {
+			ImGui::TableNextRow();
+
+			ImGui::TableSetColumnIndex(0);
+			ImGui::Text("%s", row.m_status_index);
+
+			ImGui::TableSetColumnIndex(1);
+			ImGui::Text("%s", row.m_sociostable_index);
+
+			ImGui::TableSetColumnIndex(2);
+			ImGui::Text("%s", row.m_unrest_index);
+
+			ImGui::TableSetColumnIndex(3);
+			ImGui::Text("%s", row.m_containment_index);
+
+			ImGui::TableSetColumnIndex(4);
+			ImGui::Text("%s", row.m_lockdown_index);
 		}
 
 		ImGui::EndTable();
@@ -237,6 +282,9 @@ namespace FattyMenu {
 			}
 			if (ImGui::CollapsingHeader("<:: View Override Codes ::>")) {
 				DisplayCPCodes(CPSOPLookupTables::override_code_list);
+			}
+			if (ImGui::CollapsingHeader("<:: View Override Code Table ::>")) {
+				DisplayOverrideCodeTable();
 			}
 		});
 

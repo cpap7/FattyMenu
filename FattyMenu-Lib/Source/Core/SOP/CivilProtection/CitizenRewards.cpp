@@ -14,9 +14,9 @@ namespace FattyMenu {
 	namespace Rewards {
 		/* Definitions of public service details */
 		namespace PublicServiceDetails {
-			CCivicReward t94_322 = { 1, "T94-322", "Cleaning, removing litter and disposing of trash in a specified area", "None" };
+			CCivicReward t94_322 = { 2, "T94-322", "Cleaning, removing litter and disposing of trash in a specified area", "None" };
 			CCivicReward t47_941 = { 2, "T47-941", "Auditing distribution blocks for contraband and other anti-civil activity", "None" };
-			CCivicReward t37_584 = { 3, "T37-584", "Monitoring residential blocks for overcrowding, contraband, etc.", "Optional" };
+			CCivicReward t37_584 = { 2, "T37-584", "Monitoring residential blocks for overcrowding, contraband, etc.", "Optional" };
 		}
 
 		/* Definitions of civic deeds */
