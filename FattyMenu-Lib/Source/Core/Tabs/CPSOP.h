@@ -2,6 +2,7 @@
 
 // Lambda functions
 #include <functional>
+#include <string>
 
 // GUI utils
 #include "../../GUIUtilities.h"
@@ -39,11 +40,30 @@ namespace FattyMenu {
 		// For displaying override code table
 		void DisplayOverrideCodeTable();
 
+		
 		// For displaying mandate and assignment duties, alongside relevant misc info
 		void DisplayCPDuties(const std::vector<CAssignment>& a_assignments);
 
 		// For displaying the contraband index
 		void DisplayCPContrabandIndex(const std::vector<CContraband>& a_contraband_index);
+
+		// For the location authorization tables
+		struct SLocationAuthorizationEntry {
+			std::string m_index							 = "";
+			bool m_requires_civil_protection_supervision = false;
+			bool m_requires_special_authorization		 = false; // For civil protection non-patrol regions
+		};
+
+		struct SLocationAuthorizationRow {
+			SLocationAuthorizationEntry m_location;
+			SLocationAuthorizationEntry m_civic_populace;
+			SLocationAuthorizationEntry m_engineer_core;
+			SLocationAuthorizationEntry m_infestation_control;
+			SLocationAuthorizationEntry m_civil_protection;
+		};
+
+		void DisplayPatrolRegions();
+		void DisplayNonPatrolRegions();
 
 		// For displaying the SOP tabs and logo
 		void RenderCivilProtectionSOP();

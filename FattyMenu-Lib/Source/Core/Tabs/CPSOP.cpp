@@ -244,6 +244,164 @@ namespace FattyMenu {
 		}
 	}
 
+	void CPSOP::DisplayPatrolRegions() {
+		ImVec4 red_color = ImVec4(1.0f, 0.0f, 0.0f, 1.0f); // Red color for "Not permitted" entries
+		ImVec4 yellow_color = ImVec4(1.0f, 1.0f, 0.0f, 1.0f); // Yellow color for "*" entries
+
+		static const SLocationAuthorizationRow rows[] = {
+			// Columns:
+			// Location 									Civic Populace					Engineer Core						Infestation Control					Civil Protection
+			{ { "Workforce Intake Hub" },			{ "Permitted" },				{ "Permitted" },							{ "Permitted" },					{ "Permitted" } },
+			{ { "Residental Block (priority)" },    { "Access Protocol" },			{ "Access Protocol" },						{ "Access Protocol" },				{ "Permitted" } },
+			{ { "Residental Block" },				{ "Permitted" },				{ "Permitted" },							{ "Permitted" },					{ "Permitted" } },
+			{ { "Distribution Block" },		        { "Access Protocol" },			{ "Access Protocol" },						{ "Access Protocol" },				{ "Permitted" } },
+			{ { "Production Block" },				{ "Access Protocol" },			{ "Permitted" },							{ "Permitted" },					{ "Permitted" } },
+			{ { "Station Block" },					{ "Not Permitted", true },		{ "Not Permitted", true },					{ "Not Permitted", true },			{ "Permitted" } }
+		};
+
+
+		// Create the table for the override code directives
+		ImGui::BeginTable("LocationAuthorization", 6, ImGuiTableFlags_Resizable | ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg);
+
+		// Set up columns
+		ImGui::TableHeader("PATROL REGTIONS");
+		ImGui::TableSetupColumn("Location");
+		ImGui::TableSetupColumn("Civic Populace *"); 
+		ImGui::TableSetupColumn("Engineer Core");
+		ImGui::TableSetupColumn("Infestation Control");
+		ImGui::TableSetupColumn("Civil Protection");
+
+		ImGui::TableHeadersRow();
+
+		// Iterate over rows 
+		for (const auto& row : rows) {
+			ImGui::TableNextRow();
+
+			// Location & civil protection don't have their own conditionals
+			ImGui::TableSetColumnIndex(0);
+			ImGui::Text("%s", row.m_location.m_index.c_str());
+
+			ImGui::TableSetColumnIndex(1);
+			if (row.m_civic_populace.m_requires_civil_protection_supervision) {
+				ImGui::TextColored(red_color, "%s", row.m_civic_populace.m_index.c_str());
+				ImGui::SameLine();
+				ImGui::TextColored(yellow_color, "*");
+			}
+			else if (row.m_civic_populace.m_index == "Access Protocol") {
+				ImGui::TextColored(yellow_color, row.m_civic_populace.m_index.c_str());
+			}
+			else {
+				ImGui::Text("%s", row.m_civic_populace.m_index.c_str());
+			}
+
+			ImGui::TableSetColumnIndex(2);
+			if (row.m_engineer_core.m_requires_civil_protection_supervision) {
+				ImGui::TextColored(red_color, "%s", row.m_engineer_core.m_index.c_str());
+				ImGui::SameLine();
+				ImGui::TextColored(yellow_color, "*");
+			}
+			else if (row.m_engineer_core.m_index == "Access Protocol") {
+				ImGui::TextColored(yellow_color, row.m_engineer_core.m_index.c_str());
+			}
+			else {
+				ImGui::Text("%s", row.m_engineer_core.m_index.c_str());
+			}
+
+			ImGui::TableSetColumnIndex(3);
+			if (row.m_infestation_control.m_requires_civil_protection_supervision) {
+				ImGui::TextColored(red_color, "%s", row.m_infestation_control.m_index.c_str());
+				ImGui::SameLine();
+				ImGui::TextColored(yellow_color, "*");
+			}
+			else if (row.m_infestation_control.m_index == "Access Protocol") {
+				ImGui::TextColored(yellow_color, row.m_infestation_control.m_index.c_str());
+			}
+			else {
+				ImGui::Text("%s", row.m_infestation_control.m_index.c_str());
+			}
+
+			ImGui::TableSetColumnIndex(4);
+			ImGui::Text("%s", row.m_civil_protection.m_index.c_str());
+
+		}
+
+		ImGui::EndTable();
+	}
+
+	void CPSOP::DisplayNonPatrolRegions() {
+		ImVec4 red_color = ImVec4(1.0f, 0.0f, 0.0f, 1.0f); // Red color for "Not permitted" entries
+		ImVec4 yellow_color = ImVec4(1.0f, 1.0f, 0.0f, 1.0f); // Yellow color for "*" entries
+
+		static const SLocationAuthorizationRow rows[] = {
+			// Columns:
+			// Location 									Civic Populace					Engineer Core						Infestation Control					Civil Protection
+			{ { "Restricted Block", false },			{ "Not Permitted", false },			{ "Not Permitted", true },			{ "Not Permitted", true },			{ "Not Permitted", false, true } },
+			{ { "Storm System", false },				{ "Not Permitted", false },			{ "Not Permitted", true },			{ "Not Permitted", true },			{ "Not Permitted", false, true } },
+			{ { "Outland Zone",	false },				{ "Not Permitted", false },			{ "Not Permitted", true },			{ "Not Permitted", false },         { "Not Permitted", false, true } },
+			{ { "Terminal Restriction Zone", false },	{ "Not Permitted", false },			{ "Not Permitted", false },			{ "Not Permitted", false },			{ "Not Permitted", false, true } },
+			
+		};
+
+
+		// Create the table for the override code directives
+		ImGui::BeginTable("LocationAuthorization", 6, ImGuiTableFlags_Resizable | ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg);
+
+		// Set up columns
+		ImGui::TableHeader("PATROL REGTIONS");
+		ImGui::TableSetupColumn("Location");
+		ImGui::TableSetupColumn("Civic Populace *");
+		ImGui::TableSetupColumn("Engineer Core");
+		ImGui::TableSetupColumn("Infestation Control");
+		ImGui::TableSetupColumn("Civil Protection");
+
+		ImGui::TableHeadersRow();
+
+		// Iterate over rows 
+		for (const auto& row : rows) {
+			ImGui::TableNextRow();
+
+			// Location & civic populace don't have their own conditionals
+			ImGui::TableSetColumnIndex(0);
+			ImGui::Text("%s", row.m_location.m_index.c_str());
+
+			ImGui::TableSetColumnIndex(1);
+			ImGui::TextColored(red_color, "%s", row.m_civic_populace.m_index.c_str());
+			
+
+			ImGui::TableSetColumnIndex(2);
+			if (row.m_engineer_core.m_requires_civil_protection_supervision) {
+				ImGui::TextColored(red_color, "%s", row.m_engineer_core.m_index.c_str());
+				ImGui::SameLine();
+				ImGui::TextColored(yellow_color, "*");
+			}
+			else {
+				ImGui::Text("%s", row.m_engineer_core.m_index.c_str());
+			}
+
+			ImGui::TableSetColumnIndex(3);
+			if (row.m_infestation_control.m_requires_civil_protection_supervision) {
+				ImGui::TextColored(red_color, "%s", row.m_infestation_control.m_index.c_str());
+				ImGui::SameLine();
+				ImGui::TextColored(yellow_color, "*");
+			}
+			else {
+				ImGui::Text("%s", row.m_infestation_control.m_index.c_str());
+			}
+
+			ImGui::TableSetColumnIndex(4);
+			if (row.m_civil_protection.m_requires_special_authorization) {
+				ImGui::TextColored(red_color, "%s", row.m_civil_protection.m_index.c_str());
+				ImGui::SameLine();
+				ImGui::TextColored(yellow_color, "**");
+			}
+			else {
+				ImGui::Text("%s", row.m_civil_protection.m_index.c_str());
+			}
+		}
+
+		ImGui::EndTable();
+	}
+
 	void CPSOP::RenderCivilProtectionSOP() {
 		// Collapsing headers render info once the user clicks on them
 		if (ImGui::CollapsingHeader("<:: DISPLAY CIVIL PROTECTION LOGO ::>")) {
@@ -358,6 +516,29 @@ namespace FattyMenu {
 		GUI::Helpers::RenderSOPSection("<:: CONTRABAND INDEX ::> ", [] {
 			DisplayCPContrabandIndex(CPSOPLookupTables::contraband_list);
 		});
+
+		// Render location authorization index
+		GUI::Helpers::RenderSOPSection("<:: LOCATION AUTHORIZATION INDEX ::>", [] {
+			if (ImGui::CollapsingHeader("<:: View Patrol Regions ::>")) {
+				DisplayPatrolRegions();
+			}
+			if (ImGui::CollapsingHeader("<:: View Non-Patrol Regions ::>")) {
+				DisplayNonPatrolRegions();
+			}
+			if (ImGui::CollapsingHeader("<:: View Legend ::>")) {
+				ImGui::Text("* Includes members of the Industrial and Medical Workforces");
+				
+				ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "*");
+				ImGui::SameLine();
+				ImGui::Text(" Unless directly escorted & supervised by protection units");
+
+				ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "**");
+				ImGui::SameLine();
+				ImGui::Text(" Unless authorized or during an active situation");
+			}
+
+		});
+
 
 	}
 
