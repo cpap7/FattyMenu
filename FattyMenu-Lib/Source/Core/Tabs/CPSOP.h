@@ -32,17 +32,36 @@ namespace FattyMenu {
 		void DisplayCPInteractionDirectives(const std::vector<CCivilStatus>& a_civil_status_list);
 
 		// For displaying terminology index
-		void DisplayCPTerms(const std::vector<CTerm>& a_terms);
+		//void DisplayCPTerms(const std::vector<CTerm>& a_terms);
 
 		// For displaying politi-schedule
 		void DisplayCPPolitiSchedule(const std::vector<CPolitiSchedule>& a_politi_schedule);
 		
+		// For the override code table
+		struct SOverrideCodeRow {
+			// Columns = Status | Sociostable | Unrest | Containment | Lockdown
+			// Each member contains row data to be displayed under each column 
+			const char* m_status_index		= "";
+			const char* m_sociostable_index = "";
+			const char* m_unrest_index		= "";
+			const char* m_containment_index = "";
+			const char* m_lockdown_index	= "";
+		};
+
 		// For displaying override code table
 		void DisplayOverrideCodeTable();
 
-		
+		struct SViolationLevelRow {
+			int m_level					= 0;
+			const char* m_description	= "";
+			std::vector<const char*> m_recommended_verdicts{};
+		};
+
+		// For displaying violation levels table
+		void DisplayViolationLevelsTable();
+
 		// For displaying mandate and assignment duties, alongside relevant misc info
-		void DisplayCPDuties(const std::vector<CAssignment>& a_assignments);
+		//void DisplayCPDuties(const std::vector<CAssignment>& a_assignments);
 
 		// For displaying the contraband index
 		void DisplayCPContrabandIndex(const std::vector<CContraband>& a_contraband_index);

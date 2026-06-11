@@ -117,8 +117,6 @@ namespace FattyMenu {
 		for (const auto& reward : a_reward_list) {
 			// Display them as bullet text
 			ImGui::TextWrapped("%s: %s\n", reward.GetNumber(), reward.GetDescription());
-			GUI::Helpers::WrappedBulletText("+%d Civic Points\n", reward.GetCivicPoints());
-			GUI::Helpers::WrappedBulletText("Ration Reward: %s\n", reward.GetRationRewardDescription());
 
 			// Separate each with a line separator
 			ImGui::Separator();
@@ -187,7 +185,8 @@ namespace FattyMenu {
 			// Status 				 Sociostable			Unrest			 Containment	  Lockdown
 			{ "Ration Intake",		"Active",			"Discretionary",	"Suspended",	"Suspended"		},
 			{ "Workforce Status",	"Active",			"Discretionary",	"Suspended",	"Suspended"		},
-			{ "Shield Access",		"Civic Populace",	"Workforce",		"Ground Units", "Ground Units"	}
+			{ "Shield Access",		"Civic Populace",	"Workforce",		"Ground Units", "Ground Units"	},
+			{ "Weapon Protocol",	"Holstered",		"Unholstered",		"Raised",		"Raised"		}
 		};
 
 		
@@ -226,6 +225,73 @@ namespace FattyMenu {
 		ImGui::EndTable();
 	}
 
+	// For displaying violation levels table
+	void CPSOP::DisplayViolationLevelsTable() {
+		static const SViolationLevelRow rows[] = {
+			// Columns:
+			{ 
+				// Level
+				1,
+
+				// Description
+				"Minor, isolated, accidental or first-time violation with negligable impact on sociostability. Little or no harm, disruption, interference or resistance is present",
+				
+				// Verdict (Recommended) 	
+				{ "Verbal Warning", "Citation", "Prosecution" }
+			},
+			{ 
+				2,
+				"Deliberated, repeated or disruptive violation with limited impact on sociostability. The violation demonstrates disregard for civic expectations but results in only minor harm, interference, disruption or disorder",
+				{ "Citation", "Prosecution" }
+			},
+			{ 
+				3,
+				"Serious violation resulting in measurable loss, interference, public disruption or operational burden. The violation produces measurable consequences affecting individuals, property, civic functions, or protection team operations",
+				{ "Prosecution" }
+			},
+			{ 
+				4,
+				"Severe violation involving substantial harm, dangerous conduct, significant resistance, organized misconduct or serious interference with Combine operations. The violation presents a clear threat to sociostability, civic order or operations",
+				{ "Terminal prosecution", "Amputation\n(if necessary to display authority amongst populace)" }
+			},
+			{
+				5,
+				"Critical violation involving extreme harm, armed conduct, violent intent, organized resistance, direct attacks upon Combine authority or actions causing widespread instability. The violation presents an immediate and significant threat to sociostability",
+				{ "Terminal prosecution", "Immediate amputation\n(if unable to apprehend)", "Disassociation\n(if labor required)" }
+			}
+		};
+
+
+		// Create the table for the violation levels
+		ImGui::BeginTable("ViolationLevels", 3, ImGuiTableFlags_Resizable | ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg | ImGuiTableFlags_SizingStretchProp);
+
+		// Set up columns
+		ImGui::TableSetupColumn("LEVEL");
+		ImGui::TableSetupColumn("DESCRIPTION");
+		ImGui::TableSetupColumn("VERDICT (RECOMMENDED)");
+		
+
+		ImGui::TableHeadersRow();
+
+		// Iterate over rows 
+		for (const auto& row : rows) {
+			ImGui::TableNextRow();
+
+			ImGui::TableSetColumnIndex(0);
+			ImGui::TextWrapped("%i", row.m_level);
+
+			ImGui::TableSetColumnIndex(1);
+			ImGui::TextWrapped("%s", row.m_description);
+
+			ImGui::TableSetColumnIndex(2);
+			for (const auto& verdict : row.m_recommended_verdicts) {
+				GUI::Helpers::WrappedBulletText("%s", verdict);
+			}
+		}
+
+		ImGui::EndTable();
+	}
+
 	// Function for displaying contraband index
 	// @param contraband_list -> vector containing a list of contraband, their verdict codes, and examples to be looped through and displayed
 	void CPSOP::DisplayCPContrabandIndex(const std::vector<CContraband>& a_contraband_list) {
@@ -250,7 +316,7 @@ namespace FattyMenu {
 
 		static const SLocationAuthorizationRow rows[] = {
 			// Columns:
-			// Location 									Civic Populace					Engineer Core						Infestation Control					Civil Protection
+			// Location 							Civic Populace					Engineer Core								Infestation Control					Civil Protection
 			{ { "Workforce Intake Hub" },			{ "Permitted" },				{ "Permitted" },							{ "Permitted" },					{ "Permitted" } },
 			{ { "Residental Block (priority)" },    { "Access Protocol" },			{ "Access Protocol" },						{ "Access Protocol" },				{ "Permitted" } },
 			{ { "Residental Block" },				{ "Permitted" },				{ "Permitted" },							{ "Permitted" },					{ "Permitted" } },
@@ -261,7 +327,7 @@ namespace FattyMenu {
 
 
 		// Create the table for the override code directives
-		ImGui::BeginTable("LocationAuthorization", 6, ImGuiTableFlags_Resizable | ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg);
+		ImGui::BeginTable("LocationAuthorization", 5, ImGuiTableFlags_Resizable | ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg);
 
 		// Set up columns
 		ImGui::TableHeader("PATROL REGTIONS");
@@ -279,7 +345,7 @@ namespace FattyMenu {
 
 			// Location & civil protection don't have their own conditionals
 			ImGui::TableSetColumnIndex(0);
-			ImGui::Text("%s", row.m_location.m_index.c_str());
+			ImGui::TextWrapped("%s", row.m_location.m_index.c_str());
 
 			ImGui::TableSetColumnIndex(1);
 			if (row.m_civic_populace.m_requires_civil_protection_supervision) {
@@ -291,7 +357,7 @@ namespace FattyMenu {
 				ImGui::TextColored(yellow_color, row.m_civic_populace.m_index.c_str());
 			}
 			else {
-				ImGui::Text("%s", row.m_civic_populace.m_index.c_str());
+				ImGui::TextWrapped("%s", row.m_civic_populace.m_index.c_str());
 			}
 
 			ImGui::TableSetColumnIndex(2);
@@ -304,7 +370,7 @@ namespace FattyMenu {
 				ImGui::TextColored(yellow_color, row.m_engineer_core.m_index.c_str());
 			}
 			else {
-				ImGui::Text("%s", row.m_engineer_core.m_index.c_str());
+				ImGui::TextWrapped("%s", row.m_engineer_core.m_index.c_str());
 			}
 
 			ImGui::TableSetColumnIndex(3);
@@ -317,11 +383,11 @@ namespace FattyMenu {
 				ImGui::TextColored(yellow_color, row.m_infestation_control.m_index.c_str());
 			}
 			else {
-				ImGui::Text("%s", row.m_infestation_control.m_index.c_str());
+				ImGui::TextWrapped("%s", row.m_infestation_control.m_index.c_str());
 			}
 
 			ImGui::TableSetColumnIndex(4);
-			ImGui::Text("%s", row.m_civil_protection.m_index.c_str());
+			ImGui::TextWrapped("%s", row.m_civil_protection.m_index.c_str());
 
 		}
 
@@ -344,7 +410,7 @@ namespace FattyMenu {
 
 
 		// Create the table for the override code directives
-		ImGui::BeginTable("LocationAuthorization", 6, ImGuiTableFlags_Resizable | ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg);
+		ImGui::BeginTable("LocationAuthorization", 5, ImGuiTableFlags_Resizable | ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg);
 
 		// Set up columns
 		ImGui::TableHeader("PATROL REGTIONS");
@@ -362,7 +428,7 @@ namespace FattyMenu {
 
 			// Location & civic populace don't have their own conditionals
 			ImGui::TableSetColumnIndex(0);
-			ImGui::Text("%s", row.m_location.m_index.c_str());
+			ImGui::TextWrapped("%s", row.m_location.m_index.c_str());
 
 			ImGui::TableSetColumnIndex(1);
 			ImGui::TextColored(red_color, "%s", row.m_civic_populace.m_index.c_str());
@@ -375,7 +441,7 @@ namespace FattyMenu {
 				ImGui::TextColored(yellow_color, "*");
 			}
 			else {
-				ImGui::Text("%s", row.m_engineer_core.m_index.c_str());
+				ImGui::TextWrapped("%s", row.m_engineer_core.m_index.c_str());
 			}
 
 			ImGui::TableSetColumnIndex(3);
@@ -385,7 +451,7 @@ namespace FattyMenu {
 				ImGui::TextColored(yellow_color, "*");
 			}
 			else {
-				ImGui::Text("%s", row.m_infestation_control.m_index.c_str());
+				ImGui::TextWrapped("%s", row.m_infestation_control.m_index.c_str());
 			}
 
 			ImGui::TableSetColumnIndex(4);
@@ -395,7 +461,7 @@ namespace FattyMenu {
 				ImGui::TextColored(yellow_color, "**");
 			}
 			else {
-				ImGui::Text("%s", row.m_civil_protection.m_index.c_str());
+				ImGui::TextWrapped("%s", row.m_civil_protection.m_index.c_str());
 			}
 		}
 
@@ -425,33 +491,56 @@ namespace FattyMenu {
 			if (ImGui::CollapsingHeader("<:: View 10- Codes ::>")) {
 				GUI::Helpers::DisplayList(CPSOPLookupTables::ten_code_list);
 			}
-			if (ImGui::CollapsingHeader("<:: View Code Violations ::>")) {
-				ImGui::Text("Anti-Civil Level 5\n -> Verbal warning and/or citation\n");
-				DisplayCPCodes(CPSOPLookupTables::anti_civil_level_5_violations);
+			if (ImGui::CollapsingHeader("<:: View Violation Codes ::>")) {
+				ImVec4 yellow_color = ImVec4(1.0f, 1.0f, 0.0f, 1.0f); // Yellow color for titles
 
-				ImGui::Text("\nAnti-Civil Level 1\n -> Prosecution: Sentencing is discretionary\n -> -10 civic points, 4 min sentence time\n");
-				DisplayCPCodes(CPSOPLookupTables::anti_civil_level_1_violations);
+				ImGui::TextColored(yellow_color, "\nVIOLATION OF CIVIC TRUST");
+				ImGui::TextWrapped("-> Actions that undermine civic responsibility, authorized resource allocation, workforce obligations or public trust\n");
+				DisplayCPCodes(CPSOPLookupTables::violation_of_civic_trust_codes);
 
-				ImGui::Text("\nSocio-Endangerment Level 5\n -> Prosecution: Dispatch approval required before proceeding\n -> -25 civic points, 6 min sentence time\n");
-				DisplayCPCodes(CPSOPLookupTables::socio_endangerment_level_5_violations);
+				ImGui::TextColored(yellow_color, "\nFAILURE TO COMPLY WITH THE CIVIL WILL");
+				ImGui::TextWrapped("-> Failure to obey, respect, or cooperate w/ lawful directives issued by Civil Protection\n");
+				DisplayCPCodes(CPSOPLookupTables::failure_to_comply_with_the_civil_will);
 
-				ImGui::Text("\nSocio-Endangerment Level 1\n -> Prosecution: Dispatch approval required before proceeding\n -> -25 civic points, 8 min sentence time\n");
-				DisplayCPCodes(CPSOPLookupTables::socio_endangerment_level_1_violations);
+				ImGui::TextColored(yellow_color, "\nPROMOTING COMMUNAL UNREST");
+				ImGui::TextWrapped("-> Actions intended to disrupt civic harmony, encourage disorder or undermine public stability\n");
+				DisplayCPCodes(CPSOPLookupTables::promoting_communal_unrest);
+
+				ImGui::TextColored(yellow_color, "\nDIVISIVE SOCIOCIDAL COUNTER-OBEYANCE");
+				ImGui::TextWrapped("-> Organized resistance to authority, interference with operations, or support of anti-civil elements\n");
+				DisplayCPCodes(CPSOPLookupTables::divisive_sociocidal_counter_obeyance);
+
+				ImGui::TextColored(yellow_color, "\nDESTRUCTION OF CORPORAL SOCIAL PROTECTION UNITS");
+				ImGui::TextWrapped("-> Acts resulting in damage to Civil Protection personnel, assets or operational capability\n");
+				DisplayCPCodes(CPSOPLookupTables::destruction_of_corporal_social_protection_units);
+			}
+			if (ImGui::CollapsingHeader("<:: View Violation Levels ::>")) {
+				ImGui::TextWrapped("Violation levels determine the seriousness of a violation & the appropriate verdict code.");
+				ImGui::TextWrapped("Protection units shall assess severity based upon intent, harm caused, degree of resistance, repitition of misconduct and threat posed to sociostability");
+				ImGui::TextWrapped("When multiple violations are committed simultaneously, units shall prosecute according to the highest applicable severity level.");
+				ImGui::TextWrapped("Additional violations may be used to increase severity at unit discretion.");
+
+				DisplayViolationLevelsTable();
 			}
 			if (ImGui::CollapsingHeader("<:: View Override Codes ::>")) {
+				DisplayOverrideCodeTable();
 				DisplayCPCodes(CPSOPLookupTables::override_code_list);
 			}
-			if (ImGui::CollapsingHeader("<:: View Override Code Table ::>")) {
-				DisplayOverrideCodeTable();
-			}
+			
 		});
 
 		// Display civic point reward sections
 		GUI::Helpers::RenderSOPSection("<:: CIVIC REWARD & INTERACTION INDEX ::>", [] {
-			if (ImGui::CollapsingHeader("<:: View Public Service Details ::>")) {
+			if (ImGui::CollapsingHeader("<:: View General Public Service Details ::>")) {
+				ImGui::TextWrapped("Any member of the civic populace can be summoned into voluntary conscription at any time by a protection unit to perform a public service.");
+				ImGui::TextWrapped("Successful completion of service may warrant a reward in the form of civic points or ration coupons at the discretion of a PTL");
+
 				DisplayCPRewardInfo(CPSOPLookupTables::public_service_detail_list);
 			}
 			if (ImGui::CollapsingHeader("<:: View Civic Deeds ::>")) {
+				ImGui::TextWrapped("Members of the civic populace may also perform civic deeds of their own accord.");
+				ImGui::TextWrapped("These may warrant a reward in the form of civic points or ration coupons at the discretion of a PTL");
+
 				DisplayCPRewardInfo(CPSOPLookupTables::civic_deed_list);
 			}
 			if (ImGui::CollapsingHeader("<:: View Interaction Directives ::>")) {
@@ -498,11 +587,21 @@ namespace FattyMenu {
 		GUI::Helpers::RenderSOPSection("<:: DUTY INDEX ::> ", [] {
 			// Display mandate duties
 			if (ImGui::CollapsingHeader("<:: View Mandate Duties ::>")) {
+				// Display prelude
+				ImGui::TextWrapped("These duties deviate from those under the assignments section as they are conducted exclusively during their designated times.");
+				ImGui::Separator();
+				
 				GUI::Helpers::DisplayAssignment(CPSOPLookupTables::mandate_duties_list);
 			}
 
 			// Display protection duties
 			if (ImGui::CollapsingHeader("<:: View Protection Duties ::>")) {
+				// Display prelude
+				ImGui::TextWrapped("Protection teams have many daily responsibilities, with team leaders coordinating assignmentsd to cover all duties.");
+				ImGui::TextWrapped("At least one team should serve as well-armed reinforcement near key areas.");
+				ImGui::TextWrapped("Dispatch & rank leaders are authorized to assign or reassign teams as necessary.");
+				ImGui::Separator();
+
 				GUI::Helpers::DisplayAssignment(CPSOPLookupTables::protection_duties_list);
 			}
 
@@ -530,13 +629,12 @@ namespace FattyMenu {
 				
 				ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "*");
 				ImGui::SameLine();
-				ImGui::Text(" Unless directly escorted & supervised by protection units");
+				ImGui::Text("Unless directly escorted & supervised by protection units");
 
 				ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "**");
 				ImGui::SameLine();
 				ImGui::Text(" Unless authorized or during an active situation");
 			}
-
 		});
 
 
