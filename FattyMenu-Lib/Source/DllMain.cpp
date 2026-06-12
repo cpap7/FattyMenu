@@ -70,7 +70,7 @@ GMOD_MODULE_CLOSE() {
 		// If true, tear down hooks and GUI
 		FattyMenu::Hooks::DestroyHooks();
 		FattyMenu::GUI::Destroy();
-		FattyMenu::GUI::g_initialized = false; 
+		FattyMenu::GUI::g_initialized = false;
 	}
 	return 0;
 }
