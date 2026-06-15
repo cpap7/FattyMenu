@@ -12,7 +12,7 @@ namespace FattyMenu {
 
 	namespace Rewards {
 		/* Declarations of public service details */
-		namespace GeneralPublicServiceDetails {
+		namespace PublicServiceDetails {
 			extern CCivicReward t94_322;
 			extern CCivicReward t47_941;
 			extern CCivicReward t37_584;

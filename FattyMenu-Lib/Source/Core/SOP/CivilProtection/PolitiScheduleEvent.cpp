@@ -14,7 +14,7 @@ namespace FattyMenu {
 		CPolitiSchedule curfew = { 
 			"00:00", 
 			"03:00", 
-			"Curfew Procedure",
+			"Curfew",
 			"3 hours"
 		};
 		

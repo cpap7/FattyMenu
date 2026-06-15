@@ -1,6 +1,6 @@
 #pragma once
 
-#include "CivilProtection/CPCodes.h" // For code definitions 
+#include "CivilProtection/CPCodes.h" // For radio code definitions 
 #include <vector>
 
 namespace FattyMenu {
@@ -21,7 +21,7 @@ namespace FattyMenu {
 		inline void SetVerdict(const char* a_verdict)						{ m_verdict			= a_verdict;		}
 		inline void SetExamples(const std::vector<const char*>& a_examples) { m_examples		= a_examples;		}
 
-		inline const CCode& GetViolationCode() const						{ return m_violation_code;				}
+		inline const const CCode& GetViolationCode() const					{ return m_violation_code;				}
 		inline const char* GetVerdict() const								{ return m_verdict;						}
 		inline const std::vector<const char*>& GetExamples() const			{ return m_examples;					}
 

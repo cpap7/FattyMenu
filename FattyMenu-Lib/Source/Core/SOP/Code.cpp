@@ -6,8 +6,8 @@ namespace FattyMenu {
 		: m_code_name(a_code_name), m_code_description(a_code_description), m_code_type(a_code_type) {
 	}
 	
-	CCode::CCode(const char* a_code_name, const char* a_code_description, const char* a_code_violation_description, ECodeType a_code_type) 
-		:  m_code_name(a_code_name), m_code_description(a_code_description), m_code_violation_description(a_code_violation_description), m_code_type(a_code_type) {
+	CCode::CCode(const char* a_code_name, const char* a_code_description, const char* a_violation_description, ECodeType a_code_type) 
+		:  m_code_name(a_code_name), m_code_description(a_code_description), m_violation_description(a_violation_description), m_code_type(a_code_type) {
 	}
 	
 	CCode::CCode(const char* a_code_name, const std::vector<const char*>& a_override_code_description, const std::vector<const char*>& a_override_code_directives, ECodeType a_code_type) 
