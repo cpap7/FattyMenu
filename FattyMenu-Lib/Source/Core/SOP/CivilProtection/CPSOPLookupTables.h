@@ -92,59 +92,47 @@ namespace FattyMenu {
 			CPCodes::Ten::_10109
 		};
 
-		// Violation Category: Violation of civic trust
-		// Category Description: Actions that undermine civic responsibility, authorized resource allocation, workforce obligations or public trust
-		static const std::vector<CCode> violation_of_civic_trust_codes = {
-			CPCodes::Violation::_27,
+		// Code violation lists
+		static const std::vector<CCode> anti_civil_level_5_violations = {
+			CPCodes::Violation::_28,
+			CPCodes::Violation::_35,
 			CPCodes::Violation::_54,
-			CPCodes::Violation::_62,
-			CPCodes::Violation::_69,
+			CPCodes::Violation::_59,
 			CPCodes::Violation::_91,
-			CPCodes::Violation::_99,
 			CPCodes::Violation::_311,
 			CPCodes::Violation::_374b,
-			CPCodes::Violation::_488,
-			CPCodes::Violation::_647e,
-			CPCodes::Violation::_647f
-		};
-
-		// Violation Category: Failure to comply with the civil will
-		// Category Description: Failure to obey, respect, or cooperate w/ lawful directives issued by Civil Protection
-		static const std::vector<CCode> failure_to_comply_with_the_civil_will = {
-			CPCodes::Violation::_35,
-			CPCodes::Violation::_59,
-			CPCodes::Violation::_63,
-			CPCodes::Violation::_148,
-			CPCodes::Violation::_507
-		};
-
-		// Violation Category: Promoting communal unrest
-		// Category Description: Actions intented to disrupt civic harmony, encourage disorder or undermine public stability
-		static const std::vector<CCode> promoting_communal_unrest = {
-			CPCodes::Violation::_28,
-			CPCodes::Violation::_404,
 			CPCodes::Violation::_407,
-			CPCodes::Violation::_415
+			CPCodes::Violation::_488,
+			CPCodes::Violation::_647f,
 		};
 
-		// Violation Category: Divisive sociocidal counter-obeyance
-		// Category Description: Organized resistance to authority, interference with operations, or support of anti-civil elements
-		static const std::vector<CCode> divisive_sociocidal_counter_obeyance = {
-			CPCodes::Violation::_17f,
+		static const std::vector<CCode> anti_civil_level_1_violations = {
+			CPCodes::Violation::_27,
+			CPCodes::Violation::_62,
+			CPCodes::Violation::_63,
+			CPCodes::Violation::_69,
+			CPCodes::Violation::_99,
+			CPCodes::Violation::_415,
+			CPCodes::Violation::_507,
+			CPCodes::Violation::_647e
+		};
+
+		static const std::vector<CCode> socio_endangerment_level_5_violations = {
 			CPCodes::Violation::_51,
+			CPCodes::Violation::_51b,
 			CPCodes::Violation::_63s,
-			CPCodes::Violation::_94,
 			CPCodes::Violation::_95,
+			CPCodes::Violation::_148,
 			CPCodes::Violation::_603
 		};
 
-		// Violation Category: Destruction of corporal social protection units
-		// Category Description: Acts resulting in damage to Civil Protection personnel, assets or operational capability 		
-		static const std::vector<CCode> destruction_of_corporal_social_protection_units = {
-			CPCodes::Violation::_51b,
-			CPCodes::Violation::_243
+		static const std::vector<CCode> socio_endangerment_level_1_violations = {
+			CPCodes::Violation::_17f,
+			CPCodes::Violation::_94,
+			CPCodes::Violation::_243,
+			CPCodes::Violation::_404
 		};
-		
+
 		// Override code list
 		static const std::vector<CCode> override_code_list = {
 			CPCodes::Override::sociostable,
@@ -153,11 +141,11 @@ namespace FattyMenu {
 			CPCodes::Override::lockdown_procedure
 		};
 
-		// Civic reward lists
+		// Civic point reward lists
 		static const std::vector<CCivicReward> public_service_detail_list = {
-			Rewards::GeneralPublicServiceDetails::t94_322,
-			Rewards::GeneralPublicServiceDetails::t47_941,
-			Rewards::GeneralPublicServiceDetails::t37_584,
+			Rewards::PublicServiceDetails::t94_322,
+			Rewards::PublicServiceDetails::t47_941,
+			Rewards::PublicServiceDetails::t37_584,
 		};
 
 		static const std::vector<CCivicReward> civic_deed_list = {

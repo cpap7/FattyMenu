@@ -30,7 +30,7 @@ project "FattyMenu-Lib"
    
    links 
    {
-		"d3d9",
+		"d3d9"
    }
 
    
