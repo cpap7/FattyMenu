@@ -82,42 +82,50 @@ namespace FattyMenu {
 
 		// CCode violation declarations
 		namespace Violation {
-			// Anti-civil level 5 - verbal warning and/or citation
-			extern CCode _28;
-			extern CCode _35;
+			// Violation Category: Violation of civic trust
+			// Category Description: Actions that undermine civic responsibility, authorized resource allocation, workforce obligations or public trust
+			extern CCode _27;
 			extern CCode _54;
-			extern CCode _59;
+			extern CCode _62;
+			extern CCode _69;
 			extern CCode _91;
+			extern CCode _99;
 			extern CCode _311;
 			extern CCode _374b;
-			extern CCode _407;
 			extern CCode _488;
+			extern CCode _647e;
 			extern CCode _647f;
 
-			// Anti-civil level 1 - prosecution (sentencing discretionary) -> -10 civic points, 4 min sentence time
-			extern CCode _27;
-			extern CCode _62;
+			// Violation Category: Failure to comply with the civil will
+			// Category Description: Failure to obey, respect, or cooperate w/ lawful directives issued by Civil Protection
+			extern CCode _35;
+			extern CCode _59;
 			extern CCode _63;
-			extern CCode _69;
-			extern CCode _99;
-			extern CCode _415;
-			extern CCode _507;
-			extern CCode _647e;
-
-			// Socio-endangerment level 5 - dispatch required -> -25 civic points, 6 min sentence time
-			extern CCode _51;
-			extern CCode _51b;
-			extern CCode _63s;
-			extern CCode _95;
 			extern CCode _148;
+			extern CCode _507;
+
+			// Violation Category: Promoting communal unrest
+			// Category Description: Actions intented to disrupt civic harmony, encourage disorder or undermine public stability
+			extern CCode _28;
+			extern CCode _404;
+			extern CCode _407;
+			extern CCode _415;
+
+			// Violation Category: Divisive sociocidal counter-obeyance
+			// Category Description: Organized resistance to authority, interference with operations, or support of anti-civil elements
+			extern CCode _17f;
+			extern CCode _51;
+			extern CCode _63s;
+			extern CCode _94;
+			extern CCode _95;
 			extern CCode _603;
 
-			// Socio-endangerment level 5 - dispatch required -> -25 civic points, 8 min sentence time
-			extern CCode _17f;
-			extern CCode _94;
+			// Violation Category: Destruction of corporal social protection units
+			// Category Description: Acts resulting in damage to Civil Protection personnel, assets or operational capability 
+			extern CCode _51b;
 			extern CCode _243;
-			extern CCode _404;
 		}
+
 
 		// CCode declarations for override codes
 		namespace Override {

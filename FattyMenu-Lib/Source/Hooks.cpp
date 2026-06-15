@@ -19,7 +19,7 @@ namespace FattyMenu {
 			if (GUI::g_load_method == GUI::LoadMethod::GarrysModLoad) {
 				do { // Perform for at least one iteration
 					GUI::FindGameWindow();
-				} while (GUI::gm_window == NULL);
+				} while (GUI::g_gmod_window == NULL);
 			}
 			// So if it returns 1 == true, that means it didn't initialize
 			throw std::runtime_error("Minhook could not be initialized.");
@@ -73,13 +73,13 @@ namespace FattyMenu {
 		}
 
 		// Check if the menu is set up
-		if (!GUI::initialized) {
+		if (!GUI::g_initialized) {
 			// If it isn't, call the set up function
 			GUI::InitializeMenu(d3d9_device);
 		}
 
 		// Check if the menu is open
-		if (GUI::open_menu) {
+		if (GUI::g_open_menu) {
 			GUI::Render(); 		// Render menu data if true
 		}
 

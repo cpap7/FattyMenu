@@ -9,7 +9,9 @@ namespace FattyMenu {
 		{
 			"Assignment description point 1",
 			"Assignment description point 2",
-			"Assignment description point 3"
+			"Assignment description point 3",
+			...
+			"Assignment description point N"
 		}
 	};
 	*/
@@ -18,7 +20,7 @@ namespace FattyMenu {
 		namespace MandateDuties {
 			CAssignment curfew_procedure = {
 				"Curfew Procedure",
-				"REQUIRED: At least 3 units (team) per residential block",
+				"RECOMMENDED: At least 3 units (team) per residential block",
 				{
 					"Conduct thorough block inspections",
 					"Ensure unemployed citizens are inside their assigned tenement building",
@@ -29,9 +31,10 @@ namespace FattyMenu {
 					"NOTE: 40+ units (and above) may modify containment field access modes at their discretion to better enforce curfew"
 				}
 			};
+			
 			CAssignment ration_intake_detail = {
 				"Ration Intake Detail",
-				"REQUIRED: At least 3 units (team)",
+				"RECOMMENDED: At least 3 units (team)",
 				{
 					"Execute strict oversight during communal ration distribution",
 					"Ensure citizens are:\n -> Facing forward\n -> Maintaining civil privacy\n -> Remaining silent while waiting in line",
@@ -44,15 +47,16 @@ namespace FattyMenu {
 		namespace ProtectionDuties {
 			CAssignment restricted_patrol_protocol = {
 				"Restricted Patrol Protocol",
-				"REQUIRED: At least 3 units WITH FIREARMS (team)",
+				"RECOMMENDED: At least 1 unit with a submachine gun and 2 units with sidearms (team)",
 				{
 					"Escort technicians to repair any compromised containment fields or sterilizers",
 					"Respond to anti-citizen or necrotic activity\n -> Cauterize any threats to sociostability"
 				}
 			};
+			
 			CAssignment workforce_supervisory_detail = {
 				"Workforce Supervisory Detail",
-				"REQUIRED: At least 3 units (team)",
+				"RECOMMENDED: At least 3 units (team)",
 				{
 					"Oversee labor detail and ensure efficient contribution from the Industrial Workforce",
 					"Ensure assets are appropriately distributed to their designated supply stock locations",
@@ -65,19 +69,20 @@ namespace FattyMenu {
 				}
 
 			};
+			
 			CAssignment precinct_patrol_protocol = {
 				"Precinct Patrol Protocol",
-				"REQUIRED: At least 2 units (team)",
+				"REQUIRED: At least 1 unit",
 				{
 					"Conduct routine patrols throughout assigned precincts",
 					"Deter unauthorized activities",
 					"Disperse any public gatherings",
 					"Investigate any nearby alarms of suspicious individuals",
-					"NOTE: Checkpoints between Precincts should be manned by at least one officer to search for POI and prevent minges from going any further",
-					"NOTE: 2 units needed MINIMUM to patrol P13-N"
+					"NOTE: Checkpoints between Precincts should be manned by at least one officer to search for POI and prevent minges from going any further"
 				}
 
 			};
+			
 			CAssignment security_checkpoint_oversight = {
 				"Security Checkpoint Oversight",
 				"REQUIRED: At least 1 unit",
@@ -92,23 +97,25 @@ namespace FattyMenu {
 				}
 
 			};
+			
 			CAssignment biotic_supervisory_detail = {
 				"Biotic Supervisory Detail",
-				"REQUIRED: At least 1 unit per 2 biotics",
+				"RECOMMENDED: At least 1 unit per biotic",
 				{
 					"Release biotic conscripts from their designated holding area to begin an assignment",
 					"Oversee labor detail, ensuring efficient contribution from all biotic conscripts",
 					"Ensure biotic conscripts are returned to their holding area upon completion"
 				}
 			};
+			
 			CAssignment workforce_intake_processing = {
 				"Workforce Intake Processing",
-				"REQUIRED: At least 1 unit",
+				"RECOMMENDED: At least 2 units",
 				{
-					"Process new arrivals at TB-1 or WIH-3 and ensure they:\n -> Have validated their transfer with a relocation coupon\n -> Received their new ID card\n -> Do not possess contraband\n"
-					"NOTE: Checkpoint at TB-1 (bus station) must be manned at all times by at least 2 units. It's strongly recommended that one them be a PTL."
+					"Process new arrivals at TB-3 or WIH-3 and ensure they:\n -> Have validated their transfer with a relocation coupon\n -> Received their new ID card\n -> Do not possess contraband\n"
 				}
 			};
+
 			CAssignment conscript_custody_oversight = {
 				"Conscript Custody Oversight",
 				"REQUIRED: At least 1 unit",
@@ -118,6 +125,7 @@ namespace FattyMenu {
 					"Restrict access to areas within SB-6 by ensuring all doors are closed and locked"
 				}
 			};
+			
 			CAssignment surveillance_network_maintenance = {
 				"Surveillance Network Maintenance",
 				"REQUIRED: At least 1 unit",
@@ -128,6 +136,7 @@ namespace FattyMenu {
 
 			};
 		}
+
 		namespace Miscellaneous {
 			CAssignment expectations = {
 				"Duty / Mandate Expectations",
@@ -141,6 +150,7 @@ namespace FattyMenu {
 					"When a citizen approaches you to turn in contraband, never allow them to drop it in public. Have them face the wall and confiscate it from them ther"
 				}
 			};
+
 			CAssignment tac_usage = {
 				"TAC Usage / Etiquette",
 				"Refer to these guidelines when you're unsure whether to radio in TAC or not\nTAC should be used in the following scenarios:",
