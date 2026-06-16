@@ -93,11 +93,13 @@ namespace FattyMenu {
 		});
 
 		// Display the duty index
+		/*
 		GUI::Helpers::RenderSOPSection("<:: DUTY INDEX ::>", [] {
 			if (ImGui::CollapsingHeader("<:: View Stabilization Duties ::>")) {
-				GUI::Helpers::DisplayAssignment(TFSOPLookupTables::tf_duties_list);
+				GUI::Helpers::DisplayAssignment(TFSOPLookupTables::tf_duties_list); // TODO: Update the duties list
 			}
 		});
+		*/
 
 
 	}
