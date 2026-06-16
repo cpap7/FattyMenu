@@ -28,7 +28,7 @@ namespace FattyMenu {
 		g_window_class.lpfnWndProc = DefWindowProc;			// Set the window to be the default window process
 		g_window_class.cbClsExtra = 0;
 		g_window_class.cbWndExtra = 0;
-		g_window_class.hInstance = GetModuleHandle(NULL);		// Set the instance handle to NULL
+		g_window_class.hInstance = GetModuleHandle(NULL);	// Set the instance handle to NULL
 		g_window_class.hIcon = NULL;
 		g_window_class.hCursor = NULL;
 		g_window_class.hbrBackground = NULL;
@@ -60,7 +60,7 @@ namespace FattyMenu {
 	bool GUI::InitializeWindow(const char* a_window_name) noexcept {
 		// Generate a temporary window
 		g_window = CreateWindow(
-			g_window_class.lpszClassName,						// Pass the window class' name
+			g_window_class.lpszClassName,					// Pass the window class' name
 			a_window_name,									// Pass the window's name
 			WS_OVERLAPPEDWINDOW,							// Set the style
 			0,												// X = 0
@@ -69,7 +69,7 @@ namespace FattyMenu {
 			100,											// 100 height
 			0,												// No parent
 			0,												// No menu
-			g_window_class.hInstance,							// Pass the window class' instance handle
+			g_window_class.hInstance,						// Pass the window class' instance handle
 			0
 		);
 
@@ -87,8 +87,8 @@ namespace FattyMenu {
 	void GUI::DestroyWindow() {
 		// Check if the window is valid
 		if (g_window) {
-			// Pass the window over to WinAPI's DestroyWindow method
-			DestroyWindow(g_window);
+			::DestroyWindow(g_window); // Pass the window over to WinAPI's DestroyWindow method
+			g_window = nullptr;
 		}
 	}
 
@@ -191,7 +191,7 @@ namespace FattyMenu {
 
 	// Finds the game's window based on Garry's Mod dll load method
 	HWND GUI::FindGameWindow() {
-		g_gmod_window = NULL;
+		g_gmod_window = nullptr;
 		EnumWindows(EnumWindowsCallback, NULL);
 		return g_gmod_window;
 	}
@@ -205,33 +205,24 @@ namespace FattyMenu {
 
 	// Sets up the device for manual map injection
 	void GUI::InitializeDevice() {
-		// Ensure errors can only be thrown if a manual map injection is performed ONLY
-		if (g_load_method == LoadMethod::ManualMap) { // Garry's Mod direct load relies on existing game window only
-			// Handle runtime exception errors here first
-
-			// Check to see the window class was initialized properly
-			if (!InitializeWindowClass("FattyMenuWndClass")) {
-				// If not, throw an error
-				throw std::runtime_error("Window class could not be created.");
-			}
-
-			// Check to see the window was initialized properly
-			if (!InitializeWindow("FattyMenuWnd")) {
-				// If not, throw an error
-				throw std::runtime_error("Window could not be created.");
-			}
-
-			// Check to see the DirectX was initialized properly
-			if (!InitializeDirectX9()) {
-				// If not, throw an error
-				throw std::runtime_error("D3D9 device could not be created.");
-			}
-
-			// Unregister the Window and Window Class
-			DestroyWindow();
-			DestroyWindowClass();
+		// Check to see the window class was initialized properly
+		if (!InitializeWindowClass("FattyMenuWndClass")) {
+			throw std::runtime_error("Window class could not be created.");
 		}
-		// For Garry's Mod loading the .dll, the existing window will be found elsewhere
+
+		// Check to see the window was initialized properly
+		if (!InitializeWindow("FattyMenuWnd")) {
+			throw std::runtime_error("Window could not be created.");
+		}
+
+		// Check to see the DirectX was initialized properly
+		if (!InitializeDirectX9()) {
+			throw std::runtime_error("D3D9 device could not be created.");
+		}
+
+		// Unregister the Window and Window Class
+		DestroyWindow();
+		DestroyWindowClass();
 	}
 
 	// Initializes ImGUI menu
@@ -363,6 +354,11 @@ namespace FattyMenu {
 
 				ImGui::TextWrapped("Voiceline Data\n");
 				ImGui::TextWrapped("-> -Broken-\n\n");
+				ImGui::Separator();
+
+				ImGui::TextWrapped("Programming Assistance\n");
+				ImGui::TextWrapped("-> @fblawyer on Discord\n\n");
+
 
 				ImGui::EndTabItem();
 			}
@@ -381,8 +377,6 @@ namespace FattyMenu {
 	}
 	
 }
-
-
 
 /* Controls window/input priority between the menu window and game process */
 LRESULT CALLBACK WindowProcess(HWND window, UINT message, WPARAM wide_param, LPARAM long_param) {
