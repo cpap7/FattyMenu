@@ -466,6 +466,275 @@ namespace FattyMenu {
 		}
 
 		ImGui::EndTable();
+
+
+		// For displaying violation code, name and description
+		void CPSOP::DisplayViolationCivicTrustTable() {
+			ImVec4 yellow_color = ImVec4(1.0f, 1.0f, 0.0f, 1.0f); // Yellow color for "*" entries
+			static const SViolationCivicTrustCodeRow rows[] = {
+				// Columns:
+				// Code					Violation						Description
+				{ "27",				"Attempted Crime",			       "Attempting a violation without successful completion", false },
+				{ "54",				"Possession of materials",	       "Possession of minor contraband articles", false },
+				{ "62",				"Alarms",		                   "Knowingly making false reports to Civil Protection", false },
+				{ "69",				"Possession of resources",	       "Possession of moderate contraband articles", false },
+				{ "91",		        "Non-sanctioned distribution",      "Distributing items outside authorized distribution zones", true },
+				{ "99",				"Reckless Operation",		        "Unsafe or negligent operation of equipment", false },
+				{ "311",			"Verbal Indescretion",	            "Loitering or excessive conversation without civic purpose", false },
+				{ "374b",			"Illegal disposal",		            "Littering, defacement, or unsanitary waste disposal", false },
+				{ "488",			"Theft",	                        "Unlawful taking or scavenging of property", false },
+				{ "647e",           "Disengaged from Workforce",        "Deviating from assigned duties or non-corplex status", false },
+				{ "647f",           "Civic dysfunction",                "Public intoxication or impairment", false },
+
+			};
+
+			// Create the table for the violation levels
+			ImGui::BeginTable("Code Violations", 3, ImGuiTableFlags_Resizable | ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg | ImGuiTableFlags_SizingStretchProp);
+
+			// Set up columns
+			ImGui::TableHeader("VIOLATION OF CIVIC TRUST");
+			ImGui::TableSetupColumn("CODE");
+			ImGui::TableSetupColumn("VIOLATION");
+			ImGui::TableSetupColumn("DESCRIPTION");
+
+
+			ImGui::TableHeadersRow();
+
+			// Iterate over rows 
+			for (const auto& violation : rows) {
+				ImGui::TableNextRow();
+
+				ImGui::TableSetColumnIndex(0);
+				ImGui::TextWrapped("%s", violation.m_code);
+
+				ImGui::TableSetColumnIndex(1);
+				ImGui::TextWrapped("%s", violation.m_violation);
+
+				ImGui::TableSetColumnIndex(2);
+				if (violation.m_description == "Distributing items outside authorized distribution zones") {
+					ImGui::TextWrapped("%s", violation.m_description),
+						ImGui::SameLine(),
+						ImGui::TextColored(yellow_color, "*");
+				}
+				else {
+					ImGui::TextWrapped("%s", violation.m_description);
+				}
+			}
+
+			ImGui::EndTable();
+
+		};
+
+		// For displaying violation code, name and description
+		void CPSOP::DisplayViolationCivilWillTable() {
+			ImVec4 yellow_color = ImVec4(1.0f, 1.0f, 0.0f, 1.0f); // Yellow color for "*" entries
+			static const SViolationCivilWillRow rows[] = {
+				// Columns:
+				// Code					Violation						Description
+				{ "35",				"Civil privacy violation",			"Unauthorized intrusion, observation or harassment" },
+				{ "59",				"Movement trangression",	       "Excessive running, climbing, or unauthorized movement" },
+				{ "63",				"Criminal trespass",		                   "Entering a restricted area without authorization" },
+				{ "148",				"Resisting Arrest",	       "Resisting, evading or fleeing from prosecution" },
+				{ "507",		        "Public non-compliance",      "Failure to comply with lawful directives" },
+
+			};
+
+			// Create the table for the violation levels
+			ImGui::BeginTable("Code Violations", 3, ImGuiTableFlags_Resizable | ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg | ImGuiTableFlags_SizingStretchProp);
+
+			// Set up columns
+			ImGui::TableHeader("FAILURE TO COMPLY WITH THE CIVIL WILL");
+			ImGui::TableSetupColumn("CODE");
+			ImGui::TableSetupColumn("VIOLATION");
+			ImGui::TableSetupColumn("DESCRIPTION");
+
+
+			ImGui::TableHeadersRow();
+
+			// Iterate over rows 
+			for (const auto& violation : rows) {
+				ImGui::TableNextRow();
+
+				ImGui::TableSetColumnIndex(0);
+				ImGui::TextWrapped("%s", violation.m_code);
+
+				ImGui::TableSetColumnIndex(1);
+				ImGui::TextWrapped("%s", violation.m_violation);
+
+				ImGui::TableSetColumnIndex(2);
+				ImGui::TextWrapped("%s", violation.m_description);
+			}
+
+			ImGui::EndTable();
+
+		};
+
+		// For displaying violation code, name and description
+		void CPSOP::DisplayViolationCommunalUnrestTable() {
+			ImVec4 yellow_color = ImVec4(1.0f, 1.0f, 0.0f, 1.0f); // Yellow color for "*" entries
+			static const SViolationCommunalUnrestRow rows[] = {
+				// Columns:
+				// Code					Violation						Description
+				{ "28",				"Felony incite",		"Encouraging or directing others to commit violations" },
+				{ "404",		    "Riot",	                "Participating in or promoting communal unrest" },
+				{ "407",			"Unlawful Assembly",	"Unauthorized gathering posing a stability risk" },
+				{ "415",			"Civic disunity",	    "Disturbing public order assaulting civilians" },
+
+			};
+
+			// Create the table for the violation levels
+			ImGui::BeginTable("Code Violations", 3, ImGuiTableFlags_Resizable | ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg | ImGuiTableFlags_SizingStretchProp);
+
+			// Set up columns
+			ImGui::TableSetupColumn("CODE");
+			ImGui::TableSetupColumn("VIOLATION");
+			ImGui::TableSetupColumn("DESCRIPTION");
+
+
+			ImGui::TableHeadersRow();
+
+			// Iterate over rows 
+			for (const auto& violation : rows) {
+				ImGui::TableNextRow();
+
+				ImGui::TableSetColumnIndex(0);
+				ImGui::TextWrapped("%s", violation.m_code);
+
+				ImGui::TableSetColumnIndex(1);
+				ImGui::TextWrapped("%s", violation.m_violation);
+
+				ImGui::TableSetColumnIndex(2);
+				ImGui::TextWrapped("%s", violation.m_description);
+			}
+
+			ImGui::EndTable();
+
+		};
+
+		// For displaying violation code, name and description
+		void CPSOP::DisplayViolationDisiveSociocidalTable() {
+			ImVec4 red_color = ImVec4(1.0f, 0.0f, 0.0f, 1.0f);
+			ImVec4 yellow_color = ImVec4(1.0f, 1.0f, 0.0f, 1.0f); // Yellow color for "*" entries
+			static const SViolationDisiveSociocidalRow rows[] = {
+				// Columns:
+				// Code					Violation						Description
+				{ "17f",				"Fugitive Detachment",		"Haboring or concealing wanted individuals" },
+				{ "51",		    "Non-sanctioned arson",	                "Starting or spreading fire without authorization" },
+				{ "63s",			"Illegal in operation",	"Obstruction of authorized civic operations" },
+				{ "94",			"Weapon",	    "Possession or use of any firearm" },
+				{ "95",			"Illegal Carrying",	    "Possession of major contraband articles \n" },
+				{ "603",         "Unlawful entry", "Gaining entry through force, fraud, or deception" },
+
+			};
+
+			// Create the table for the violation levels
+			ImGui::BeginTable("Code Violations", 3, ImGuiTableFlags_Resizable | ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg | ImGuiTableFlags_SizingStretchProp);
+
+			// Set up columns
+			ImGui::TableSetupColumn("CODE");
+			ImGui::TableSetupColumn("VIOLATION");
+			ImGui::TableSetupColumn("DESCRIPTION");
+
+
+			ImGui::TableHeadersRow();
+
+			// Iterate over rows 
+			for (const auto& violation : rows) {
+				ImGui::TableNextRow();
+
+				ImGui::TableSetColumnIndex(0);
+				ImGui::TextWrapped("%s", violation.m_code);
+
+				ImGui::TableSetColumnIndex(1);
+				ImGui::TextWrapped("%s", violation.m_violation);
+
+				ImGui::TableSetColumnIndex(2);
+				if (violation.m_description == "Possession of major contraband articles \n") {
+					ImGui::TextWrapped("%s", violation.m_description),
+						ImGui::TextWrapped("(charge"),
+						ImGui::SameLine(),
+						ImGui::TextColored(red_color, "all firarms"),
+						ImGui::SameLine(),
+						ImGui::TextWrapped("with 94 weapon instead)");
+				}
+				else {
+					ImGui::TextWrapped("%s", violation.m_description);
+				}
+			}
+
+			ImGui::EndTable();
+
+		};
+
+
+
+		// For displaying violation levels table
+		void CPSOP::DisplayViolationLevelsTable() {
+			static const SViolationLevelRow rows[] = {
+				// Columns:
+				{
+					// Level
+					1,
+
+					// Description
+					"Minor, isolated, accidental or first-time violation with negligable impact on sociostability. Little or no harm, disruption, interference or resistance is present",
+
+					// Verdict (Recommended) 	
+					{ "Verbal Warning", "Citation", "Prosecution" }
+				},
+				{
+					2,
+					"Deliberated, repeated or disruptive violation with limited impact on sociostability. The violation demonstrates disregard for civic expectations but results in only minor harm, interference, disruption or disorder",
+					{ "Citation", "Prosecution" }
+				},
+				{
+					3,
+					"Serious violation resulting in measurable loss, interference, public disruption or operational burden. The violation produces measurable consequences affecting individuals, property, civic functions, or protection team operations",
+					{ "Prosecution" }
+				},
+				{
+					4,
+					"Severe violation involving substantial harm, dangerous conduct, significant resistance, organized misconduct or serious interference with Combine operations. The violation presents a clear threat to sociostability, civic order or operations",
+					{ "Terminal prosecution", "Amputation\n(if necessary to display authority amongst populace)" }
+				},
+				{
+					5,
+					"Critical violation involving extreme harm, armed conduct, violent intent, organized resistance, direct attacks upon Combine authority or actions causing widespread instability. The violation presents an immediate and significant threat to sociostability",
+					{ "Terminal prosecution", "Immediate amputation\n(if unable to apprehend)", "Disassociation\n(if labor required)" }
+				}
+			};
+
+
+			// Create the table for the violation levels
+			ImGui::BeginTable("ViolationLevels", 3, ImGuiTableFlags_Resizable | ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg | ImGuiTableFlags_SizingStretchProp);
+
+			// Set up columns
+			ImGui::TableSetupColumn("LEVEL");
+			ImGui::TableSetupColumn("DESCRIPTION");
+			ImGui::TableSetupColumn("VERDICT (RECOMMENDED)");
+
+
+			ImGui::TableHeadersRow();
+
+			// Iterate over rows 
+			for (const auto& row : rows) {
+				ImGui::TableNextRow();
+
+				ImGui::TableSetColumnIndex(0);
+				ImGui::TextWrapped("%i", row.m_level);
+
+				ImGui::TableSetColumnIndex(1);
+				ImGui::TextWrapped("%s", row.m_description);
+
+				ImGui::TableSetColumnIndex(2);
+				for (const auto& verdict : row.m_recommended_verdicts) {
+					GUI::Helpers::WrappedBulletText("%s", verdict);
+				}
+			}
+
+			ImGui::EndTable();
+
+		}
 	}
 
 	void CPSOP::RenderCivilProtectionSOP() {

@@ -36,6 +36,8 @@ namespace FattyMenu {
 
 		// For displaying politi-schedule
 		void DisplayCPPolitiSchedule(const std::vector<CPolitiSchedule>& a_politi_schedule);
+<<<<<<< HEAD
+=======
 		
 		// For the override code table
 		struct SOverrideCodeRow {
@@ -47,10 +49,13 @@ namespace FattyMenu {
 			const char* m_containment_index = "";
 			const char* m_lockdown_index	= "";
 		};
+>>>>>>> ecef8188b09284b7cf37e1795ef91ef75fbfe27e
 
 		// For displaying override code table
 		void DisplayOverrideCodeTable();
 
+<<<<<<< HEAD
+=======
 		struct SViolationLevelRow {
 			int m_level					= 0;
 			const char* m_description	= "";
@@ -59,6 +64,7 @@ namespace FattyMenu {
 
 		// For displaying violation levels table
 		void DisplayViolationLevelsTable();
+>>>>>>> ecef8188b09284b7cf37e1795ef91ef75fbfe27e
 
 		// For displaying mandate and assignment duties, alongside relevant misc info
 		//void DisplayCPDuties(const std::vector<CAssignment>& a_assignments);
@@ -68,9 +74,9 @@ namespace FattyMenu {
 
 		// For the location authorization tables
 		struct SLocationAuthorizationEntry {
-			std::string m_index							 = "";
-			bool m_requires_civil_protection_supervision = false;
-			bool m_requires_special_authorization		 = false; // For civil protection non-patrol regions
+			std::string m_index = "";
+			bool m_requires_civil_protection_supervision = false; // For infestation and engineer core non/patrol regions
+			bool m_requires_special_authorization = false;       // For civil protection non-patrol regions
 		};
 
 		struct SLocationAuthorizationRow {
@@ -80,6 +86,45 @@ namespace FattyMenu {
 			SLocationAuthorizationEntry m_infestation_control;
 			SLocationAuthorizationEntry m_civil_protection;
 		};
+
+		struct SViolationLevelRow {
+			int m_level = 0;
+			const char* m_description = "";
+			std::vector<const char*> m_recommended_verdicts{};
+		};
+
+		struct SViolationCivicTrustCodeRow {
+			const char* m_code = "";
+			const char* m_violation = "";
+			const char* m_description = "";
+			bool m_sanctioned_distribution = false; // Mark it with an asterisk to indicate that it's only sanctioned in certain areas
+
+		};
+		struct SViolationCivilWillRow {
+			const char* m_code = "";
+			const char* m_violation = "";
+			const char* m_description = "";
+		};
+
+		struct SViolationCommunalUnrestRow {
+			const char* m_code = "";
+			const char* m_violation = "";
+			const char* m_description = "";
+		};
+
+		struct SViolationDisiveSociocidalRow {
+			const char* m_code = "";
+			const char* m_violation = "";
+			const char* m_description = "";
+		};
+
+		// For displaying violation code, name and description
+		void DisplayViolationCivicTrustTable();
+		void DisplayViolationCivilWillTable();
+		void DisplayViolationCommunalUnrestTable();
+		void DisplayViolationDisiveSociocidalTable();
+		// For displaying violation levels table
+		void DisplayViolationLevelsTable();
 
 		void DisplayPatrolRegions();
 		void DisplayNonPatrolRegions();
