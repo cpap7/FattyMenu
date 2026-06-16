@@ -137,7 +137,7 @@ LUA_API int             (lua_isstring) (lua_State *L, int idx);
 LUA_API int             (lua_iscfunction) (lua_State *L, int idx);
 LUA_API int             (lua_isuserdata) (lua_State *L, int idx);
 LUA_API int             (lua_type) (lua_State *L, int idx);
-LUA_API const char     *(lua_typename) (lua_State *L, int tp);
+LUA_API const char     *(lua_typename) (lua_State *L, int tp, int idx);
 
 LUA_API int            (lua_equal) (lua_State *L, int idx1, int idx2);
 LUA_API int            (lua_rawequal) (lua_State *L, int idx1, int idx2);
@@ -283,6 +283,16 @@ LUA_API void lua_setallocf (lua_State *L, lua_Alloc f, void *ud);
 /*
 ** compatibility macros and functions
 */
+
+#define __LUA_TYPENAME_2_ARGS(L,tp)         (lua_typename)(L, (tp), 0)
+#define __LUA_TYPENAME_3_ARGS(L,tp,idx)     (lua_typename)(L, (tp), (idx))
+
+#define __LUA_TYPENAME_GET_4TH_ARG(arg1,arg2,arg3,arg4,...) arg4
+#define __LUA_TYPENAME_MACRO_CHOOSER(...) \
+    __LUA_TYPENAME_GET_4TH_ARG(__VA_ARGS__,__LUA_TYPENAME_3_ARGS,__LUA_TYPENAME_2_ARGS)
+
+// lua_typename receives a lua_State*, a type enum, and optionally an index to the value being queried.
+#define lua_typename(L,...) __LUA_TYPENAME_MACRO_CHOOSER(L,__VA_ARGS__)(L,__VA_ARGS__)
 
 #define lua_open()	luaL_newstate()
 
