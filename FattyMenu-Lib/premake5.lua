@@ -22,7 +22,6 @@ project "FattyMenu-Lib"
    includedirs
    {
        "Source",
-       "%{IncludeDir.kiero}",
        "%{IncludeDir.imgui}",
        "%{IncludeDir.garrysmod_common}",
        "%{IncludeDir.minhook}",
@@ -32,7 +31,11 @@ project "FattyMenu-Lib"
    {
 		"d3d9",
    }
-
+   
+   postbuildcommands
+   {
+      '{COPYFILE} "%{cfg.buildtarget.abspath}" "%{cfg.buildtarget.directory}/gmsv_fattymenu_win64.dll"'
+   }
    
    filter "system:windows"
       systemversion "latest"
