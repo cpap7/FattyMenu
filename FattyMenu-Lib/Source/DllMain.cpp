@@ -15,7 +15,7 @@ DWORD WINAPI SetupMainThread(LPVOID a_instance) {
 	try {
 		// For Garry's Mod direct load, at startup there's a delay, so the game window will need to be found before hooking properly
 		if (FattyMenu::GUI::g_load_method == FattyMenu::GUI::ELoadMethod::GarrysModLoad) {
-			constexpr auto startup_delay = std::chrono::seconds(10);
+			constexpr auto startup_delay = std::chrono::seconds(2);
 			constexpr auto poll_interval = std::chrono::milliseconds(250);
 			constexpr auto give_up_after = std::chrono::seconds(30); // Safety net
 
