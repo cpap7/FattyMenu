@@ -11,38 +11,40 @@
 // ImGUI utilities
 #include "GUIUtilities.h"
 
-#include <stdexcept>	// To be able to throw exceptions
+#include <stdexcept>	// For exceptions
 
 namespace FattyMenu {
 	namespace GUI {
-		inline bool g_open_menu = true;										// For controlling when the menu should be shown
-		inline bool g_initialized = false;									// For determining whether the menu is set up or not
+		inline bool g_open_menu					= true;							// For controlling when the menu should be shown
+		inline bool g_initialized				= false;						// For determining whether the ImGui menu/context finished setup & ready (or not)
+		inline bool g_setup_complete			= false;						// For determining whether the module thread + hooks setup is finished
 
 		// WinAPI related variables
-		inline HWND g_window = nullptr;										// Window handle used for manual map injection
-		inline WNDCLASSEX g_window_class = { };
-		inline WNDPROC OriginalWindowProc = nullptr;						// For restoring the original window process
+		inline HWND g_window					= nullptr;						// Window handle used for manual map injection
+		inline WNDCLASSEX g_window_class		= { };
+		inline WNDPROC OriginalWindowProc		= nullptr;						// For restoring the original window process
 
-		static HWND g_gmod_window = NULL;										// Window handle for Garry's Mod direct loading
 
 		// DirectX9 related variables
-		inline LPDIRECT3DDEVICE9 g_d3d9_device = nullptr;
-		inline LPDIRECT3D9 g_d3d9 = nullptr;
+		inline LPDIRECT3DDEVICE9 g_d3d9_device	= nullptr;
+		inline LPDIRECT3D9 g_d3d9				= nullptr;
 
 
 		// Flags for managing initialization state for Garry's Mod module functions
-		static bool g_gmod_initialized = false;
-		static HMODULE g_module = nullptr;
+		static bool g_gmod_initialized			= false;
+		static HMODULE g_module					= nullptr;
+		static HWND g_gmod_window				= nullptr;						// Window handle for Garry's Mod direct loading
+
 
 		// Enums for determining load method (either manual map or direct load via Garry's Mod)
-		enum class LoadMethod {
+		enum class ELoadMethod {
 			Unknown,
 			ManualMap,
 			GarrysModLoad
 		};
 
 		// Initial load method is set to unknown
-		inline LoadMethod g_load_method = LoadMethod::Unknown;
+		inline ELoadMethod g_load_method = ELoadMethod::Unknown;
 
 		/* Function Prototypes */
 

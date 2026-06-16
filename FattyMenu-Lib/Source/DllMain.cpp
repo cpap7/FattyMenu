@@ -1,31 +1,45 @@
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
+
 #include <thread>
 #include <cstdint>
+#include <atomic>
 
 #include "Hooks.h"
 
 #include <../garrysmod_common/include/GarrysMod/Lua/Interface.h> // Garry's Mod module functions
 
-DWORD WINAPI SetupMainThread(LPVOID instance) {
+static std::atomic<bool> g_setup_claimed{ false };
+
+DWORD WINAPI SetupMainThread(LPVOID a_instance) {
 	try {
-		// Initialize d3d9 device if manual map load method is used
-		if (FattyMenu::GUI::g_load_method == FattyMenu::GUI::LoadMethod::ManualMap) {
-			FattyMenu::GUI::InitializeDevice();
+		// For Garry's Mod direct load, at startup there's a delay, so the game window will need to be found before hooking properly
+		if (FattyMenu::GUI::g_load_method == FattyMenu::GUI::ELoadMethod::GarrysModLoad) {
+			constexpr auto startup_delay = std::chrono::seconds(10);
+			constexpr auto poll_interval = std::chrono::milliseconds(250);
+			constexpr auto give_up_after = std::chrono::seconds(30); // Safety net
+
+			std::this_thread::sleep_for(startup_delay);
+
+			const auto deadline = std::chrono::steady_clock::now() + give_up_after;
+			while (FattyMenu::GUI::FindGameWindow() == nullptr) {
+				if (std::chrono::steady_clock::now() >= deadline) {
+					throw std::runtime_error("Error: Could not load FattyMenu. Timed out while waiting for GMod's game window.");
+				}
+				//FattyMenu::GUI::HookWindowProc();
+
+				std::this_thread::sleep_for(poll_interval);
+			}
 		}
 
-		// Initialize all game-hooks
+		// Initialize null ref device 
+		FattyMenu::GUI::InitializeDevice();
+
+
+		// Initialize all game-hooks (EndScene/Reset) -> frees throwaway device after
 		FattyMenu::Hooks::InitializeHooks();
 
-		// Find game window if Garry's Mod loaded the .dll file
-		if (FattyMenu::GUI::g_load_method == FattyMenu::GUI::LoadMethod::GarrysModLoad) {
-			if (!FattyMenu::GUI::FindGameWindow()) {
-				throw std::runtime_error("Could not find game window.");
-			}
-			FattyMenu::GUI::HookWindowProc();
-		}
-
-		FattyMenu::GUI::g_initialized = true;
+		FattyMenu::GUI::g_setup_complete = true;
 
 		// Main loop
 		while (!GetAsyncKeyState(VK_END)) {
@@ -36,28 +50,46 @@ DWORD WINAPI SetupMainThread(LPVOID instance) {
 		// Cleanup
 		FattyMenu::Hooks::DestroyHooks();
 		FattyMenu::GUI::Destroy();
+		FattyMenu::GUI::g_setup_complete = false;
+		g_setup_claimed.store(false); // Allow future reload
+
 
 		// If it's injected, free library and exit thread as well
-		if (FattyMenu::GUI::g_load_method == FattyMenu::GUI::LoadMethod::ManualMap) {
-			FreeLibraryAndExitThread(static_cast<HMODULE>(instance), 0);
+		if (FattyMenu::GUI::g_load_method == FattyMenu::GUI::ELoadMethod::ManualMap) {
+			FreeLibraryAndExitThread(static_cast<HMODULE>(a_instance), 0);
 		}
 	}
 	catch (const std::exception& ex) {
 		MessageBox(nullptr, ex.what(), "Error", MB_ICONERROR);	// Display the error
-		if (FattyMenu::GUI::g_load_method == FattyMenu::GUI::LoadMethod::ManualMap) { // Cleanup
-			FreeLibraryAndExitThread(static_cast<HMODULE>(instance), 0);
+		if (FattyMenu::GUI::g_load_method == FattyMenu::GUI::ELoadMethod::ManualMap) { // Cleanup
+			FreeLibraryAndExitThread(static_cast<HMODULE>(a_instance), 0);
 		}
 	}
 	return 0;
 }
 
+static bool TryClaimSetup() {
+	bool expected = false;
+	return g_setup_claimed.compare_exchange_strong(expected, true);
+}
+
+static DWORD WINAPI ManualMapEntry(LPVOID a_instance) {
+	std::this_thread::sleep_for(std::chrono::seconds(2)); // Let GMod claim if this is a direct load
+
+	if (TryClaimSetup()) {
+		FattyMenu::GUI::g_load_method = FattyMenu::GUI::ELoadMethod::ManualMap;
+		FattyMenu::GUI::g_module = static_cast<HMODULE>(a_instance);
+		return SetupMainThread(a_instance);
+	}
+	return 0; // GMod already owns setup
+}
+
 // Entry point for Garry's Mod directly loading binaries
 GMOD_MODULE_OPEN() {
-	// Check if it's not initialized
-	if (!FattyMenu::GUI::g_initialized) {
-		FattyMenu::GUI::g_load_method = FattyMenu::GUI::LoadMethod::GarrysModLoad;	 // Set the load method
-		FattyMenu::GUI::g_module = nullptr;								 // Garry's Mod will handle the lifecycle for the menu, no FreeLibrary calls needed
-		std::thread(SetupMainThread, nullptr).detach();		     // nullptr to indicate direct load by Garry's Mod
+	if (TryClaimSetup()) {
+		FattyMenu::GUI::g_load_method	= FattyMenu::GUI::ELoadMethod::GarrysModLoad;	 // Set the load method
+		FattyMenu::GUI::g_module		= nullptr;										 // Garry's Mod will handle the lifecycle for the menu, no FreeLibrary calls needed
+		std::thread(SetupMainThread, nullptr).detach();									 
 		//CreateThread(nullptr, 0, SetupMainThread, nullptr, 0, nullptr);
 	}
 	return 0;
@@ -65,12 +97,14 @@ GMOD_MODULE_OPEN() {
 
 // Garbage collection method for when the module closes
 GMOD_MODULE_CLOSE() {
-	// Check if it's initialized
-	if (FattyMenu::GUI::g_initialized) {
-		// If true, tear down hooks and GUI
+	if (FattyMenu::GUI::g_setup_complete) {
 		FattyMenu::Hooks::DestroyHooks();
 		FattyMenu::GUI::Destroy();
-		FattyMenu::GUI::g_initialized = false;
+
+		FattyMenu::GUI::g_setup_complete	= false;
+		FattyMenu::GUI::g_initialized		= false;
+
+		g_setup_claimed.store(false); // Allow for future reloads
 	}
 	return 0;
 }
@@ -88,34 +122,38 @@ BOOL WINAPI DllMain(const HMODULE instance, const std::uintptr_t reason, const v
 		DisableThreadLibraryCalls(instance);
 
 		// Determine and store the load method
-		FattyMenu::GUI::g_load_method = (reserved == nullptr) ? FattyMenu::GUI::LoadMethod::ManualMap : FattyMenu::GUI::LoadMethod::GarrysModLoad;
+		FattyMenu::GUI::g_load_method = (reserved == nullptr) ? FattyMenu::GUI::ELoadMethod::ManualMap : FattyMenu::GUI::ELoadMethod::GarrysModLoad;
 
 		// Store the instance handle for manual unloading
 		FattyMenu::GUI::g_module = instance;
 
-		// Create the thread
-		const HANDLE thread = CreateThread(
-			nullptr,
-			0,
-			SetupMainThread,			// reinterpret_cast<LPTHREAD_START_ROUTINE>() OLD
-			instance,					// Pass the instance parameter to Setup
-			0,
-			nullptr
-		);
-
-		// Check if the thread is not null
-		if (thread) {
-			// Close the handle to prevent resource leaks
-			CloseHandle(thread);
+		// Create the thread for manual map
+		if (FattyMenu::GUI::g_load_method == FattyMenu::GUI::ELoadMethod::ManualMap) {
+			const HANDLE thread = CreateThread(
+				nullptr,
+				0,
+				ManualMapEntry,
+				instance,			// Pass the instance parameter to Setup
+				0,
+				nullptr
+			);
+			
+			// Check if the thread is not null
+			if (thread) {
+				// Close the handle to prevent resource leaks
+				CloseHandle(thread);
+			}
 		}
 		
 	}
 	// Check if the reason was for detachment
-	else if (reason == DLL_PROCESS_DETACH && FattyMenu::GUI::g_initialized) {
+	else if (reason == DLL_PROCESS_DETACH && FattyMenu::GUI::g_setup_complete) {
 		// Teardown hooks and GUI
 		FattyMenu::Hooks::DestroyHooks();
 		FattyMenu::GUI::Destroy();
-		FattyMenu::GUI::g_initialized = false;
+
+		FattyMenu::GUI::g_setup_complete	= false;
+		FattyMenu::GUI::g_initialized		= false;
 	}
 
 	return TRUE;
