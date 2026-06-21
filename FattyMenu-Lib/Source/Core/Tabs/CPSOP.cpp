@@ -496,6 +496,45 @@ namespace FattyMenu {
 		ImGui::EndTable();
 	}
 
+	void CPSOP::DisplayCommunalPunishmentsTable() {
+	ImVec4 red_color = ImVec4(1.0f, 0.0f, 0.0f, 1.0f);
+	   ImVec4 yellow_color = ImVec4(1.0f, 1.0f, 0.0f, 1.0f); // Yellow color for "*" entries */
+		static const SCommunalRow rows[] = {
+			// Columns:
+			// Code			Violation						Description
+		   { "Residental Block 1", "4 residents per room"          },
+		   { "Residental Block 3", "10 residents per room"         },
+		   { "Residental Block 4", "6 residents per room"          },
+		   { "Residental Block 5", "4 residents per room"          },
+		   { "Residental Block 8", "Unlimited capacity (overflow)" },
+
+		};
+
+		// Create the table for the violation levels
+		ImGui::BeginTable("CommunalPunishments", 2, ImGuiTableFlags_Resizable | ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg | ImGuiTableFlags_SizingStretchProp);
+
+		// Set up columns
+		ImGui::TableSetupColumn("LOCATION");
+		ImGui::TableSetupColumn("CAPACITY");
+
+
+		ImGui::TableHeadersRow();
+
+		// Iterate over rows 
+		for (const auto& communal : rows) {
+			ImGui::TableNextRow();
+
+			ImGui::TableSetColumnIndex(0);
+			ImGui::TextWrapped("%s", communal.m_area.c_str());
+
+			ImGui::TableSetColumnIndex(1);
+			ImGui::TextWrapped("%s", communal.m_capacity.c_str());
+		}
+		ImGui::EndTable();
+
+	}
+
+
 	// For displaying violation code, name and description
 	void CPSOP::DisplayViolationCivicTrustTable() {
 		ImVec4 yellow_color = ImVec4(1.0f, 1.0f, 0.0f, 1.0f); // Yellow color for "*" entries
@@ -785,6 +824,13 @@ namespace FattyMenu {
 				GUI::Helpers::WrappedBulletText("Acts resulting in damage to Civil Protection personnel, assets or operational capability\n");
 				//DisplayCPCodes(CPSOPLookupTables::destruction_of_corporal_social_protection_units);
 				DisplayViolationDestructionTable();
+			}
+			if (ImGui::CollapsingHeader("<:: View Communal Punishments ::>")) {
+				ImVec4 yellow_color = ImVec4(1.0f, 1.0f, 0.0f, 1.0f); // Yellow color for titles
+
+				GUI::Helpers::WrappedBulletText("Communal punishments are strategic measures used by the Combine to assert control and instill fear among the civic populace. They function as instruments of intimidation intended to guarantee compliance. Such action are sanctioned exclusively by dispatch and rank leaderrs.");
+				DisplayCommunalPunishmentsTable();
+				GUI::Helpers::WrappedTextColored(yellow_color, "Individuals who are unable to be assigned a residence are to find occpancy in Residental Block 8. All individuals found\nin violation of crowding an area are to be charged with 407 unlawful assembly");
 			}
 			if (ImGui::CollapsingHeader("<:: View Violation Levels ::>")) {
 				ImGui::TextWrapped("Violation levels determine the seriousness of a violation & the appropriate verdict code.");

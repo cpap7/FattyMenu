@@ -36,24 +36,24 @@ namespace FattyMenu {
 
 		// For displaying politi-schedule
 		void DisplayCPPolitiSchedule(const std::vector<CPolitiSchedule>& a_politi_schedule);
-		
+
 		// For the override code table
 		struct SOverrideCodeRow {
 			// Columns = Status | Sociostable | Unrest | Containment | Lockdown
 			// Each member contains row data to be displayed under each column 
-			const char* m_status_index		= "";
+			const char* m_status_index = "";
 			const char* m_sociostable_index = "";
-			const char* m_unrest_index		= "";
+			const char* m_unrest_index = "";
 			const char* m_containment_index = "";
-			const char* m_lockdown_index	= "";
+			const char* m_lockdown_index = "";
 		};
 
 		// For displaying override code table
 		void DisplayOverrideCodeTable();
 
 		struct SViolationLevelRow {
-			int m_level					= 0;
-			const char* m_description	= "";
+			int m_level = 0;
+			const char* m_description = "";
 			std::vector<const char*> m_recommended_verdicts{};
 		};
 
@@ -68,9 +68,9 @@ namespace FattyMenu {
 
 		// For the location authorization tables
 		struct SLocationAuthorizationEntry {
-			std::string m_index								= "";
-			bool m_requires_civil_protection_supervision	= false;		// For infestation and engineer core non/patrol regions
-			bool m_requires_special_authorization			= false;		// For civil protection non-patrol regions
+			std::string m_index = "";
+			bool m_requires_civil_protection_supervision = false;		// For infestation and engineer core non/patrol regions
+			bool m_requires_special_authorization = false;		// For civil protection non-patrol regions
 		};
 
 		struct SLocationAuthorizationRow {
@@ -80,14 +80,18 @@ namespace FattyMenu {
 			SLocationAuthorizationEntry m_infestation_control;
 			SLocationAuthorizationEntry m_civil_protection;
 		};
-		
-		struct SViolationRow { // TODO: Use CCode definitions from CPSOPLookupTables.h
-			std::string m_code				= "";
-			std::string m_violation			= "";
-			std::string m_description		= "";
 
-			bool m_sanctioned_distribution	= false; // Mark it with an asterisk to indicate that it's only sanctioned in certain areas
+		struct SViolationRow { // TODO: Use CCode definitions from CPSOPLookupTables.h
+			std::string m_code = "";
+			std::string m_violation = "";
+			std::string m_description = "";
+
+			bool m_sanctioned_distribution = false; // Mark it with an asterisk to indicate that it's only sanctioned in certain areas
 		};
+		struct SCommunalRow {
+			std::string m_area = "";
+			std::string m_capacity = "";
+	};
 
 		// For displaying violation code, name and description
 		void DisplayViolationCivicTrustTable();
@@ -96,6 +100,7 @@ namespace FattyMenu {
 		void DisplayViolationDivisiveSociocidalTable();
 		void DisplayViolationDestructionTable();
 
+		void DisplayCommunalPunishmentsTable();
 
 		void DisplayPatrolRegions();
 		void DisplayNonPatrolRegions();

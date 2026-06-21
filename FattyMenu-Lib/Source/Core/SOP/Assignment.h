@@ -53,7 +53,9 @@ namespace FattyMenu {
 		inline const char* GetTFRecommendedClass() const												{ return m_tf_recommended_class;									}
 		inline const std::vector<const char*>& GetAssignmentDescription() const							{ return m_assignment_description;									}
 		
-		// Useful helpers
+		// Useful 
+
+
 		inline bool IsForCP() const																		{ return m_assignment_type == EAssignmentType::CivilProtection;		}
 		inline bool IsForTF() const																		{ return m_assignment_type == EAssignmentType::TranshumanForces;	}
 		inline bool HasType() const																		{ return !(m_assignment_type == EAssignmentType::None);				}

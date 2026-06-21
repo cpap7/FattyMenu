@@ -3,6 +3,7 @@
 
 #include <functional>			// For passing functions as parameters
 #include <vector>
+#include <stdarg.h>
 
 namespace FattyMenu {
 	/* For GUI utility functions, like for changing ImGUI header colors, text formatting, etc. */
@@ -37,6 +38,26 @@ namespace FattyMenu {
 				va_end(args);
 
 				ImGui::PopTextWrapPos();									  // Restore wrap position
+			}
+			// Helper function for wrapped text colored format
+			inline void WrappedTextColored(const ImVec4& color, const char* fmt, ...) {
+				ImGui::PushTextWrapPos(ImGui::GetWindowContentRegionMax().x);
+				va_list args;
+				va_start(args, fmt);
+
+				// Apply selected color
+				ImGui::PushStyleColor(ImGuiCol_Text, color);
+
+				const int buffer_size = ImGui::CalcTextSize(fmt, nullptr, -1).x + 256;
+				char* formattedstring = (char*)alloca(buffer_size);
+
+				{
+					ImGui::TextWrappedV(fmt, args);
+
+
+					ImGui::PopStyleColor();
+					va_end(args);
+				}
 			}
 
 			/* Template helper function for displaying items in a static vector list
