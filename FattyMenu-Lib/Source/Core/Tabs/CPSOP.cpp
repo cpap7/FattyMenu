@@ -467,7 +467,7 @@ namespace FattyMenu {
 				ImGui::TextColored(yellow_color, "*");
 			}
 			else {
-				ImGui::TextWrapped("%s", row.m_engineer_core.m_index.c_str());
+				GUI::Helpers::WrappedTextColored(red_color, "%s", row.m_engineer_core.m_index.c_str());
 			}
 
 			ImGui::TableSetColumnIndex(3);
@@ -477,7 +477,7 @@ namespace FattyMenu {
 				ImGui::TextColored(yellow_color, "*");
 			}
 			else {
-				ImGui::TextWrapped("%s", row.m_infestation_control.m_index.c_str());
+				GUI::Helpers::WrappedTextColored(red_color, "%s", row.m_infestation_control.m_index.c_str());
 			}
 
 			ImGui::TableSetColumnIndex(4);
