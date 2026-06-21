@@ -227,6 +227,9 @@ namespace FattyMenu {
 
 	// For displaying violation levels table
 	void CPSOP::DisplayViolationLevelsTable() {
+		ImVec4 red_color = ImVec4(1.0f, 0.0f, 0.0f, 1.0f); // Red color for "Not permitted" entries
+		ImVec4 yellow_color = ImVec4(1.0f, 1.0f, 0.0f, 1.0f); // Yellow color for "*" entries
+
 		static const SViolationLevelRow rows[] = {
 			// Columns:
 			{ 
@@ -247,7 +250,7 @@ namespace FattyMenu {
 			{ 
 				3,
 				"Serious violation resulting in measurable loss, interference, public disruption or operational burden. The violation produces measurable consequences affecting individuals, property, civic functions, or protection team operations",
-				{ "Prosecution" }
+				{ "-Prosecution" }
 			},
 			{ 
 				4,
@@ -278,16 +281,41 @@ namespace FattyMenu {
 			ImGui::TableNextRow();
 
 			ImGui::TableSetColumnIndex(0);
-			ImGui::TextWrapped("%i", row.m_level);
+			if (row.m_level == 1) {
+				ImGui::TextWrapped("1", row.m_level);
+			}
+
+			if (row.m_level == 2) {
+				ImGui::TextWrapped("2", row.m_level);
+			}
+
+			if (row.m_level == 3) {
+				ImGui::TextColored(yellow_color, "%i", row.m_level);
+			}
+
+			if (row.m_level == 4 || row.m_level == 5) {
+				ImGui::TextColored(red_color, "%i", row.m_level);
+			}
+	
+
 
 			ImGui::TableSetColumnIndex(1);
 			ImGui::TextWrapped("%s", row.m_description);
 
 			ImGui::TableSetColumnIndex(2);
 			for (const auto& verdict : row.m_recommended_verdicts) {
-				GUI::Helpers::WrappedBulletText("%s", verdict);
+				if (verdict == "Verbal Warning" || verdict == "Citation") {
+					GUI::Helpers::WrappedBulletText("%s", verdict);
 			}
-		}
+				if (verdict == "Prosecution") {
+					ImGui::Bullet(),
+					ImGui::TextColored(yellow_color, "%s", verdict);
+			}
+				if (verdict == "Amputation\n(if necessary to display authority amongst populace)" || verdict == "Disassociation\n(if labor required)" | verdict == "Terminal prosecution")
+					ImGui::Bullet(),
+					ImGui::TextColored(red_color, "%s", verdict);
+	  }
+	}
 
 		ImGui::EndTable();
 	}
