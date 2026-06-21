@@ -24,7 +24,6 @@ namespace FattyMenu {
 			void SetThemeCivilProtection();									// Config for a Civil Protection-like theme
 		}
 
-
 		namespace Helpers {
 			// Helper function for wrapped text in a bullet format
 			inline void WrappedBulletText(const char* fmt, ...) {
