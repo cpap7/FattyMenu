@@ -180,6 +180,9 @@ namespace FattyMenu {
 	}
 
 	void CPSOP::DisplayOverrideCodeTable() {
+		ImVec4 red_color = ImVec4(1.0f, 0.0f, 0.0f, 1.0f); // Red color for "Not permitted" entries
+		ImVec4 yellow_color = ImVec4(1.0f, 1.0f, 0.0f, 1.0f); // Yellow color for "*" entries
+
 		static const SOverrideCodeRow rows[] = {
 			// Columns:
 			// Status 				 Sociostable			Unrest			 Containment	  Lockdown
@@ -203,23 +206,24 @@ namespace FattyMenu {
 		ImGui::TableHeadersRow();
 
 		// Iterate over rows 
-		for (const auto& row : rows) {
+		for (const auto& status : rows) {
 			ImGui::TableNextRow();
 
 			ImGui::TableSetColumnIndex(0);
-			ImGui::Text("%s", row.m_status_index);
+			
+			ImGui::Text("%s", status.m_status_index);
 
 			ImGui::TableSetColumnIndex(1);
-			ImGui::Text("%s", row.m_sociostable_index);
+			ImGui::Text("%s", status.m_sociostable_index);
 
 			ImGui::TableSetColumnIndex(2);
-			ImGui::Text("%s", row.m_unrest_index);
+			ImGui::Text("%s", status.m_unrest_index);
 
 			ImGui::TableSetColumnIndex(3);
-			ImGui::Text("%s", row.m_containment_index);
+			ImGui::Text("%s", status.m_containment_index);
 
 			ImGui::TableSetColumnIndex(4);
-			ImGui::Text("%s", row.m_lockdown_index);
+			ImGui::Text("%s", status.m_lockdown_index);
 		}
 
 		ImGui::EndTable();
