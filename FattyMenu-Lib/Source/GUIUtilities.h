@@ -25,28 +25,6 @@ namespace FattyMenu {
 		}
 
 		namespace Helpers {
-			// Helper function for wrapped colored text in a bullet format
-			inline void WrappedBulletTextColored(const ImVec4& color, const char* fmt, ...) {
-				ImGui::Bullet(),
-					ImGui::SameLine();
-				ImGui::PushTextWrapPos(ImGui::GetWindowContentRegionMax().x);
-
-					// Apply selected color
-					ImGui::PushStyleColor(ImGuiCol_Text, color);
-
-					const int buffer_size = ImGui::CalcTextSize(fmt, nullptr, -1).x + 256;
-					char* formattedstring = (char*)alloca(buffer_size);
-
-					{
-						va_list args;
-						va_start(args, fmt);
-						ImGui::TextWrappedV(fmt, args);
-
-
-						ImGui::PopStyleColor();
-						va_end(args);
-					}
-			}
 			// Helper function for wrapped text in a bullet format
 			inline void WrappedBulletText(const char* fmt, ...) {
 				ImGui::Bullet();											  // Draw bullet point
@@ -79,7 +57,7 @@ namespace FattyMenu {
 					ImGui::PopStyleColor();
 					va_end(args);
 				}
-			} 
+			}
 
 			/* Template helper function for displaying items in a static vector list
 			* Should with either CTerms, or CCodes in a vector list

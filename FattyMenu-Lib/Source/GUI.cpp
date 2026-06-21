@@ -289,6 +289,7 @@ namespace FattyMenu {
 
 		// ImGui window begins
 		ImGui::Begin("FattyMenu v1.7.0 | RCTRL = Open or Close | END = Uninject Menu", &g_open_menu);
+
 		// ImGui tab bar begins
 		if (ImGui::BeginTabBar("Menu Tabs")) {
 			// Render Civil Protection operating procedures tab
@@ -297,11 +298,11 @@ namespace FattyMenu {
 				ImGui::EndTabItem();
 			}
 
-			/* Render Transhuman Forces operating procedures tab
+			// Render Transhuman Forces operating procedures tab
 			if (ImGui::BeginTabItem("Transhuman Forces SOP")) {
 				TFSOP::RenderTranshumanForcesSOP();
-				ImGui::EndTabItem(); 
-			} */	
+				ImGui::EndTabItem();
+			}	
 		
 			// Render voiceline library tab
 			if (ImGui::BeginTabItem("Voiceline Library")) {
