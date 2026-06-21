@@ -250,7 +250,7 @@ namespace FattyMenu {
 			{ 
 				3,
 				"Serious violation resulting in measurable loss, interference, public disruption or operational burden. The violation produces measurable consequences affecting individuals, property, civic functions, or protection team operations",
-				{ "-Prosecution" }
+				{ "Prosecution" }
 			},
 			{ 
 				4,
@@ -308,12 +308,10 @@ namespace FattyMenu {
 					GUI::Helpers::WrappedBulletText("%s", verdict);
 			}
 				if (verdict == "Prosecution") {
-					ImGui::Bullet(),
-					ImGui::TextColored(yellow_color, "%s", verdict);
+					GUI::Helpers::WrappedBulletTextColored(yellow_color, "%s", verdict);
 			}
 				if (verdict == "Amputation\n(if necessary to display authority amongst populace)" || verdict == "Disassociation\n(if labor required)" | verdict == "Terminal prosecution")
-					ImGui::Bullet(),
-					ImGui::TextColored(red_color, "%s", verdict);
+					GUI::Helpers::WrappedBulletTextColored(red_color, "%s", verdict);
 	  }
 	}
 
@@ -830,7 +828,7 @@ namespace FattyMenu {
 
 				GUI::Helpers::WrappedBulletText("Communal punishments are strategic measures used by the Combine to assert control and instill fear among the civic populace. They function as instruments of intimidation intended to guarantee compliance. Such action are sanctioned exclusively by dispatch and rank leaderrs.");
 				DisplayCommunalPunishmentsTable();
-				GUI::Helpers::WrappedTextColored(yellow_color, "Individuals who are unable to be assigned a residence are to find occpancy in Residental Block 8. All individuals found\nin violation of crowding an area are to be charged with 407 unlawful assembly");
+				GUI::Helpers::WrappedBulletTextColored(yellow_color, "Individuals who are unable to be assigned a residence are to find occpancy in Residental Block 8. All individuals found\nin violation of crowding an area are to be charged with 407 unlawful assembly");
 			}
 			if (ImGui::CollapsingHeader("<:: View Violation Levels ::>")) {
 				ImGui::TextWrapped("Violation levels determine the seriousness of a violation & the appropriate verdict code.");
