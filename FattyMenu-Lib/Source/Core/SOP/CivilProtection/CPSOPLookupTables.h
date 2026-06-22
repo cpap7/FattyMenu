@@ -10,7 +10,7 @@
 #include "CitizenRewards.h"
 #include "CPTerminologyIndex.h"
 #include "CPDuties.h"
-#include "PolitiScheduleEvent.h"
+#include "Core/Tabs/CPSOP.h"
 
 namespace FattyMenu {
 	namespace CPSOPLookupTables {
@@ -319,17 +319,6 @@ namespace FattyMenu {
 			CPTerminology::Areas::nexus,
 			CPTerminology::Areas::high_priority_region,
 			CPTerminology::Areas::non_patrol_region
-		};
-
-		static const std::vector<CPolitiSchedule> politi_schedule_event_list = {
-			PolitiScheduleEvents::curfew,
-			PolitiScheduleEvents::workforce_intake_1,
-			PolitiScheduleEvents::ration_intake_1,
-			PolitiScheduleEvents::workforce_intake_2,
-			PolitiScheduleEvents::ration_intake_2,
-			PolitiScheduleEvents::workforce_intake_3,
-			PolitiScheduleEvents::ration_intake_1,
-			PolitiScheduleEvents::workforce_intake_4
 		};
 
 		static const std::vector<CAssignment> mandate_duties_list = {

@@ -3,6 +3,7 @@
 // Lambda functions
 #include <functional>
 #include <string>
+#include <vector>
 
 // GUI utils
 #include "../../GUIUtilities.h"
@@ -34,18 +35,25 @@ namespace FattyMenu {
 		// For displaying terminology index
 		//void DisplayCPTerms(const std::vector<CTerm>& a_terms);
 
+		struct CPolitiScheduleRow {
+
+			std::string m_time_started = "";
+			std::string m_time_end = "";
+			std::string m_mandate = "";
+			std::string m_length = "";
+		};
 		// For displaying politi-schedule
-		void DisplayCPPolitiSchedule(const std::vector<CPolitiSchedule>& a_politi_schedule);
+		void DisplayCPolitiSchedule();
 
 		// For the override code table
 		struct SOverrideCodeRow {
 			// Columns = Status | Sociostable | Unrest | Containment | Lockdown
 			// Each member contains row data to be displayed under each column 
-			const char* m_status_index = "";
-			const char* m_sociostable_index = "";
-			const char* m_unrest_index = "";
-			const char* m_containment_index = "";
-			const char* m_lockdown_index = "";
+			std::string m_status_index = "";
+			std::string m_sociostable_index = "";
+			std::string m_unrest_index = "";
+			std::string m_containment_index = "";
+			std::string m_lockdown_index = "";
 
 			bool m_is_unrest = false;
 			bool m_weapon_raised = false;

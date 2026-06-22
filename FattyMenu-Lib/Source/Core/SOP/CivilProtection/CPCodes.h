@@ -133,7 +133,10 @@ namespace FattyMenu {
 			extern CCode unrest_procedure;
 			extern CCode containment_procedure;
 			extern CCode lockdown_procedure;
-		}
-	}
 
-}
+		}
+
+
+
+	  }
+	}
