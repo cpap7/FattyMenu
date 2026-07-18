@@ -12,6 +12,7 @@ namespace FattyMenu {
 			extern CCode cpt;
 			extern CCode db;
 			extern CCode goa;
+			extern CCode oc;
 			extern CCode upi;
 			extern CCode utl;
 			extern CCode _34s;
@@ -133,10 +134,6 @@ namespace FattyMenu {
 			extern CCode unrest_procedure;
 			extern CCode containment_procedure;
 			extern CCode lockdown_procedure;
-
 		}
-
-
-
-	  }
 	}
+}

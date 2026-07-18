@@ -39,6 +39,12 @@ namespace FattyMenu {
 				"Gone on arrival", 
 				ECodeType::Abbreviation
 			};
+
+			CCode oc = {
+				"OC",
+				"Off course (direction)",
+				ECodeType::Abbreviation
+			};
 			
 			CCode upi = {
 				"UPI", 
@@ -60,7 +66,7 @@ namespace FattyMenu {
 			
 			CCode _187 = { 
 				"187", 
-				"Homicide", 
+				"Homicide (murder)", 
 				ECodeType::Abbreviation
 			};
 			
@@ -80,19 +86,19 @@ namespace FattyMenu {
 		namespace Response {
 			CCode code_1 = { 
 				"Code 1", 
-				"Non-urgent-response at your convenience", 
+				"Non-urgent - respond at your convenience", 
 				ECodeType::ResponseCode
 			};
 
 			CCode code_2 = { 
 				"Code 2", 
-				"Urgent-response if not under assignment", 
+				"Urgent - respond if not under assignment", 
 				ECodeType::ResponseCode
 			};
 			
 			CCode code_3 = { 
 				"Code 3", 
-				"Emergency, respond immediately", 
+				"Emergency - respond immediately", 
 				ECodeType::ResponseCode
 			};
 			
@@ -186,13 +192,13 @@ namespace FattyMenu {
 			
 			CCode _104 = {
 				"10-4",
-				"Affirmative",
+				"Affirmative / Message received",
 				ECodeType::TenCode
 			};
 			
 			CCode _106 = { 
 				"10-6", 
-				"Busy", 
+				"Busy (In some cases, it could be used to mean 'going AFK' in OOC terms)", 
 				ECodeType::TenCode
 			};
 			
@@ -252,7 +258,7 @@ namespace FattyMenu {
 			
 			CCode _1025	= { 
 				"10-25", 
-				"Contact with [Suspect]", 
+				"Contact with (suspect)", 
 				ECodeType::TenCode
 			};
 			
@@ -270,7 +276,7 @@ namespace FattyMenu {
 			
 			CCode _1030	= { 
 				"10-30", 
-				"Non-conformance/danger",
+				"Non-conformance / Danger",
 				ECodeType::TenCode
 			};
 			
@@ -330,13 +336,13 @@ namespace FattyMenu {
 			
 			CCode _1091d = { 
 				"10-91", 
-				"Dead animal", 
+				"Dead animal / creature", 
 				ECodeType::TenCode
 			};
 			
 			CCode _1093 = {
 				"10-93", 
-				"Blockade [in the road]", 
+				"Blockade (in the road)", 
 				ECodeType::TenCode
 			};
 			
@@ -354,7 +360,7 @@ namespace FattyMenu {
 			
 			CCode _1099	= { 
 				"10-99", 
-				"Officer in trouble [Last in squad]", 
+				"Officer in trouble (last in squad)", 
 				ECodeType::TenCode
 			};
 			
@@ -372,7 +378,7 @@ namespace FattyMenu {
 			
 			CCode _10107 = { 
 				"10-107", 
-				"Suspicious person", 
+				"Suspicious person",
 				ECodeType::TenCode
 			};
 			
@@ -384,7 +390,7 @@ namespace FattyMenu {
 			
 			CCode _10109 = { 
 				"10-109", 
-				"Suicide", 
+				"Suicide",
 				ECodeType::TenCode
 			};
 		}
