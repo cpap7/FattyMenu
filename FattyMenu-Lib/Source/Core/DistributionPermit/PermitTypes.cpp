@@ -2,37 +2,42 @@
 
 namespace FattyMenu {
 	/* Definitions of CPermit objects
-   Format:
-   CPermit permit = {
-		"Permit Name", int civic_point_requirement, int cost,
-		{
-			{ "Package 1 name", int package_1_cost },
-			{ "Package 2 name", int package_2_cost },
-			...
-			{ "Package n name", int package_n_cost }
-		},
-		{
-			"Authorized sellable example item 1",
-			"Authorized sellable example item 2",
-			...
-			"Authorized sellable example item n"
-		}
+	   Usage/Format:
+	   CPermit permit = {
+			"Permit Name", int civic_point_requirement, int cost
+			{
+				{ "Package 1 name", int package_1_cost, int package_1_quantity = 5 },
+				{ "Package 2 name", int package_2_cost, int package_2_quantity = 5 },
+				...
+				{ "Package n name", int package_n_cost, int package_n_quantity = 5 }
+			},
 
-   };
+			// Vector of strings for each authorized sellable item
+			{
+				"Authorized sellable example item 1",
+				"Authorized sellable example item 2",
+				...
+				"Authorized sellable example item n"
+			}
+	
+	   };
+	   
+	   NOTE: 
+		- Any zeroes listed here are placeholder values until concrete data has been provided
+		- As of writing, the quantity is 5 across each package, but this can be overwritten with a new value if needed
+	*/
 
-   Note: Zeroes are placeholder values until concrete data has been provided
-*/
 	namespace PermitTypes {
 		CPermit hydration = {
 			"Hydration", 50, 25,
 			{
-				{ "Packaged Blue >B Drinks (x5)", 10 },
-				{ "Packaged Red >B Drinks (x5)", 35 },
-				{ "Packaged Yellow >B Drinks (x5)", 75 },
-				{ "Packaged Desiccated Sustenance Bars (x5)", 8 },
-				{ "Packaged Solidified Nutrient Tablets (x5)", 13 },
-				{ "Packaged Sweetened Hydration Bars (x5)", 18 },
-				{ "Packaged Fermented Vitality Tablets (x5)", 23 }
+				{ "Packaged Blue >B Drinks", 10 },
+				{ "Packaged Red >B Drinks", 35 },
+				{ "Packaged Yellow >B Drinks", 75 },
+				{ "Packaged Desiccated Sustenance Bars", 8 },
+				{ "Packaged Solidified Nutrient Tablets", 13 },
+				{ "Packaged Sweetened Hydration Bars", 18 },
+				{ "Packaged Fermented Vitality Tablets", 23 }
 			},
 			{
 				"Water",
@@ -42,10 +47,10 @@ namespace FattyMenu {
 		CPermit nourishment = {
 			"Nourishment", 100, 50,
 			{
-				{ "Packaged Gelatinated Calorie Pastes (x5)", 23 },
-				{ "Packaged Refined Craniate Slices (x5)", 28 },
-				{ "Packaged Concentrated Fowl Blends (x5)", 33 },
-				{ "Packaged Enriched Taxon Extracts (x5)", 38 }
+				{ "Packaged Gelatinated Calorie Pastes", 23 },
+				{ "Packaged Refined Craniate Slices", 28 },
+				{ "Packaged Concentrated Fowl Blends", 33 },
+				{ "Packaged Enriched Taxon Extracts", 38 }
 			},
 			{
 				"Foodstuffs",
@@ -55,14 +60,14 @@ namespace FattyMenu {
 		CPermit garment = {
 			"Garment", 200, 70,
 			{
-				{ "Packaged Blue Denim Jackets (x5)", 120 },
-				{ "Packaged Beige Denim Jackets (x5)", 150 },
-				{ "Packaged Blue Jeans (x5)", 100 },
-				{ "Packaged Black Jeans (x5)", 200 },
-				{ "Packaged Blue Shoes (x5)", 85 },
-				{ "Packaged Black Shoes (x5)", 85 },
-				{ "Packaged Blue Caps (x5)", 175 },
-				{ "Packaged Black Gloves (x5)", 100 }
+				{ "Packaged Blue Denim Jackets", 120 },
+				{ "Packaged Beige Denim Jackets", 150 },
+				{ "Packaged Blue Jeans", 100 },
+				{ "Packaged Black Jeans", 200 },
+				{ "Packaged Blue Shoes", 85 },
+				{ "Packaged Black Shoes", 85 },
+				{ "Packaged Blue Caps", 175 },
+				{ "Packaged Black Gloves", 100 }
 			},
 			{
 				"Clothing",
@@ -73,15 +78,15 @@ namespace FattyMenu {
 		CPermit luxury = {
 			"Luxury", 400, 90,
 			{
-				{ "Packaged Ground Sunrise Coffee (x5)", 45 },
-				{ "Packaged Packaged Rye Flour (x5)", 5 },
+				{ "Packaged Ground Sunrise Coffee", 45 },
+				{ "Packaged Packaged Rye Flour", 5 },
 				{ "Packaged Dried Herbs", 10 },
-				{ "Packaged Dried Spices (x5)", 10 },
-				{ "Packaged Variety Dried Vegetables (x5)", 15 },
-				{ "Packaged Salt (x5)", 5 },
-				{ "Packaged Cigarette Packs (x5)", 40 },
-				{ "Packaged Televisions (x5)", 375 },
-				{ "Packaged >B Radios (x5)", 250 }
+				{ "Packaged Dried Spices", 10 },
+				{ "Packaged Variety Dried Vegetables", 15 },
+				{ "Packaged Salt", 5 },
+				{ "Packaged Cigarette Packs", 40 },
+				{ "Packaged Televisions", 375 },
+				{ "Packaged >B Radios", 250 }
 			},
 			{
 				"Coffee",

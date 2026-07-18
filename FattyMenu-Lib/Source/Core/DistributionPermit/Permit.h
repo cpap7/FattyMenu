@@ -14,7 +14,8 @@ namespace FattyMenu {
 		
 
 	public:
-		CPermit(const char* a_name, int a_civic_point_requirement, int a_cost, const std::vector<CPackage>& a_package_list, const std::vector<const char*>& a_authorized_items_list);
+		CPermit(const char* a_name, int a_civic_point_requirement, int a_cost, 
+			const std::vector<CPackage>& a_package_list, const std::vector<const char*>& a_authorized_items_list);
 		CPermit() = default;
 
 		~CPermit() = default;
