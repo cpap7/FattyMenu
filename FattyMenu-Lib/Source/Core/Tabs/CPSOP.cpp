@@ -144,8 +144,26 @@ namespace FattyMenu {
 
 	// Function for displaying Politi-Schedule
 	// @param politi_schedule_list -> vector containing a list of events to be looped through and displayed
-	void CPSOP::DisplayCPPolitiSchedule(const std::vector<CPolitiSchedule>& a_politi_schedule_list) {
-		// Create the table for the schedule
+
+	void CPSOP::DisplayCPolitiSchedule() {
+		ImVec4 red_color = ImVec4(1.0f, 0.0f, 0.0f, 1.0f); // Red color for "Curfew" entries
+		ImVec4 yellow_color = ImVec4(1.0f, 1.0f, 0.0f, 1.0f); // Yellow color for "Ration" entries
+
+		static const CPolitiScheduleRow rows[] = {
+			// Columns:
+			// Status 				 Sociostable			Unrest			 Containment	  Lockdown
+			{ "00:00",		    "03:00",		 "Curfew Procedure",	  "3 hours"	              },
+			{ "04:15",          "05:45",		 "Workforce Intake",	  "1 hour, 30 minutes",	  },
+			{ "06:00",	        "07:00",	     "Ration Intake",	      "1 hour"	              },
+			{ "07:15",          "11:45",         "Workforce Intake",      "4 hours, 30 minutes"   },
+			{"12:00",           "13:00",         "N/A",                   "1 hour"                },
+			{"13:15",           "17:45",         "Workforce Intake",      "4 hours, 30 minutes"   },
+			{ "18:00",	       "19:00",	        "Ration Intake",	     "1 hour"	              },
+			{ "19:15",	       "23:00",	        "Workforce Intake",	     "3 hours, 45 minutes"	  },
+		};
+
+
+		// Create the table for the override code directives
 		ImGui::BeginTable("PolitiSchedule", 4, ImGuiTableFlags_Resizable | ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg | ImGuiTableFlags_SizingStretchProp);
 
 		// Set up columns
@@ -153,43 +171,53 @@ namespace FattyMenu {
 		ImGui::TableSetupColumn("TIME END");
 		ImGui::TableSetupColumn("MANDATE");
 		ImGui::TableSetupColumn("LENGTH");
+
 		ImGui::TableHeadersRow();
 
-		// Loop through each event
-		for (const auto& event : a_politi_schedule_list) {
+		// Iterate over rows 
+		for (const auto& schedule : rows) {
 			ImGui::TableNextRow();
 
-			// Display the time the event starts
 			ImGui::TableSetColumnIndex(0);
-			ImGui::Text("%s", event.GetTimeStart());
 
-			// Display the time the event ends
+			ImGui::Text("%s", schedule.m_time_started.c_str());
+
 			ImGui::TableSetColumnIndex(1);
-			ImGui::Text("%s", event.GetTimeEnd());
+			ImGui::Text("%s", schedule.m_time_end.c_str());
 
-			// Display the mandate
 			ImGui::TableSetColumnIndex(2);
-			ImGui::Text("%s", event.GetMandate());
+			if (schedule.m_mandate == "Ration Intake") {
+				ImGui::TextColored(yellow_color, "%s", schedule.m_mandate.c_str());
+			}
 
-			// Display the time length
+			if (schedule.m_mandate == "Curfew Procedure") {
+				ImGui::TextColored(red_color, "%s", schedule.m_mandate.c_str());
+			}
+
+			else if (schedule.m_mandate == "Workforce Intake" || schedule.m_mandate == "N/A") {
+				ImGui::TextWrapped("%s", schedule.m_mandate.c_str());
+			}
+
 			ImGui::TableSetColumnIndex(3);
-			ImGui::Text("%s", event.GetTimeLength());
+			ImGui::Text("%s", schedule.m_length.c_str());
 		}
 
 		ImGui::EndTable();
 	}
 
 	void CPSOP::DisplayOverrideCodeTable() {
+		ImVec4 red_color = ImVec4(1.0f, 0.0f, 0.0f, 1.0f); // Red color for "Not permitted" entries
+		ImVec4 yellow_color = ImVec4(1.0f, 1.0f, 0.0f, 1.0f); // Yellow color for "*" entries
+
 		static const SOverrideCodeRow rows[] = {
 			// Columns:
 			// Status 				 Sociostable			Unrest			 Containment	  Lockdown
 			{ "Ration Intake",		"Active",			"Discretionary",	"Suspended",	"Suspended"		},
 			{ "Workforce Status",	"Active",			"Discretionary",	"Suspended",	"Suspended"		},
 			{ "Shield Access",		"Civic Populace",	"Workforce",		"Ground Units", "Ground Units"	},
-			{ "Weapon Protocol",	"Holstered",		"Unholstered",		"Raised",		"Raised"		}
 		};
 
-		
+
 		// Create the table for the override code directives
 		ImGui::BeginTable("OverrideCodes", 5, ImGuiTableFlags_Resizable | ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg | ImGuiTableFlags_SizingStretchProp);
 
@@ -203,23 +231,27 @@ namespace FattyMenu {
 		ImGui::TableHeadersRow();
 
 		// Iterate over rows 
-		for (const auto& row : rows) {
+		for (const auto& status : rows) {
 			ImGui::TableNextRow();
 
 			ImGui::TableSetColumnIndex(0);
-			ImGui::Text("%s", row.m_status_index);
+
+			ImGui::Text("%s", status.m_status_index.c_str());
 
 			ImGui::TableSetColumnIndex(1);
-			ImGui::Text("%s", row.m_sociostable_index);
+			ImGui::Text("%s", status.m_sociostable_index.c_str());
 
 			ImGui::TableSetColumnIndex(2);
-			ImGui::Text("%s", row.m_unrest_index);
+			if (status.m_unrest_index == "Discretionary" || status.m_unrest_index == "Workforce");
+			GUI::Helpers::WrappedTextColored(yellow_color, status.m_unrest_index.c_str());
 
 			ImGui::TableSetColumnIndex(3);
-			ImGui::Text("%s", row.m_containment_index);
+			if (status.m_containment_index == "Suspended" || status.m_containment_index == "Ground units");
+			GUI::Helpers::WrappedTextColored(red_color, status.m_containment_index.c_str());
 
 			ImGui::TableSetColumnIndex(4);
-			ImGui::Text("%s", row.m_lockdown_index);
+			if (status.m_lockdown_index == "Suspended" || status.m_lockdown_index == "Ground units");
+			GUI::Helpers::WrappedTextColored(red_color, status.m_lockdown_index.c_str());
 		}
 
 		ImGui::EndTable();
@@ -227,29 +259,32 @@ namespace FattyMenu {
 
 	// For displaying violation levels table
 	void CPSOP::DisplayViolationLevelsTable() {
+		ImVec4 red_color = ImVec4(1.0f, 0.0f, 0.0f, 1.0f); // Red color for "Not permitted" entries
+		ImVec4 yellow_color = ImVec4(1.0f, 1.0f, 0.0f, 1.0f); // Yellow color for "*" entries
+
 		static const SViolationLevelRow rows[] = {
 			// Columns:
-			{ 
+			{
 				// Level
 				1,
 
 				// Description
 				"Minor, isolated, accidental or first-time violation with negligable impact on sociostability. Little or no harm, disruption, interference or resistance is present",
-				
+
 				// Verdict (Recommended) 	
 				{ "Verbal Warning", "Citation", "Prosecution" }
 			},
-			{ 
+			{
 				2,
 				"Deliberated, repeated or disruptive violation with limited impact on sociostability. The violation demonstrates disregard for civic expectations but results in only minor harm, interference, disruption or disorder",
 				{ "Citation", "Prosecution" }
 			},
-			{ 
+			{
 				3,
 				"Serious violation resulting in measurable loss, interference, public disruption or operational burden. The violation produces measurable consequences affecting individuals, property, civic functions, or protection team operations",
 				{ "Prosecution" }
 			},
-			{ 
+			{
 				4,
 				"Severe violation involving substantial harm, dangerous conduct, significant resistance, organized misconduct or serious interference with Combine operations. The violation presents a clear threat to sociostability, civic order or operations",
 				{ "Terminal prosecution", "Amputation\n(if necessary to display authority amongst populace)" }
@@ -269,7 +304,7 @@ namespace FattyMenu {
 		ImGui::TableSetupColumn("LEVEL");
 		ImGui::TableSetupColumn("DESCRIPTION");
 		ImGui::TableSetupColumn("VERDICT (RECOMMENDED)");
-		
+
 
 		ImGui::TableHeadersRow();
 
@@ -278,14 +313,37 @@ namespace FattyMenu {
 			ImGui::TableNextRow();
 
 			ImGui::TableSetColumnIndex(0);
-			ImGui::TextWrapped("%i", row.m_level);
+			if (row.m_level == 1) {
+				ImGui::TextWrapped("1", row.m_level);
+			}
+
+			if (row.m_level == 2) {
+				ImGui::TextWrapped("2", row.m_level);
+			}
+
+			if (row.m_level == 3) {
+				ImGui::TextColored(yellow_color, "%i", row.m_level);
+			}
+
+			if (row.m_level == 4 || row.m_level == 5) {
+				ImGui::TextColored(red_color, "%i", row.m_level);
+			}
+
+
 
 			ImGui::TableSetColumnIndex(1);
 			ImGui::TextWrapped("%s", row.m_description);
 
 			ImGui::TableSetColumnIndex(2);
 			for (const auto& verdict : row.m_recommended_verdicts) {
-				GUI::Helpers::WrappedBulletText("%s", verdict);
+				if (verdict == "Verbal Warning" || verdict == "Citation") {
+					GUI::Helpers::WrappedBulletText("%s", verdict);
+				}
+				if (verdict == "Prosecution") {
+					GUI::Helpers::WrappedBulletTextColored(yellow_color, "%s", verdict);
+				}
+				if (verdict == "Amputation\n(if necessary to display authority amongst populace)" || verdict == "Disassociation\n(if labor required)" | verdict == "Terminal prosecution")
+					GUI::Helpers::WrappedBulletTextColored(red_color, "%s", verdict);
 			}
 		}
 
@@ -332,7 +390,7 @@ namespace FattyMenu {
 		// Set up columns
 		ImGui::TableHeader("PATROL REGTIONS");
 		ImGui::TableSetupColumn("Location");
-		ImGui::TableSetupColumn("Civic Populace *"); 
+		ImGui::TableSetupColumn("Civic Populace *");
 		ImGui::TableSetupColumn("Engineer Core");
 		ImGui::TableSetupColumn("Infestation Control");
 		ImGui::TableSetupColumn("Civil Protection");
@@ -441,7 +499,7 @@ namespace FattyMenu {
 				ImGui::TextColored(yellow_color, "*");
 			}
 			else {
-				ImGui::TextWrapped("%s", row.m_engineer_core.m_index.c_str());
+				GUI::Helpers::WrappedTextColored(red_color, "%s", row.m_engineer_core.m_index.c_str());
 			}
 
 			ImGui::TableSetColumnIndex(3);
@@ -451,7 +509,7 @@ namespace FattyMenu {
 				ImGui::TextColored(yellow_color, "*");
 			}
 			else {
-				ImGui::TextWrapped("%s", row.m_infestation_control.m_index.c_str());
+				GUI::Helpers::WrappedTextColored(red_color, "%s", row.m_infestation_control.m_index.c_str());
 			}
 
 			ImGui::TableSetColumnIndex(4);
@@ -467,6 +525,45 @@ namespace FattyMenu {
 
 		ImGui::EndTable();
 	}
+
+	void CPSOP::DisplayCommunalPunishmentsTable() {
+		ImVec4 red_color = ImVec4(1.0f, 0.0f, 0.0f, 1.0f);
+		ImVec4 yellow_color = ImVec4(1.0f, 1.0f, 0.0f, 1.0f); // Yellow color for "*" entries */
+		static const SCommunalRow rows[] = {
+			// Columns:
+			// Code			Violation						Description
+		   { "Residental Block 1", "4 residents per room"          },
+		   { "Residental Block 3", "10 residents per room"         },
+		   { "Residental Block 4", "6 residents per room"          },
+		   { "Residental Block 5", "4 residents per room"          },
+		   { "Residental Block 8", "Unlimited capacity (overflow)" },
+
+		};
+
+		// Create the table for the violation levels
+		ImGui::BeginTable("CommunalPunishments", 2, ImGuiTableFlags_Resizable | ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg | ImGuiTableFlags_SizingStretchProp);
+
+		// Set up columns
+		ImGui::TableSetupColumn("LOCATION");
+		ImGui::TableSetupColumn("CAPACITY");
+
+
+		ImGui::TableHeadersRow();
+
+		// Iterate over rows 
+		for (const auto& communal : rows) {
+			ImGui::TableNextRow();
+
+			ImGui::TableSetColumnIndex(0);
+			ImGui::TextWrapped("%s", communal.m_area.c_str());
+
+			ImGui::TableSetColumnIndex(1);
+			ImGui::TextWrapped("%s", communal.m_capacity.c_str());
+		}
+		ImGui::EndTable();
+
+	}
+
 
 	// For displaying violation code, name and description
 	void CPSOP::DisplayViolationCivicTrustTable() {
@@ -758,6 +855,13 @@ namespace FattyMenu {
 				//DisplayCPCodes(CPSOPLookupTables::destruction_of_corporal_social_protection_units);
 				DisplayViolationDestructionTable();
 			}
+			if (ImGui::CollapsingHeader("<:: View Communal Punishments ::>")) {
+				ImVec4 yellow_color = ImVec4(1.0f, 1.0f, 0.0f, 1.0f); // Yellow color for titles
+
+				GUI::Helpers::WrappedBulletText("Communal punishments are strategic measures used by the Combine to assert control and instill fear among the civic populace. They function as instruments of intimidation intended to guarantee compliance. Such action are sanctioned exclusively by dispatch and rank leaderrs.");
+				DisplayCommunalPunishmentsTable();
+				GUI::Helpers::WrappedBulletTextColored(yellow_color, "Individuals who are unable to be assigned a residence are to find occpancy in Residental Block 8. All individuals found\nin violation of crowding an area are to be charged with 407 unlawful assembly");
+			}
 			if (ImGui::CollapsingHeader("<:: View Violation Levels ::>")) {
 				ImGui::TextWrapped("Violation levels determine the seriousness of a violation & the appropriate verdict code.");
 				ImGui::TextWrapped("Protection units shall assess severity based upon intent, harm caused, degree of resistance, repitition of misconduct and threat posed to sociostability");
@@ -770,8 +874,8 @@ namespace FattyMenu {
 				DisplayOverrideCodeTable();
 				DisplayCPCodes(CPSOPLookupTables::override_code_list);
 			}
-			
-		});
+
+			});
 
 		// Display civic point reward sections
 		GUI::Helpers::RenderSOPSection("<:: CIVIC REWARD & INTERACTION INDEX ::>", [] {
@@ -790,7 +894,7 @@ namespace FattyMenu {
 			if (ImGui::CollapsingHeader("<:: View Interaction Directives ::>")) {
 				DisplayCPInteractionDirectives(CPSOPLookupTables::citizen_interaction_directive_list);
 			}
-		});
+			});
 
 		// Display terminology index sections via helper functions (2 strings per bullet point)
 		GUI::Helpers::RenderSOPSection("<:: TERMINOLOGY INDEX ::>", [] {
@@ -819,13 +923,13 @@ namespace FattyMenu {
 				GUI::Helpers::DisplayList(CPSOPLookupTables::area_list);
 			}
 
-		});
+			});
 
 		// Render politi schedule index
 		GUI::Helpers::RenderSOPSection("<:: POLITI-SCHEDULE INDEX ::>", [] {
 			// Display politi schedule
-			DisplayCPPolitiSchedule(CPSOPLookupTables::politi_schedule_event_list);
-		});
+			DisplayCPolitiSchedule();
+			});
 
 		// Render duty index
 		GUI::Helpers::RenderSOPSection("<:: DUTY INDEX ::> ", [] {
@@ -834,7 +938,7 @@ namespace FattyMenu {
 				// Display prelude
 				ImGui::TextWrapped("These duties deviate from those under the assignments section as they are conducted exclusively during their designated times.");
 				ImGui::Separator();
-				
+
 				GUI::Helpers::DisplayAssignment(CPSOPLookupTables::mandate_duties_list);
 			}
 
@@ -853,12 +957,12 @@ namespace FattyMenu {
 			if (ImGui::CollapsingHeader("<:: View Duty Expectations and TAC Etiquette ::>")) {
 				GUI::Helpers::DisplayAssignment(CPSOPLookupTables::miscellaneous_duties_list);
 			}
-		});
+			});
 
 		// Render contraband index
 		GUI::Helpers::RenderSOPSection("<:: CONTRABAND INDEX ::> ", [] {
 			DisplayCPContrabandIndex(CPSOPLookupTables::contraband_list);
-		});
+			});
 
 		// Render location authorization index
 		GUI::Helpers::RenderSOPSection("<:: LOCATION AUTHORIZATION INDEX ::>", [] {
@@ -870,7 +974,7 @@ namespace FattyMenu {
 			}
 			if (ImGui::CollapsingHeader("<:: View Legend ::>")) {
 				ImGui::Text("* Includes members of the Industrial and Medical Workforces");
-				
+
 				ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "*");
 				ImGui::SameLine();
 				ImGui::Text("Unless directly escorted & supervised by protection units");
@@ -879,8 +983,9 @@ namespace FattyMenu {
 				ImGui::SameLine();
 				ImGui::Text(" Unless authorized or during an active situation");
 			}
-		});
+			});
 	}
+}
 
 
 	/* Larger logo -- too big for the menu lol
@@ -942,4 +1047,3 @@ namespace FattyMenu {
 
 
 	*/
-}
