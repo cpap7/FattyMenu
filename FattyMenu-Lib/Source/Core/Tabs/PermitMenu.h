@@ -11,6 +11,9 @@ namespace FattyMenu {
 		// Displays permit info after clicking a collapsible header
 		void RenderPermitInfo(const CPermit& a_permit);
 
+		// Table render functions
+		void RenderPackagesTable(const CPermit& a_permit);
+
 		// Renders the collapsible headers
 		void RenderPermitMenu();
 	}

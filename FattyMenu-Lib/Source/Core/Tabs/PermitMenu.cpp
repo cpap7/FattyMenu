@@ -1,29 +1,65 @@
 #include "PermitMenu.h"
 
+#include "../../GUIUtilities.h" // For wrapped cell text helper function
+
 namespace FattyMenu {
 	void PermitMenu::RenderPermitInfo(const CPermit& a_permit) {
 		// Enable text wrapping at the window edge
 		ImGui::PushTextWrapPos(ImGui::GetWindowContentRegionMax().x);
 
-		// Display requirements to purchase the permit
-		ImGui::BulletText("Requirements to purchase %s Permit: %d Civic Points, %d Credits", a_permit.GetPermitName(), a_permit.GetCivicPointRequirement(), a_permit.GetPermitCost());
-		ImGui::Separator();	// Add a separator for aesthetics
+		// Display requirements
+		ImGui::BulletText("Requirements to purchase %s Permit:\n%d Civic Points, %d Credits", a_permit.GetPermitName(), a_permit.GetCivicPointRequirement(), a_permit.GetPermitCost());
+		ImGui::Separator();	
 
 		// Display purchasable packages from the WIH-3 dispenser
 		ImGui::Text("Packages available to purchase from the dispenser:");
-		for (const auto& packages : a_permit.GetPackages()) {
-			ImGui::BulletText("%s\n -> %d Credits", packages.GetPackageName(), packages.GetPackageCost());
-		}
+		RenderPackagesTable(a_permit);
+		ImGui::Separator();
 
 		// Display items authorized for sale
 		ImGui::Text("Items authorized for sale (per SOP):");
 		for (const auto& item : a_permit.GetAuthorizedItems()) {
-			ImGui::BulletText("%s", item);
+			GUI::Helpers::WrappedBulletText(item);
 		}
 		ImGui::Separator();
 
 		// Restore previous wrapping
 		ImGui::PopTextWrapPos();
+	}
+
+	void PermitMenu::RenderPackagesTable(const CPermit& a_permit) {
+		int column_count = 4;
+		ImGui::BeginTable(a_permit.GetPermitName(), column_count, ImGuiTableFlags_Resizable | ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg | ImGuiTableFlags_SizingStretchProp);
+		
+		ImGui::TableSetupColumn("PACKAGE");
+		ImGui::TableSetupColumn("ITEM QUANTITY");
+		ImGui::TableSetupColumn("PACKAGE COST (in credits)");
+		ImGui::TableSetupColumn("COST PER ITEM (in credits)");
+		ImGui::TableHeadersRow();
+
+		for (const auto& package : a_permit.GetPackages()) {
+			ImGui::TableNextRow();
+
+			ImGui::TableSetColumnIndex(0);
+			GUI::Helpers::WrappedTableCellText(package.GetName());
+
+			ImGui::TableSetColumnIndex(1);
+			int quantity = package.GetQuantity();
+			ImGui::TextWrapped("%d", quantity);
+
+			ImGui::TableSetColumnIndex(2);
+			ImGui::TextWrapped("%d", package.GetCost());
+
+			ImGui::TableSetColumnIndex(3);
+			if (quantity > 0) {
+				ImGui::TextWrapped("%.2f", static_cast<float>(package.GetCost()) / quantity);
+			}
+			else {
+				ImGui::TextWrapped("N/A");
+			}
+		}
+
+		ImGui::EndTable();
 	}
 
 	void PermitMenu::RenderPermitMenu() {
