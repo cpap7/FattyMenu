@@ -19,62 +19,70 @@ namespace FattyMenu {
 
 			void SetHeaderTransparent();									// For collapsible sub-headers
 
-			void PopColorStack(int);										// For resetting the colors to default color for current style theme
+			void PopColorStack(int a_stack_size);							// For resetting the colors to default color for current style theme
 
 			void SetThemeCivilProtection();									// Config for a Civil Protection-like theme
 		}
 
 		namespace Helpers {
-			// Helper function for wrapped colored text in a bullet format
-			inline void WrappedBulletTextColored(const ImVec4& color, const char* fmt, ...) {
-				ImGui::Bullet(),
-					ImGui::SameLine();
-				ImGui::PushTextWrapPos(ImGui::GetWindowContentRegionMax().x);
-
-					// Apply selected color
-					ImGui::PushStyleColor(ImGuiCol_Text, color);
-
-					const int buffer_size = ImGui::CalcTextSize(fmt, nullptr, -1).x + 256;
-					char* formattedstring = (char*)alloca(buffer_size);
-
-					{
-						va_list args;
-						va_start(args, fmt);
-						ImGui::TextWrappedV(fmt, args);
-
-
-						ImGui::PopStyleColor();
-						va_end(args);
-					}
+			// TODO: Add color/fmt version of this
+			// Helper function for wrapped text within a table that respects the current table column's right edge
+			inline void WrappedTableCellText(const char* a_text) {
+				ImGui::PushTextWrapPos(ImGui::GetCursorPosX() + ImGui::GetColumnWidth());
+				ImGui::TextUnformatted(a_text);
+				ImGui::PopTextWrapPos();
 			}
+
+			// Helper function for wrapped colored text in a bullet format
+			inline void WrappedBulletTextColored(const ImVec4& a_color, const char* a_fmt, ...) {
+				ImGui::Bullet();
+				ImGui::SameLine();
+				ImGui::PushTextWrapPos(ImGui::GetWindowContentRegionMax().x);
+				
+				// Apply selected color
+				ImGui::PushStyleColor(ImGuiCol_Text, a_color);
+
+				const int buffer_size = static_cast<int>(ImGui::CalcTextSize(a_fmt, nullptr, false, -1.0f).x) + 256;
+				char* formatted_string = (char*)alloca(buffer_size);
+				{
+					va_list args;
+					va_start(args, a_fmt);
+					ImGui::TextWrappedV(a_fmt, args);
+
+
+					ImGui::PopStyleColor();
+					va_end(args);
+				}
+			}
+
 			// Helper function for wrapped text in a bullet format
-			inline void WrappedBulletText(const char* fmt, ...) {
-				ImGui::Bullet();											  // Draw bullet point
-				ImGui::SameLine();											  // Stay on same line for text
-				ImGui::PushTextWrapPos(ImGui::GetWindowContentRegionMax().x); // Enable wrapping to window width
+			inline void WrappedBulletText(const char* a_fmt, ...) {
+				ImGui::Bullet();												// Draw bullet point
+				ImGui::SameLine();												// Stay on same line for text
+				ImGui::PushTextWrapPos(ImGui::GetWindowContentRegionMax().x);	// Enable wrapping to window width
 
 				va_list args;
-				va_start(args, fmt);
-				ImGui::TextWrappedV(fmt, args);								  // Wrapped text (printf-style)
+				va_start(args, a_fmt);
+				ImGui::TextWrappedV(a_fmt, args);								// Wrapped text (printf-style)
 				va_end(args);
 
-				ImGui::PopTextWrapPos();									  // Restore wrap position
+				ImGui::PopTextWrapPos();										// Restore wrap position
 			}
+
 			// Helper function for wrapped text colored format
-			inline void WrappedTextColored(const ImVec4& color, const char* fmt, ...) {
+			inline void WrappedTextColored(const ImVec4& a_color, const char* a_fmt, ...) {
 				ImGui::PushTextWrapPos(ImGui::GetWindowContentRegionMax().x);
 				va_list args;
-				va_start(args, fmt);
+				va_start(args, a_fmt);
 
 				// Apply selected color
-				ImGui::PushStyleColor(ImGuiCol_Text, color);
+				ImGui::PushStyleColor(ImGuiCol_Text, a_color);
 
-				const int buffer_size = ImGui::CalcTextSize(fmt, nullptr, -1).x + 256;
-				char* formattedstring = (char*)alloca(buffer_size);
+				const int buffer_size = static_cast<int>(ImGui::CalcTextSize(a_fmt, nullptr, false, -1.0f).x) + 256;
+				char* formatted_string = (char*)alloca(buffer_size);
 
 				{
-					ImGui::TextWrappedV(fmt, args);
-
+					ImGui::TextWrappedV(a_fmt, args);
 
 					ImGui::PopStyleColor();
 					va_end(args);
@@ -87,9 +95,9 @@ namespace FattyMenu {
 			* @param Render(const T&) -> placeholder function for displaying the item from a list stored in memory
 			*/
 			template<typename T>
-			inline void DisplayList(const std::vector<T>& item_list) {
+			inline void DisplayList(const std::vector<T>& a_item_list) {
 				// Loop through the list
-				for (const auto& item : item_list) {
+				for (const auto& item : a_item_list) {
 					// Display them as bullet text
 					GUI::Helpers::WrappedBulletText("%s: %s", item.GetName(), item.GetDescription());
 
@@ -131,10 +139,10 @@ namespace FattyMenu {
 			/* @param header_label -> string for the header's label
 			*  @param RenderContent -> void function to be called for displaying specific parts of the SOP (i.e., DisplayCodes(), DisplayRewardInfo(), etc.)
 			*/
-			inline void RenderSOPSection(const char* header_label, std::function<void()> RenderContent) {
+			inline void RenderSOPSection(const char* header_label, const std::function<void()>& a_render_function) {
 				if (ImGui::CollapsingHeader(header_label)) {
 					GUI::Themes::SetHeaderTransparent();				// Set the subheaders to transparent
-					RenderContent();									// Call provided render function
+					a_render_function();								// Call provided render function
 					GUI::Themes::PopColorStack(2);						// Pop the color stack
 				}
 			}
