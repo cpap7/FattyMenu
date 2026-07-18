@@ -15,12 +15,13 @@
 namespace FattyMenu {
 	namespace CPSOPLookupTables {
 		// Vector to hold abbreviation radio codes
-		static const std::vector<CCode> abbreviation_list = {
+		inline const std::vector<CCode> abbreviation_list = {
 			CPCodes::Abbreviation::adw,
 			CPCodes::Abbreviation::bol,
 			CPCodes::Abbreviation::cpt,
 			CPCodes::Abbreviation::db,
 			CPCodes::Abbreviation::goa,
+			CPCodes::Abbreviation::oc,
 			CPCodes::Abbreviation::upi,
 			CPCodes::Abbreviation::utl,
 			CPCodes::Abbreviation::_34s,
@@ -30,7 +31,7 @@ namespace FattyMenu {
 		};
 
 		// Vector to hold response codes
-		static const std::vector<CCode> response_code_list = {
+		inline const std::vector<CCode> response_code_list = {
 			CPCodes::Response::code_1,
 			CPCodes::Response::code_2,
 			CPCodes::Response::code_3,
@@ -41,7 +42,7 @@ namespace FattyMenu {
 		};
 
 		// Vector to hold 11- codes
-		static const std::vector<CCode> eleven_code_list = {
+		inline const std::vector<CCode> eleven_code_list = {
 			CPCodes::Eleven::_116,
 			CPCodes::Eleven::_1142,
 			CPCodes::Eleven::_1143,
@@ -51,7 +52,7 @@ namespace FattyMenu {
 		};
 
 		// Vector to hold 10- codes
-		static const std::vector<CCode> ten_code_list = {
+		inline const std::vector<CCode> ten_code_list = {
 			CPCodes::Ten::_100,
 			CPCodes::Ten::_101,
 			CPCodes::Ten::_102,
@@ -92,9 +93,55 @@ namespace FattyMenu {
 			CPCodes::Ten::_10109
 		};
 
+		inline const std::vector<SViolationRow> civic_trust_violations = {
+			// Columns:
+			// Code				Violation							Description													Optional Note - see TableRowTypes.h & DisplayViolationTable() function in CPSOP.cpp
+			{ "27",				"Attempted Crime",					"Attempting a violation without successful completion"												},
+			{ "54",				"Possession of materials",			"Possession of minor contraband articles"															},
+			{ "62",				"Alarms",							"Knowingly making false reports to Civil Protection"												},
+			{ "69",				"Possession of resources",			"Possession of moderate contraband articles"														},
+			{ "91",				"Non-sanctioned distribution",		"Distributing items outside authorized distribution zones",	EViolationNote::SanctionedDistribution	},
+			{ "99",				"Reckless Operation",				"Unsafe or negligent operation of equipment"														},
+			{ "311",			"Verbal Indescretion",				"Loitering or excessive conversation without civic purpose"											},
+			{ "374b",			"Illegal disposal",					"Littering, defacement, or unsanitary waste disposal"												},
+			{ "488",			"Theft",							"Unlawful taking or scavenging of property"															},
+			{ "647e",			"Disengaged from Workforce",        "Deviating from assigned duties or non-corplex status"												},
+			{ "647f",			"Civic dysfunction",                "Public intoxication or impairment"																	},
+		};
+
+		inline const std::vector<SViolationRow> civil_will_violations = {
+			{ "35",				"Civil privacy violation",			"Unauthorized intrusion, observation or harassment"													},
+			{ "59",				"Movement trangression",			"Excessive running, climbing, or unauthorized movement"												},
+			{ "63",				"Criminal trespass",				"Entering a restricted area without authorization"													},
+			{ "148",			"Resisting Arrest",					"Resisting, evading or fleeing from prosecution"													},
+			{ "507",		    "Public non-compliance",			"Failure to comply with lawful directives"															},
+		};
+
+		inline const std::vector<SViolationRow> communal_unrest_violations = {
+			{ "28",				"Felony incite",					"Encouraging or directing others to commit violations"												},
+			{ "404",		    "Riot",								"Participating in or promoting communal unrest"														},
+			{ "407",			"Unlawful Assembly",				"Unauthorized gathering posing a stability risk"													},
+			{ "415",			"Civic disunity",					"Disturbing public order assaulting civilians"														},
+		};
+
+		inline const std::vector<SViolationRow> divisive_sociocidal_violations = {
+			{ "17f",			"Fugitive Detachment",				"Haboring or concealing wanted individuals"															},
+			{ "51",				"Non-sanctioned arson",				"Starting or spreading fire without authorization"													},
+			{ "63s",			"Illegal in operation",				"Obstruction of authorized civic operations"														},
+			{ "94",				"Weapon",							"Possession or use of any firearm"																	},
+			{ "95",				"Illegal Carrying",					"Possession of major contraband articles",					EViolationNote::FirearmsCharge			},
+			{ "603",			"Unlawful entry",					"Gaining entry through force, fraud, or deception"													},
+		};
+
+		inline const std::vector<SViolationRow> destruction_violations = {
+			{ "51b",			"Threat to property",				"Damage to CMB equipment or infrastructure",														},
+			{ "243",			"Assault on protection team",		"Direct, violent attack(s) on Overwatch forces w/ intent to cause great bodily harm or death"		},
+		};
+
+		// TODO: Old - revisit this later and integrate w/ SViolationRow LUTs above 
 		// Violation Category: Violation of civic trust
 		// Category Description: Actions that undermine civic responsibility, authorized resource allocation, workforce obligations or public trust
-		static const std::vector<CCode> violation_of_civic_trust_codes = {
+		inline const std::vector<CCode> violation_of_civic_trust_codes = {
 			CPCodes::Violation::_27,
 			CPCodes::Violation::_54,
 			CPCodes::Violation::_62,
@@ -110,7 +157,7 @@ namespace FattyMenu {
 
 		// Violation Category: Failure to comply with the civil will
 		// Category Description: Failure to obey, respect, or cooperate w/ lawful directives issued by Civil Protection
-		static const std::vector<CCode> failure_to_comply_with_the_civil_will = {
+		inline const std::vector<CCode> failure_to_comply_with_the_civil_will = {
 			CPCodes::Violation::_35,
 			CPCodes::Violation::_59,
 			CPCodes::Violation::_63,
@@ -120,7 +167,7 @@ namespace FattyMenu {
 
 		// Violation Category: Promoting communal unrest
 		// Category Description: Actions intented to disrupt civic harmony, encourage disorder or undermine public stability
-		static const std::vector<CCode> promoting_communal_unrest = {
+		inline const std::vector<CCode> promoting_communal_unrest = {
 			CPCodes::Violation::_28,
 			CPCodes::Violation::_404,
 			CPCodes::Violation::_407,
@@ -129,7 +176,7 @@ namespace FattyMenu {
 
 		// Violation Category: Divisive sociocidal counter-obeyance
 		// Category Description: Organized resistance to authority, interference with operations, or support of anti-civil elements
-		static const std::vector<CCode> divisive_sociocidal_counter_obeyance = {
+		inline const std::vector<CCode> divisive_sociocidal_counter_obeyance = {
 			CPCodes::Violation::_17f,
 			CPCodes::Violation::_51,
 			CPCodes::Violation::_63s,
@@ -140,13 +187,13 @@ namespace FattyMenu {
 
 		// Violation Category: Destruction of corporal social protection units
 		// Category Description: Acts resulting in damage to Civil Protection personnel, assets or operational capability 		
-		static const std::vector<CCode> destruction_of_corporal_social_protection_units = {
+		inline const std::vector<CCode> destruction_of_corporal_social_protection_units = {
 			CPCodes::Violation::_51b,
 			CPCodes::Violation::_243
 		};
 		
 		// Override code list
-		static const std::vector<CCode> override_code_list = {
+		inline const std::vector<CCode> override_code_list = {
 			CPCodes::Override::sociostable,
 			CPCodes::Override::unrest_procedure,
 			CPCodes::Override::containment_procedure,
@@ -154,13 +201,13 @@ namespace FattyMenu {
 		};
 
 		// Civic reward lists
-		static const std::vector<CCivicReward> public_service_detail_list = {
+		inline const std::vector<CCivicReward> public_service_detail_list = {
 			Rewards::GeneralPublicServiceDetails::t94_322,
 			Rewards::GeneralPublicServiceDetails::t47_941,
 			Rewards::GeneralPublicServiceDetails::t37_584,
 		};
 
-		static const std::vector<CCivicReward> civic_deed_list = {
+		inline const std::vector<CCivicReward> civic_deed_list = {
 			Rewards::CivicDeeds::d92_493,
 			Rewards::CivicDeeds::d92_595,
 			Rewards::CivicDeeds::d18_303,
@@ -170,7 +217,7 @@ namespace FattyMenu {
 		};
 
 		// Citizen interaction directive lists
-		static const std::vector<CCivilStatus> citizen_interaction_directive_list = {
+		inline const std::vector<CCivilStatus> citizen_interaction_directive_list = {
 			StatusTypes::non_citizen,
 			StatusTypes::standard_citizen,
 			StatusTypes::priority_3_citizen,
@@ -179,7 +226,7 @@ namespace FattyMenu {
 		};
 
 		// Civil Protection Terminology lists
-		static const std::vector<CTerm> protocol_list = {
+		inline const std::vector<CTerm> protocol_list = {
 			CPTerminology::Protocol::emergency_code,
 			CPTerminology::Protocol::overload_protocol,
 			CPTerminology::Protocol::prosecution,
@@ -187,7 +234,7 @@ namespace FattyMenu {
 			CPTerminology::Protocol::sacrifice
 		};
 
-		static const std::vector<CTerm> action_list = {
+		inline const std::vector<CTerm> action_list = {
 			CPTerminology::Action::administer,
 			CPTerminology::Action::amputate,
 			CPTerminology::Action::apply,
@@ -213,14 +260,14 @@ namespace FattyMenu {
 			CPTerminology::Action::suspend
 		};
 
-		static const std::vector<CTerm> action_condition_list = {
+		inline const std::vector<CTerm> action_condition_list = {
 			CPTerminology::ActionCondition::cohesive,
 			CPTerminology::ActionCondition::cohesion,
 			CPTerminology::ActionCondition::expired,
 			CPTerminology::ActionCondition::non_cohesive
 		};
 
-		static const std::vector<CTerm> hostile_list = {
+		inline const std::vector<CTerm> hostile_list = {
 			CPTerminology::Hostile::anti_citizen,
 			CPTerminology::Hostile::biotic,
 			CPTerminology::Hostile::exogen,
@@ -235,7 +282,7 @@ namespace FattyMenu {
 			CPTerminology::Hostile::virome
 		};
 
-		static const std::vector<CTerm> equipment_asset_list = {
+		inline const std::vector<CTerm> equipment_asset_list = {
 			CPTerminology::EquipmentAsset::containment_field,
 			CPTerminology::EquipmentAsset::ground_unit,
 			CPTerminology::EquipmentAsset::protection_team,
@@ -257,7 +304,7 @@ namespace FattyMenu {
 			CPTerminology::EquipmentAsset::verdict,
 		};
 
-		static const std::vector<CTerm> organization_list = {
+		inline const std::vector<CTerm> organization_list = {
 			CPTerminology::Organizations::combine_overwatch,
 			CPTerminology::Organizations::airwatch,
 			CPTerminology::Organizations::civil_protection,
@@ -272,7 +319,7 @@ namespace FattyMenu {
 			CPTerminology::Organizations::security_council
 		};
 
-		static const std::vector<CTerm> sociostability_list = {
+		inline const std::vector<CTerm> sociostability_list = {
 			CPTerminology::Sociostability::combine_civil_code,
 			CPTerminology::Sociostability::civic_trust,
 			CPTerminology::Sociostability::tag,
@@ -290,7 +337,7 @@ namespace FattyMenu {
 			CPTerminology::Sociostability::passive_signature_imprint
 		};
 
-		static const std::vector<CTerm> area_list = {
+		inline const std::vector<CTerm> area_list = {
 			CPTerminology::Areas::block,
 			CPTerminology::Areas::canal_block,
 			CPTerminology::Areas::control_section,
@@ -321,12 +368,12 @@ namespace FattyMenu {
 			CPTerminology::Areas::non_patrol_region
 		};
 
-		static const std::vector<CAssignment> mandate_duties_list = {
+		inline const std::vector<CAssignment> mandate_duties_list = {
 			CPAssignments::MandateDuties::curfew_procedure,
 			CPAssignments::MandateDuties::ration_intake_detail
 		};
 
-		static const std::vector<CAssignment> protection_duties_list = {
+		inline const std::vector<CAssignment> protection_duties_list = {
 			CPAssignments::ProtectionDuties::restricted_patrol_protocol,
 			CPAssignments::ProtectionDuties::workforce_supervisory_detail,
 			CPAssignments::ProtectionDuties::precinct_patrol_protocol,
@@ -337,12 +384,12 @@ namespace FattyMenu {
 			CPAssignments::ProtectionDuties::surveillance_network_maintenance
 		};
 
-		static const std::vector<CAssignment> miscellaneous_duties_list = {
+		inline const std::vector<CAssignment> miscellaneous_duties_list = {
 			CPAssignments::Miscellaneous::expectations,
 			CPAssignments::Miscellaneous::tac_usage
 		};
 
-		static const std::vector<CContraband> contraband_list = {
+		inline const std::vector<CContraband> contraband_list = {
 			ContrabandIndex::category_1,
 			ContrabandIndex::category_2,
 			ContrabandIndex::category_3
