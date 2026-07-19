@@ -94,7 +94,6 @@ namespace FattyMenu {
 			extern CCode _311;
 			extern CCode _374b;
 			extern CCode _488;
-			extern CCode _647e;
 			extern CCode _647f;
 
 			// Violation Category: Failure to comply with the civil will
@@ -104,6 +103,7 @@ namespace FattyMenu {
 			extern CCode _63;
 			extern CCode _148;
 			extern CCode _507;
+			extern CCode _647e;
 
 			// Violation Category: Promoting communal unrest
 			// Category Description: Actions intented to disrupt civic harmony, encourage disorder or undermine public stability
@@ -134,6 +134,17 @@ namespace FattyMenu {
 			extern CCode unrest_procedure;
 			extern CCode containment_procedure;
 			extern CCode lockdown_procedure;
+		}
+
+		// CCode declarations for verdict codes
+		namespace Verdict {
+			extern CCode verbal_warning;
+			extern CCode citation;
+			extern CCode prosecution;
+			extern CCode terminal_prosecution;
+			extern CCode disassociation;
+			extern CCode amputation;
+			extern CCode immediate_amputation;
 		}
 	}
 }

@@ -403,77 +403,70 @@ namespace FattyMenu {
 			CCode _27 = {
 				"27",
 				"Attempted crime",
-				"Attempting to commit any violation but failing to do so",
+				"Attempting a violation w/o successful completion",
 				ECodeType::ViolationCode
 			};
 
 			CCode _54 = {
 				"54",
 				"Possession of materials",
-				"Possession of minor articles of contraband [LEVEL 3]",
+				"Possession of minor contraband articles",
 				ECodeType::ViolationCode
 			};
 			
 			CCode _62 = {
 				"62",
 				"Alarms",
-				"Falsely reporting or alerting Civil Protection",
+				"Knowingly making false reports to Civil Protection",
 				ECodeType::ViolationCode
 			};
 
 			CCode _69 = {
 				"69",
 				"Possession of resources",
-				"Possession of moderate articles of contraband [LEVEL 2]",
+				"Possession of moderate contraband articles",
 				ECodeType::ViolationCode
 			};
 
 			CCode _91 = {
 				"91",
 				"Non-sanctioned distribution",
-				"Distributing items outside of a distribution block",
+				"Distributing items outside authorized distribution zones",
 				ECodeType::ViolationCode
 			};
 			
 			CCode _99 = {
 				"99",
 				"Reckless operation",
-				"Operating equipment in a negligent or criminal manner",
+				"Unsafe or negligent operation of equipment",
 				ECodeType::ViolationCode
 			};
 
 			CCode _311 = {
 				"311",
 				"Verbal indiscretion",
-				"Vulgar language or yelling [if excessive charge 415]",
+				"Loitering or excessive conversation w/o civic purpose",
 				ECodeType::ViolationCode
 			};
 
 			CCode _374b = {
 				"374b",
 				"Illegal disposal",
-				"Littering or defecating [if excessive charge 415]",
+				"Littering, defacement or unsanitary waste disposal",
 				ECodeType::ViolationCode
 			};
 
 			CCode _488 = {
 				"488",
 				"Theft",
-				"Illegal acquisition of items [stealing or scavenging]",
-				ECodeType::ViolationCode
-			};
-			
-			CCode _647e = {
-				"647e",
-				"Disengaged from workforce",
-				"Loitering place to place, unregistered, abandoning work",
+				"Unlawful taking or scavenging of property",
 				ECodeType::ViolationCode
 			};
 
 			CCode _647f = {
 				"647f",
-				"Improper function",
-				"Public intoxication [if excessive charge 415]",
+				"Civic dysfunction",
+				"Public intoxication or impairment",
 				ECodeType::ViolationCode
 			};
 
@@ -482,35 +475,42 @@ namespace FattyMenu {
 			CCode _35 = {
 				"35",
 				"Civil privacy violation",
-				"Harassment or invasion of personal space",
+				"Unauthorized intrusion, observation or harassment",
 				ECodeType::ViolationCode
 			};
 
 			CCode _59 = {
 				"59",
 				"Movement transgression",
-				"Excessive running, jumping or climbing",
+				"Excessive running, jumping or unauthorized movement",
 				ECodeType::ViolationCode
 			};
 
 			CCode _63 = {
 				"63",
 				"Criminal trespass",
-				"Entering into a prohibited area without authorization",
+				"Entering a restricted area w/o authorization",
 				ECodeType::ViolationCode
 			};
 			
 			CCode _148 = {
 				"148",
 				"Resisting arrest",
-				"Resisting or fleeing from prosecution [minor instances: charge w/ 507 public non-compliance]",
+				"Resisting, evading or fleeing from prosecution",
 				ECodeType::ViolationCode
 			};
 
 			CCode _507 = {
 				"507",
 				"Public non-compliance",
-				"Repeated or severe displays of uncooperative behavior",
+				"Failure to comply w/ lawful directives",
+				ECodeType::ViolationCode
+			};
+
+			CCode _647e = {
+				"647e",
+				"Disengaged from workforce",
+				"Deviating from assigned duties or non-corplex status",
 				ECodeType::ViolationCode
 			};
 
@@ -519,28 +519,28 @@ namespace FattyMenu {
 			CCode _28 = {
 				"28",
 				"Felony incite",
-				"Encouraging or instructing others to commit violations",
+				"Encouraging or directing others to commit violations",
 				ECodeType::ViolationCode
 			};
 			
 			CCode _404 = {
 				"404",
 				"Riot",
-				"Actively engaging or promoting communal unrest",
+				"Participating in or promoting communal unrest",
 				ECodeType::ViolationCode
 			};
 
 			CCode _407 = {
 				"407",
 				"Unlawful assembly",
-				"Unauthorized gathering that poses a stability risk",
+				"Unauthorized gathering posing a stability risk",
 				ECodeType::ViolationCode
 			};
 
 			CCode _415 = {
 				"415",
 				"Civic disunity",
-				"Disturbing the peace, assaulting non-CMB personnel",
+				"Disturbing public order or assaulting civilians",
 				ECodeType::ViolationCode
 			};
 
@@ -549,20 +549,21 @@ namespace FattyMenu {
 			CCode _17f = {
 				"17f",
 				"Fugitive detachment",
-				"Concealing these wanted by Overwatch forces",
+				"Harboring or concealing wanted individuals",
 				ECodeType::ViolationCode
 			};
 
 			CCode _51 = {
 				"51",
 				"Non-sanctioned arson",
-				"Intentional or negligent starting of any form of fire",
+				"Starting or spreading fire w/o authorization",
 				ECodeType::ViolationCode
 			};
+
 			CCode _63s = {
 				"63s",
 				"Illegal in operation",
-				"An accomplice to a socio-endangerment level 1 crime",
+				"Obstruction of authorized civic operations",
 				ECodeType::ViolationCode
 			};
 			
@@ -576,14 +577,14 @@ namespace FattyMenu {
 			CCode _95 = {
 				"95",
 				"Illegal carrying",
-				"Possession of major articles of contraband level 1 [ALL FIREARMS -> charge w/ 94 weapon instead]",
+				"Possession of major contraband articles",
 				ECodeType::ViolationCode
 			};
 
 			CCode _603 = {
 				"603",
 				"Unlawful entry",
-				"Fraudulent or forceful means of entry into a premises",
+				"Gaining entry through force, fraud or deception",
 				ECodeType::ViolationCode
 			};
 
@@ -592,18 +593,16 @@ namespace FattyMenu {
 			CCode _51b = {
 				"51b",
 				"Threat to property",
-				"Damage to CMB equipment or infrastructure",
+				"Damage to Combine equipment, assets or infrastructure",
 				ECodeType::ViolationCode
 			};
 
 			CCode _243 = {
 				"243",
 				"Assault on protection team",
-				"Direct, violent attack(s) on Overwatch forces w/ intent to cause great bodily harm or death",
+				"Any threat, physical contact or use of force directed against Overwatch forces",
 				ECodeType::ViolationCode
 			};
-
-			
 		}
 
 		// CCode definitions for override codes
@@ -630,8 +629,8 @@ namespace FattyMenu {
 			CCode sociostable = {
 				"Sociostable",
 				{
-					"Applicable to isolated, limited anti-civil actions that do not affect the wider populace.",
-					"Maintained during minimal disruptions when civil order remains intact."
+					"Applicable to isolated, limited anti-civil actions that do not affect the wider populace",
+					"Maintained during minimal disruptions when civil order remains intact"
 				},
 				{
 					"No additional directives"
@@ -642,12 +641,13 @@ namespace FattyMenu {
 			CCode unrest_procedure = {
 				"Unrest Procedure",
 				{
-					"Mandatory when communal unrest or riots are detected.",
+					"Mandatory when communal unrest or riots are detected",
 					"This procedure requires a broader response and escalation of force to address widespread threats and restore order",
 				},
 				{
 					"Form response teams and converge on reported areas of communal unrest or active riots",
-					"Use additional lethal force to pacify or neutralize individuals participating in riots"
+					"Use additional lethal force to pacify or neutralize individuals participating in riots",
+					"Establish checkpoints and conductr mandated searches"
 				},
 				ECodeType::OverrideCode
 			};
@@ -655,9 +655,8 @@ namespace FattyMenu {
 			CCode containment_procedure = {
 				"Containment Procedure",
 				{
-					"Signifies a significant breach by a foreign entity in a Combine-controlled area.",
-					"Authorizes deployment of protection and stabilization teams to quell the incursion.",
-
+					"Signifies a significant breach by a foreign entity in a Combine-controlled area",
+					"Authorizes deployment of protection and stabilization teams to quell the incursion",
 				},
 				{
 					"Prioritize efforts on containing incursion within the compromised Combine installation",
@@ -670,8 +669,8 @@ namespace FattyMenu {
 			CCode lockdown_procedure = {
 				"Lockdown Procedure",
 				{
-					"Enacted when restricting civic movement is necessary to achieve operational objectives.",
-					"This procedure enforces compliance and serves as a communal punishment to maintain order.",
+					"Enacted when restricting civic movement is necessary to achieve operational objectives",
+					"This procedure enforces compliance and serves as a communal punishment to maintain order",
 				},
 				{
 					"Ensure all civilians relocate to their designated tenement buildings immediately",
@@ -679,6 +678,51 @@ namespace FattyMenu {
 					"Perform routine perimeter patrols to maintain security and prevent unauthorized access",
 				},
 				ECodeType::OverrideCode
+			};
+		}
+
+		// CCode declarations for verdict codes
+		namespace Verdict {
+			CCode verbal_warning = {
+				"VERBAL WARNING",
+				"A response to minor infractions, typically delivering up to 2 verbal warnings. If the misconduct persists, more severe penalties may be warranted.",
+				ECodeType::VerdictCode
+			};
+			
+			CCode citation = {
+				"CITATION",
+				"A stern, final warning issued before considering prosecution, involving the use of 1 - 3 non-lethal strikes w/ a stun baton to subdue the suspect. It's employed when prosecution is deemed unnecessary and verbal warnings have been proven to be ineffective.",
+				ECodeType::VerdictCode
+			};
+			
+			CCode prosecution = {
+				"PROSECUTION",
+				"Involves processing the suspect at the nearest Combine interface and inputting their committed violations & verdict code in the civic registrar before imprisoning them.",
+				ECodeType::VerdictCode
+			};
+			
+			CCode terminal_prosecution = {
+				"TERMINAL PROSECUTION",
+				"Refers to the execution of the suspect, which takes place in a concealed location after they've been processed.",
+				ECodeType::VerdictCode
+			};
+			
+			CCode disassociation = {
+				"DISASSOCIATION",
+				"Involves removing the suspect from the civic populace and holding them until they are transferred into the custody of available stabilization delegates for processing.",
+				ECodeType::VerdictCode
+			};
+			
+			CCode amputation = {
+				"AMPUTATION",
+				"Signifies summary execution of the suspect, conducted w/o processing them and away from the civic populace.",
+				ECodeType::VerdictCode
+			};
+			
+			CCode immediate_amputation = {
+				"IMMEDIATE AMPUTATION",
+				"Distinguishes the immediate execution of the suspect at the scene, conducted w/o processing them or within view of the civic populace.",
+				ECodeType::VerdictCode
 			};
 		}
 	}
