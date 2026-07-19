@@ -10,9 +10,9 @@ namespace FattyMenu {
 		namespace Protocol {
 			extern CTerm emergency_code;
 			extern CTerm overload_protocol;
-			extern CTerm prosecution;
-			extern CTerm response;
-			extern CTerm sacrifice;
+			extern CTerm prosecution_code;
+			extern CTerm response_code;
+			extern CTerm sacrifice_code;
 		}
 
 		// Action code definitions
@@ -48,6 +48,7 @@ namespace FattyMenu {
 			extern CTerm cohesion;
 			extern CTerm expired;
 			extern CTerm non_cohesive;
+			extern CTerm tag;
 		}
 
 		// Hostile entity definitions
@@ -108,7 +109,6 @@ namespace FattyMenu {
 		namespace Sociostability {
 			extern CTerm combine_civil_code;
 			extern CTerm civic_trust;
-			extern CTerm tag;
 			extern CTerm loyalty_check_procedure;
 			extern CTerm memory_replacement;
 			extern CTerm recall_and_recycle;
