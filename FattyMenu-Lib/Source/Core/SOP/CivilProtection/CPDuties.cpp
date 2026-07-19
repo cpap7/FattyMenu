@@ -28,7 +28,7 @@ namespace FattyMenu {
 					"Direct new arrivals at WIH-3 to their assigned tenement building",
 					"Ensure new arrivals do not leave WIH-3 without a protection unit to escort them\n"
 					"NOTE: Residential block inspections can be performed at any time and is not mandatory during curfews",
-					"NOTE: 40+ units (and above) may modify containment field access modes at their discretion to better enforce curfew"
+					"NOTE: 40+ units (and above) may modify containment field access modes at their discretion to control civilian traffic with better precision"
 				}
 			};
 			
@@ -47,7 +47,7 @@ namespace FattyMenu {
 		namespace ProtectionDuties {
 			CAssignment restricted_patrol_protocol = {
 				"Restricted Patrol Protocol",
-				"RECOMMENDED: At least 1 unit with a submachine gun and 2 units with sidearms (team)",
+				"RECOMMENDED: At least 3 firearm trained units (team)",
 				{
 					"Escort technicians to repair any compromised containment fields or sterilizers",
 					"Respond to anti-citizen or necrotic activity\n -> Cauterize any threats to sociostability"
@@ -60,8 +60,6 @@ namespace FattyMenu {
 				{
 					"Oversee labor detail and ensure efficient contribution from the Industrial Workforce",
 					"Ensure assets are appropriately distributed to their designated supply stock locations",
-					"Prosecute Industrial Workforce management and/or labor detail for failing to allocate available assets properly",
-					"If all shipments are depleted and all packages are delivered before the end of the shift:\n -> Perform inspections on all of the workers \n -> Issue rewards to 2 or 3 of the best workers",
 					"OPTIONAL: If needed, establish a secure package pipeline with available CPTs",
 					"OPTIONAL: Establish a resin quota to be met by the end of the shift\n -> i.e., 3:1 resin to rations package delivery ratio until resin reaches 50% for example",
 					"OPTIONAL: Have a unit standing by at SB-7 for expediting resin deliveries",
@@ -90,10 +88,7 @@ namespace FattyMenu {
 					"Maintain vigilance and control at security checkpoints",
 					"Conduct rigorous searches",
 					"Question any suspicious individuals about their intent to pass",
-					"Process recent and returning transfers to the city in WIH-3",
-					"Ensure citizens who possess contraband are appropriately prosecuted",
-					"NOTE: Active cities (per world-map) are: 8, 11, 12, 13, 14, 15, 16, 17, 24 & 27",
-					"NOTE: People saying they're from City 8 are a red-flag. It's a Combine-specific city, no residents"
+					
 				}
 
 			};
@@ -112,7 +107,10 @@ namespace FattyMenu {
 				"Workforce Intake Processing",
 				"RECOMMENDED: At least 2 units",
 				{
-					"Process new arrivals at TB-3 or WIH-3 and ensure they:\n -> Have validated their transfer with a relocation coupon\n -> Received their new ID card\n -> Do not possess contraband\n"
+					"Process new arrivals at WIH-3 and ensure they:\n -> Have validated their transfer with a relocation coupon\n -> Received their new ID card\n -> Do not possess contraband\n"
+					"Ensure citizens who possess contraband are appropriately prosecuted",
+					"NOTE: Active cities (per world-map) are: 8, 11, 12, 13, 14, 15, 16, 17, 24 & 27",
+					"NOTE: People saying they're from City 8 are a red-flag. It's a Combine-specific city - there are no citizens there"
 				}
 			};
 
@@ -158,7 +156,8 @@ namespace FattyMenu {
 					"Requests directed towards other teams, team leaders, officers or Dispatch\n -> Literally any request, whether it's a call for help, info on somebody from Civic Database or lockdown of a certain region\n -> Asking other team leads for status report does not require you to be a Rank Leader\n -> Feel free to request status updates from anyone at any time",
 					"Sharing important intel you've obtained\n -> Like info on an armed person in the city, rebel group, possible sabotage or theft of PB packages, etc.",
 					"Requesting status of certain blocks or regions\n -> If your team lead doesn't do that, he sucks.",
-					"Notifying others of something urgent that wasn't declared by a team leader.\n -> Like changing an assignment, responding to something or requesting backup"
+					"Notifying others of something urgent that wasn't declared by a team leader.\n -> Like changing an assignment, responding to something or requesting backup",
+					"In order to maintain clear communication, do NOT overuse/spam codes and voicelines within your radio messages."
 				}
 			};
 		}
