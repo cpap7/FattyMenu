@@ -18,7 +18,6 @@ namespace FattyMenu {
 		/* Verdict code = 54 */
 		CContraband category_1 = {
 			CPCodes::Violation::_54,
-			"VERDICT: Citation",
 			{
 				"Scrap materials (aluminum, glass, etc.)",
 				"Harmful chemicals and illicit narcotics",
@@ -30,7 +29,6 @@ namespace FattyMenu {
 		/* Verdict code = 69 */
 		CContraband category_2 = {
 			CPCodes::Violation::_69,
-			"VERDICT: Prosecution",
 			{
 				"Communication devices (handheld radios)",
 				"Non-sanctioned tools (zip ties, lockpicks)",
@@ -42,7 +40,6 @@ namespace FattyMenu {
 		/* Verdict code = 95 */
 		CContraband category_3 = {
 			CPCodes::Violation::_95,
-			"VERDICT: Request from Dispatch before proceeding",
 			{
 				"Melee weapons (knives, pipes, etc.)",
 				"Ammunition and explosive devices",
