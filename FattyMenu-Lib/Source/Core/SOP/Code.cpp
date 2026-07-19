@@ -26,10 +26,11 @@ namespace FattyMenu {
 			case ECodeType::None:			break;
 			case ECodeType::Abbreviation:	return "Abbreviation";
 			case ECodeType::ResponseCode:	return "Response Code";
-			case ECodeType::ElevenCode:		return "11- code";
-			case ECodeType::TenCode:		return "10- code";
+			case ECodeType::ElevenCode:		return "11- Code";
+			case ECodeType::TenCode:		return "10- Code";
 			case ECodeType::ViolationCode:	return "Violation Code";
 			case ECodeType::OverrideCode:	return "Override Code";
+			case ECodeType::VerdictCode:	return "Verdict Code";
 
 			default:						break;
 		}

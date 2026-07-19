@@ -13,6 +13,7 @@ namespace FattyMenu {
 		TenCode			= 4,
 		ViolationCode	= 5,
 		OverrideCode	= 6,
+		VerdictCode		= 7
 	};
 
 	class CCode {
