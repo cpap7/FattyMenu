@@ -212,9 +212,10 @@ namespace FattyMenu {
 		static const SOverrideCodeRow rows[] = {
 			// Columns:
 			// Status					Sociostable			Unrest				Containment			Lockdown
-			{ "Ration Intake",			"Active",			"Discretionary",	"Suspended",		"Suspended"		},
-			{ "Workforce Status",		"Active",			"Discretionary",	"Suspended",		"Suspended"		},
-			{ "Shield Access",			"Civic Populace",	"Workforce",		"Ground Units",		"Ground Units"	},
+			{ "Ration intake",			"Active",			"Discretionary",	"Suspended",		"Suspended"		},
+			{ "Workforce status",		"Active",			"Discretionary",	"Suspended",		"Suspended"		},
+			{ "Shield access",			"Civic Populace",	"Workforce",		"Ground Units",		"Ground Units"	},
+			{ "Weapon protocol",		"Holstered",		"Unholstered",		"Raised",			"Raised"		}
 		};
 
 
@@ -243,19 +244,14 @@ namespace FattyMenu {
 			ImGui::Text("%s", status.m_sociostable_index.c_str());
 
 			ImGui::TableSetColumnIndex(2);
-			if (status.m_unrest_index == "Discretionary" || status.m_unrest_index == "Workforce") {
-				GUI::Helpers::WrappedColoredText(s_yellow_color, status.m_unrest_index.c_str());
-			}
+			GUI::Helpers::WrappedColoredText(s_yellow_color, status.m_unrest_index.c_str());
 
 			ImGui::TableSetColumnIndex(3);
-			if (status.m_containment_index == "Suspended" || status.m_containment_index == "Ground Units") {
-				GUI::Helpers::WrappedColoredText(s_red_color, status.m_containment_index.c_str());
-			}
+			GUI::Helpers::WrappedColoredText(s_red_color, status.m_containment_index.c_str());
 
 			ImGui::TableSetColumnIndex(4);
-			if (status.m_lockdown_index == "Suspended" || status.m_lockdown_index == "Ground Units") {
-				GUI::Helpers::WrappedColoredText(s_red_color, status.m_lockdown_index.c_str());
-			}
+			GUI::Helpers::WrappedColoredText(s_red_color, status.m_lockdown_index.c_str());
+
 		}
 
 		ImGui::EndTable();
