@@ -36,9 +36,9 @@ namespace FattyMenu {
 		CVoiceline _603 = { "603", "603 unlawful entry." };
 		CVoiceline _647e = { "647E", "647e disengaged from workforce." };
 		CVoiceline _10103 = { "10-103M", "10-103m disturbance by mentally unfit." };
-		CVoiceline  _0_rank_points = { "0 RP", "0 percent rank points." };
-		CVoiceline  _25_rank_points = { "25 RP", "25 percent rank points." };
-		CVoiceline  _50_rank_points = { "50 RP", "50 percent rank points." };
+		CVoiceline _0_rank_points = { "0 RP", "0 percent rank points." };
+		CVoiceline _25_rank_points = { "25 RP", "25 percent rank points." };
+		CVoiceline _50_rank_points = { "50 RP", "50 percent rank points." };
 		CVoiceline accomplices_operating = { "ACCOMPLICES OPERATING", "Protection teams, be advised accomplices operating in area." };
 		CVoiceline administer = { "ADMINISTER", "Administer." };
 		CVoiceline all_units_at = { "ALL UNITS AT", "All units at" };

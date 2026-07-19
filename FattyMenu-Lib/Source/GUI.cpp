@@ -337,27 +337,32 @@ namespace FattyMenu {
 
 			
 			if (ImGui::BeginTabItem("Credits")) {
-				ImGui::TextWrapped("Internal menu created by: @wiener_water88 (JoeRogaine) on Discord aka cpap7 on Github\n");
+				ImGui::TextWrapped("Internal menu created by: JoeRogaine on Discord aka cpap7 on Github\n");
+				
 				ImGui::Separator();
 
-				ImGui::TextWrapped("Special thanks to the following people for their help: \n\n");
-
-				ImGui::TextWrapped("-> MajoraPLZ for helping me find the right people to ask for info, and answering any questions I had\n");
-				ImGui::TextWrapped("-> Cazzette for providing feedback, and also helping me find people to ask for info\n\n");
+				ImGui::TextWrapped("Special thanks to the following people for their help:");
+				ImGui::TextWrapped("-> MajoraPLZ for helping me find the right people to ask for info, and answering any questions I had");
+				ImGui::TextWrapped("-> Cazzette for providing feedback, and also helping me find people to ask for info");
 				ImGui::TextWrapped("-> voprositelnii for providing TAC usage etiquette and duty expectations");
+				
 				ImGui::Separator();
 
-				ImGui::TextWrapped("SOP files\n");
-				ImGui::TextWrapped("-> Rommel & Cazzette for sending me the SOP pdfs\n\n");
+				ImGui::TextWrapped("SOP files");
+				ImGui::TextWrapped("-> Rommel & Cazzette for sending me the SOP pdfs");
+				
 				ImGui::Separator();
 
-				ImGui::TextWrapped("Voiceline Data\n");
-				ImGui::TextWrapped("-> -Broken-\n\n");
+				ImGui::TextWrapped("Voiceline Data");
+				ImGui::TextWrapped("-> -Broken-");
+				ImGui::TextWrapped("-> Recker");
+				
 				ImGui::Separator();
 
-				ImGui::TextWrapped("Programming Assistance\n");
-				ImGui::TextWrapped("-> @fblawyer on Discord\n\n");
-
+				ImGui::TextWrapped("Programming Assistance");
+				ImGui::TextWrapped("-> @fblawyer on Discord");
+				
+				ImGui::Separator();
 
 				ImGui::EndTabItem();
 			}
