@@ -3,7 +3,7 @@
 
 namespace FattyMenu {
 	
-	namespace StatusTypes {
+	namespace CivilStatusTypes {
 		extern CCivilStatus non_citizen;
 		extern CCivilStatus standard_citizen;
 		extern CCivilStatus priority_3_citizen;
