@@ -25,7 +25,7 @@ namespace FattyMenu {
 		void DisplayCPLogo(); 																							// For displaying Civil Protection's logo (ASCII)
 		void DisplayCPCodes(const std::vector<CCode>& a_codes); 														// For displaying 10-, 11-, and response codes
 		void DisplayCivicRewardInfo(const std::vector<CCivicReward>& a_civic_rewards); 									// For displaying citizen rewards
-		void DisplayCitizenInteractionDirectives(const std::vector<CCivilStatus>& a_civil_status_list);					// For displaying citizen types and interaction directives
+		void DisplayCivilStatusInfo(const std::vector<CCivilStatus>& a_civil_status_list);								// For displaying civil status types and engagement directives
 		//void DisplayCPTerms(const std::vector<CTerm>& a_terms); 														// For displaying terminology index
 		void DisplayPolitiSchedule(); 																					// For displaying politi-schedule
 		void DisplayOverrideCodeTable(); 																				// For displaying override code table
