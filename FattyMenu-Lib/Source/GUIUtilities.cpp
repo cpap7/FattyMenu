@@ -40,12 +40,20 @@ namespace FattyMenu {
 		ImGui::PushStyleColor(ImGuiCol_HeaderActive, ImVec4(0.50f, 0.50f, 0.50f, 1.00f));	// Pale Yellow when active
 	}
 
-	// For collapsible sub-headers
+	// (OLD) For collapsible sub-headers
 	void GUI::Themes::SetHeaderTransparent() {
 		// Set header background to transparent 
 		ImGui::PushStyleColor(ImGuiCol_Header, ImVec4(0.00f, 0.00f, 0.00f, 0.00f));			// Normal state
 		//ImGui::PushStyleColor(ImGuiCol_HeaderHovered, ImVec4(0.00f, 0.00f, 0.00f, 0.00f)); // Hovered state
 		ImGui::PushStyleColor(ImGuiCol_HeaderActive, ImVec4(0.00f, 0.00f, 0.00f, 0.00f));	// Active state
+	}
+
+	// For collapsible sub-headers
+	void GUI::Themes::SetSubheaderColorDefault() {
+		// Dim teal tint
+		ImGui::PushStyleColor(ImGuiCol_Header, ImVec4(0.00f, 0.45f, 0.45f, 0.22f));			// Normal
+		ImGui::PushStyleColor(ImGuiCol_HeaderHovered, ImVec4(0.00f, 0.65f, 0.65f, 0.35f));	// Hovered
+		ImGui::PushStyleColor(ImGuiCol_HeaderActive, ImVec4(0.00f, 0.80f, 0.80f, 0.45f));	// Active
 	}
 
 	// For resetting the colors back to default style

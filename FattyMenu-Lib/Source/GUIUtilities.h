@@ -1,7 +1,7 @@
 #pragma once
 #include "GUI.h"
 
-#include <functional>			// For passing functions as parameters
+#include <functional>
 #include <vector>
 #include <stdarg.h>
 
@@ -17,7 +17,8 @@ namespace FattyMenu {
 			void SetHeaderColorCyan();										// For Civil Protection-related collapsible headers
 			void SetHeaderColorYellow();									// For Transhuman Forces-related collapsible headers
 
-			void SetHeaderTransparent();									// For collapsible sub-headers
+			void SetHeaderTransparent();									// (OLD) For collapsible sub-headers
+			void SetSubheaderColorDefault();								// For collapsible sub-headers
 
 			void PopColorStack(int a_stack_size);							// For resetting the colors to default color for current style theme
 
@@ -34,7 +35,7 @@ namespace FattyMenu {
 			}
 
 			// Helper function for wrapped colored text in a bullet format
-			inline void WrappedBulletTextColored(const ImVec4& a_color, const char* a_fmt, ...) {
+			inline void WrappedBulletColoredText(const ImVec4& a_color, const char* a_fmt, ...) {
 				ImGui::Bullet();
 				ImGui::SameLine();
 				ImGui::PushTextWrapPos(ImGui::GetWindowContentRegionMax().x);
@@ -70,7 +71,7 @@ namespace FattyMenu {
 			}
 
 			// Helper function for wrapped text colored format
-			inline void WrappedTextColored(const ImVec4& a_color, const char* a_fmt, ...) {
+			inline void WrappedColoredText(const ImVec4& a_color, const char* a_fmt, ...) {
 				ImGui::PushTextWrapPos(ImGui::GetWindowContentRegionMax().x);
 				va_list args;
 				va_start(args, a_fmt);
@@ -89,10 +90,8 @@ namespace FattyMenu {
 				}
 			} 
 
-			/* Template helper function for displaying items in a static vector list
-			* Should with either CTerms, or CCodes in a vector list
-			* @param &item_list -> address of vector containing items to be displayed
-			* @param Render(const T&) -> placeholder function for displaying the item from a list stored in memory
+			/* Template helper function for displaying items in a static vector
+			* Is compatible with either CTerms, or CCodes in a vector container
 			*/
 			template<typename T>
 			inline void DisplayList(const std::vector<T>& a_item_list) {
@@ -107,8 +106,8 @@ namespace FattyMenu {
 			}
 
 			template <typename T>
-			inline void DisplayAssignment(const std::vector<T>& assignment_list) {
-				for (const auto& duty : assignment_list) {
+			inline void DisplayAssignment(const std::vector<T>& a_assignment_list) {
+				for (const auto& duty : a_assignment_list) {
 					if (duty.IsForCP()) {
 						// Display assignment name and the # of required units
 						ImGui::TextWrapped("%s\n%s", duty.GetAssignmentName(), duty.GetCPUnitsRequired());
@@ -136,14 +135,15 @@ namespace FattyMenu {
 			}
 
 			// Helper function for rendering each section of the SOP
-			/* @param header_label -> string for the header's label
-			*  @param RenderContent -> void function to be called for displaying specific parts of the SOP (i.e., DisplayCodes(), DisplayRewardInfo(), etc.)
+			/* @param a_header_label -> string for the header's label
+			*  @param a_render_function -> void function to be called for displaying specific parts of the SOP (i.e., DisplayCodes(), DisplayRewardInfo(), etc.)
 			*/
-			inline void RenderSOPSection(const char* header_label, const std::function<void()>& a_render_function) {
-				if (ImGui::CollapsingHeader(header_label)) {
-					GUI::Themes::SetHeaderTransparent();				// Set the subheaders to transparent
+			inline void RenderSOPSection(const char* a_header_label, const std::function<void()>& a_render_function) {
+				if (ImGui::CollapsingHeader(a_header_label)) {
+					//GUI::Themes::SetHeaderTransparent();				// Set the subheaders' color
+					GUI::Themes::SetSubheaderColorDefault();
 					a_render_function();								// Call provided render function
-					GUI::Themes::PopColorStack(2);						// Pop the color stack
+					GUI::Themes::PopColorStack(3);						// Pop the color stack
 				}
 			}
 		}
