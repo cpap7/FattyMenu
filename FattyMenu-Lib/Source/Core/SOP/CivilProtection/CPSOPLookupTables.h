@@ -6,7 +6,7 @@
 // Class definitions (Civil Protection)
 #include "CPCodes.h"
 #include "ContrabandIndex.h"
-#include "CitizenInteractionDirectives.h"
+#include "CivilStatusTypes.h"
 #include "CitizenRewards.h"
 #include "CPTerminologyIndex.h"
 #include "CPDuties.h"
@@ -93,49 +93,60 @@ namespace FattyMenu {
 			CPCodes::Ten::_10109
 		};
 
+		inline const std::vector<CCode> verdict_code_list = {
+			CPCodes::Verdict::verbal_warning,
+			CPCodes::Verdict::citation,
+			CPCodes::Verdict::prosecution,
+			CPCodes::Verdict::terminal_prosecution,
+			CPCodes::Verdict::disassociation,
+			CPCodes::Verdict::amputation,
+			CPCodes::Verdict::immediate_amputation
+		};
+
+		// TODO: Revisit this later and have SViolationRow include CCode as a member/constructor argument  
 		inline const std::vector<SViolationRow> civic_trust_violations = {
 			// Columns:
-			// Code				Violation							Description													Optional Note - see TableRowTypes.h & DisplayViolationTable() function in CPSOP.cpp
-			{ "27",				"Attempted Crime",					"Attempting a violation without successful completion"												},
+			// Code				Violation							Description													Separate, optional note/flag - see TableRowTypes.h & DisplayViolationTable() function in CPSOP.cpp
+			{ "27",				"Attempted crime",					"Attempting a violation w/o successful completion"													},
 			{ "54",				"Possession of materials",			"Possession of minor contraband articles"															},
 			{ "62",				"Alarms",							"Knowingly making false reports to Civil Protection"												},
 			{ "69",				"Possession of resources",			"Possession of moderate contraband articles"														},
 			{ "91",				"Non-sanctioned distribution",		"Distributing items outside authorized distribution zones",	EViolationNote::SanctionedDistribution	},
-			{ "99",				"Reckless Operation",				"Unsafe or negligent operation of equipment"														},
-			{ "311",			"Verbal Indescretion",				"Loitering or excessive conversation without civic purpose"											},
+			{ "99",				"Reckless operation",				"Unsafe or negligent operation of equipment"														},
+			{ "311",			"Verbal indiscretion",				"Loitering or excessive conversation w/o civic purpose"												},
 			{ "374b",			"Illegal disposal",					"Littering, defacement, or unsanitary waste disposal"												},
 			{ "488",			"Theft",							"Unlawful taking or scavenging of property"															},
-			{ "647e",			"Disengaged from Workforce",        "Deviating from assigned duties or non-corplex status"												},
 			{ "647f",			"Civic dysfunction",                "Public intoxication or impairment"																	},
 		};
 
 		inline const std::vector<SViolationRow> civil_will_violations = {
 			{ "35",				"Civil privacy violation",			"Unauthorized intrusion, observation or harassment"													},
-			{ "59",				"Movement trangression",			"Excessive running, climbing, or unauthorized movement"												},
-			{ "63",				"Criminal trespass",				"Entering a restricted area without authorization"													},
-			{ "148",			"Resisting Arrest",					"Resisting, evading or fleeing from prosecution"													},
-			{ "507",		    "Public non-compliance",			"Failure to comply with lawful directives"															},
+			{ "59",				"Movement transgression",			"Excessive running, climbing, or unauthorized movement"												},
+			{ "63",				"Criminal trespass",				"Entering a restricted area w/o authorization"														},
+			{ "148",			"Resisting arrest",					"Resisting, evading or fleeing from prosecution"													},
+			{ "507",		    "Public non-compliance",			"Failure to comply w/ lawful directives"															},
+			{ "647e",			"Disengaged from Workforce",        "Deviating from assigned duties or non-corplex status"												},
 		};
 
 		inline const std::vector<SViolationRow> communal_unrest_violations = {
 			{ "28",				"Felony incite",					"Encouraging or directing others to commit violations"												},
 			{ "404",		    "Riot",								"Participating in or promoting communal unrest"														},
-			{ "407",			"Unlawful Assembly",				"Unauthorized gathering posing a stability risk"													},
+			{ "407",			"Unlawful assembly",				"Unauthorized gathering posing a stability risk"													},
 			{ "415",			"Civic disunity",					"Disturbing public order assaulting civilians"														},
 		};
 
 		inline const std::vector<SViolationRow> divisive_sociocidal_violations = {
-			{ "17f",			"Fugitive Detachment",				"Haboring or concealing wanted individuals"															},
-			{ "51",				"Non-sanctioned arson",				"Starting or spreading fire without authorization"													},
+			{ "17f",			"Fugitive detachment",				"Haboring or concealing wanted individuals"															},
+			{ "51",				"Non-sanctioned arson",				"Starting or spreading fire w/o authorization"														},
 			{ "63s",			"Illegal in operation",				"Obstruction of authorized civic operations"														},
 			{ "94",				"Weapon",							"Possession or use of any firearm"																	},
-			{ "95",				"Illegal Carrying",					"Possession of major contraband articles",					EViolationNote::FirearmsCharge			},
+			{ "95",				"Illegal carrying",					"Possession of major contraband articles",					EViolationNote::FirearmsCharge			},
 			{ "603",			"Unlawful entry",					"Gaining entry through force, fraud, or deception"													},
 		};
 
 		inline const std::vector<SViolationRow> destruction_violations = {
-			{ "51b",			"Threat to property",				"Damage to CMB equipment or infrastructure",														},
-			{ "243",			"Assault on protection team",		"Direct, violent attack(s) on Overwatch forces w/ intent to cause great bodily harm or death"		},
+			{ "51b",			"Threat to property",				"Damage to Combine equipment, assets or infrastructure",											},
+			{ "243",			"Assault on protection team",		"Any threat, physical contact or use of force directed against Overwatch forces"					},
 		};
 
 		// TODO: Old - revisit this later and integrate w/ SViolationRow LUTs above 
@@ -151,7 +162,6 @@ namespace FattyMenu {
 			CPCodes::Violation::_311,
 			CPCodes::Violation::_374b,
 			CPCodes::Violation::_488,
-			CPCodes::Violation::_647e,
 			CPCodes::Violation::_647f
 		};
 
@@ -162,7 +172,8 @@ namespace FattyMenu {
 			CPCodes::Violation::_59,
 			CPCodes::Violation::_63,
 			CPCodes::Violation::_148,
-			CPCodes::Violation::_507
+			CPCodes::Violation::_507,
+			CPCodes::Violation::_647e
 		};
 
 		// Violation Category: Promoting communal unrest
@@ -218,20 +229,20 @@ namespace FattyMenu {
 
 		// Citizen interaction directive lists
 		inline const std::vector<CCivilStatus> citizen_interaction_directive_list = {
-			StatusTypes::non_citizen,
-			StatusTypes::standard_citizen,
-			StatusTypes::priority_3_citizen,
-			StatusTypes::priority_2_citizen,
-			StatusTypes::priority_1_citizen
+			CivilStatusTypes::non_citizen,
+			CivilStatusTypes::standard_citizen,
+			CivilStatusTypes::priority_3_citizen,
+			CivilStatusTypes::priority_2_citizen,
+			CivilStatusTypes::priority_1_citizen
 		};
 
 		// Civil Protection Terminology lists
 		inline const std::vector<CTerm> protocol_list = {
 			CPTerminology::Protocol::emergency_code,
 			CPTerminology::Protocol::overload_protocol,
-			CPTerminology::Protocol::prosecution,
-			CPTerminology::Protocol::response,
-			CPTerminology::Protocol::sacrifice
+			CPTerminology::Protocol::prosecution_code,
+			CPTerminology::Protocol::response_code,
+			CPTerminology::Protocol::sacrifice_code
 		};
 
 		inline const std::vector<CTerm> action_list = {
@@ -264,7 +275,8 @@ namespace FattyMenu {
 			CPTerminology::ActionCondition::cohesive,
 			CPTerminology::ActionCondition::cohesion,
 			CPTerminology::ActionCondition::expired,
-			CPTerminology::ActionCondition::non_cohesive
+			CPTerminology::ActionCondition::non_cohesive,
+			CPTerminology::ActionCondition::tag
 		};
 
 		inline const std::vector<CTerm> hostile_list = {
@@ -322,7 +334,6 @@ namespace FattyMenu {
 		inline const std::vector<CTerm> sociostability_list = {
 			CPTerminology::Sociostability::combine_civil_code,
 			CPTerminology::Sociostability::civic_trust,
-			CPTerminology::Sociostability::tag,
 			CPTerminology::Sociostability::loyalty_check_procedure,
 			CPTerminology::Sociostability::memory_replacement,
 			CPTerminology::Sociostability::recall_and_recycle,
