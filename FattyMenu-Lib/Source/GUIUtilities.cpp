@@ -3,9 +3,9 @@
 namespace FattyMenu {
 	// Citizen-related collapsible headers will use ImGUI's default blue color schema
 	void GUI::Themes::SetHeaderColorBlue() {
-		ImGui::PushStyleColor(ImGuiCol_Header, ImVec4(0.26f, 0.59f, 0.98f, 0.31f));
-		ImGui::PushStyleColor(ImGuiCol_HeaderHovered, ImVec4(0.26f, 0.59f, 0.98f, 0.80f));
-		ImGui::PushStyleColor(ImGuiCol_HeaderActive, ImVec4(0.26f, 0.59f, 0.98f, 1.00f));
+		ImGui::PushStyleColor(ImGuiCol_Header, ImVec4(0.26f, 0.59f, 0.98f, 0.31f));			// Normal
+		ImGui::PushStyleColor(ImGuiCol_HeaderHovered, ImVec4(0.26f, 0.59f, 0.98f, 0.80f));	// Hovered
+		ImGui::PushStyleColor(ImGuiCol_HeaderActive, ImVec4(0.26f, 0.59f, 0.98f, 1.00f));	// Active
 	}
 
 	// Red for Airwatch-related collapsible headers
@@ -40,20 +40,20 @@ namespace FattyMenu {
 		ImGui::PushStyleColor(ImGuiCol_HeaderActive, ImVec4(0.50f, 0.50f, 0.50f, 1.00f));	// Pale Yellow when active
 	}
 
-	// (OLD) For collapsible sub-headers
-	void GUI::Themes::SetHeaderTransparent() {
-		// Set header background to transparent 
-		ImGui::PushStyleColor(ImGuiCol_Header, ImVec4(0.00f, 0.00f, 0.00f, 0.00f));			// Normal state
-		//ImGui::PushStyleColor(ImGuiCol_HeaderHovered, ImVec4(0.00f, 0.00f, 0.00f, 0.00f)); // Hovered state
-		ImGui::PushStyleColor(ImGuiCol_HeaderActive, ImVec4(0.00f, 0.00f, 0.00f, 0.00f));	// Active state
-	}
-
 	// For collapsible sub-headers
-	void GUI::Themes::SetSubheaderColorDefault() {
+	void GUI::Themes::SetHeaderColorDimTeal() {
 		// Dim teal tint
 		ImGui::PushStyleColor(ImGuiCol_Header, ImVec4(0.00f, 0.45f, 0.45f, 0.22f));			// Normal
 		ImGui::PushStyleColor(ImGuiCol_HeaderHovered, ImVec4(0.00f, 0.65f, 0.65f, 0.35f));	// Hovered
 		ImGui::PushStyleColor(ImGuiCol_HeaderActive, ImVec4(0.00f, 0.80f, 0.80f, 0.45f));	// Active
+	}
+
+	// For transparent headers
+	void GUI::Themes::SetHeaderTransparent() {
+		// Set header background to transparent 
+		ImGui::PushStyleColor(ImGuiCol_Header, ImVec4(0.00f, 0.00f, 0.00f, 0.00f));			// Normal
+		ImGui::PushStyleColor(ImGuiCol_HeaderHovered, ImVec4(0.00f, 0.00f, 0.00f, 0.00f));	// Hovered
+		ImGui::PushStyleColor(ImGuiCol_HeaderActive, ImVec4(0.00f, 0.00f, 0.00f, 0.00f));	// Active
 	}
 
 	// For resetting the colors back to default style

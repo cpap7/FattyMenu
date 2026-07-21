@@ -13,16 +13,15 @@ namespace FattyMenu {
 			// Function prototypes for header colors / themes
 			void SetHeaderColorBlue();										// Citizen-related collapsible headers will use ImGUI's default blue color scheme
 			void SetHeaderColorRed();										// For Airwatch-related collapsible headers
-			void SetHeaderColorGreen();										// For Vortigaunt-related collapsible headers
-			void SetHeaderColorCyan();										// For Civil Protection-related collapsible headers
-			void SetHeaderColorYellow();									// For Transhuman Forces-related collapsible headers
+			void SetHeaderColorGreen();										// For Vortigaunt-themed collapsible headers
+			void SetHeaderColorCyan();										// For Civil Protection-themed collapsible headers
+			void SetHeaderColorYellow();									// For Transhuman Forces-themed collapsible headers
+			void SetHeaderColorDimTeal();									// Default color-scheme for collapsible sub-headers
+			void SetHeaderTransparent();									// For transparent headers
 
-			void SetHeaderTransparent();									// (OLD) For collapsible sub-headers
-			void SetSubheaderColorDefault();								// For collapsible sub-headers
+			void PopColorStack(int a_stack_size);							// For resetting the colors back to default color
 
-			void PopColorStack(int a_stack_size);							// For resetting the colors to default color for current style theme
-
-			void SetThemeCivilProtection();									// Config for a Civil Protection-like theme
+			void SetThemeCivilProtection();									// Config for a Civil Protection-like UI/color-scheme
 		}
 
 		namespace Helpers {
@@ -44,7 +43,7 @@ namespace FattyMenu {
 				ImGui::PushStyleColor(ImGuiCol_Text, a_color);
 
 				const int buffer_size = static_cast<int>(ImGui::CalcTextSize(a_fmt, nullptr, false, -1.0f).x) + 256;
-				char* formatted_string = (char*)alloca(buffer_size);
+				//char* formatted_string = (char*)alloca(buffer_size);
 				{
 					va_list args;
 					va_start(args, a_fmt);
@@ -80,7 +79,7 @@ namespace FattyMenu {
 				ImGui::PushStyleColor(ImGuiCol_Text, a_color);
 
 				const int buffer_size = static_cast<int>(ImGui::CalcTextSize(a_fmt, nullptr, false, -1.0f).x) + 256;
-				char* formatted_string = (char*)alloca(buffer_size);
+				//char* formatted_string = (char*)alloca(buffer_size);
 
 				{
 					ImGui::TextWrappedV(a_fmt, args);
@@ -90,18 +89,19 @@ namespace FattyMenu {
 				}
 			} 
 
-			/* Template helper function for displaying items in a static vector
-			* Is compatible with either CTerms, or CCodes in a vector container
+			/* Template helper functions for displaying larger data structures stored within a vector
+			*  In practice, these are used for vectors containing CTerms & CCodes
 			*/
 			template<typename T>
-			inline void DisplayList(const std::vector<T>& a_item_list) {
-				// Loop through the list
-				for (const auto& item : a_item_list) {
-					// Display them as bullet text
-					GUI::Helpers::WrappedBulletText("%s: %s", item.GetName(), item.GetDescription());
+			inline void DisplayListItem(const T& a_item) {
+				GUI::Helpers::WrappedBulletText("%s: %s", a_item.GetName(), a_item.GetDescription());
+				ImGui::Separator();
+			}
 
-					// Add a line separator
-					ImGui::Separator();
+			template<typename T>
+			inline void DisplayList(const std::vector<T>& a_item_list) {
+				for (const auto& item : a_item_list) {
+					DisplayListItem(item);
 				}
 			}
 
@@ -112,7 +112,7 @@ namespace FattyMenu {
 						// Display assignment name and the # of required units
 						ImGui::TextWrapped("%s\n%s", duty.GetAssignmentName(), duty.GetCPUnitsRequired());
 
-						// Display each string description
+						// Display each description
 						for (const auto& description : duty.GetAssignmentDescription()) {
 							GUI::Helpers::WrappedBulletText("%s", description);
 						}
@@ -122,16 +122,38 @@ namespace FattyMenu {
 						// Display assignment name and the # of required units
 						ImGui::TextWrapped("%s\nREQUIRED:%d+ units\nLENGTH IN SHIFTS:%d\nRecommended Class:%s", duty.GetAssignmentName(), duty.GetTFUnitsRequired(), duty.GetTFShiftDuration(), duty.GetTFRecommendedClass());
 
-						// Display each string description
+						// Display each description
 						for (const auto& description : duty.GetAssignmentDescription()) {
 							GUI::Helpers::WrappedBulletText("%s", description);
 						}
 					}
 
-					// Separate each duty with a line separator
 					ImGui::Separator();
 
 				}
+			}
+
+			// Helper function for setting up ImGui tables
+			/* @param a_table_id				-> unique ImGui table identifier
+			*  @param a_column_headers			-> column header labels; size determines the column count
+			*  @param a_render_rows_function	-> callable function for display the table's body / cells (per-row)
+			*  @param a_flags					-> table flags (default = Resizable/Borders/RowBg/SizingStretchProp)
+			*/
+			inline void RenderTable(const char* a_table_id, const std::vector<const char*>& a_column_headers, const std::function<void()>& a_render_rows_function, 
+				ImGuiTableFlags a_flags = ImGuiTableFlags_Resizable | ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg | ImGuiTableFlags_SizingStretchProp) {
+
+				ImGui::BeginTable(a_table_id, static_cast<int>(a_column_headers.size()), a_flags);
+
+				// Set up each column header
+				for (const char* header : a_column_headers) {
+					ImGui::TableSetupColumn(header);
+				}
+
+				ImGui::TableHeadersRow();
+				
+				a_render_rows_function();
+
+				ImGui::EndTable();
 			}
 
 			// Helper function for rendering each section of the SOP
@@ -140,8 +162,9 @@ namespace FattyMenu {
 			*/
 			inline void RenderSOPSection(const char* a_header_label, const std::function<void()>& a_render_function) {
 				if (ImGui::CollapsingHeader(a_header_label)) {
-					//GUI::Themes::SetHeaderTransparent();				// Set the subheaders' color
-					GUI::Themes::SetSubheaderColorDefault();
+					// Set the subheaders' color
+					//GUI::Themes::SetHeaderTransparent();
+					GUI::Themes::SetHeaderColorDimTeal();
 					a_render_function();								// Call provided render function
 					GUI::Themes::PopColorStack(3);						// Pop the color stack
 				}
