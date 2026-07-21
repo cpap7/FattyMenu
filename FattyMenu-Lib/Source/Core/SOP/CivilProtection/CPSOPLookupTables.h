@@ -14,7 +14,7 @@
 
 namespace FattyMenu {
 	namespace CPSOPLookupTables {
-		// Vector to hold abbreviation radio codes
+		// List of abbreviation radio codes
 		inline const std::vector<CCode> abbreviation_list = {
 			CPCodes::Abbreviation::adw,
 			CPCodes::Abbreviation::bol,
@@ -30,7 +30,7 @@ namespace FattyMenu {
 			CPCodes::Abbreviation::_505
 		};
 
-		// Vector to hold response codes
+		// Response codes list
 		inline const std::vector<CCode> response_code_list = {
 			CPCodes::Response::code_1,
 			CPCodes::Response::code_2,
@@ -41,7 +41,7 @@ namespace FattyMenu {
 			CPCodes::Response::code_100
 		};
 
-		// Vector to hold 11- codes
+		// 11- codes list
 		inline const std::vector<CCode> eleven_code_list = {
 			CPCodes::Eleven::_116,
 			CPCodes::Eleven::_1142,
@@ -51,7 +51,7 @@ namespace FattyMenu {
 			CPCodes::Eleven::_1199
 		};
 
-		// Vector to hold 10- codes
+		// 10- codes list
 		inline const std::vector<CCode> ten_code_list = {
 			CPCodes::Ten::_100,
 			CPCodes::Ten::_101,
@@ -93,6 +93,7 @@ namespace FattyMenu {
 			CPCodes::Ten::_10109
 		};
 
+		// Verdict code list
 		inline const std::vector<CCode> verdict_code_list = {
 			CPCodes::Verdict::verbal_warning,
 			CPCodes::Verdict::citation,
@@ -103,56 +104,9 @@ namespace FattyMenu {
 			CPCodes::Verdict::immediate_amputation
 		};
 
-		// TODO: Revisit this later and have SViolationRow include CCode as a member/constructor argument  
-		inline const std::vector<SViolationRow> civic_trust_violations = {
-			// Columns:
-			// Code				Violation							Description													Separate, optional note/flag - see TableRowTypes.h & DisplayViolationTable() function in CPSOP.cpp
-			{ "27",				"Attempted crime",					"Attempting a violation w/o successful completion"													},
-			{ "54",				"Possession of materials",			"Possession of minor contraband articles"															},
-			{ "62",				"Alarms",							"Knowingly making false reports to Civil Protection"												},
-			{ "69",				"Possession of resources",			"Possession of moderate contraband articles"														},
-			{ "91",				"Non-sanctioned distribution",		"Distributing items outside authorized distribution zones",	EViolationNote::SanctionedDistribution	},
-			{ "99",				"Reckless operation",				"Unsafe or negligent operation of equipment"														},
-			{ "311",			"Verbal indiscretion",				"Loitering or excessive conversation w/o civic purpose"												},
-			{ "374b",			"Illegal disposal",					"Littering, defacement, or unsanitary waste disposal"												},
-			{ "488",			"Theft",							"Unlawful taking or scavenging of property"															},
-			{ "647f",			"Civic dysfunction",                "Public intoxication or impairment"																	},
-		};
-
-		inline const std::vector<SViolationRow> civil_will_violations = {
-			{ "35",				"Civil privacy violation",			"Unauthorized intrusion, observation or harassment"													},
-			{ "59",				"Movement transgression",			"Excessive running, climbing, or unauthorized movement"												},
-			{ "63",				"Criminal trespass",				"Entering a restricted area w/o authorization"														},
-			{ "148",			"Resisting arrest",					"Resisting, evading or fleeing from prosecution"													},
-			{ "507",		    "Public non-compliance",			"Failure to comply w/ lawful directives"															},
-			{ "647e",			"Disengaged from Workforce",        "Deviating from assigned duties or non-corplex status"												},
-		};
-
-		inline const std::vector<SViolationRow> communal_unrest_violations = {
-			{ "28",				"Felony incite",					"Encouraging or directing others to commit violations"												},
-			{ "404",		    "Riot",								"Participating in or promoting communal unrest"														},
-			{ "407",			"Unlawful assembly",				"Unauthorized gathering posing a stability risk"													},
-			{ "415",			"Civic disunity",					"Disturbing public order assaulting civilians"														},
-		};
-
-		inline const std::vector<SViolationRow> divisive_sociocidal_violations = {
-			{ "17f",			"Fugitive detachment",				"Haboring or concealing wanted individuals"															},
-			{ "51",				"Non-sanctioned arson",				"Starting or spreading fire w/o authorization"														},
-			{ "63s",			"Illegal in operation",				"Obstruction of authorized civic operations"														},
-			{ "94",				"Weapon",							"Possession or use of any firearm"																	},
-			{ "95",				"Illegal carrying",					"Possession of major contraband articles",					EViolationNote::FirearmsCharge			},
-			{ "603",			"Unlawful entry",					"Gaining entry through force, fraud, or deception"													},
-		};
-
-		inline const std::vector<SViolationRow> destruction_violations = {
-			{ "51b",			"Threat to property",				"Damage to Combine equipment, assets or infrastructure",											},
-			{ "243",			"Assault on protection team",		"Any threat, physical contact or use of force directed against Overwatch forces"					},
-		};
-
-		// TODO: Old - revisit this later and integrate w/ SViolationRow LUTs above 
-		// Violation Category: Violation of civic trust
-		// Category Description: Actions that undermine civic responsibility, authorized resource allocation, workforce obligations or public trust
-		inline const std::vector<CCode> violation_of_civic_trust_codes = {
+		// Violation code lists sorted by category
+		// Violation category: Violation of civic trust
+		inline const std::vector<CCode> violation_of_civic_trust_codes_list = {
 			CPCodes::Violation::_27,
 			CPCodes::Violation::_54,
 			CPCodes::Violation::_62,
@@ -165,9 +119,8 @@ namespace FattyMenu {
 			CPCodes::Violation::_647f
 		};
 
-		// Violation Category: Failure to comply with the civil will
-		// Category Description: Failure to obey, respect, or cooperate w/ lawful directives issued by Civil Protection
-		inline const std::vector<CCode> failure_to_comply_with_the_civil_will = {
+		// Violation category: Failure to comply with the civil will
+		inline const std::vector<CCode> failure_to_comply_with_the_civil_will_list = {
 			CPCodes::Violation::_35,
 			CPCodes::Violation::_59,
 			CPCodes::Violation::_63,
@@ -176,18 +129,16 @@ namespace FattyMenu {
 			CPCodes::Violation::_647e
 		};
 
-		// Violation Category: Promoting communal unrest
-		// Category Description: Actions intented to disrupt civic harmony, encourage disorder or undermine public stability
-		inline const std::vector<CCode> promoting_communal_unrest = {
+		// Violation category: Promoting communal unrest
+		inline const std::vector<CCode> promoting_communal_unrest_list = {
 			CPCodes::Violation::_28,
 			CPCodes::Violation::_404,
 			CPCodes::Violation::_407,
 			CPCodes::Violation::_415
 		};
 
-		// Violation Category: Divisive sociocidal counter-obeyance
-		// Category Description: Organized resistance to authority, interference with operations, or support of anti-civil elements
-		inline const std::vector<CCode> divisive_sociocidal_counter_obeyance = {
+		// Violation category: Divisive sociocidal counter-obeyance
+		inline const std::vector<CCode> divisive_sociocidal_counter_obeyance_list = {
 			CPCodes::Violation::_17f,
 			CPCodes::Violation::_51,
 			CPCodes::Violation::_63s,
@@ -196,11 +147,49 @@ namespace FattyMenu {
 			CPCodes::Violation::_603
 		};
 
-		// Violation Category: Destruction of corporal social protection units
-		// Category Description: Acts resulting in damage to Civil Protection personnel, assets or operational capability 		
+		// Violation category: Destruction of corporal social protection units
 		inline const std::vector<CCode> destruction_of_corporal_social_protection_units = {
 			CPCodes::Violation::_51b,
 			CPCodes::Violation::_243
+		};
+
+		// Container for each violation code based on category
+		inline const std::vector<CViolationCodeCategory> violation_code_categories = {
+			{
+				"VIOLATION OF CIVIC TRUST",
+				"Actions that undermine civic responsibility, authorized resource allocation, workforce obligations or public trust\n",
+				"ViolationOfCivicTrustTable",
+				&violation_of_civic_trust_codes_list,
+				"Sanctioned distribution requires the permit holder to distribute only items corresponding to their permit inside their assigned distribution block. Units with at least 40 rank points may authorize distribution outside of their assigned block. Combine anti-fatigue rations may not be distributed whatsoever."
+			},
+
+			{
+				"FAILURE TO COMPLY WITH THE CIVIL WILL",
+				"Failure to obey, respect, or cooperate w / lawful directives issued by Civil Protection\n",
+				"FailureToComplyWithTheCivilWillTable",
+				&failure_to_comply_with_the_civil_will_list
+			},
+
+			{
+				"PROMOTING COMMUNAL UNREST",
+				"Actions intended to disrupt civic harmony, encourage disorder or undermine public stability\n",
+				"PromotingCommunalUnrestTable",
+				&promoting_communal_unrest_list
+			},
+
+			{
+				"DIVISIVE SOCIOCIDAL COUNTER-OBEYANCE",
+				"Organized resistance to authority, interference with operations, or support of anti - civil elements\n",
+				"DivisiveSociocidalCounterObeyanceTable",
+				&divisive_sociocidal_counter_obeyance_list
+			},
+
+			{
+				"DESTRUCTION OF CORPORAL SOCIAL PROTECTION UNITS",
+				"Acts resulting in damage to Civil Protection personnel, assets or operational capability\n",
+				"DestructionOfCorporalSocialProtectionUnitsTable",
+				&destruction_of_corporal_social_protection_units
+			},
 		};
 		
 		// Override code list
@@ -227,8 +216,8 @@ namespace FattyMenu {
 			Rewards::CivicDeeds::d20_102
 		};
 
-		// Citizen interaction directive lists
-		inline const std::vector<CCivilStatus> citizen_interaction_directive_list = {
+		// Civil status info list
+		inline const std::vector<CCivilStatus> civil_status_info_list = {
 			CivilStatusTypes::non_citizen,
 			CivilStatusTypes::standard_citizen,
 			CivilStatusTypes::priority_3_citizen,
