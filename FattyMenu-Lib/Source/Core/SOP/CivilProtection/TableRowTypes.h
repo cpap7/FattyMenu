@@ -12,49 +12,30 @@ namespace FattyMenu {
 		std::string m_length		= "";
 	};
 
-	// Optional note for violation rows
-	enum class EViolationNote : uint16_t {
-		None,						// Plain description
-		SanctionedDistribution,		// Append yellow "*"
-		FirearmsCharge				// Append red "*"
-	};
-
-	struct SViolationRow { // TODO: Considering using CCode definitions from CPSOPLookupTables.h
-		std::string m_code			= "";
-		std::string m_violation		= "";
-		std::string m_description	= "";
-		EViolationNote m_note		= EViolationNote::None;
-	};
-
 	struct SViolationLevelRow {
-		// NOTE: Column members here are ordered largest-to-smallest to minimize padding 
+		// NOTE: The SOP doc displays them in order of level, description and verdicts 
+		// Column members here are ordered largest-to-smallest to minimize padding
 		// 24 + 8 + 4 = 36 bytes, padded to 40 bytes on 64-bit architecture, using MSVC & its standard release settings
-		std::vector<const char*> m_recommended_verdicts{};
+		
+		// The alternative is to have a constructor to force instantiation in the "correct" order for convenience, 
+		// but that could open the door for a SIOF if this changes to depend on other globals after being placed in a vector
+
+		std::vector<std::string> m_recommended_verdicts{};				// NOTE: Using std::string over const char* for frontend string comparison operations
 		const char* m_description	= "";
 		int m_level					= 0;
-
-		// The constructor only exists here so each row can be instantiated in SOP order (level -> description -> verdicts) independent of the physical member layout above
-		// NOTE: members are initialized in DECLARATION order, so the init-list below matches it (avoids MSVC C5038)
-		SViolationLevelRow(int a_level, const char* a_description, const std::vector<const char*>& a_recommended_verdicts) 
-			: m_recommended_verdicts(a_recommended_verdicts), m_description(a_description), m_level(a_level) {
-
-
-			// Alternatively, the constructor could be removed altogether, and the struct's members could be listed as:
-			// int, const char* and std::vector<const char*> without breaking how they're already being initialized
-			// It would still be 40 bytes either way on a 64-bit architecture using standard MSVC release settings 
-			// but I'd consider this to be a better practice
-		}
 	};
 
-	struct SCommunalRow {
-		std::string m_area = "";
-		std::string m_capacity = "";
+	struct SResidentialBlockRow {
+		std::string m_area		= "";
+		std::string m_capacity	= "";
 	};
 	
 	// For the location authorization tables
 	struct SLocationAuthorizationEntry {
 		std::string m_index								= "";
-		bool m_requires_civil_protection_supervision	= false;		// For infestation and engineer core non/patrol regions
+
+		// TODO: Add enum class to replace these bools - they're not exactly expressive during instantiation
+		bool m_requires_civil_protection_supervision	= false;		// For infestation and engineer core non-patrol regions
 		bool m_requires_special_authorization			= false;		// For civil protection non-patrol regions
 	};
 
@@ -75,9 +56,6 @@ namespace FattyMenu {
 		std::string m_unrest_index		= "";
 		std::string m_containment_index = "";
 		std::string m_lockdown_index	= "";
-
-		bool m_is_unrest				= false;
-		bool m_weapon_raised			= false;
 	};
 
 }
