@@ -81,10 +81,9 @@ namespace FattyMenu {
 			extern CCode _10109;
 		}
 
-		// CCode violation declarations
+		// CCode declarations for violation codes
 		namespace Violation {
 			// Violation Category: Violation of civic trust
-			// Category Description: Actions that undermine civic responsibility, authorized resource allocation, workforce obligations or public trust
 			extern CCode _27;
 			extern CCode _54;
 			extern CCode _62;
@@ -97,7 +96,6 @@ namespace FattyMenu {
 			extern CCode _647f;
 
 			// Violation Category: Failure to comply with the civil will
-			// Category Description: Failure to obey, respect, or cooperate w/ lawful directives issued by Civil Protection
 			extern CCode _35;
 			extern CCode _59;
 			extern CCode _63;
@@ -106,14 +104,12 @@ namespace FattyMenu {
 			extern CCode _647e;
 
 			// Violation Category: Promoting communal unrest
-			// Category Description: Actions intented to disrupt civic harmony, encourage disorder or undermine public stability
 			extern CCode _28;
 			extern CCode _404;
 			extern CCode _407;
 			extern CCode _415;
 
 			// Violation Category: Divisive sociocidal counter-obeyance
-			// Category Description: Organized resistance to authority, interference with operations, or support of anti-civil elements
 			extern CCode _17f;
 			extern CCode _51;
 			extern CCode _63s;
@@ -122,7 +118,6 @@ namespace FattyMenu {
 			extern CCode _603;
 
 			// Violation Category: Destruction of corporal social protection units
-			// Category Description: Acts resulting in damage to Civil Protection personnel, assets or operational capability 
 			extern CCode _51b;
 			extern CCode _243;
 		}

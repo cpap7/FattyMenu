@@ -396,10 +396,10 @@ namespace FattyMenu {
 		}
 
 		// CCode violation definitions
-		// Format: CCode _number = { "number as string", "code description", "violation description", ECodeType::ViolationCode }; 
+		// Format: CCode _number = { "number as string", "code description", "violation description", ECodeType::ViolationCode };
+		// NOTE: There's also an additional optional enum if the violation code has a special note that needs to be displayed - for example, with 91 and 95
 		namespace Violation {
 			// Violation Category: Violation of civic trust
-			// Category Description: Actions that undermine civic responsibility, authorized resource allocation, workforce obligations or public trust
 			CCode _27 = {
 				"27",
 				"Attempted crime",
@@ -432,7 +432,8 @@ namespace FattyMenu {
 				"91",
 				"Non-sanctioned distribution",
 				"Distributing items outside authorized distribution zones",
-				ECodeType::ViolationCode
+				ECodeType::ViolationCode,
+				EViolationCodeNote::SanctionedDistribution
 			};
 			
 			CCode _99 = {
@@ -471,7 +472,6 @@ namespace FattyMenu {
 			};
 
 			// Violation Category: Failure to comply with the civil will
-			// Category Description: Failure to obey, respect, or cooperate w/ lawful directives issued by Civil Protection
 			CCode _35 = {
 				"35",
 				"Civil privacy violation",
@@ -515,7 +515,6 @@ namespace FattyMenu {
 			};
 
 			// Violation Category: Promoting communal unrest
-			// Category Description: Actions intented to disrupt civic harmony, encourage disorder or undermine public stability
 			CCode _28 = {
 				"28",
 				"Felony incite",
@@ -545,7 +544,6 @@ namespace FattyMenu {
 			};
 
 			// Violation Category: Divisive sociocidal counter-obeyance
-			// Category Description: Organized resistance to authority, interference with operations, or support of anti-civil elements
 			CCode _17f = {
 				"17f",
 				"Fugitive detachment",
@@ -578,7 +576,8 @@ namespace FattyMenu {
 				"95",
 				"Illegal carrying",
 				"Possession of major contraband articles",
-				ECodeType::ViolationCode
+				ECodeType::ViolationCode,
+				EViolationCodeNote::FirearmsCharge
 			};
 
 			CCode _603 = {
@@ -589,7 +588,6 @@ namespace FattyMenu {
 			};
 
 			// Violation Category: Destruction of corporal social protection units
-			// Category Description: Acts resulting in damage to Civil Protection personnel, assets or operational capability 
 			CCode _51b = {
 				"51b",
 				"Threat to property",
@@ -647,7 +645,7 @@ namespace FattyMenu {
 				{
 					"Form response teams and converge on reported areas of communal unrest or active riots",
 					"Use additional lethal force to pacify or neutralize individuals participating in riots",
-					"Establish checkpoints and conductr mandated searches"
+					"Establish checkpoints and conduct mandated searches"
 				},
 				ECodeType::OverrideCode
 			};
