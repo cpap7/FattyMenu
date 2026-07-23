@@ -142,18 +142,18 @@ namespace FattyMenu {
 			inline void RenderTable(const char* a_table_id, const std::vector<const char*>& a_column_headers, const std::function<void()>& a_render_rows_function, 
 				ImGuiTableFlags a_flags = ImGuiTableFlags_Resizable | ImGuiTableFlags_Borders | ImGuiTableFlags_RowBg | ImGuiTableFlags_SizingStretchProp) {
 
-				ImGui::BeginTable(a_table_id, static_cast<int>(a_column_headers.size()), a_flags);
+				if (ImGui::BeginTable(a_table_id, static_cast<int>(a_column_headers.size()), a_flags)) {
+					// Set up each column header
+					for (const char* header : a_column_headers) {
+						ImGui::TableSetupColumn(header);
+					}
 
-				// Set up each column header
-				for (const char* header : a_column_headers) {
-					ImGui::TableSetupColumn(header);
+					ImGui::TableHeadersRow();
+
+					a_render_rows_function();
+
+					ImGui::EndTable();
 				}
-
-				ImGui::TableHeadersRow();
-				
-				a_render_rows_function();
-
-				ImGui::EndTable();
 			}
 
 			// Helper function for rendering each section of the SOP
