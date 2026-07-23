@@ -1,56 +1,165 @@
 #include "VoicelineLibrary.h"
 
+#include <algorithm>
+#include <cctype>
 
 namespace FattyMenu {
-	
-	void VoicelineLibrary::DisplayVoicelines(const std::vector<CVoiceline>& a_voiceline_list) {
-		// Display necessary instructions to the user
-		ImGui::TextWrapped("Click a button to save the voiceline's trigger text to your clipboard.\n\n");
 
-		ImGui::TextWrapped("\n\t\tTRIGGER TEXT\t\t\tFull Voiceline Description");
-		ImGui::Separator();
-		// Loop through all of the lines in a vector list
-		for (const auto& voiceline : a_voiceline_list) {
-			// Create a button displaying the trigger text, using the predefined button width (200.0f)
-			if (ImGui::Button(voiceline.GetTriggerText(), ImVec2(button_width, 0))) {
-				ImGui::SetClipboardText(voiceline.GetTriggerText());  // Set clipboard to the trigger text if button is clicked
+	static char g_search_buffer[256] = "";
+	static EFaction g_faction_filter = EFaction::None; // None = 'Show all'
+
+	namespace SearchUtilities {
+		// For checking if input text is case insensitive
+		static bool ContainsCI(const std::string& a_haystack, const std::string& a_needle) {
+			if (a_needle.empty()) {
+				return true;
 			}
 
-			//  Ensure the description and button are on the same line
-			ImGui::SameLine();
+			auto iter = std::search(
+				a_haystack.begin(), a_haystack.end(),
+				a_needle.begin(), a_needle.end(),
+				[](char a_char1, char a_char2) {
+					return std::tolower(static_cast<unsigned char>(a_char1)) == std::tolower(static_cast<unsigned char>(a_char2));
+				}
+			);
 
-			// Adjust position for description and make sure it fits the remaining space
-			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 10.0f);	  // Add a small padding between the button and the text
+			return iter != a_haystack.end();
+		}
 
-			// Display the description
-			ImGui::TextWrapped("%s", voiceline.GetVoicelineDescription());
+		// Returns true if voiceline passes current search + faction filters
+		static bool PassesFilter(const CVoiceline& a_voiceline) {
+			// Faction filter
+			// No checkboxes ticked = show all, otherwise match ANY selected bit
+			if (g_faction_filter != EFaction::None) {
+				if ((a_voiceline.GetFactions() & g_faction_filter) == EFaction::None) {
+					return false;
+				}
+			}
+			const std::string needle = g_search_buffer;
+			return ContainsCI(a_voiceline.GetCommand(), needle) || ContainsCI(a_voiceline.GetFullVoiceline(), needle);
 		}
 	}
 
-	/* Helper function for rendering colored headers
-	* @param header_label -> string for labelling the collapsing header
-	* @param VL_LIST -> address of the vector of voicelines being displayed
-	* @param SetHeaderColor() -> placeholder for function call to change the color of the collapsing header
-	*/
-	void VoicelineLibrary::RenderColoredHeader(const char* a_header_label, const std::vector<CVoiceline>& a_voiceline_list, const std::function<void()>& a_set_header_color_callback) {
-		a_set_header_color_callback(); // Push style color
+	void VoicelineLibrary::DisplaySearchFilterControls() {
+		// Search box
+		ImGui::SetNextItemWidth(-1.0f); // Stretch to available width
+		ImGui::InputTextWithHint("##voiceline_search", "Search command or voiceline...", g_search_buffer, IM_ARRAYSIZE(g_search_buffer));
 
-		if (ImGui::CollapsingHeader(a_header_label)) {
-			GUI::Themes::PopColorStack(3);  // Pop style if header opened
-			VoicelineLibrary::DisplayVoicelines(a_voiceline_list);
+		// Per-faction checkboxes (3 per row)
+		if (ImGui::TreeNodeEx("Filter By Faction", ImGuiTreeNodeFlags_DefaultOpen)) {
+			//int drawn = 0;
+			
+			if (ImGui::SmallButton("Clear Filters")) {
+				g_faction_filter	= EFaction::None;
+				g_search_buffer[0]	= '\0';
+			}
+
+			int column_count = 3;
+			if (ImGui::BeginTable("FactionsFilterTable", column_count, ImGuiTableFlags_SizingStretchSame)) {
+				for (EFaction flag : c_voiceline_faction_flags) {
+					ImGui::TableNextColumn();
+
+					bool checked = HasFaction(g_faction_filter, flag);
+					if (ImGui::Checkbox(FactionToString(flag).c_str(), &checked)) {
+						// Update global mask
+						if (checked)	{ g_faction_filter |=  flag; } 
+						else			{ g_faction_filter &= ~flag; } // Clear bit
+					}
+
+				}
+				ImGui::EndTable();
+			}
+			
+			
+			ImGui::TreePop();
+
 		}
-		else {
-			GUI::Themes::PopColorStack(3);  // Pop style if header NOT opened
+		ImGui::Separator();
+	}
+	
+	void VoicelineLibrary::DisplayVoicelines() {
+		// Display only when populated
+		const std::vector<CVoiceline>& voicelines = GetVoicelines();
+		if (voicelines.empty()) {
+			return;
+		}
+
+		size_t match_count = 0;
+		for (const auto& v : voicelines) {
+			if (SearchUtilities::PassesFilter(v)) { ++match_count; }
+		}
+		ImGui::TextDisabled("%zu search match(es)", match_count);
+		if (match_count == 0) {
+			ImGui::TextDisabled("No voicelines match your filter.");
+			return;
+		}
+
+		if (ImGui::CollapsingHeader("View Voicelines")) {
+			// Render rows
+			GUI::Helpers::RenderTable(
+				"VoicelineTable",
+				{ "Command", "Voiceline", "Faction(s)" },
+				[&voicelines]() {
+					for (size_t i{}; i < voicelines.size(); ++i) {
+						const CVoiceline& voiceline = voicelines[i];
+
+						if (!SearchUtilities::PassesFilter(voiceline)) {
+							continue;
+						}
+
+						ImGui::TableNextRow();
+						ImGui::PushID(static_cast<int>(i)); // Unique ID per row
+
+						// Column 0 = command
+						ImGui::TableSetColumnIndex(0);
+						if (ImGui::Selectable(voiceline.GetCommand().c_str(), false, ImGuiSelectableFlags_SpanAllColumns)) {
+							ImGui::SetClipboardText(voiceline.GetCommand().c_str());
+						}
+						if (ImGui::IsItemHovered()) {
+							ImGui::SetTooltip("Click to copy '%s'", voiceline.GetCommand().c_str());
+						}
+
+						// Column 1 = full voiceline string
+						ImGui::TableSetColumnIndex(1);
+						GUI::Helpers::WrappedTableCellText(voiceline.GetFullVoiceline().c_str());
+
+
+						// Column 2 = factions as bullet
+						ImGui::TableSetColumnIndex(2);
+						// Display faction tags as bullet
+						const auto factions = FactionMaskToStrings(voiceline.GetFactions());
+						if (!factions.empty()) {
+							std::string joined;
+							for (size_t j{}; j < factions.size(); ++j) {
+								joined += factions[j];
+								if (j + 1 < factions.size()) {
+									joined += ", "; // I.e., Male Citizen, Female Citizen
+								}
+							}
+							GUI::Helpers::WrappedBulletText("%s", joined.c_str());
+						}
+
+						ImGui::PopID();
+					}
+				}
+			);
 		}
 	}
 
 	/* Function for rendering the menu in the tab */
 	void VoicelineLibrary::RenderVoicelineLibraryMenu() {
-		RenderColoredHeader("View Male Citizen Voicelines",		GetMaleCitizenVoicelines(),			GUI::Themes::SetHeaderColorBlue);
-		RenderColoredHeader("View Female Citizen Voicelines",	GetFemaleCitizenVoicelines(),		GUI::Themes::SetHeaderColorBlue);
-		RenderColoredHeader("View Civil Protection Voicelines", GetCivilProtectionVoicelines(),		GUI::Themes::SetHeaderColorCyan);
-		RenderColoredHeader("View Transhuman Grunt Voicelines", GetTranshumanGruntVoicelines(),		GUI::Themes::SetHeaderColorYellow);
-		RenderColoredHeader("View Airwatch Voicelines",			GetAirwatchVoicelines(),			GUI::Themes::SetHeaderColorRed);
-		RenderColoredHeader("View Vortigaunt Voicelines",		GetVortigauntVoicelines(),			GUI::Themes::SetHeaderColorGreen);
+		// Refresh button
+		if (ImGui::Button("Refresh Voicelines")) {
+			// TEMP
+			RefreshVoicelines("Project_ Synapse Voicelines.htm");
+		}
+		ImGui::SameLine();
+		ImGui::TextDisabled("(%zu loaded)", GetVoicelines().size());
+
+		ImGui::Separator();
+
+		VoicelineLibrary::DisplaySearchFilterControls();
+
+		VoicelineLibrary::DisplayVoicelines();
 	}
 }
