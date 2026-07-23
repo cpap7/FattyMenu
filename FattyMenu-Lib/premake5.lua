@@ -25,6 +25,9 @@ project "FattyMenu-Lib"
        "%{IncludeDir.imgui}",
        "%{IncludeDir.garrysmod_common}",
        "%{IncludeDir.minhook}",
+	   "%{IncludeDir.json}",
+       "%{IncludeDir.httplib}",
+       "%{IncludeDir.html_parser}"
    }
    
    links 
