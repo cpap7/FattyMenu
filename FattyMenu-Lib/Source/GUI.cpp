@@ -252,6 +252,12 @@ namespace FattyMenu {
 		ImGui_ImplWin32_Init(g_window);		// Pass the game's window to ImGui's initialization method
 		ImGui_ImplDX9_Init(a_d3d9_device);	// Pass the DirectX3D9 device to ImGui's initialization method
 
+		// Get the ImGui input/output
+		ImGuiIO& io = ImGui::GetIO();
+
+		// Set the mouse cursor flag to not change
+		io.ConfigFlags |= ImGuiConfigFlags_NoMouseCursorChange; // Prevents cursor flickering at the crosshair when the menu is open in-game
+
 		g_initialized = true; // Menu initialization is complete
 	}
 
@@ -274,12 +280,6 @@ namespace FattyMenu {
 	}
 
 	void GUI::Render() noexcept {
-		// Get the ImGui input/output
-		ImGuiIO& io = ImGui::GetIO();
-
-		// Set the mouse cursor flag to not change
-		io.ConfigFlags = ImGuiConfigFlags_NoMouseCursorChange; // Prevents cursor flickering at the crosshair when the menu is open in-game
-
 		// Set up ImGui frame
 		ImGui_ImplDX9_NewFrame();
 		ImGui_ImplWin32_NewFrame();
@@ -288,7 +288,7 @@ namespace FattyMenu {
 		GUI::Themes::SetThemeCivilProtection();
 
 		// ImGui window begins
-		ImGui::Begin("FattyMenu v1.7.0 | RCTRL = Open or Close | END = Uninject Menu", &g_open_menu);
+		ImGui::Begin("FattyMenu v1.7.1 | RCTRL = Open or Close | END = Uninject Menu", &g_open_menu);
 		// ImGui tab bar begins
 		if (ImGui::BeginTabBar("Menu Tabs")) {
 			// Render Civil Protection operating procedures tab
@@ -359,7 +359,7 @@ namespace FattyMenu {
 				
 				ImGui::Separator();
 
-				ImGui::TextWrapped("Programming Assistance");
+				ImGui::TextWrapped("Frontend Programming Assistance");
 				ImGui::TextWrapped("-> @fblawyer on Discord");
 				
 				ImGui::Separator();
@@ -392,9 +392,36 @@ LRESULT CALLBACK WindowProcess(HWND window, UINT message, WPARAM wide_param, LPA
 	}
 
 	// Pass messages to ImGUI
-	if (FattyMenu::GUI::g_open_menu && ImGui_ImplWin32_WndProcHandler(window, message, wide_param, long_param)) {
-		// Return 1 long -> it won't call the original game process so long as the menu is open
-		return 1L;
+	if (FattyMenu::GUI::g_open_menu) {
+		ImGui_ImplWin32_WndProcHandler(window, message, wide_param, long_param); // Have imgui observe message - state remains current for the frame
+		const ImGuiIO& io = ImGui::GetIO();
+
+		// Handle class of input and override so game never sees it
+		switch (message) {
+			// Handle mouse input
+			case WM_MOUSEMOVE:
+			case WM_LBUTTONDOWN: case WM_LBUTTONUP: case WM_LBUTTONDBLCLK:
+			case WM_RBUTTONDOWN: case WM_RBUTTONUP: case WM_RBUTTONDBLCLK:
+			case WM_MBUTTONDOWN: case WM_MBUTTONUP: case WM_MBUTTONDBLCLK:
+			case WM_XBUTTONDOWN: case WM_XBUTTONUP:
+			case WM_MOUSEWHEEL:  case WM_MOUSEHWHEEL:
+				if (io.WantCaptureMouse) {
+					return 1L; // Return 1 long -> it won't call the original game process so long as the menu is open
+				}
+				break;
+			
+			// Handle keyboard input
+			case WM_KEYDOWN:	case WM_KEYUP:
+			case WM_SYSKEYDOWN: case WM_SYSKEYUP:
+			case WM_CHAR:
+				if (io.WantCaptureKeyboard) {
+					return 1L;
+				}
+				break;
+
+			default:
+				break;
+		}
 	}
 
 	// Restore input priority back to the game process
