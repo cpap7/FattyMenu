@@ -393,7 +393,7 @@ LRESULT CALLBACK WindowProcess(HWND window, UINT message, WPARAM wide_param, LPA
 
 	// Pass messages to ImGUI
 	if (FattyMenu::GUI::g_open_menu) {
-		ImGui_ImplWin32_WndProcHandler(window, message, wide_param, long_param); // Have imgui observe message - state remains current for the frame
+		ImGui_ImplWin32_WndProcHandler(window, message, wide_param, long_param); // Have imgui observe message so its state remains current for each frame
 		const ImGuiIO& io = ImGui::GetIO();
 
 		// Handle class of input and override so game never sees it
