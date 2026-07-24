@@ -27,7 +27,8 @@ project "FattyMenu-Lib"
        "%{IncludeDir.minhook}",
 	   "%{IncludeDir.json}",
        "%{IncludeDir.httplib}",
-       "%{IncludeDir.html_parser}"
+       "%{IncludeDir.html_parser}",
+       "%{IncludeDir.openssl}"
    }
    
    links 
@@ -44,7 +45,8 @@ project "FattyMenu-Lib"
       systemversion "latest"
       toolset "v145" -- VS 2026
       defines { "FM_PLATFORM_WINDOWS" }
-      links { "ws2_32", "ole32", "winmm" }
+      libdirs { "%{LibraryDir.openssl}" }
+      links { "ws2_32", "ole32", "winmm", "libssl", "libcrypto", "crypt32" }
 
    filter "configurations:Debug"
       defines { "FM_DEBUG" }
