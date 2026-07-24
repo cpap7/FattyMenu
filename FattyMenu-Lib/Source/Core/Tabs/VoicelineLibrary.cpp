@@ -149,9 +149,8 @@ namespace FattyMenu {
 	/* Function for rendering the menu in the tab */
 	void VoicelineLibrary::RenderVoicelineLibraryMenu() {
 		// Refresh button
-		if (ImGui::Button("Refresh Voicelines")) {
-			// TEMP
-			RefreshVoicelines("Project_ Synapse Voicelines.htm");
+		if (ImGui::Button("Refresh Voiceline Entries")) {
+			RefreshVoicelines();
 		}
 		ImGui::SameLine();
 		ImGui::TextDisabled("(%zu loaded)", GetVoicelines().size());

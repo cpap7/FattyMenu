@@ -1,13 +1,11 @@
 #include "VoicelineScraper.h"
 #include "Voiceline.h"
 
-#include <../../Vendor/html_parser/html_parser.hpp>
+#include <html_parser.hpp>
 #include <json.hpp>
 
-//#define CPPHTTPLIB_OPENSSL_SUPPORT   // requires libssl/libcrypto
-//#include <httplib.h>
-
-
+#define CPPHTTPLIB_OPENSSL_SUPPORT
+#include <httplib.h>
 
 #include <fstream>
 #include <sstream>
@@ -15,6 +13,9 @@
 #include <vector>
 
 namespace FattyMenu {
+	// Broken's site URL
+	constexpr const char* c_voicelines_site = "https://synapse-voicelines.brokenlab.live";
+
 	// String variables representing html classes on Broken's site
 	constexpr const char* c_list_item_class		= "list-item";	// Repeating container
 	constexpr const char* c_command_class		= "command";	// <div class="command">	- contains input text to trigger voiceline
@@ -38,12 +39,11 @@ namespace FattyMenu {
 		}
 
 		// Used for trimming white space between faction names
-		// For example "Civil Protection" -> CivilProtection
 		// This is important for the EFaction's string functions
-		std::string StripSpaces(const std::string& a_string) {
+		std::string StripWhiteSpace(const std::string& a_string) {
 			std::string result{};
 			for (char character : a_string) {
-				if (character != ' ' && character != '\t' && character != '\r' && character != '\n') {
+				if (character != '\t' && character != '\r' && character != '\n') {
 					result += character;
 				}
 			}
@@ -69,7 +69,7 @@ namespace FattyMenu {
 					comma = a_list.size();
 				}
 
-				const std::string token = StripSpaces(a_list.substr(start, comma - start));
+				const std::string token = StripWhiteSpace(a_list.substr(start, comma - start));
 				if (!token.empty()) {
 					faction |= FactionFromString(token);
 				}
@@ -82,13 +82,32 @@ namespace FattyMenu {
 	}
 
 	std::string CVoicelineScraper::FetchHTML() {
-		//httplib::Client cli("https://synapse-voicelines.brokenlab.live");
-		//cli.set_follow_location(true);
-		//auto res = cli.Get("/");
-		//return (res && res->status == 200) ? res->body : std::string{};
+		httplib::Client client(c_voicelines_site);
+		client.set_follow_location(true);
 		
-		// TEMP
-		return std::string{};
+		auto result = client.Get("/");
+
+		return (result && result->status == 200) ? result->body : std::string{};
+	}
+
+	bool CVoicelineScraper::DownloadHTMLToFile(const std::string& a_out_html_path) {
+		std::error_code error_code;
+		if (std::filesystem::exists(a_out_html_path, error_code) && !error_code) {
+			return true; // Already exists, nothing to do
+		}
+
+		const std::string html = FetchHTML();
+		if (html.empty()) {
+			return false;
+		}
+
+		std::ofstream output(a_out_html_path, std::ios::binary);
+		if (!output) {
+			return false;
+		}
+
+		output.write(html.data(), static_cast<std::streamsize>(html.size()));
+		return output.good();		
 	}
 
 	void CVoicelineScraper::ScrapeFromHTMLFile(const std::string& a_html_path, const std::string& a_out_path) {
