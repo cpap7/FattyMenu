@@ -1,0 +1,231 @@
+{
+    "Permits": [
+        {
+            "Name": "Hydration",
+            "CivicPointRequirement": 50,
+            "Cost": 25,
+            "Packages": [
+                {
+                    "Name": "Packaged Blue >B Drinks",
+                    "Cost": 10,
+                    "ItemQuantity": 5
+                },
+                {
+                    "Name": "Packaged Red >B Drinks",
+                    "Cost": 35,
+                    "ItemQuantity": 5
+                },
+                {
+                    "Name": "Packaged Yellow >B Drinks",
+                    "Cost": 75,
+                    "ItemQuantity": 5
+                },
+                {
+                    "Name": "Packaged Desiccated Sustenance Bars",
+                    "Cost": 8,
+                    "ItemQuantity": 5
+                },
+                {
+                    "Name": "Packaged Solidified Nutrient Tablets",
+                    "Cost": 13,
+                    "ItemQuantity": 5
+                },
+                {
+                    "Name": "Packaged Sweetened Hydration Bars",
+                    "Cost": 18,
+                    "ItemQuantity": 5
+                },
+                {
+                    "Name": "Packaged Fermented Vitality Tablets",
+                    "Cost": 23,
+                    "ItemQuantity": 5
+                }
+            ],
+            "AuthorizedItems": [
+                "Water",
+                "Tea"
+            ]
+        },
+        {
+            "Name": "Nourishment",
+            "CivicPointRequirement": 100,
+            "Cost": 50,
+            "Packages": [
+                {
+                    "Name": "Packaged Gelatinated Calorie Pastes",
+                    "Cost": 23,
+                    "ItemQuantity": 10
+                },
+                {
+                    "Name": "Packaged Refined Craniate Slices",
+                    "Cost": 28,
+                    "ItemQuantity": 10
+                },
+                {
+                    "Name": "Packaged Concentrated Fowl Blends",
+                    "Cost": 33,
+                    "ItemQuantity": 10
+                },
+                {
+                    "Name": "Packaged Enriched Taxon Extracts",
+                    "Cost": 38,
+                    "ItemQuantity": 10
+                }
+            ],
+            "AuthorizedItems": [
+                "Foodstuffs",
+                "Ingredients"
+            ]
+        },
+        {
+            "Name": "Garment",
+            "CivicPointRequirement": 200,
+            "Cost": 70,
+            "Packages": [
+                {
+                    "Name": "Packaged Blue Denim Jackets",
+                    "Cost": 120,
+                    "ItemQuantity": 5
+                },
+                {
+                    "Name": "Packaged Beige Denim Jackets",
+                    "Cost": 150,
+                    "ItemQuantity": 5
+                },
+                {
+                    "Name": "Packaged Blue Jeans",
+                    "Cost": 100,
+                    "ItemQuantity": 5
+                },
+                {
+                    "Name": "Packaged Black Jeans",
+                    "Cost": 200,
+                    "ItemQuantity": 5
+                },
+                {
+                    "Name": "Packaged Blue Shoes",
+                    "Cost": 85,
+                    "ItemQuantity": 5
+                },
+                {
+                    "Name": "Packaged Black Shoes",
+                    "Cost": 85,
+                    "ItemQuantity": 5
+                },
+                {
+                    "Name": "Packaged Blue Caps",
+                    "Cost": 175,
+                    "ItemQuantity": 5
+                },
+                {
+                    "Name": "Packaged Black Gloves",
+                    "Cost": 100,
+                    "ItemQuantity": 5
+                }
+            ],
+            "AuthorizedItems": [
+                "Clothing",
+                "Textiles",
+                "Thread"
+            ]
+        },
+        {
+            "Name": "Luxury",
+            "CivicPointRequirement": 400,
+            "Cost": 90,
+            "Packages": [
+                {
+                    "Name": "Packaged Ground Sunrise Coffee",
+                    "Cost": 45,
+                    "ItemQuantity": 5
+                },
+                {
+                    "Name": "Packaged Packaged Rye Flour",
+                    "Cost": 5,
+                    "ItemQuantity": 10
+                },
+                {
+                    "Name": "Packaged Dried Herbs",
+                    "Cost": 10,
+                    "ItemQuantity": 10
+                },
+                {
+                    "Name": "Packaged Dried Spices",
+                    "Cost": 10,
+                    "ItemQuantity": 10
+                },
+                {
+                    "Name": "Packaged Variety Dried Vegetables",
+                    "Cost": 15,
+                    "ItemQuantity": 10
+                },
+                {
+                    "Name": "Packaged Margarine",
+                    "Cost": 10,
+                    "ItemQuantity": 5
+                },
+                {
+                    "Name": "Packaged Egg Protein",
+                    "Cost": 10,
+                    "ItemQuantity": 10
+                },
+                {
+                    "Name": "Packaged Salt",
+                    "Cost": 5,
+                    "ItemQuantity": 10
+                },
+                {
+                    "Name": "Packaged Cigarette Packs",
+                    "Cost": 40,
+                    "ItemQuantity": 5
+                },
+                {
+                    "Name": "Packaged Televisions",
+                    "Cost": 375,
+                    "ItemQuantity": 5
+                },
+                {
+                    "Name": "Packaged >B Radios",
+                    "Cost": 250,
+                    "ItemQuantity": 5
+                },
+                {
+                    "Name": "Packaged Coffee Makers",
+                    "Cost": 100,
+                    "ItemQuantity": 5
+                },
+                {
+                    "Name": "Packaged Kettles",
+                    "Cost": 70,
+                    "ItemQuantity": 2
+                },
+                {
+                    "Name": "Packaged Saute Pans",
+                    "Cost": 70,
+                    "ItemQuantity": 2
+                },
+                {
+                    "Name": "Packaged Skillets",
+                    "Cost": 70,
+                    "ItemQuantity": 2
+                },
+                {
+                    "Name": "Packaged Multi-Pots",
+                    "Cost": 70,
+                    "ItemQuantity": 2
+                }
+            ],
+            "AuthorizedItems": [
+                "Coffee",
+                "Coffee Maker",
+                "Cookware",
+                "Soda",
+                "Electronics",
+                "Tobacco",
+                "Ingredients",
+                "Espresso",
+                "Writing Materials"
+            ]
+        }
+    ]
+}
