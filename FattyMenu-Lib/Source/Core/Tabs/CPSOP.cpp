@@ -293,15 +293,15 @@ namespace FattyMenu {
 					ImGui::TableSetColumnIndex(2);
 					for (const auto& verdict : row.m_recommended_verdicts) {
 						if (verdict == "Verbal Warning" || verdict == "Citation") {
-							GUI::Helpers::WrappedBulletText("%s", verdict);
+							GUI::Helpers::WrappedBulletText("%s", verdict.c_str());
 						}
 						if (verdict == "Prosecution") {
-							GUI::Helpers::WrappedBulletColoredText(s_yellow_color, "%s", verdict);
+							GUI::Helpers::WrappedBulletColoredText(s_yellow_color, "%s", verdict.c_str());
 						}
 
 						// TODO: Refactor this portion a bit - don't exactly love how this was done lol
 						if (verdict == "Amputation\n(if necessary to display authority amongst populace)" || verdict == "Disassociation\n(if labor required)" || verdict == "Terminal prosecution") {
-							GUI::Helpers::WrappedBulletColoredText(s_red_color, "%s", verdict);
+							GUI::Helpers::WrappedBulletColoredText(s_red_color, "%s", verdict.c_str());
 						}
 					}
 				}
