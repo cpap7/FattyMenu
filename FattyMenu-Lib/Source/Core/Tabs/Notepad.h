@@ -2,6 +2,7 @@
 
 // ImGui dependencies
 #include <../imgui/imgui.h>
+#include <../imgui/imgui_internal.h>
 
 // GUI utilities
 #include "../../GUIUtilities.h"
@@ -9,26 +10,15 @@
 
 namespace FattyMenu {
     namespace Notepad {
-        // Declare a char array buffer for each notepad
-        static char patrol_log_buffer[4096] = "";	         // Buffer for notepad to hold strings related to patrol logs
-        static char probie_recommendation_buffer[2048] = ""; // Buffer for notepad to hold strings related to probationary recommendations
-        static char general_use_buffer[4096] = "";           // Buffer for general purpose notepad
+        static char general_use_buffer[4096] = {};           // Buffer for general purpose notepad
 
-        // Declare fixed dimensions for the button
+        // Fixed button dimensions
         const float button_width = 200.0f;                   // Button X
         // const float button_length = 100.0f;               // Button Y
 
-        // Helper function for initializing the buffer text in each notepad
-        void InitializeBuffer(char*, size_t, const char*);
-
         // Helper function for rendering notepads in the menu
-        void RenderNotepad(const char*, const char*, char*, size_t, const char*, const char*);
-
-        // Function to initialize parameters for rendering a notepad for Patrol Logs
-        void RenderPatrolLogNotepad();
-
-        // Function to initialize parameters for rendering a notepad for probationary recommendations
-        void RenderProbieRecommendationNotepad();
+        void DisplayNotepad(const char* a_usage_description, const char* a_label, 
+            char* a_buffer, size_t a_buffer_size, const char* a_default_text, const char* a_button_text);
 
         // Function to initialize parameters for rendering a notepad for taking regular notes
         void RenderGeneralUseNotepad();

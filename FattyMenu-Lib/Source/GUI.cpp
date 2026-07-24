@@ -317,20 +317,8 @@ namespace FattyMenu {
 
 			// Render tab for notepads
 			if (ImGui::BeginTabItem("Notepads")) {
-				// Render patrol log notepad
-				if (ImGui::CollapsingHeader("Patrol Logs")) {
-					Notepad::RenderPatrolLogNotepad();
-				}
-
-				// Render probie recommendation tab
-				if (ImGui::CollapsingHeader("Probationary Recommendations")) {
-					Notepad::RenderProbieRecommendationNotepad();
-				}
-
 				// Render general-use notepad
-				if (ImGui::CollapsingHeader("Notepad")) {
-					Notepad::RenderGeneralUseNotepad();
-				}
+				Notepad::RenderGeneralUseNotepad();
 
 				ImGui::EndTabItem();
 			}
