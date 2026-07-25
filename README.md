@@ -131,8 +131,9 @@ Why make this?
 
 # Requirements For Developers
 You can clone the repo via ```git clone https://github.com/cpap7/FattyMenu.git```
-- ```Visual Studio 2026``` - C++ IDE
+- ```Visual Studio 2026``` - C++20 IDE
 - ```vcpkg``` - For downloading certain dependencies (i.e., openssl)
+Under the ```Scripts``` folder, you'll find a ```Win-GenProjects.bat``` file which can be used to generate project files for Visual Studio 2026. 
 
 # Dependencies
 The following are included for convenience:
