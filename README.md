@@ -13,9 +13,9 @@ The menu itself contains the following tabs:
 
 - A built-in library containing all the voicelines across each class on the server (except Transhuman Soldier and Ordinal, still WIP)
 
-- Distribution permit info, including prerequisite civic point count & costs for permits, alongside costs for their associate packages (except the water permit, still need to gather data and implement that)
+- Distribution permit info, including prerequisite civic point count & costs for permits, alongside costs for their associate packages
 
-- Notepads for writing Patrol Logs, Probationary Recommendations, and regular note-taking
+- Notepads for regular note-taking
 
 The code itself uses classes as containers for data organization purposes, and separate UI files for each tab. Should be easy to navigate given the project's overall structure. 
 
@@ -31,18 +31,23 @@ if the .dll is recompiled as Release x86 in Visual Studio. Project Synapse shoul
 
 # Installation / Setup
 ## Prelude
-This .dll file can be either injected or loaded by Garry's Mod directly.
+As of version 1.7.1, the now comes shipped with configurable JSON files located within a ``FattyMenu`` folder. This folder will need to be placed within the same directory as ``gmod.exe``
+- ``gmod.exe`` can be found under ``steamapps\common\GarrysMod``. The folder must be placed like so:
+![alt text](https://puu.sh/KQpCM/1d589274f9.png)
+- NOTE: For those unaware of how JSON files work, within these files, the names on the left hand side (highlighted in yellow) should NOT be changed. However, the values to the right of them CAN be changed (highlighted in green and red). Entries with ``{},`` can be added to- or subtracted from- an entry.
+![alt text](https://puu.sh/KQpD2/ec2d52a968.png)
+
+The .dll file can be either injected or loaded by Garry's Mod directly.
 - Note: You will need to ensure the game is running on ``Borderless Window`` mode first. Otherwise, you will run into more bugs.
-- Note: clicking around on it may cause you to accidentally click other menu options behind it. 
-- For that reason, I recommend keeping the menu open in the middle of your screen if you only want to open it with the escape menu open. 
+- Once loaded, you should be greeted with a menu looking like this:
 ![alt text](https://puu.sh/Kt6Jj/f5062ebfcb.jpg)
-- In-game, I've found having it off to the right works best. 
+- In-game, I've found having it off to the right works best
 ![alt text](https://puu.sh/Kt6Jq/05c9c24f2a.jpg)
 
 ## Direct Load via Garry's Mod
 - The more popular/convenient method for loading the menu
-1) Download the latest version of FattyMenu.dll under the 'Releases' tab of this repository.
-2) Rename it to ``gmsv_fattymenu_win64.dll``
+1) Download the latest version of FattyMenu under the 'Releases' tab of this repository.
+2) Rename the ``FattyMenu.dll`` file to ``gmsv_fattymenu_win64.dll`` (or use the one provided with the download, up to you) 
 3) Navigate to your ``garrysmod > lua > bin `` folder and drop it in there
 - Note: If there is no bin folder present, create one
 4) Navigate over to ``garrysmod > lua > menu `` and open up ``menu.lua`` in a text editor (i.e., Notepad++)
@@ -124,30 +129,39 @@ Why make this?
 - Playing Civil Protection became a bit of hassle in terms of having the SOP readily available to reference from. Granted, yes, you could have it open on another monitor and CTRL+f, or use your phone, but I needed something faster.
 - Making a menu like this without being too invasive on the engine itself isn't particularly difficult. The only problem was that the SOP info was locked such that no-one could copy/paste from it (understandably so), and as such, strings had to be manually typed out.
 
+# Requirements For Developers
+You can clone the repo via ```git clone https://github.com/cpap7/FattyMenu.git```
+- ```Visual Studio 2026``` - C++ IDE
+- ```vcpkg``` - For downloading certain dependencies (i.e., openssl)
+
+# Dependencies
+The following are included for convenience:
+- ```garrysmod_common``` - Common include headers for Garry's Mod
+- ```html_parser``` - For parsing raw HTML files from disk
+- ```http_lib``` - For making http requests for voiceline data. Requires openssl
+- ```imgui``` - Immediate mode graphical user interface library for the menu
+- ```json``` - Serialization file format
+- ```minhook``` - For function detouring, mainly for EndScene & Reset function calls for Garry's Mod, which uses Direct3D9 for rendering
+
+The following must be installed via vcpkg:
+- ```openssl``` - Dependency for http_lib. Run the following command in cmd or powershell to install & compile it: ```vcpkg install openssl:x64-windows-static-md```
+
 # Developer Roadmap
-- Include all the voiceline data for Transhuman Ordinal and Transhuman Soldier
-
 - Include a built-in SOP and AOP for Transhuman and Airwatch classes, respectively. Might not be needed, but it would be nice to have.
-
-- Finish the distribution permit tab (currently lacks water-permit package info, and I still need to verify that all the other data is up-to-date)
-
-- Finish up comments/documentation that I either forgot to write or was otherwise too lazy to write
 
 - Rework rendering methods for the SOP using a cleaner approach. 
 
-- Include search / filtering functions for the Voiceline Libary and SOP tabs
+- Include search / filtering functions for the SOP tab
 
 - Add a settings tab for configurable keybinds, and setting different themes (i.e., one for transhuman)
 
 - Add additional support for other operating systems (for MAC and Linux users specifically)
 
 # Contributing
-
 Pull requests are welcome. For major changes, please either message me on Discord or open an issue 
 to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
 
 # License
-
 [MIT](https://choosealicense.com/licenses/mit/)
