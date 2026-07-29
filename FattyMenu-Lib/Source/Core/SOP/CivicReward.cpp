@@ -1,7 +1,7 @@
-#include "CivicReward.h" // For class declaration
+#include "CivicReward.h"
 
 namespace FattyMenu {
-	CCivicReward::CCivicReward(const char* a_number, const char* a_description) 
+	CCivicReward::CCivicReward(const std::string& a_number, const std::string& a_description)
 		: m_number(a_number), m_description(a_description) {
 		
 	}

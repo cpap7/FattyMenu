@@ -16,7 +16,7 @@ namespace FattyMenu {
 	// Returns a mutable list of voicelines that are loaded from a JSON file
 	inline std::vector<CVoiceline>& GetVoicelines() {
 		static std::vector<CVoiceline> voiceline_list = 
-			[] {
+			[] { // IIFE
 				CContentSerializer serializer;
 				return serializer.DeserializeVoicelines(c_voicelines_file_path);	
 			}();

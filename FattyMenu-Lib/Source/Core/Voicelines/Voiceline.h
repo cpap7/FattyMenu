@@ -11,26 +11,25 @@ namespace FattyMenu {
 	enum class EFaction : uint16_t {
 		None					= 0,
 		
-		Airwatch				= BIT(0),
-		CivilProtection			= BIT(1),
-		FemaleCitizen			= BIT(2),
-		MaleCitizen				= BIT(3),
-		TranshumanCharger		= BIT(4),
-		TranshumanGrunt			= BIT(5),
-		TranshumanOrdinal		= BIT(6),
-		TranshumanSoldier		= BIT(7),
-		TranshumanSuppressor	= BIT(8),
-		Vortigaunt				= BIT(9),
+		Airwatch				= BIT(0),	// 1
+		CivilProtection			= BIT(1),	// 2
+		FemaleCitizen			= BIT(2),	// 4
+		MaleCitizen				= BIT(3),	// 8
+		TranshumanCharger		= BIT(4),	// 16
+		TranshumanGrunt			= BIT(5),	// 32
+		TranshumanOrdinal		= BIT(6),	// 64
+		TranshumanSoldier		= BIT(7),	// 128
+		TranshumanSuppressor	= BIT(8),	// 256
+		Vortigaunt				= BIT(9),	// 512
 		
 		Default					= None
 	};
 
 	// EFaction operator overloads for bit operations (i.e., OR, AND)
+	using UnderlyingFaction = std::underlying_type_t<EFaction>;
 
 	constexpr EFaction operator|(EFaction a_lhs, EFaction a_rhs) {
-		using underlying = std::underlying_type_t<EFaction>;
-
-		return static_cast<EFaction>(static_cast<underlying>(a_lhs) | static_cast<underlying>(a_rhs));
+		return static_cast<EFaction>(static_cast<UnderlyingFaction>(a_lhs) | static_cast<UnderlyingFaction>(a_rhs));
 	}
 
 	constexpr EFaction& operator|=(EFaction& a_lhs, EFaction a_rhs) {
@@ -39,9 +38,7 @@ namespace FattyMenu {
 	}
 
 	constexpr EFaction operator&(EFaction a_lhs, EFaction a_rhs) {
-		using underlying = std::underlying_type_t<EFaction>;
-
-		return static_cast<EFaction>(static_cast<underlying>(a_lhs) & static_cast<underlying>(a_rhs));
+		return static_cast<EFaction>(static_cast<UnderlyingFaction>(a_lhs) & static_cast<UnderlyingFaction>(a_rhs));
 	}
 
 	constexpr EFaction& operator&=(EFaction& a_lhs, EFaction a_rhs) {
@@ -49,10 +46,17 @@ namespace FattyMenu {
 		return a_lhs;
 	}
 
-	constexpr EFaction operator~(EFaction a_value) {
-		using underlying = std::underlying_type_t<EFaction>;
+	constexpr EFaction operator^(EFaction a_lhs, EFaction a_rhs) {
+		return static_cast<EFaction>(static_cast<UnderlyingFaction>(a_lhs) ^ static_cast<UnderlyingFaction>(a_rhs));
+	}
 
-		return static_cast<EFaction>(~static_cast<underlying>(a_value));
+	constexpr EFaction& operator^=(EFaction& a_lhs, EFaction a_rhs) {
+		a_lhs = a_lhs ^ a_rhs;
+		return a_lhs;
+	}
+
+	constexpr EFaction operator~(EFaction a_value) {
+		return static_cast<EFaction>(~static_cast<UnderlyingFaction>(a_value));
 	}
 
 	constexpr bool HasFaction(EFaction a_value, EFaction a_flag) {
@@ -100,7 +104,7 @@ namespace FattyMenu {
 		return EFaction::None;
 	}
 	
-	// Lookup table - Canonical list of all faction bits for the serializer & converter to iterate through
+	// Lookup table - Canonical list of all faction bits
 	inline constexpr EFaction c_voiceline_faction_flags[] = {
 		EFaction::Airwatch,
 		EFaction::CivilProtection,
@@ -140,11 +144,11 @@ namespace FattyMenu {
 
 	class CVoiceline {
 	private:
-		std::string m_command				= "";	// Text to be copied to user's clipboard
-		std::string m_full_voiceline		= "";	// Entire voiceline to be displayed next to the command
+		std::string m_command{};					// Text to be copied to user's clipboard
+		std::string m_full_voiceline{};				// Entire voiceline to be displayed next to the command
 
 		// For filtering
-		EFaction m_factions					= EFaction::Default;
+		EFaction m_factions{ EFaction::Default };
 
 	public:
 		CVoiceline(const std::string& a_command, const std::string& a_full_voiceline, EFaction a_factions = EFaction::Default);
