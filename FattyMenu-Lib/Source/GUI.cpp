@@ -7,10 +7,8 @@
 #include "Core/Tabs/PermitMenu.h"
 #include "Core/Tabs/Notepad.h"
 
-// TODO
-// Embedded ImGui textures
-//#include "Core/Embed/Map.embed"
-
+#include <tchar.h> // Message box formatting
+#include <filesystem>
 
 /* Function Prototypes */
 // ImGUI Window Process Handler
@@ -20,6 +18,28 @@ extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND window, UINT m
 LRESULT CALLBACK WindowProcess(HWND window, UINT message, WPARAM wide_param, LPARAM long_param);
 
 namespace FattyMenu {
+
+	bool GUI::LoadTextureFromFile(const std::string& a_file_path, PDIRECT3DTEXTURE9* a_out_texture, int* a_out_width, int* a_out_height) {
+		LPDIRECT3DDEVICE9 device = ImGui_ImplDX9_GetDevice(); // This is not shipped with ImGui - it'll need to be reimplemented if ImGui is updated later
+
+		// Load texture from disk
+		PDIRECT3DTEXTURE9 texture = nullptr;
+		HRESULT hr = D3DXCreateTextureFromFileA(device, a_file_path.c_str(), &texture);
+		if (hr != S_OK) {
+			return false;
+		}
+
+		// Retrieve description of texture surface so we can get its size
+		D3DSURFACE_DESC image_desc;
+		texture->GetLevelDesc(0, &image_desc);
+		
+		*a_out_texture	= texture;
+		*a_out_width	= static_cast<int>(image_desc.Width);
+		*a_out_height	= static_cast<int>(image_desc.Height);
+
+		return true;
+	}
+
 	// Sets up the window class
 	bool GUI::InitializeWindowClass(const char* a_window_class_name) noexcept {
 		// Populate the window class' attributes
@@ -73,8 +93,7 @@ namespace FattyMenu {
 			0
 		);
 
-		// Ensure the window is properly initialized
-		if (!g_window) {	// Check if the window class is still null
+		if (!g_window) {
 			// Window initialization failed
 			return false;
 		}
@@ -99,22 +118,17 @@ namespace FattyMenu {
 
 		// Check if the handle is null
 		if (!handle) {
-			// Return false if it's null
 			return false;
 		}
 
-		// Define the signature of DirectX's create function (CreateFn) 
-		using CreateFn = LPDIRECT3D9(__stdcall*)(UINT);
+		using CreateFn = LPDIRECT3D9(__stdcall*)(UINT); // Signature of DirectX's create function (CreateFn) 
 
-		// Declare a variable to hold the address of the function
-		const auto create = (CreateFn)(GetProcAddress( // GetProcAddress -> Retrieves exports of dlls
-			handle,
-			"Direct3DCreate9"
-		));
+		// Declare a variable to hold the address of the create function
+		const auto create = (CreateFn)(GetProcAddress(handle, "Direct3DCreate9"));	// GetProcAddress retrieves exports of dlls		
 
 		// Check if the create variable is initialized properly
 		if (!create) {
-			return false; 	// Initialization failed
+			return false;
 		}
 
 		// Set the d3d9 pointer to the return value of the create function, 
@@ -123,27 +137,25 @@ namespace FattyMenu {
 
 		// Check if the d3d9 pointer was initialized
 		if (!g_d3d9) {
-			return false;	// Initialization failed
+			return false;
 		}
 
-		// Declare a Direct3D present parameters object
 		D3DPRESENT_PARAMETERS d3d_params = { };
-
-		// Populate the object's attributes
-		d3d_params.BackBufferWidth = 0;
-		d3d_params.BackBufferHeight = 0;
-		d3d_params.BackBufferFormat = D3DFMT_UNKNOWN;
-		d3d_params.BackBufferCount = 0;
-		d3d_params.MultiSampleType = D3DMULTISAMPLE_NONE;
-		d3d_params.MultiSampleQuality = NULL;
-		d3d_params.SwapEffect = D3DSWAPEFFECT_DISCARD;
-		d3d_params.hDeviceWindow = g_window;				// Set the device window so it can retrieve the device from the window being created
-		d3d_params.Windowed = 1;
-		d3d_params.EnableAutoDepthStencil = 0;
-		d3d_params.AutoDepthStencilFormat = D3DFMT_UNKNOWN;
-		d3d_params.Flags = NULL;
-		d3d_params.FullScreen_RefreshRateInHz = 0;
-		d3d_params.PresentationInterval = 0;
+		// Populate the d3d present parameters attributes
+		d3d_params.BackBufferWidth				= 0;
+		d3d_params.BackBufferHeight				= 0;
+		d3d_params.BackBufferFormat				= D3DFMT_UNKNOWN;
+		d3d_params.BackBufferCount				= 0;
+		d3d_params.MultiSampleType				= D3DMULTISAMPLE_NONE;
+		d3d_params.MultiSampleQuality			= NULL;
+		d3d_params.SwapEffect					= D3DSWAPEFFECT_DISCARD;
+		d3d_params.hDeviceWindow				= g_window;				// Set the device window so it can retrieve the device from the window being created
+		d3d_params.Windowed						= 1;
+		d3d_params.EnableAutoDepthStencil		= 0;
+		d3d_params.AutoDepthStencilFormat		= D3DFMT_UNKNOWN;
+		d3d_params.Flags						= NULL;
+		d3d_params.FullScreen_RefreshRateInHz	= 0;
+		d3d_params.PresentationInterval			= 0;
 
 		// Check if the d3d9 device is initialized
 		if (g_d3d9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_NULLREF,
@@ -159,16 +171,12 @@ namespace FattyMenu {
 
 	// Unregisters DirectX9 
 	void GUI::DestroyDirectX9() noexcept {
-		// Check if the d3d9 device is valid
 		if (g_d3d9_device) {
-			// If true, release it and set it to null
 			g_d3d9_device->Release();
 			g_d3d9_device = NULL;
 		}
 
-		// Check if the d3d9 pointer is valid
 		if (g_d3d9) {
-			// If true, release it and set it to null
 			g_d3d9->Release();
 			g_d3d9 = NULL;
 		}
@@ -199,7 +207,7 @@ namespace FattyMenu {
 	// Hooks the window process when .dll is loaded by Garry's Mod directly
 	void GUI::HookWindowProc() {
 		if (g_window) {
-			OriginalWindowProc = (WNDPROC)SetWindowLongPtr(g_window, GWLP_WNDPROC, (LONG_PTR)WindowProcess);
+			g_original_window_proc = (WNDPROC)SetWindowLongPtr(g_window, GWLP_WNDPROC, (LONG_PTR)WindowProcess);
 		}
 	}
 
@@ -207,17 +215,17 @@ namespace FattyMenu {
 	void GUI::InitializeDevice() {
 		// Check to see the window class was initialized properly
 		if (!InitializeWindowClass("FattyMenuWndClass")) {
-			throw std::runtime_error("Window class could not be created.");
+			throw std::runtime_error("[FattyMenu Error] Window class could not be created.");
 		}
 
 		// Check to see the window was initialized properly
 		if (!InitializeWindow("FattyMenuWnd")) {
-			throw std::runtime_error("Window could not be created.");
+			throw std::runtime_error("[FattyMenu Error] Window could not be created.");
 		}
 
 		// Check to see the DirectX was initialized properly
 		if (!InitializeDirectX9()) {
-			throw std::runtime_error("D3D9 device could not be created.");
+			throw std::runtime_error("[FattyMenu Error] D3D9 device could not be created.");
 		}
 
 		// Unregister the Window and Window Class
@@ -236,11 +244,10 @@ namespace FattyMenu {
 		// Temp window is destroyed at this point
 		// Thus allowing the menu window to be opened and take priority
 
-		// Set the menu window to the game window
-		g_window = d3d_params.hFocusWindow;
+		g_window = d3d_params.hFocusWindow; // Set the menu window to the game window
 
 		// Store the original window process
-		OriginalWindowProc = (WNDPROC)(SetWindowLongPtr( // Might need to change some type-cast conversions to reinterpret_cast for readability/maintainability later
+		g_original_window_proc = (WNDPROC)(SetWindowLongPtr( // Might need to change some type-cast conversions to reinterpret_cast for readability/maintainability later
 			g_window,
 			GWLP_WNDPROC,
 			(LONG_PTR)(WindowProcess)
@@ -252,13 +259,11 @@ namespace FattyMenu {
 		ImGui_ImplWin32_Init(g_window);		// Pass the game's window to ImGui's initialization method
 		ImGui_ImplDX9_Init(a_d3d9_device);	// Pass the DirectX3D9 device to ImGui's initialization method
 
-		// Get the ImGui input/output
 		ImGuiIO& io = ImGui::GetIO();
-
 		// Set the mouse cursor flag to not change
 		io.ConfigFlags |= ImGuiConfigFlags_NoMouseCursorChange; // Prevents cursor flickering at the crosshair when the menu is open in-game
 
-		g_initialized = true; // Menu initialization is complete
+		g_initialized = true;			// Menu initialization is complete
 	}
 
 	// Unregisters everything
@@ -272,7 +277,7 @@ namespace FattyMenu {
 		SetWindowLongPtr(
 			g_window,
 			GWLP_WNDPROC,
-			(LONG_PTR)(OriginalWindowProc)  // Might need to change type-cast conversion to reinterpret_cast for readability/maintainability later
+			(LONG_PTR)(g_original_window_proc)  // Might need to change type-cast conversion to reinterpret_cast for readability/maintainability later
 		);
 
 		// Unregister DirectX
@@ -286,81 +291,94 @@ namespace FattyMenu {
 		ImGui::NewFrame();
 
 		GUI::Themes::SetThemeCivilProtection();
-
-		// ImGui window begins
-		ImGui::Begin("FattyMenu v1.7.1 | RCTRL = Open or Close | END = Uninject Menu", &g_open_menu);
-		// ImGui tab bar begins
-		if (ImGui::BeginTabBar("Menu Tabs")) {
-			// Render Civil Protection operating procedures tab
-			if (ImGui::BeginTabItem("Civil Protection SOP")) {
-				CPSOP::RenderCivilProtectionSOP();
-				ImGui::EndTabItem();
-			}
-
-			/* Render Transhuman Forces operating procedures tab
-			if (ImGui::BeginTabItem("Transhuman Forces SOP")) {
-				TFSOP::RenderTranshumanForcesSOP();
-				ImGui::EndTabItem(); 
-			} */	
 		
-			// Render voiceline library tab
-			if (ImGui::BeginTabItem("Voiceline Library")) {
-				VoicelineLibrary::RenderVoicelineLibraryMenu();
-				ImGui::EndTabItem();
-			}
+		//ImGui::ShowDemoWindow();
 
-			// Render distribution permit info tab
-			if (ImGui::BeginTabItem("Distribution Permit Info")) {
-				PermitMenu::RenderPermitMenu();
-				ImGui::EndTabItem();
-			}
+		// ImGui panels begin
 
-			// Render tab for notepads
-			if (ImGui::BeginTabItem("Notepads")) {
-				// Render general-use notepad
-				Notepad::RenderGeneralUseNotepad();
+		const std::string main_panel_header{ "FattyMenu v1.7.2 | Main Panel | RCTRL = Open or Close | END = Uninject Menu" };
+		const std::string map_panel_header{ "FattyMenu v1.7.2 | Map Panel | RCTRL = Open or Close | END = Uninject Menu" };
 
-				ImGui::EndTabItem();
-			}
+		if (ImGui::Begin(map_panel_header.c_str(), &g_open_imgui)) {
 
-			
-			if (ImGui::BeginTabItem("Credits")) {
-				ImGui::TextWrapped("Internal menu created by: JoeRogaine on Discord aka cpap7 on Github\n");
-				
-				ImGui::Separator();
-
-				ImGui::TextWrapped("Special thanks to the following people for their help:");
-				ImGui::TextWrapped("-> MajoraPLZ for helping me find the right people to ask for info, and answering any questions I had");
-				ImGui::TextWrapped("-> Cazzette for providing feedback, and also helping me find people to ask for info");
-				ImGui::TextWrapped("-> voprositelnii for providing TAC usage etiquette and duty expectations");
-				
-				ImGui::Separator();
-
-				ImGui::TextWrapped("SOP files");
-				ImGui::TextWrapped("-> Rommel & Cazzette for sending me the SOP pdfs");
-				
-				ImGui::Separator();
-
-				ImGui::TextWrapped("Voiceline Data");
-				ImGui::TextWrapped("-> -Broken-");
-				ImGui::TextWrapped("-> Recker");
-				
-				ImGui::Separator();
-
-				ImGui::TextWrapped("Frontend Programming Assistance");
-				ImGui::TextWrapped("-> @fblawyer on Discord");
-				
-				ImGui::Separator();
-
-				ImGui::EndTabItem();
-			}
-
-			// End tab bar
-			ImGui::EndTabBar();
+			ImGui::End();
 		}
 
-		// End ImGui window
-		ImGui::End();
+		if (ImGui::Begin(main_panel_header.c_str(), &g_open_imgui)) {
+			// ImGui tab bar begins
+			if (ImGui::BeginTabBar("Menu Tabs")) {
+				// Render Civil Protection operating procedures tab
+				if (ImGui::BeginTabItem("Civil Protection SOP")) {
+					CPSOP::RenderCivilProtectionSOP();
+					ImGui::EndTabItem();
+				}
+
+				/* Render Transhuman Forces operating procedures tab
+				if (ImGui::BeginTabItem("Transhuman Forces SOP")) {
+					TFSOP::RenderTranshumanForcesSOP();
+					ImGui::EndTabItem();
+				} */
+
+				// Render voiceline library tab
+				if (ImGui::BeginTabItem("Voiceline Library")) {
+					VoicelineLibrary::RenderVoicelineLibraryMenu();
+					ImGui::EndTabItem();
+				}
+
+				// Render distribution permit info tab
+				if (ImGui::BeginTabItem("Distribution Permit Info")) {
+					PermitMenu::RenderPermitMenu();
+					ImGui::EndTabItem();
+				}
+
+				// Render tab for notepads
+				if (ImGui::BeginTabItem("Notepads")) {
+					// Render general-use notepad
+					Notepad::RenderGeneralUseNotepad();
+
+					ImGui::EndTabItem();
+				}
+
+
+				if (ImGui::BeginTabItem("Credits")) {
+					ImGui::TextWrapped("Internal menu created by: JoeRogaine on Discord aka cpap7 on Github\n");
+
+					ImGui::Separator();
+
+					ImGui::TextWrapped("Special thanks to the following people for their help:");
+					ImGui::TextWrapped("-> MajoraPLZ for helping me find the right people to ask for info, and answering any questions I had");
+					ImGui::TextWrapped("-> Cazzette for providing feedback, and also helping me find people to ask for info");
+					ImGui::TextWrapped("-> voprositelnii for providing TAC usage etiquette and duty expectations");
+
+					ImGui::Separator();
+
+					ImGui::TextWrapped("SOP files");
+					ImGui::TextWrapped("-> Rommel & Cazzette for sending me the SOP pdfs");
+
+					ImGui::Separator();
+
+					ImGui::TextWrapped("Voiceline Data");
+					ImGui::TextWrapped("-> -Broken-");
+					ImGui::TextWrapped("-> Recker");
+
+					ImGui::Separator();
+
+					ImGui::TextWrapped("Frontend Programming Assistance");
+					ImGui::TextWrapped("-> @fblawyer on Discord");
+
+					ImGui::Separator();
+
+					ImGui::EndTabItem();
+				}
+
+				// End tab bar
+				ImGui::EndTabBar();
+			}
+
+			// End ImGui window
+			ImGui::End();
+		}
+		
 
 		// End frame and render ImGui data
 		ImGui::EndFrame();
@@ -372,15 +390,14 @@ namespace FattyMenu {
 
 /* Controls window/input priority between the menu window and game process */
 LRESULT CALLBACK WindowProcess(HWND window, UINT message, WPARAM wide_param, LPARAM long_param) {
-
 	// Check if the menu is toggled on or off
-	if (GetAsyncKeyState(VK_RCONTROL) & 1) {		// '& 1' -> Detect one keystroke
-		FattyMenu::GUI::g_open_menu = !FattyMenu::GUI::g_open_menu;	// If true, set to false & vice versa
-		// e.g.: menu is opened -> you press the key -> it will close & vice versa
+	if (GetAsyncKeyState(VK_RCONTROL) & 1) {							// '& 1' -> Detect one keystroke
+		FattyMenu::GUI::g_open_imgui = !FattyMenu::GUI::g_open_imgui;	// If true, set to false & vice versa
+																		// e.g.: menu is opened -> you press the key -> it will close & vice versa
 	}
 
 	// Pass messages to ImGUI
-	if (FattyMenu::GUI::g_open_menu) {
+	if (FattyMenu::GUI::g_open_imgui) {
 		ImGui_ImplWin32_WndProcHandler(window, message, wide_param, long_param); // Have imgui observe message so its state remains current for each frame
 		const ImGuiIO& io = ImGui::GetIO();
 
@@ -414,7 +431,7 @@ LRESULT CALLBACK WindowProcess(HWND window, UINT message, WPARAM wide_param, LPA
 
 	// Restore input priority back to the game process
 	return CallWindowProc(
-		FattyMenu::GUI::OriginalWindowProc,
+		FattyMenu::GUI::g_original_window_proc,
 		window,
 		message,
 		wide_param,
