@@ -282,6 +282,11 @@ void ImGui_ImplDX9_RenderDrawData(ImDrawData* draw_data)
     d3d9_state_block->Release();
 }
 
+IDirect3DDevice9* ImGui_ImplDX9_GetDevice() {
+    ImGui_ImplDX9_Data* bd = ImGui_ImplDX9_GetBackendData();
+    return bd ? bd->pd3dDevice : nullptr;
+}
+
 bool ImGui_ImplDX9_Init(IDirect3DDevice9* device)
 {
     ImGuiIO& io = ImGui::GetIO();
