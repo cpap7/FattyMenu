@@ -1,399 +1,585 @@
 #pragma once
-
-// For making vector lists
-#include <vector>	
+#include "../../Serialization/ContentSerializer.h"
 
 // Class definitions (Civil Protection)
-#include "CPCodes.h"
-#include "ContrabandIndex.h"
-#include "CivilStatusTypes.h"
-#include "CitizenRewards.h"
-#include "CPTerminologyIndex.h"
-#include "CPDuties.h"
-#include "Core/Tabs/CPSOP.h"
+#include "../Code.h"
+#include "../Contraband.h"
+#include "../CivilStatus.h"
+#include "../CivicReward.h"
+#include "../Term.h"
+#include "../Assignment.h"
+
+
+#include <vector>	
+
 
 namespace FattyMenu {
-	namespace CPSOPLookupTables {
-		// List of abbreviation radio codes
-		inline const std::vector<CCode> abbreviation_list = {
-			CPCodes::Abbreviation::adw,
-			CPCodes::Abbreviation::bol,
-			CPCodes::Abbreviation::cpt,
-			CPCodes::Abbreviation::db,
-			CPCodes::Abbreviation::goa,
-			CPCodes::Abbreviation::oc,
-			CPCodes::Abbreviation::upi,
-			CPCodes::Abbreviation::utl,
-			CPCodes::Abbreviation::_34s,
-			CPCodes::Abbreviation::_187,
-			CPCodes::Abbreviation::_415b,
-			CPCodes::Abbreviation::_505
-		};
+	namespace CPSOP::LookupTables {
+		// ABBREVIATIONS
 
-		// Response codes list
-		inline const std::vector<CCode> response_code_list = {
-			CPCodes::Response::code_1,
-			CPCodes::Response::code_2,
-			CPCodes::Response::code_3,
-			CPCodes::Response::code_4,
-			CPCodes::Response::code_7,
-			CPCodes::Response::code_12,
-			CPCodes::Response::code_100
-		};
+		const std::string c_abbreviation_codes_path = "FattyMenu/FattyMenu_CPSOP_Codes_Abbreviation.json"; // Relative to gmod.exe
 
-		// 11- codes list
-		inline const std::vector<CCode> eleven_code_list = {
-			CPCodes::Eleven::_116,
-			CPCodes::Eleven::_1142,
-			CPCodes::Eleven::_1143,
-			CPCodes::Eleven::_1144,
-			CPCodes::Eleven::_1194,
-			CPCodes::Eleven::_1199
-		};
+		// Returns a mutable list of codes that are loaded from a JSON file
+		inline std::vector<CCode>& GetAbbreviationCodesList() {
+			static std::vector<CCode> abbreviation_codes_list =
+				[] {
+					CContentSerializer serializer;
+					return serializer.DeserializeCodes(c_abbreviation_codes_path);
+				}();
 
-		// 10- codes list
-		inline const std::vector<CCode> ten_code_list = {
-			CPCodes::Ten::_100,
-			CPCodes::Ten::_101,
-			CPCodes::Ten::_102,
-			CPCodes::Ten::_103,
-			CPCodes::Ten::_104,
-			CPCodes::Ten::_106,
-			CPCodes::Ten::_107,
-			CPCodes::Ten::_108,
-			CPCodes::Ten::_109,
-			CPCodes::Ten::_1012,
-			CPCodes::Ten::_1014,
-			CPCodes::Ten::_1015,
-			CPCodes::Ten::_1019,
-			CPCodes::Ten::_1020,
-			CPCodes::Ten::_1022,
-			CPCodes::Ten::_1025,
-			CPCodes::Ten::_1026,
-			CPCodes::Ten::_1027,
-			CPCodes::Ten::_1030,
-			CPCodes::Ten::_1031,
-			CPCodes::Ten::_1032,
-			CPCodes::Ten::_1033,
-			CPCodes::Ten::_1038,
-			CPCodes::Ten::_1041,
-			CPCodes::Ten::_1042,
-			CPCodes::Ten::_1054d,
-			CPCodes::Ten::_1065,
-			CPCodes::Ten::_1078,
-			CPCodes::Ten::_1091d,
-			CPCodes::Ten::_1093,
-			CPCodes::Ten::_1096,
-			CPCodes::Ten::_1097,
-			CPCodes::Ten::_1099,
-			CPCodes::Ten::_10103,
-			CPCodes::Ten::_10103m,
-			CPCodes::Ten::_10107,
-			CPCodes::Ten::_10108,
-			CPCodes::Ten::_10109
-		};
+			return abbreviation_codes_list;
+		}
 
-		// Verdict code list
-		inline const std::vector<CCode> verdict_code_list = {
-			CPCodes::Verdict::verbal_warning,
-			CPCodes::Verdict::citation,
-			CPCodes::Verdict::prosecution,
-			CPCodes::Verdict::terminal_prosecution,
-			CPCodes::Verdict::disassociation,
-			CPCodes::Verdict::amputation,
-			CPCodes::Verdict::immediate_amputation
-		};
+		// Reloads in-memory codes
+		inline void RefreshAbbreviationCodesList() {
+			CContentSerializer serializer;
+			GetAbbreviationCodesList() = serializer.DeserializeCodes(c_abbreviation_codes_path);
+		}
 
-		// Violation code lists sorted by category
+		// RESPONSE CODES
+
+		const std::string c_response_codes_path = "FattyMenu/FattyMenu_CPSOP_Codes_Response.json"; // Relative to gmod.exe
+
+		// Returns a mutable list of codes that are loaded from a JSON file
+		inline std::vector<CCode>& GetResponseCodesList() {
+			static std::vector<CCode> response_codes_list =
+				[] {
+					CContentSerializer serializer;
+					return serializer.DeserializeCodes(c_response_codes_path);
+				}();
+
+			return response_codes_list;
+		}
+
+		// Reloads in-memory codes
+		inline void RefreshResponseCodesList() {
+			CContentSerializer serializer;
+			GetResponseCodesList() = serializer.DeserializeCodes(c_response_codes_path);
+		}
+
+		// ELEVEN CODES
+		
+		const std::string c_eleven_codes_path = "FattyMenu/FattyMenu_CPSOP_Codes_Eleven.json"; // Relative to gmod.exe
+
+		// Returns a mutable list of codes that are loaded from a JSON file
+		inline std::vector<CCode>& GetElevenCodesList() {
+			static std::vector<CCode> eleven_codes_list =
+				[] {
+					CContentSerializer serializer;
+					return serializer.DeserializeCodes(c_eleven_codes_path);
+				}();
+
+			return eleven_codes_list;
+		}
+
+		// Reloads in-memory codes
+		inline void RefreshElevenCodesList() {
+			CContentSerializer serializer;
+			GetElevenCodesList() = serializer.DeserializeCodes(c_eleven_codes_path);
+		}
+
+		// TEN CODES
+
+		const std::string c_ten_codes_path = "FattyMenu/FattyMenu_CPSOP_Codes_Ten.json"; // Relative to gmod.exe
+
+		// Returns a mutable list of codes that are loaded from a JSON file
+		inline std::vector<CCode>& GetTenCodesList() {
+			static std::vector<CCode> ten_codes_list =
+				[] {
+					CContentSerializer serializer;
+					return serializer.DeserializeCodes(c_ten_codes_path);
+				}();
+
+			return ten_codes_list;
+		}
+
+		// Reloads in-memory codes
+		inline void RefreshTenCodesList() {
+			CContentSerializer serializer;
+			GetTenCodesList() = serializer.DeserializeCodes(c_ten_codes_path);
+		}
+
+		// VERDICT CODES
+
+		const std::string c_verdict_codes_path = "FattyMenu/FattyMenu_CPSOP_Codes_Verdict.json"; // Relative to gmod.exe
+
+		// Returns a mutable list of codes that are loaded from a JSON file
+		inline std::vector<CCode>& GetVerdictCodesList() {
+			static std::vector<CCode> verdict_codes_list =
+				[] {
+					CContentSerializer serializer;
+					return serializer.DeserializeCodes(c_verdict_codes_path);
+				}();
+
+			return verdict_codes_list;
+		}
+
+		// Reloads in-memory codes
+		inline void RefreshVerdictCodesList() {
+			CContentSerializer serializer;
+			GetVerdictCodesList() = serializer.DeserializeCodes(c_verdict_codes_path);
+		}
+
+		// VIOLATION CODES
+
 		// Violation category: Violation of civic trust
-		inline const std::vector<CCode> violation_of_civic_trust_codes_list = {
-			CPCodes::Violation::_27,
-			CPCodes::Violation::_54,
-			CPCodes::Violation::_62,
-			CPCodes::Violation::_69,
-			CPCodes::Violation::_91,
-			CPCodes::Violation::_99,
-			CPCodes::Violation::_311,
-			CPCodes::Violation::_374b,
-			CPCodes::Violation::_488,
-			CPCodes::Violation::_647f
-		};
+		const std::string c_category1_violation_codes_path = "FattyMenu/FattyMenu_CPSOP_Codes_Violation_Category1_ViolationOfCivicTrust.json"; // Relative to gmod.exe
+
+		// Returns a mutable list of codes that are loaded from a JSON file
+		inline std::vector<CCode>& GetViolationOfCivicTrustCodesList() {
+			static std::vector<CCode> violation_of_civic_trust_codes_list =
+				[] {
+					CContentSerializer serializer;
+					return serializer.DeserializeCodes(c_category1_violation_codes_path);
+				}();
+
+			return violation_of_civic_trust_codes_list;
+		}
+
+		// Reloads in-memory codes
+		inline void RefreshViolationOfCivicTrustCodesList() {
+			CContentSerializer serializer;
+			GetViolationOfCivicTrustCodesList() = serializer.DeserializeCodes(c_category1_violation_codes_path);
+		}
 
 		// Violation category: Failure to comply with the civil will
-		inline const std::vector<CCode> failure_to_comply_with_the_civil_will_list = {
-			CPCodes::Violation::_35,
-			CPCodes::Violation::_59,
-			CPCodes::Violation::_63,
-			CPCodes::Violation::_148,
-			CPCodes::Violation::_507,
-			CPCodes::Violation::_647e
-		};
+		const std::string c_category2_violation_codes_path = "FattyMenu/FattyMenu_CPSOP_Codes_Violation_Category2_FailureToComplyWithTheCivilWill.json"; // Relative to gmod.exe
+
+		// Returns a mutable list of codes that are loaded from a JSON file
+		inline std::vector<CCode>& GetFailureToComplyWithTheCivilWillCodesList() {
+			static std::vector<CCode> failure_to_comply_with_the_civil_will_list =
+				[] {
+					CContentSerializer serializer;
+					return serializer.DeserializeCodes(c_category2_violation_codes_path);
+				}();
+
+			return failure_to_comply_with_the_civil_will_list;
+		}
+
+		// Reloads in-memory codes
+		inline void RefreshFailureToComplyWithTheCivilWillCodesList() {
+			CContentSerializer serializer;
+			GetFailureToComplyWithTheCivilWillCodesList() = serializer.DeserializeCodes(c_category2_violation_codes_path);
+		}
 
 		// Violation category: Promoting communal unrest
-		inline const std::vector<CCode> promoting_communal_unrest_list = {
-			CPCodes::Violation::_28,
-			CPCodes::Violation::_404,
-			CPCodes::Violation::_407,
-			CPCodes::Violation::_415
-		};
+		const std::string c_category3_violation_codes_path = "FattyMenu/FattyMenu_CPSOP_Codes_Violation_Category3_PromotingCommunalUnrest.json"; // Relative to gmod.exe
+
+		// Returns a mutable list of codes that are loaded from a JSON file
+		inline std::vector<CCode>& GetPromotingCommunalUnrestCodesList() {
+			static std::vector<CCode> promoting_communal_unrest_list =
+				[] {
+					CContentSerializer serializer;
+					return serializer.DeserializeCodes(c_category3_violation_codes_path);
+				}();
+
+			return promoting_communal_unrest_list;
+		}
+
+		// Reloads in-memory codes
+		inline void RefreshPromotingCommunalUnrestCodesList() {
+			CContentSerializer serializer;
+			GetPromotingCommunalUnrestCodesList() = serializer.DeserializeCodes(c_category3_violation_codes_path);
+		}
 
 		// Violation category: Divisive sociocidal counter-obeyance
-		inline const std::vector<CCode> divisive_sociocidal_counter_obeyance_list = {
-			CPCodes::Violation::_17f,
-			CPCodes::Violation::_51,
-			CPCodes::Violation::_63s,
-			CPCodes::Violation::_94,
-			CPCodes::Violation::_95,
-			CPCodes::Violation::_603
-		};
+		const std::string c_category4_violation_codes_path = "FattyMenu/FattyMenu_CPSOP_Codes_Violation_Category4_DivisiveSociocidalCounterObeyance.json"; // Relative to gmod.exe
+
+		// Returns a mutable list of codes that are loaded from a JSON file
+		inline std::vector<CCode>& GetDivisiveSociocidalCounterObeyanceCodesList() {
+			static std::vector<CCode> divisive_sociocidal_counter_obeyance_list =
+				[] {
+					CContentSerializer serializer;
+					return serializer.DeserializeCodes(c_category4_violation_codes_path);
+				}();
+
+			return divisive_sociocidal_counter_obeyance_list;
+		}
+
+		// Reloads in-memory codes
+		inline void RefreshDivisiveSociocidalCounterObeyanceList() {
+			CContentSerializer serializer;
+			GetDivisiveSociocidalCounterObeyanceCodesList() = serializer.DeserializeCodes(c_category4_violation_codes_path);
+		}
+
 
 		// Violation category: Destruction of corporal social protection units
-		inline const std::vector<CCode> destruction_of_corporal_social_protection_units = {
-			CPCodes::Violation::_51b,
-			CPCodes::Violation::_243
-		};
+		const std::string c_category5_violation_codes_path = "FattyMenu/FattyMenu_CPSOP_Codes_Violation_Category5_DestructionOfCorporalSocialProtectionUnits.json"; // Relative to gmod.exe
 
-		// Container for each violation code based on category
-		inline const std::vector<CViolationCodeCategory> violation_code_categories = {
-			{
-				"VIOLATION OF CIVIC TRUST",
-				"Actions that undermine civic responsibility, authorized resource allocation, workforce obligations or public trust\n",
-				"ViolationOfCivicTrustTable",
-				&violation_of_civic_trust_codes_list,
-				"Sanctioned distribution requires the permit holder to distribute only items corresponding to their permit inside their assigned distribution block. Units with at least 40 rank points may authorize distribution outside of their assigned block. Combine anti-fatigue rations may not be distributed whatsoever."
-			},
+		// Returns a mutable list of codes that are loaded from a JSON file
+		inline std::vector<CCode>& GetDestructionOfCorporalSocialProtectionUnitsCodesList() {
+			static std::vector<CCode> destruction_of_corporal_social_protection_units_list =
+				[] {
+					CContentSerializer serializer;
+					return serializer.DeserializeCodes(c_category5_violation_codes_path);
+				}();
 
-			{
-				"FAILURE TO COMPLY WITH THE CIVIL WILL",
-				"Failure to obey, respect, or cooperate w / lawful directives issued by Civil Protection\n",
-				"FailureToComplyWithTheCivilWillTable",
-				&failure_to_comply_with_the_civil_will_list
-			},
+			return destruction_of_corporal_social_protection_units_list;
+		}
 
-			{
-				"PROMOTING COMMUNAL UNREST",
-				"Actions intended to disrupt civic harmony, encourage disorder or undermine public stability\n",
-				"PromotingCommunalUnrestTable",
-				&promoting_communal_unrest_list
-			},
+		// Reloads in-memory codes
+		inline void RefreshDestructionOfCorporalSocialProtectionUnitsList() {
+			CContentSerializer serializer;
+			GetDestructionOfCorporalSocialProtectionUnitsCodesList() = serializer.DeserializeCodes(c_category5_violation_codes_path);
+		}
 
-			{
-				"DIVISIVE SOCIOCIDAL COUNTER-OBEYANCE",
-				"Organized resistance to authority, interference with operations, or support of anti - civil elements\n",
-				"DivisiveSociocidalCounterObeyanceTable",
-				&divisive_sociocidal_counter_obeyance_list
-			},
+		// VIOLATION CODE CATEGORY (METADATA)
+		const std::string c_violation_codes_category_metadata_path = "FattyMenu/FattyMenu_CPSOP_Codes_Violation_Category_Metadata.json"; // Relative to gmod.exe
 
-			{
-				"DESTRUCTION OF CORPORAL SOCIAL PROTECTION UNITS",
-				"Acts resulting in damage to Civil Protection personnel, assets or operational capability\n",
-				"DestructionOfCorporalSocialProtectionUnitsTable",
-				&destruction_of_corporal_social_protection_units
-			},
-		};
+		// TODO: Refactor these functions a bit
+
+		// Returns a mutable list of violation code categories that are loaded from a JSON file
+		inline std::vector<CViolationCodeCategory>& GetViolationCodeCategories() {
+			static std::vector<CViolationCodeCategory> violation_code_categories =
+				[] {
+					CContentSerializer serializer;
+					auto metadata =  serializer.DeserializeViolationCodeCategories(c_violation_codes_category_metadata_path);
+
+					// Reconnect non-owning pointers to violation codes via TableID
+					for (auto& category : metadata) {
+						if (category.GetTableID() == "ViolationOfCivicTrustTable")								{ category.SetCodes(&GetViolationOfCivicTrustCodesList());						}
+						else if (category.GetTableID() == "FailureToComplyWithTheCivilWillTable")				{ category.SetCodes(&GetFailureToComplyWithTheCivilWillCodesList());			}
+						else if (category.GetTableID() == "PromotingCommunalUnrestTable")						{ category.SetCodes(&GetPromotingCommunalUnrestCodesList());					}
+						else if (category.GetTableID() == "DivisiveSociocidalCounterObeyanceTable")				{ category.SetCodes(&GetDivisiveSociocidalCounterObeyanceCodesList());			}
+						else if (category.GetTableID() == "DestructionOfCorporalSocialProtectionUnitsTable")	{ category.SetCodes(&GetDestructionOfCorporalSocialProtectionUnitsCodesList());	}
+					}
+
+					return metadata;
+				}();
+
+			return violation_code_categories;
+		}
+
+		inline void RefreshViolationCodeCategories() {
+			CContentSerializer serializer;
+			auto metadata = serializer.DeserializeViolationCodeCategories(c_violation_codes_category_metadata_path);
+
+			for (auto& category : metadata) {
+				if (category.GetTableID() == "ViolationOfCivicTrustTable")								{ category.SetCodes(&GetViolationOfCivicTrustCodesList());						}
+				else if (category.GetTableID() == "FailureToComplyWithTheCivilWillTable")				{ category.SetCodes(&GetFailureToComplyWithTheCivilWillCodesList());			}
+				else if (category.GetTableID() == "PromotingCommunalUnrestTable")						{ category.SetCodes(&GetPromotingCommunalUnrestCodesList());					}
+				else if (category.GetTableID() == "DivisiveSociocidalCounterObeyanceTable")				{ category.SetCodes(&GetDivisiveSociocidalCounterObeyanceCodesList());			}
+				else if (category.GetTableID() == "DestructionOfCorporalSocialProtectionUnitsTable")	{ category.SetCodes(&GetDestructionOfCorporalSocialProtectionUnitsCodesList()); }
+			}
+			GetViolationCodeCategories() = std::move(metadata);
+		}
 		
-		// Override code list
-		inline const std::vector<CCode> override_code_list = {
-			CPCodes::Override::sociostable,
-			CPCodes::Override::unrest_procedure,
-			CPCodes::Override::containment_procedure,
-			CPCodes::Override::lockdown_procedure
-		};
+		// OVERRIDE CODES
 
-		// Civic reward lists
-		inline const std::vector<CCivicReward> public_service_detail_list = {
-			Rewards::GeneralPublicServiceDetails::t94_322,
-			Rewards::GeneralPublicServiceDetails::t47_941,
-			Rewards::GeneralPublicServiceDetails::t37_584,
-		};
+		const std::string c_override_codes_path = "FattyMenu/FattyMenu_CPSOP_Codes_Override.json"; // Relative to gmod.exe
 
-		inline const std::vector<CCivicReward> civic_deed_list = {
-			Rewards::CivicDeeds::d92_493,
-			Rewards::CivicDeeds::d92_595,
-			Rewards::CivicDeeds::d18_303,
-			Rewards::CivicDeeds::d18_332,
-			Rewards::CivicDeeds::d18_369,
-			Rewards::CivicDeeds::d20_102
-		};
+		// Returns a mutable list of codes that are loaded from a JSON file
+		inline std::vector<CCode>& GetOverrideCodesList() {
+			static std::vector<CCode> override_codes_list =
+				[] {
+					CContentSerializer serializer;
+					return serializer.DeserializeCodes(c_override_codes_path);
+				}();
 
-		// Civil status info list
-		inline const std::vector<CCivilStatus> civil_status_info_list = {
-			CivilStatusTypes::non_citizen,
-			CivilStatusTypes::standard_citizen,
-			CivilStatusTypes::priority_3_citizen,
-			CivilStatusTypes::priority_2_citizen,
-			CivilStatusTypes::priority_1_citizen
-		};
+			return override_codes_list;
+		}
 
-		// Civil Protection Terminology lists
-		inline const std::vector<CTerm> protocol_list = {
-			CPTerminology::Protocol::emergency_code,
-			CPTerminology::Protocol::overload_protocol,
-			CPTerminology::Protocol::prosecution_code,
-			CPTerminology::Protocol::response_code,
-			CPTerminology::Protocol::sacrifice_code
-		};
+		// Reloads in-memory codes
+		inline void RefreshOverrideCodesList() {
+			CContentSerializer serializer;
+			GetOverrideCodesList() = serializer.DeserializeCodes(c_override_codes_path);
+		}
 
-		inline const std::vector<CTerm> action_list = {
-			CPTerminology::Action::administer,
-			CPTerminology::Action::amputate,
-			CPTerminology::Action::apply,
-			CPTerminology::Action::cauterize,
-			CPTerminology::Action::document,
-			CPTerminology::Action::examine,
-			CPTerminology::Action::inject,
-			CPTerminology::Action::inoculate,
-			CPTerminology::Action::inquire,
-			CPTerminology::Action::intercede,
-			CPTerminology::Action::interlock,
-			CPTerminology::Action::investigate,
-			CPTerminology::Action::isolate,
-			CPTerminology::Action::lock,
-			CPTerminology::Action::pacify,
-			CPTerminology::Action::preserve,
-			CPTerminology::Action::pressure,
-			CPTerminology::Action::prosecute,
-			CPTerminology::Action::restrict,
-			CPTerminology::Action::search,
-			CPTerminology::Action::serve,
-			CPTerminology::Action::sterilize,
-			CPTerminology::Action::suspend
-		};
+		// CIVIC REWARDS
 
-		inline const std::vector<CTerm> action_condition_list = {
-			CPTerminology::ActionCondition::cohesive,
-			CPTerminology::ActionCondition::cohesion,
-			CPTerminology::ActionCondition::expired,
-			CPTerminology::ActionCondition::non_cohesive,
-			CPTerminology::ActionCondition::tag
-		};
+		const std::string c_general_public_service_details_rewards_path = "FattyMenu/FattyMenu_CPSOP_CivicRewards_GeneralPublicServiceDetails.json"; // Relative to gmod.exe
 
-		inline const std::vector<CTerm> hostile_list = {
-			CPTerminology::Hostile::anti_citizen,
-			CPTerminology::Hostile::biotic,
-			CPTerminology::Hostile::exogen,
-			CPTerminology::Hostile::malcompliant,
-			CPTerminology::Hostile::malignant,
-			CPTerminology::Hostile::necrotic,
-			CPTerminology::Hostile::non_citizen,
-			CPTerminology::Hostile::non_corplex_indy,
-			CPTerminology::Hostile::parasitic,
-			CPTerminology::Hostile::person_of_interest,
-			CPTerminology::Hostile::political_conscript,
-			CPTerminology::Hostile::virome
-		};
+		// Returns a mutable list of civic rewards that are loaded from a JSON file
+		inline std::vector<CCivicReward>& GetGeneralPublicServiceDetailRewardsList() {
+			static std::vector<CCivicReward> general_public_service_detail_rewards_list =
+				[] {
+					CContentSerializer serializer;
+					return serializer.DeserializeCivicRewardInfo(c_general_public_service_details_rewards_path);
+				}();
 
-		inline const std::vector<CTerm> equipment_asset_list = {
-			CPTerminology::EquipmentAsset::containment_field,
-			CPTerminology::EquipmentAsset::ground_unit,
-			CPTerminology::EquipmentAsset::protection_team,
-			CPTerminology::EquipmentAsset::restrictor,
-			CPTerminology::EquipmentAsset::stabilization_delegate,
-			CPTerminology::EquipmentAsset::stabilization_force,
-			CPTerminology::EquipmentAsset::stabilization_team,
-			CPTerminology::EquipmentAsset::tag_unit,
-			CPTerminology::EquipmentAsset::technician_team,
-			CPTerminology::EquipmentAsset::sterilizer,
-			CPTerminology::EquipmentAsset::viscerator,
-			CPTerminology::EquipmentAsset::anti_fatigue,
-			CPTerminology::EquipmentAsset::bodypack,
-			CPTerminology::EquipmentAsset::gene_code,
-			CPTerminology::EquipmentAsset::reproduction_credit,
-			CPTerminology::EquipmentAsset::sterilized_credit,
-			CPTerminology::EquipmentAsset::stim_boost,
-			CPTerminology::EquipmentAsset::stim_dose,
-			CPTerminology::EquipmentAsset::verdict,
-		};
+			return general_public_service_detail_rewards_list;
+		}
 
-		inline const std::vector<CTerm> organization_list = {
-			CPTerminology::Organizations::combine_overwatch,
-			CPTerminology::Organizations::airwatch,
-			CPTerminology::Organizations::civil_protection,
-			CPTerminology::Organizations::transhuman_forces,
-			CPTerminology::Organizations::synths,
-			CPTerminology::Organizations::civic_populace,
-			CPTerminology::Organizations::industrial_workforce,
-			CPTerminology::Organizations::engineer_core,
-			CPTerminology::Organizations::infestation_control,
-			CPTerminology::Organizations::science_core,
-			CPTerminology::Organizations::medical_workforce,
-			CPTerminology::Organizations::security_council
-		};
+		// Reloads in-memory civic rewards
+		inline void RefreshGeneralPublicServiceDetailRewardsList() {
+			CContentSerializer serializer;
+			GetGeneralPublicServiceDetailRewardsList() = serializer.DeserializeCivicRewardInfo(c_general_public_service_details_rewards_path);
+		}
 
-		inline const std::vector<CTerm> sociostability_list = {
-			CPTerminology::Sociostability::combine_civil_code,
-			CPTerminology::Sociostability::civic_trust,
-			CPTerminology::Sociostability::loyalty_check_procedure,
-			CPTerminology::Sociostability::memory_replacement,
-			CPTerminology::Sociostability::recall_and_recycle,
-			CPTerminology::Sociostability::miscount,
-			CPTerminology::Sociostability::incursion,
-			CPTerminology::Sociostability::permissive_inactive_coercion,
-			CPTerminology::Sociostability::viral_interface_bypass,
-			CPTerminology::Sociostability::socio_endangerment,
-			CPTerminology::Sociostability::malcompliance,
-			CPTerminology::Sociostability::malignancy,
-			CPTerminology::Sociostability::active_signature_imprint,
-			CPTerminology::Sociostability::passive_signature_imprint
-		};
 
-		inline const std::vector<CTerm> area_list = {
-			CPTerminology::Areas::block,
-			CPTerminology::Areas::canal_block,
-			CPTerminology::Areas::control_section,
-			CPTerminology::Areas::distribution_block,
-			CPTerminology::Areas::transit_block,
-			CPTerminology::Areas::polity,
-			CPTerminology::Areas::production_block,
-			CPTerminology::Areas::residential_block,
-			CPTerminology::Areas::workforce_intake_hub,
-			CPTerminology::Areas::deserviced_area,
-			CPTerminology::Areas::repurposed_area,
-			CPTerminology::Areas::condemned_zone,
-			CPTerminology::Areas::industrial_zone,
-			CPTerminology::Areas::infested_zone,
-			CPTerminology::Areas::outland_zone,
-			CPTerminology::Areas::quarantine_zone,
-			CPTerminology::Areas::terminal_restriction_zone,
-			CPTerminology::Areas::_404_zone,
-			CPTerminology::Areas::section,
-			CPTerminology::Areas::sector,
-			CPTerminology::Areas::vector,
-			CPTerminology::Areas::zone,
-			CPTerminology::Areas::central_transport_facility,
-			CPTerminology::Areas::citadel,
-			CPTerminology::Areas::hardpoint,
-			CPTerminology::Areas::nexus,
-			CPTerminology::Areas::high_priority_region,
-			CPTerminology::Areas::non_patrol_region
-		};
+		const std::string c_civic_deeds_rewards_path = "FattyMenu/FattyMenu_CPSOP_CivicRewards_CivicDeeds.json"; // Relative to gmod.exe
 
-		inline const std::vector<CAssignment> mandate_duties_list = {
-			CPAssignments::MandateDuties::curfew_procedure,
-			CPAssignments::MandateDuties::ration_intake_detail
-		};
+		// Returns a mutable list of civic rewards that are loaded from a JSON file
+		inline std::vector<CCivicReward>& GetCivicDeedRewardsList() {
+			static std::vector<CCivicReward> civic_deeds_list =
+				[] {
+					CContentSerializer serializer;
+					return serializer.DeserializeCivicRewardInfo(c_civic_deeds_rewards_path);
+				}();
 
-		inline const std::vector<CAssignment> protection_duties_list = {
-			CPAssignments::ProtectionDuties::restricted_patrol_protocol,
-			CPAssignments::ProtectionDuties::workforce_supervisory_detail,
-			CPAssignments::ProtectionDuties::precinct_patrol_protocol,
-			CPAssignments::ProtectionDuties::security_checkpoint_oversight,
-			CPAssignments::ProtectionDuties::biotic_supervisory_detail,
-			CPAssignments::ProtectionDuties::workforce_intake_processing,
-			CPAssignments::ProtectionDuties::conscript_custody_oversight,
-			CPAssignments::ProtectionDuties::surveillance_network_maintenance
-		};
+			return civic_deeds_list;
+		}
 
-		inline const std::vector<CAssignment> miscellaneous_duties_list = {
-			CPAssignments::Miscellaneous::expectations,
-			CPAssignments::Miscellaneous::tac_usage
-		};
+		// Reloads in-memory civic rewards
+		inline void RefreshCivicDeedRewardsList() {
+			CContentSerializer serializer;
+			GetCivicDeedRewardsList() = serializer.DeserializeCivicRewardInfo(c_civic_deeds_rewards_path);
+		}
 
-		inline const std::vector<CContraband> contraband_list = {
-			ContrabandIndex::category_1,
-			ContrabandIndex::category_2,
-			ContrabandIndex::category_3
-		};
+		// CIVIL STATUSES
+
+		const std::string c_civil_status_path = "FattyMenu/FattyMenu_CPSOP_CivilStatus.json"; // Relative to gmod.exe
+
+		// Returns a mutable list of civil statuses that are loaded from a JSON file
+		inline std::vector<CCivilStatus>& GetCivilStatusList() {
+			static std::vector<CCivilStatus> civil_statuses_list =
+				[] {
+					CContentSerializer serializer;
+					return serializer.DeserializeCivilStatusInfo(c_civil_status_path);
+				}();
+
+			return civil_statuses_list;
+		}
+
+		// Reloads in-memory civil statuses
+		inline void RefreshCivilStatusList() {
+			CContentSerializer serializer;
+			GetCivilStatusList() = serializer.DeserializeCivilStatusInfo(c_civil_status_path);
+		}
+
+		// CIVIL PROTECTION TERMS
+
+		const std::string c_protocol_terms_path = "FattyMenu/FattyMenu_CPSOP_Terms_Protocol.json"; // Relative to gmod.exe
+
+		// Returns a mutable list of terms that are loaded from a JSON file
+		inline std::vector<CTerm>& GetProtocolTermsList() {
+			static std::vector<CTerm> protocol_terms_list =
+				[] {
+					CContentSerializer serializer;
+					return serializer.DeserializeTerms(c_protocol_terms_path);
+				}();
+
+			return protocol_terms_list;
+		}
+
+		// Reloads in-memory terms
+		inline void RefreshProtocolTermsList() {
+			CContentSerializer serializer;
+			GetProtocolTermsList() = serializer.DeserializeTerms(c_protocol_terms_path);
+		}
+
+		const std::string c_action_terms_path = "FattyMenu/FattyMenu_CPSOP_Terms_Action.json"; // Relative to gmod.exe
+
+		// Returns a mutable list of terms that are loaded from a JSON file
+		inline std::vector<CTerm>& GetActionTermsList() {
+			static std::vector<CTerm> action_terms_list =
+				[] {
+					CContentSerializer serializer;
+					return serializer.DeserializeTerms(c_action_terms_path);
+				}();
+
+			return action_terms_list;
+		}
+
+		// Reloads in-memory terms
+		inline void RefreshActionTermsList() {
+			CContentSerializer serializer;
+			GetActionTermsList() = serializer.DeserializeTerms(c_action_terms_path);
+		}
+
+		const std::string c_action_condition_terms_path = "FattyMenu/FattyMenu_CPSOP_Terms_ActionCondition.json"; // Relative to gmod.exe
+
+		// Returns a mutable list of terms that are loaded from a JSON file
+		inline std::vector<CTerm>& GetActionConditionTermsList() {
+			static std::vector<CTerm> action_condition_terms_list =
+				[] {
+					CContentSerializer serializer;
+					return serializer.DeserializeTerms(c_action_condition_terms_path);
+				}();
+
+			return action_condition_terms_list;
+		}
+
+		// Reloads in-memory terms
+		inline void RefreshActionConditionTermsList() {
+			CContentSerializer serializer;
+			GetActionConditionTermsList() = serializer.DeserializeTerms(c_action_condition_terms_path);
+		}
+
+		const std::string c_hostile_entity_terms_path = "FattyMenu/FattyMenu_CPSOP_Terms_HostileEntity.json"; // Relative to gmod.exe
+
+		// Returns a mutable list of terms that are loaded from a JSON file
+		inline std::vector<CTerm>& GetHostileEntityTermsList() {
+			static std::vector<CTerm> hostile_entity_terms_list =
+				[] {
+					CContentSerializer serializer;
+					return serializer.DeserializeTerms(c_hostile_entity_terms_path);
+				}();
+
+			return hostile_entity_terms_list;
+		}
+
+		// Reloads in-memory terms
+		inline void RefreshHostileEntityTermsList() {
+			CContentSerializer serializer;
+			GetHostileEntityTermsList() = serializer.DeserializeTerms(c_hostile_entity_terms_path);
+		}
+
+		const std::string c_equipment_asset_terms_path = "FattyMenu/FattyMenu_CPSOP_Terms_EquipmentAsset.json"; // Relative to gmod.exe
+
+		// Returns a mutable list of terms that are loaded from a JSON file
+		inline std::vector<CTerm>& GetEquipmentAssetTermsList() {
+			static std::vector<CTerm> equipment_asset_terms_list =
+				[] {
+					CContentSerializer serializer;
+					return serializer.DeserializeTerms(c_equipment_asset_terms_path);
+				}();
+
+			return equipment_asset_terms_list;
+		}
+
+		// Reloads in-memory terms
+		inline void RefreshEquipmentAssetTermsList() {
+			CContentSerializer serializer;
+			GetEquipmentAssetTermsList() = serializer.DeserializeTerms(c_equipment_asset_terms_path);
+		}
+
+		const std::string c_organization_terms_path = "FattyMenu/FattyMenu_CPSOP_Terms_Organizations.json"; // Relative to gmod.exe
+
+		// Returns a mutable list of terms that are loaded from a JSON file
+		inline std::vector<CTerm>& GetOrganizationTermsList() {
+			static std::vector<CTerm> organization_terms_list =
+				[] {
+					CContentSerializer serializer;
+					return serializer.DeserializeTerms(c_organization_terms_path);
+				}();
+
+			return organization_terms_list;
+		}
+
+		// Reloads in-memory terms
+		inline void RefreshOrganizationTermsList() {
+			CContentSerializer serializer;
+			GetOrganizationTermsList() = serializer.DeserializeTerms(c_organization_terms_path);
+		}
+
+		const std::string c_sociostability_terms_path = "FattyMenu/FattyMenu_CPSOP_Terms_Sociostability.json"; // Relative to gmod.exe
+
+		// Returns a mutable list of terms that are loaded from a JSON file
+		inline std::vector<CTerm>& GetSociostabilityTermsList() {
+			static std::vector<CTerm> sociostability_terms_list =
+				[] {
+					CContentSerializer serializer;
+					return serializer.DeserializeTerms(c_sociostability_terms_path);
+				}();
+
+			return sociostability_terms_list;
+		}
+
+		// Reloads in-memory terms
+		inline void RefreshSociostabilityTermsList() {
+			CContentSerializer serializer;
+			GetSociostabilityTermsList() = serializer.DeserializeTerms(c_sociostability_terms_path);
+		}
+
+		const std::string c_area_terms_path = "FattyMenu/FattyMenu_CPSOP_Terms_Areas.json"; // Relative to gmod.exe
+
+		// Returns a mutable list of terms that are loaded from a JSON file
+		inline std::vector<CTerm>& GetAreaTermsList() {
+			static std::vector<CTerm> area_terms_list =
+				[] {
+					CContentSerializer serializer;
+					return serializer.DeserializeTerms(c_area_terms_path);
+				}();
+
+			return area_terms_list;
+		}
+
+		// Reloads in-memory terms
+		inline void RefreshAreaTermsList() {
+			CContentSerializer serializer;
+			GetAreaTermsList() = serializer.DeserializeTerms(c_area_terms_path);
+		}
+
+		// CIVIL PROTECTION ASSIGNMENTS
+
+		const std::string c_mandate_duty_assignments_path = "FattyMenu/FattyMenu_CPSOP_Assignment_MandateDuties.json"; // Relative to gmod.exe
+
+		// Returns a mutable list of assignments that are loaded from a JSON file
+		inline std::vector<CAssignment>& GetMandateDutyAssignmentsList() {
+			static std::vector<CAssignment> mandate_duties_list =
+				[] {
+					CContentSerializer serializer;
+					return serializer.DeserializeAssignmentInfo(c_mandate_duty_assignments_path);
+				}();
+
+			return mandate_duties_list;
+		}
+
+		// Reloads in-memory assignments
+		inline void RefreshMandateDutyAssignmentsList() {
+			CContentSerializer serializer;
+			GetMandateDutyAssignmentsList() = serializer.DeserializeAssignmentInfo(c_mandate_duty_assignments_path);
+		}
+
+		const std::string c_protection_duty_assignments_path = "FattyMenu/FattyMenu_CPSOP_Assignment_ProtectionDuties.json"; // Relative to gmod.exe
+
+		// Returns a mutable list of assignments that are loaded from a JSON file
+		inline std::vector<CAssignment>& GetProtectionDutyAssignmentsList() {
+			static std::vector<CAssignment> protection_duties_list =
+				[] {
+					CContentSerializer serializer;
+					return serializer.DeserializeAssignmentInfo(c_protection_duty_assignments_path);
+				}();
+
+			return protection_duties_list;
+		}
+
+		// Reloads in-memory assignments
+		inline void RefreshProtectionDutyAssignmentsList() {
+			CContentSerializer serializer;
+			GetProtectionDutyAssignmentsList() = serializer.DeserializeAssignmentInfo(c_protection_duty_assignments_path);
+		}
+
+		const std::string c_assignment_expectations_path = "FattyMenu/FattyMenu_CPSOP_Assignment_Expectations.json"; // Relative to gmod.exe
+
+		// Returns a mutable list of assignments that are loaded from a JSON file
+		inline std::vector<CAssignment>& GetAssignmentExpectationsList() {
+			static std::vector<CAssignment> assignment_expectations_list =
+				[] {
+					CContentSerializer serializer;
+					return serializer.DeserializeAssignmentInfo(c_assignment_expectations_path);
+				}();
+
+			return assignment_expectations_list;
+		}
+
+		// Reloads in-memory assignments
+		inline void RefreshAssignmentExpectationsList() {
+			CContentSerializer serializer;
+			GetAssignmentExpectationsList() = serializer.DeserializeAssignmentInfo(c_assignment_expectations_path);
+		}
+
+		// CONTRABAND INFO
+
+		const std::string c_contraband_path = "FattyMenu/FattyMenu_CPSOP_Contraband.json"; // Relative to gmod.exe
+
+		// Returns a mutable list of contraband types that are loaded from a JSON file
+		inline std::vector<CContraband>& GetContrabandList() {
+			static std::vector<CContraband> contraband_list =
+				[] {
+					CContentSerializer serializer;
+					return serializer.DeserializeContrabandInfo(c_contraband_path);
+				}();
+
+			return contraband_list;
+		}
+
+		// Reloads in-memory contraband list
+		inline void RefreshContrabandList() {
+			CContentSerializer serializer;
+			GetContrabandList() = serializer.DeserializeContrabandInfo(c_contraband_path);
+		}
 	}
 
 }
