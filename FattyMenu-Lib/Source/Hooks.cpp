@@ -15,21 +15,21 @@ namespace FattyMenu {
 	void Hooks::InitializeHooks() {
 		// Throwaway device must already exist (created by GUI::InitializeDevice)
 		if (!GUI::g_d3d9_device) {
-			throw std::runtime_error("No D3D9 device available to read the vtable.");
+			throw std::runtime_error("[FattyMenu Error] No D3D9 device available to read the vtable.");
 		}
 		
 		// Ensure minhook is initialized properly
 		if (MH_Initialize() != MH_OK) {
 			// MH_OK == 0, so if it returns 1, that means it didn't initialize
-			throw std::runtime_error("Minhook could not be initialized.");
+			throw std::runtime_error("[FattyMenu Error] Minhook could not be initialized.");
 		}
 
-		void* endscene_fn_address = GetVirtualFunctions(GUI::g_d3d9_device, 42); // EndScene
-		void* reset_fn_address = GetVirtualFunctions(GUI::g_d3d9_device, 16); // Reset
+		void* endscene_fn_address	= GetVirtualFunctions(GUI::g_d3d9_device, 42); // EndScene
+		void* reset_fn_address		= GetVirtualFunctions(GUI::g_d3d9_device, 16); // Reset
 
 		if (MH_CreateHook(endscene_fn_address,	&EndScene,	reinterpret_cast<void**>(&OriginalEndScene)) != MH_OK ||
 			MH_CreateHook(reset_fn_address,		&Reset,		reinterpret_cast<void**>(&OriginalReset)) != MH_OK) {
-			throw std::runtime_error("Failed to create D3D9 hooks");
+			throw std::runtime_error("[FattyMenu Error] Failed to create D3D9 hooks");
 		}
 
 
@@ -38,7 +38,7 @@ namespace FattyMenu {
 			MH_DisableHook(MH_ALL_HOOKS);	// Disable all hooks
 			MH_Uninitialize();
 
-			throw std::runtime_error("Hooks could not be enabled.");
+			throw std::runtime_error("[FattyMenu Error] Hooks could not be enabled.");
 		}
 		
 		GUI::DestroyDirectX9(); // Destroy temporary DX objects that were needed previously
@@ -70,7 +70,7 @@ namespace FattyMenu {
 		}
 
 		// Check if the menu is open
-		if (GUI::g_open_menu) {
+		if (GUI::g_open_imgui) {
 			GUI::Render(); 		// Render menu data if true
 		}
 

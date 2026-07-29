@@ -32,11 +32,11 @@ DWORD WINAPI SetupMainThread(LPVOID a_instance) {
 			}
 		}
 
-		// Initialize null ref device 
+		// Initialize nullptr d3d9 device 
 		FattyMenu::GUI::InitializeDevice();
 
 
-		// Initialize all game-hooks (EndScene/Reset) -> frees throwaway device after
+		// Initialize all of the game render-hooks (EndScene/Reset)
 		FattyMenu::Hooks::InitializeHooks();
 
 		FattyMenu::GUI::g_setup_complete = true;
