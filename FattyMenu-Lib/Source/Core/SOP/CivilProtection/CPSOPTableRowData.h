@@ -3,7 +3,8 @@
 #include <vector>
 
 namespace FattyMenu {
-	namespace CPSOPTableData {
+	// TODO: Refactor to use serialized data
+	namespace CPSOP::TableData {
 		inline const std::vector<SPolitiScheduleRow> politi_schedule_table_data = {
 			// Columns:
 			// Start time		End time		Event					Time length (start time - end time)

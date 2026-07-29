@@ -13,8 +13,8 @@ namespace FattyMenu {
         static char general_use_buffer[4096] = {};           // Buffer for general purpose notepad
 
         // Fixed button dimensions
-        const float button_width = 200.0f;                   // Button X
-        // const float button_length = 100.0f;               // Button Y
+        const float button_width{ 200.0f };                   // Button X
+        // const float button_length{ 100.0f };               // Button Y
 
         // Helper function for rendering notepads in the menu
         void DisplayNotepad(const char* a_usage_description, const char* a_label, 

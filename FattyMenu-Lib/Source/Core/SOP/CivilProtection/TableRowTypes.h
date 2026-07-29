@@ -6,10 +6,10 @@
 namespace FattyMenu {
 
 	struct SPolitiScheduleRow {
-		std::string m_time_started	= "";
-		std::string m_time_end		= "";
-		std::string m_mandate		= "";
-		std::string m_length		= "";
+		std::string m_time_started{};
+		std::string m_time_end{};
+		std::string m_mandate{};
+		std::string m_length{};
 	};
 
 	struct SViolationLevelRow {
@@ -21,22 +21,22 @@ namespace FattyMenu {
 		// but that could open the door for a SIOF if this changes to depend on other globals after being placed in a vector
 
 		std::vector<std::string> m_recommended_verdicts{};				// NOTE: Using std::string over const char* for frontend string comparison operations
-		const char* m_description	= "";
-		int m_level					= 0;
+		const char* m_description{};
+		int m_level{ 0 };
 	};
 
 	struct SResidentialBlockRow {
-		std::string m_area		= "";
-		std::string m_capacity	= "";
+		std::string m_area{};
+		std::string m_capacity{};
 	};
 	
 	// For the location authorization tables
 	struct SLocationAuthorizationEntry {
-		std::string m_index								= "";
+		std::string m_index{};
 
-		// TODO: Add enum class to replace these bools - they're not exactly expressive during instantiation
-		bool m_requires_civil_protection_supervision	= false;		// For infestation and engineer core non-patrol regions
-		bool m_requires_special_authorization			= false;		// For civil protection non-patrol regions
+		// TODO: Consider adding enum class to replace these bools - they're not exactly expressive during instantiation
+		bool m_requires_civil_protection_supervision{ false };		// For infestation and engineer core non-patrol regions
+		bool m_requires_special_authorization{ false };				// For civil protection non-patrol regions
 	};
 
 	struct SLocationAuthorizationRow {
@@ -51,11 +51,11 @@ namespace FattyMenu {
 	struct SOverrideCodeRow {
 		// Columns = Status | Sociostable | Unrest | Containment | Lockdown
 		// Each member contains row data to be displayed under each column 
-		std::string m_status_index		= "";
-		std::string m_sociostable_index = "";
-		std::string m_unrest_index		= "";
-		std::string m_containment_index = "";
-		std::string m_lockdown_index	= "";
+		std::string m_status_index{};
+		std::string m_sociostable_index{};
+		std::string m_unrest_index{};
+		std::string m_containment_index{};
+		std::string m_lockdown_index{};
 	};
 
 }

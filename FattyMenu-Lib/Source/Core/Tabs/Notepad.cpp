@@ -12,10 +12,10 @@ namespace FattyMenu {
 
         // Render the notepad
         ImGui::InputTextEx(
-            a_label,                                                 // ImGUI Label
-            a_default_text,
+            a_label,                                                 // ImGui Label
+            a_default_text,                                          // Hint/default text
             a_buffer,                                                // Char array buffer
-            a_buffer_size,                                           // Size of the buffer
+            static_cast<int>(a_buffer_size),                         // Size of the buffer (NOTE: ImGui takes this as an int here instead of size_t)
             ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 10),       // Notepad dimensions
             ImGuiInputTextFlags_Multiline                            // Input text flags
         );
@@ -25,8 +25,6 @@ namespace FattyMenu {
         }
     }
 
-
-    // Function to initialize parameters for rendering a notepad for taking regular notes
     void Notepad::RenderGeneralUseNotepad() {
         const char* usage_description = "For taking regular notes";
 
