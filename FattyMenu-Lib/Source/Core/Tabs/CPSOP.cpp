@@ -5,59 +5,47 @@
 * - Replace pre-existing bullet-list-like functions with tables to more closely mirror the SOP doc in terms of design
 * - Consider changing the display table function bodies to loop through the row indices dynamically rather than going through them individually
 */
-
 namespace FattyMenu {
-	/* Displays ASCII art of the Civil Protection symbol */
-	void CPSOP::DisplayCPLogo() {
-		// Could probably format this better, but too lazy to bother 
-		ImGui::Text("							----   -----");
-		ImGui::Text("							----   -----");
-		ImGui::Text("							----   -----");
-		ImGui::Text("							----   -----");
-		ImGui::Text("							----   -----");
-		ImGui::Text("							----   -----");
-		ImGui::Text("");
-		ImGui::Text("					   ---  ------------  --------------------");
-		ImGui::Text("				  --------  ------------  ------------------------");
-		ImGui::Text("			  ------------  ------------  ---------------------------");
-		ImGui::Text("			--------------  ------------  -----------------------------");
-		ImGui::Text("		  ----------------  ------------  ------------------------------");
-		ImGui::Text("		------------------  ------------  -------------------------------");
-		ImGui::Text("	  --------------------  ------------  --------------------------------");
-		ImGui::Text("	 ---------------------  ------------  ---------------------------------");
-		ImGui::Text("	----------------------  ------------                   ----------------");
-		ImGui::Text("   -----------------------  ------------                     --------------");
-		ImGui::Text("  -----------------------   ------------                     --------------");
-		ImGui::Text(" -------------------        ------------                  -----------------");
-		ImGui::Text(" -----------------          ------------  --------------------------------");
-		ImGui::Text(" ----------------           ------------  --------------------------------");
-		ImGui::Text("----------------            ------------  -------------------------------");
-		ImGui::Text("---------------             ------------  -----------------------------");
-		ImGui::Text("---------------             ------------  ----------------------------");
-		ImGui::Text("---------------             ------------  -------------------------");
-		ImGui::Text("---------------             ------------  ----------------------");
-		ImGui::Text("----------------            ------------");
-		ImGui::Text(" ---------------            ------------    ---   ---   ---");
-		ImGui::Text(" ----------------           ------------    ----  ---- ----");
-		ImGui::Text("  -----------------         ------------    ----  ---- ----");
-		ImGui::Text("   -------------------      ------------    ----  ----  ---");
-		ImGui::Text("	----------------------  ------------    ----  ----");
-		ImGui::Text("	 ---------------------  ------------    ----  ----");
-		ImGui::Text("	  --------------------  ------------    ----  ----");
-		ImGui::Text("	   -------------------  ------------    ----  ----");
-		ImGui::Text("		 -----------------  ------------    ----");
-		ImGui::Text("		   ---------------  ------------    ----");
-		ImGui::Text("			  ------------  ------------    ----");
-		ImGui::Text("				 ---------  ------------    ----");
-		ImGui::Text("					  ----  ------------    ----");
-		ImGui::Text("											----");
-
-	}
-
+	
 	// Globals
 	// Colors used for highlighting text in some cases
 	static ImVec4 s_red_color		= ImVec4(1.0f, 0.0f, 0.0f, 1.0f);
 	static ImVec4 s_yellow_color	= ImVec4(1.0f, 1.0f, 0.0f, 1.0f);
+
+	void CPSOP::DisplayCivilProtectionLogo() {
+		// Texture-related - loaded once
+		static int image_width{ 0 };
+		static int image_height{ 0 };
+		static PDIRECT3DTEXTURE9 texture = nullptr;
+		const std::string file_path = "FattyMenu/Resources/CivilProtectionLogo.png";
+
+		static bool load_attempted{ false };
+		static bool load_ok{ false };
+
+		// Try loading the texture resource image from disk
+		if (!load_attempted) {
+			load_attempted = true;
+			
+			load_ok = GUI::LoadTextureFromFile(file_path, &texture, &image_width, &image_height);
+		}
+		if (!load_ok) {
+			ImGui::TextColored(s_red_color, "Failed to load image from file path: %s", file_path.c_str());
+			return;
+		}
+
+		const float image_scale = 0.5f;
+		const ImVec2 image_size = ImVec2(static_cast<float>(image_width) * image_scale, static_cast<float>(image_height) * image_scale);
+
+		// Display the image at the center of the window
+		float available_width = ImGui::GetContentRegionAvail().x;
+		float offset_x = (available_width - image_size.x) * 0.5f;
+
+		if (offset_x > 0.0f) { 
+			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + offset_x);
+		}
+		
+		ImGui::Image((ImTextureID)(intptr_t)texture, image_size);
+	}
 
 	void CPSOP::DisplayCodeInfo(const std::vector<CCode>& a_codes_list) {
 		// Loop through the radio codes
@@ -94,13 +82,15 @@ namespace FattyMenu {
 
 					// Loop through the descriptions and display them
 					for (const auto& description : code.GetOverrideDescription()) {
-						GUI::Helpers::WrappedBulletText("%s\n", description);
+						GUI::Helpers::WrappedBulletText("%s\n", description.c_str());
 					}
 
 					// Loop through the directives and display them
 					for (const auto& directive : code.GetOverrideDirectives()) {
-						ImGui::TextWrapped("-> %s\n", directive);
+						ImGui::TextWrapped("-> %s\n", directive.c_str());
 					}
+
+					ImGui::Separator();
 					break;
 				
 				case ECodeType::VerdictCode:
@@ -113,7 +103,7 @@ namespace FattyMenu {
 					else { // Verbal Warning / Citation headers get displayed with default text color
 						ImGui::TextWrapped("%s\n", name.c_str());
 					}
-					GUI::Helpers::WrappedBulletText("%s", code.GetDescription());
+					GUI::Helpers::WrappedBulletText("%s", code.GetDescription().c_str());
 					ImGui::Separator();
 					break;
 				
@@ -125,31 +115,36 @@ namespace FattyMenu {
 
 	void CPSOP::DisplayCivicRewardInfo(const std::vector<CCivicReward>& a_reward_list) {
 		for (const auto& reward : a_reward_list) {
-			ImGui::TextWrapped("%s: %s\n", reward.GetNumber(), reward.GetDescription());
+			ImGui::TextWrapped("%s: %s\n", reward.GetNumber().c_str(), reward.GetDescription().c_str());
 			ImGui::Separator();
 		}
 	}
 
-	void CPSOP::DisplayCivilStatusInfo() {
+	void CPSOP::DisplayCivilStatusInfo(const std::vector<CCivilStatus>& a_civil_statuses_list) {
 		GUI::Helpers::RenderTable(
 			"CivilStatusTable",
 			{ "CIVIL STATUS", "DEFINITION", "ADMINISTRATIVE DIRECTIVES" },
-			[] {
-				for (const auto& civil_status : CPSOPLookupTables::civil_status_info_list) {
+			[&] {
+				for (const auto& civil_status : a_civil_statuses_list) {
 					ImGui::TableNextRow();
 
 					ImGui::TableSetColumnIndex(0); // Status type + civic point range beneath
 					std::string type = civil_status.GetStatusType();
 					std::string type_and_range = type + "\n(" + civil_status.GetCivicPointRange() + ")";
-					GUI::Helpers::WrappedTableCellText(type_and_range.c_str());
+					if (type_and_range.find("Non-citizen") != std::string::npos) { // Highlighted in the SOP doc
+						GUI::Helpers::WrappedTableCellColoredText(s_yellow_color, type_and_range.c_str());
+					}
+					else {
+						GUI::Helpers::WrappedTableCellText(type_and_range.c_str());
+					}
 
 					ImGui::TableSetColumnIndex(1); 	// Definition
-					GUI::Helpers::WrappedTableCellText(civil_status.GetStatusDefinition());
+					GUI::Helpers::WrappedTableCellText(civil_status.GetStatusDefinition().c_str());
 
 					ImGui::TableSetColumnIndex(2);	// Directives in bullet form
 					// Loop through interaction directives
 					for (const auto& directive : civil_status.GetAdministrativeDirectives()) {
-						GUI::Helpers::WrappedBulletText(directive);
+						GUI::Helpers::WrappedBulletText(directive.c_str());
 					}
 				}
 			}
@@ -161,7 +156,7 @@ namespace FattyMenu {
 			"PolitiScheduleTable",
 			{ "TIME START", "TIME END", "MANDATE", "LENGTH" },
 			[] {
-				for (const auto& schedule : CPSOPTableData::politi_schedule_table_data) {
+				for (const auto& schedule : CPSOP::TableData::politi_schedule_table_data) {
 					ImGui::TableNextRow();
 
 					ImGui::TableSetColumnIndex(0);
@@ -177,7 +172,9 @@ namespace FattyMenu {
 					else if (schedule.m_mandate == "Curfew Procedure") {
 						GUI::Helpers::WrappedColoredText(s_red_color, "%s", schedule.m_mandate.c_str());
 					}
-					GUI::Helpers::WrappedTableCellText(schedule.m_mandate.c_str());
+					else {
+						GUI::Helpers::WrappedTableCellText(schedule.m_mandate.c_str());
+					}
 
 					ImGui::TableSetColumnIndex(3);
 					GUI::Helpers::WrappedTableCellText(schedule.m_length.c_str());
@@ -193,7 +190,7 @@ namespace FattyMenu {
 			"OverrideCodesTable", 
 			{ "STATUS", "SOCIOSTABLE", "UNREST", "CONTAINMENT", "LOCKDOWN" },
 			[] {
-				for (const auto& override_code : CPSOPTableData::override_code_table_data) {
+				for (const auto& override_code : CPSOP::TableData::override_code_table_data) {
 					ImGui::TableNextRow();
 
 					ImGui::TableSetColumnIndex(0);
@@ -226,33 +223,33 @@ namespace FattyMenu {
 					ImGui::TableNextRow();
 
 					ImGui::TableSetColumnIndex(0);
-					ImGui::TextWrapped("%s", violation.GetName());
+					ImGui::TextWrapped("%s", violation.GetName().c_str());
 
 					ImGui::TableSetColumnIndex(1);
-					ImGui::TextWrapped("%s", violation.GetDescription());
+					ImGui::TextWrapped("%s", violation.GetDescription().c_str());
 
 					ImGui::TableSetColumnIndex(2);
-					ImGui::TextWrapped("%s", violation.GetViolationDescription());
+					ImGui::TextWrapped("%s", violation.GetViolationDescription().c_str());
 
 					switch (violation.GetViolationCodeNote()) {
-					case EViolationCodeNote::None:
-						break;
+						case EViolationCodeNote::None:
+							break;
 
-					case EViolationCodeNote::SanctionedDistribution:
-						ImGui::SameLine();
-						ImGui::TextColored(s_yellow_color, "*");
-						break;
+						case EViolationCodeNote::SanctionedDistribution:
+							ImGui::SameLine();
+							ImGui::TextColored(s_yellow_color, "*");
+							break;
 
-					case EViolationCodeNote::FirearmsCharge:
-						ImGui::Text("(charge ");
-						ImGui::SameLine(0.0f, 0.0f);
-						ImGui::TextColored(s_red_color, "all firearms");
-						ImGui::SameLine(0.0f, 0.0f);
-						ImGui::Text(" with 94 weapon instead)");
-						break;
+						case EViolationCodeNote::FirearmsCharge:
+							ImGui::Text("(charge ");
+							ImGui::SameLine(0.0f, 0.0f);
+							ImGui::TextColored(s_red_color, "all firearms");
+							ImGui::SameLine(0.0f, 0.0f);
+							ImGui::Text(" with 94 weapon instead)");
+							break;
 
-					default:
-						break;
+						default:
+							break;
 					}
 				}
 			}
@@ -264,27 +261,27 @@ namespace FattyMenu {
 			"ViolationLevelsTable", 
 			{ "LEVEL", "DESCRIPTION", "VERDICT (RECOMMENDED)" },
 			[] {
-				for (const auto& row : CPSOPTableData::violation_level_table_data) {
+				for (const auto& row : CPSOP::TableData::violation_level_table_data) {
 					ImGui::TableNextRow();
 
 					ImGui::TableSetColumnIndex(0);
 
 					switch (row.m_level) {
-					case 3:
-						// Moderate severity = yellow color text
-						ImGui::TextColored(s_yellow_color, "%i", row.m_level);
-						break;
+						case 3:
+							// Moderate severity = yellow color text
+							ImGui::TextColored(s_yellow_color, "%i", row.m_level);
+							break;
 
-					case 4:
-					case 5:
-						// High severity = red color text
-						ImGui::TextColored(s_red_color, "%i", row.m_level);
-						break;
+						case 4:
+						case 5:
+							// High severity = red color text
+							ImGui::TextColored(s_red_color, "%i", row.m_level);
+							break;
 
-					default:
-						// Low severity (i.e., level 1 & 2) = default color text
-						ImGui::TextWrapped("%i", row.m_level);
-						break;
+						default:
+							// Low severity (i.e., level 1 & 2) = default color text
+							ImGui::TextWrapped("%i", row.m_level);
+							break;
 					}
 
 					ImGui::TableSetColumnIndex(1);
@@ -292,17 +289,21 @@ namespace FattyMenu {
 
 					ImGui::TableSetColumnIndex(2);
 					for (const auto& verdict : row.m_recommended_verdicts) {
-						if (verdict == "Verbal Warning" || verdict == "Citation") {
-							GUI::Helpers::WrappedBulletText("%s", verdict.c_str());
-						}
-						if (verdict == "Prosecution") {
+						// Render string based on substring contained within verdict
+						if (verdict.find("Prosecution") != std::string::npos) {
 							GUI::Helpers::WrappedBulletColoredText(s_yellow_color, "%s", verdict.c_str());
 						}
+						else if ((verdict.find("Amputation")			!= std::string::npos)
+							|| (verdict.find("Immediate amputation")	!= std::string::npos)
+							|| (verdict.find("Disassociation")			!= std::string::npos) 
+							|| (verdict.find("Terminal prosecution")	!= std::string::npos)) {
 
-						// TODO: Refactor this portion a bit - don't exactly love how this was done lol
-						if (verdict == "Amputation\n(if necessary to display authority amongst populace)" || verdict == "Disassociation\n(if labor required)" || verdict == "Terminal prosecution") {
 							GUI::Helpers::WrappedBulletColoredText(s_red_color, "%s", verdict.c_str());
 						}
+						else {
+							GUI::Helpers::WrappedBulletText("%s", verdict.c_str()); // Verbal Warning & Citation
+						}
+						
 					}
 				}
 			}
@@ -312,11 +313,11 @@ namespace FattyMenu {
 	void CPSOP::DisplayContrabandIndex(const std::vector<CContraband>& a_contraband_list) {
 		for (const auto& category : a_contraband_list) {
 			// Display the violation code's name, description
-			ImGui::TextWrapped("%s: %s\n", category.GetViolationCode().GetName(), category.GetViolationCode().GetDescription());
+			ImGui::TextWrapped("%s: %s\n", category.GetViolationCode().GetName().c_str(), category.GetViolationCode().GetDescription().c_str());
 
 			// Loop through each example for each category
 			for (const auto& example : category.GetExamples()) {
-				GUI::Helpers::WrappedBulletText("%s", example);
+				GUI::Helpers::WrappedBulletText("%s", example.c_str());
 			}
 
 			// Separate each contraband type with a line separator
@@ -330,7 +331,7 @@ namespace FattyMenu {
 			{ "Location", "Civic Populace *", "Engineer Core", "Infestation Control", "Civil Protection" },
 			[] {
 				// Iterate over rows 
-				for (const auto& row : CPSOPTableData::patrol_region_table_data) {
+				for (const auto& row : CPSOP::TableData::patrol_region_table_data) {
 					ImGui::TableNextRow();
 
 					// Location column 
@@ -394,7 +395,7 @@ namespace FattyMenu {
 			"NonPatrolRegionTable",
 			{ "Location", "Civic Populace *", "Engineer Core", "Infestation Control", "Civil Protection" },
 			[] {
-				for (const auto& row : CPSOPTableData::non_patrol_region_table_data) {
+				for (const auto& row : CPSOP::TableData::non_patrol_region_table_data) {
 					ImGui::TableNextRow();
 
 					// NOTE: Location & civic populace don't have their own special cases like with engineer core & infestation control
@@ -444,7 +445,7 @@ namespace FattyMenu {
 			"ResidentialBlockTable", 
 			{ "LOCATION", "CAPACITY" }, 
 			[] {
-				for (const auto& row : CPSOPTableData::residential_block_table_data) {
+				for (const auto& row : CPSOP::TableData::residential_block_table_data) {
 					ImGui::TableNextRow();
 
 					ImGui::TableSetColumnIndex(0);
@@ -459,44 +460,71 @@ namespace FattyMenu {
 	}
 
 	void CPSOP::RenderCivilProtectionSOP() {
+		DisplayCivilProtectionLogo();
+
+		ImGui::Separator();
+
 		// Collapsing headers render info once the user clicks on them
-		if (ImGui::CollapsingHeader("<:: DISPLAY CIVIL PROTECTION LOGO ::>")) {
-			// Print the ASCII art logo
-			DisplayCPLogo();
-		}
 
 		// Display the code index, render the subheaders via the inline helper function
 		GUI::Helpers::RenderSOPSection("<:: CODE INDEX ::>", 
 			[] {
 				// Clicking the first header displays these options
 
-				// The display function for abbreviations, 10-, 11- and response codes is templated (see GUIUtilities.h)
+				// The display functions (i.e., for abbreviations, 10-, 11- and response codes) is templated (see GUIUtilities.h)
 				if (ImGui::CollapsingHeader("<:: View Abbreviations ::>")) {
-					DisplayCodeInfo(CPSOPLookupTables::abbreviation_list);
+					GUI::Helpers::RenderRefreshableList(
+						"Abbreviations", "abbreviations",
+						&CPSOP::LookupTables::RefreshAbbreviationCodesList,
+						&CPSOP::LookupTables::GetAbbreviationCodesList,
+						[](const std::vector<CCode>& a_list) { DisplayCodeInfo(a_list); }
+					);
 				}
 				if (ImGui::CollapsingHeader("<:: View Response Codes ::>")) {
-					DisplayCodeInfo(CPSOPLookupTables::response_code_list);
+					GUI::Helpers::RenderRefreshableList(
+						"ResponseCodes", "response codes",
+						&CPSOP::LookupTables::RefreshResponseCodesList,
+						&CPSOP::LookupTables::GetResponseCodesList,
+						[](const std::vector<CCode>& a_list) { DisplayCodeInfo(a_list); }
+					);
 				}
 				if (ImGui::CollapsingHeader("<:: View 11- Codes ::>")) {
-					DisplayCodeInfo(CPSOPLookupTables::eleven_code_list);
+					GUI::Helpers::RenderRefreshableList(
+						"ElevenCodes", "11- codes",
+						&CPSOP::LookupTables::RefreshElevenCodesList,
+						&CPSOP::LookupTables::GetElevenCodesList,
+						[](const std::vector<CCode>& a_list) { DisplayCodeInfo(a_list); }
+					);
 				}
 				if (ImGui::CollapsingHeader("<:: View 10- Codes ::>")) {
-					DisplayCodeInfo(CPSOPLookupTables::ten_code_list);
+					GUI::Helpers::RenderRefreshableList(
+						"TenCodes", "10- codes",
+						&CPSOP::LookupTables::RefreshTenCodesList,
+						&CPSOP::LookupTables::GetTenCodesList,
+						[](const std::vector<CCode>& a_list) { DisplayCodeInfo(a_list); }
+					);
 				}
 				if (ImGui::CollapsingHeader("<:: View Violation Codes ::>")) {
-					for (const auto& category : CPSOPLookupTables::violation_code_categories) {
-						ImGui::TextColored(s_yellow_color, "%s", category.GetName());				// Display category header
-						GUI::Helpers::WrappedBulletText("%s", category.GetDescription());			// Display the category description
-						DisplayViolationCodesTable(category.GetTableID(), *category.GetCodes());	// Display the codes in a table 
+					GUI::Helpers::RenderRefreshableList(
+						"ViolationCodeCategories", "violation code categories",
+						&CPSOP::LookupTables::RefreshViolationCodeCategories,
+						&CPSOP::LookupTables::GetViolationCodeCategories,
+						[](const std::vector<CViolationCodeCategory>& a_category_list) {
+							for (const auto& category : a_category_list) {
+								ImGui::TextColored(s_yellow_color, "%s", category.GetName().c_str());				// Display category header
+								GUI::Helpers::WrappedBulletText("%s", category.GetDescription().c_str());			// Display the category description
+								DisplayViolationCodesTable(category.GetTableID(), *category.GetCodes());			// Display the codes in a table 
 
-						if (!category.GetFootnote().empty()) {
-							ImGui::TextColored(s_yellow_color, "*");
-							ImGui::SameLine();
-							ImGui::TextWrapped("%s", category.GetFootnote().c_str());
+								if (!category.GetFootnote().empty()) {
+									ImGui::TextColored(s_yellow_color, "*");
+									ImGui::SameLine();
+									ImGui::TextWrapped("%s", category.GetFootnote().c_str());
+								}
+
+								ImGui::Separator();
+							}
 						}
-
-						ImGui::Separator();
-					}
+					);
 				}
 				if (ImGui::CollapsingHeader("<:: View Violation Levels ::>")) {
 					ImGui::TextWrapped("Violation levels determine the seriousness of a violation & the appropriate verdict code.");
@@ -509,15 +537,19 @@ namespace FattyMenu {
 					DisplayViolationLevelsTable();
 				}
 				if (ImGui::CollapsingHeader("<:: View Verdict Codes ::>")) {
-					ImGui::TextWrapped("Verdicts highlighted in");
-					ImGui::SameLine();
-					ImGui::TextColored(s_red_color, "red");
-					ImGui::SameLine();
-					ImGui::TextWrapped("may only be authorized by rank leaders or dispatch.");
-
-					ImGui::Separator();
-
-					DisplayCodeInfo(CPSOPLookupTables::verdict_code_list);
+					GUI::Helpers::RenderRefreshableList(
+						"VerdictCodes", "verdict codes",
+						&CPSOP::LookupTables::RefreshVerdictCodesList,
+						&CPSOP::LookupTables::GetVerdictCodesList,
+						[](const std::vector<CCode>& a_list) { DisplayCodeInfo(a_list); },
+						[]() {
+							ImGui::TextWrapped("Verdicts highlighted in");
+							ImGui::SameLine();
+							ImGui::TextColored(s_red_color, "red");
+							ImGui::SameLine();
+							ImGui::TextWrapped("may only be authorized by rank leaders or dispatch.");
+						}
+					);
 				}
 				if (ImGui::CollapsingHeader("<:: View Communal Punishments ::>")) {
 					ImGui::TextWrapped("Communal punishments are strategic measures used by the Combine to assert control and instill fear among the civic populace.");
@@ -549,8 +581,15 @@ namespace FattyMenu {
 					GUI::Helpers::WrappedBulletText("Involves relocating citizens to their residential blocks, conducting thorough sweeps, restricting containment field access to ground units only, deploying stabilization teams for additional reinforcement, and executing swift security measures to suppress threats to Combine authority effectively");
 				}
 				if (ImGui::CollapsingHeader("<:: View Override Codes ::>")) {
-					DisplayOverrideCodeTable();
-					DisplayCodeInfo(CPSOPLookupTables::override_code_list);
+					GUI::Helpers::RenderRefreshableList(
+						"OverrideCodes", "override codes",
+						&CPSOP::LookupTables::RefreshOverrideCodesList,
+						&CPSOP::LookupTables::GetOverrideCodesList,
+						[](const std::vector<CCode>& a_list) { 
+							DisplayOverrideCodeTable(); 
+							DisplayCodeInfo(a_list);
+						}
+					);
 				}
 			}
 		);
@@ -559,29 +598,42 @@ namespace FattyMenu {
 		GUI::Helpers::RenderSOPSection("<:: CIVIC REWARD & CIVIL STATUS INDEX ::>", 
 			[] {
 				if (ImGui::CollapsingHeader("<:: View General Public Service Details ::>")) {
-					ImGui::TextWrapped("Any member of the civic populace can be summoned into voluntary conscription at any time by a protection unit to perform a public service.");
-					ImGui::TextWrapped("Successful completion of service may warrant a reward in the form of civic points or ration coupons at the discretion of a PTL");
-
-					ImGui::Separator();
-
-					DisplayCivicRewardInfo(CPSOPLookupTables::public_service_detail_list);
+					GUI::Helpers::RenderRefreshableList(
+						"GeneralPublicServiceDetails", "general public service details",
+						&CPSOP::LookupTables::RefreshGeneralPublicServiceDetailRewardsList,
+						&CPSOP::LookupTables::GetGeneralPublicServiceDetailRewardsList,
+						[](const std::vector<CCivicReward>& a_list) { DisplayCivicRewardInfo(a_list); },
+						[]() {
+							ImGui::TextWrapped("Any member of the civic populace can be summoned into voluntary conscription at any time by a protection unit to perform a public service.");
+							ImGui::TextWrapped("Successful completion of service may warrant a reward in the form of civic points or ration coupons at the discretion of a PTL");
+						}
+					);
 				}
 				if (ImGui::CollapsingHeader("<:: View Civic Deeds ::>")) {
-					ImGui::TextWrapped("Members of the civic populace may also perform civic deeds of their own accord.");
-					ImGui::TextWrapped("These may warrant a reward in the form of civic points or ration coupons at the discretion of a PTL");
-
-					ImGui::Separator();
-
-					DisplayCivicRewardInfo(CPSOPLookupTables::civic_deed_list);
+					GUI::Helpers::RenderRefreshableList(
+						"CivicDeeds", "civic deeds",
+						&CPSOP::LookupTables::RefreshCivicDeedRewardsList,
+						&CPSOP::LookupTables::GetCivicDeedRewardsList,
+						[](const std::vector<CCivicReward>& a_list) { DisplayCivicRewardInfo(a_list); },
+						[]() {
+							ImGui::TextWrapped("Members of the civic populace may also perform civic deeds of their own accord.");
+							ImGui::TextWrapped("These may warrant a reward in the form of civic points or ration coupons at the discretion of a PTL");
+						}
+					);
 				}
 				if (ImGui::CollapsingHeader("<:: View Civil Status Info ::>")) {
-					ImGui::TextWrapped("Civil status is the Combine's administrative classification system used to assess a citizen's compliance, productivity, civic utility & level of administrative suspicion.");
-					ImGui::TextWrapped("It determines an individual's eligibility for provisions, labor assignments, accommodations & other civic privileges.");
-					ImGui::TextColored(s_yellow_color, "Officers shall enforce protocols appropriate to each status classification in order to maintain sociostability and workforce efficiency within Combine-controlled cities");
+					GUI::Helpers::RenderRefreshableList(
+						"CivilStatuses", "civil statuses",
+						&CPSOP::LookupTables::RefreshCivilStatusList,
+						&CPSOP::LookupTables::GetCivilStatusList,
+						[](const std::vector<CCivilStatus>& a_list) { DisplayCivilStatusInfo(a_list); },
+						[]() {
 
-					ImGui::Separator();
-
-					DisplayCivilStatusInfo();
+							ImGui::TextWrapped("Civil status is the Combine's administrative classification system used to assess a citizen's compliance, productivity, civic utility & level of administrative suspicion.");
+							ImGui::TextWrapped("It determines an individual's eligibility for provisions, labor assignments, accommodations & other civic privileges.");
+							ImGui::TextColored(s_yellow_color, "Officers shall enforce protocols appropriate to each status classification in order to maintain sociostability and workforce efficiency within Combine-controlled cities");
+						}
+					);
 				}
 			}
 		);
@@ -589,28 +641,68 @@ namespace FattyMenu {
 		GUI::Helpers::RenderSOPSection("<:: TERMINOLOGY INDEX ::>", 
 			[] {
 				if (ImGui::CollapsingHeader("<:: View Protocol Terms ::>")) {
-					GUI::Helpers::DisplayList(CPSOPLookupTables::protocol_list);
+					GUI::Helpers::RenderRefreshableList(
+						"ProtocolTerms", "protocol terms",
+						&CPSOP::LookupTables::RefreshProtocolTermsList,
+						&CPSOP::LookupTables::GetProtocolTermsList,
+						[](const std::vector<CTerm>& a_list) { GUI::Helpers::DisplayList(a_list); }
+					);
 				}
 				if (ImGui::CollapsingHeader("<:: View Action Terms ::>")) {
-					GUI::Helpers::DisplayList(CPSOPLookupTables::action_list);
+					GUI::Helpers::RenderRefreshableList(
+						"ActionTerms", "action terms",
+						&CPSOP::LookupTables::RefreshActionTermsList,
+						&CPSOP::LookupTables::GetActionTermsList,
+						[](const std::vector<CTerm>& a_list) { GUI::Helpers::DisplayList(a_list); }
+					);
 				}
 				if (ImGui::CollapsingHeader("<:: View Action/Condition Terms ::>")) {
-					GUI::Helpers::DisplayList(CPSOPLookupTables::action_condition_list);
+					GUI::Helpers::RenderRefreshableList(
+						"ActionConditionTerms", "action/condition terms",
+						&CPSOP::LookupTables::RefreshActionConditionTermsList,
+						&CPSOP::LookupTables::GetActionConditionTermsList,
+						[](const std::vector<CTerm>& a_list) { GUI::Helpers::DisplayList(a_list); }
+					);
 				}
 				if (ImGui::CollapsingHeader("<:: View Hostile Entity Terms ::>")) {
-					GUI::Helpers::DisplayList(CPSOPLookupTables::hostile_list);
+					GUI::Helpers::RenderRefreshableList(
+						"HostileEntityTerms", "hostile entity terms",
+						&CPSOP::LookupTables::RefreshHostileEntityTermsList,
+						&CPSOP::LookupTables::GetHostileEntityTermsList,
+						[](const std::vector<CTerm>& a_list) { GUI::Helpers::DisplayList(a_list); }
+					);
 				}
 				if (ImGui::CollapsingHeader("<:: View Equipment/Asset Terms ::>")) {
-					GUI::Helpers::DisplayList(CPSOPLookupTables::equipment_asset_list);
+					GUI::Helpers::RenderRefreshableList(
+						"EquipmentAssetTerms", "equipment/asset terms",
+						&CPSOP::LookupTables::RefreshEquipmentAssetTermsList,
+						&CPSOP::LookupTables::GetEquipmentAssetTermsList,
+						[](const std::vector<CTerm>& a_list) { GUI::Helpers::DisplayList(a_list); }
+					);
 				}
 				if (ImGui::CollapsingHeader("<:: View Organization Terms ::>")) {
-					GUI::Helpers::DisplayList(CPSOPLookupTables::organization_list);
+					GUI::Helpers::RenderRefreshableList(
+						"OrganizationTerms", "organization terms",
+						&CPSOP::LookupTables::RefreshOrganizationTermsList,
+						&CPSOP::LookupTables::GetOrganizationTermsList,
+						[](const std::vector<CTerm>& a_list) { GUI::Helpers::DisplayList(a_list); }
+					);
 				}
 				if (ImGui::CollapsingHeader("<:: View Sociostability Terms ::>")) {
-					GUI::Helpers::DisplayList(CPSOPLookupTables::sociostability_list);
+					GUI::Helpers::RenderRefreshableList(
+						"SociostabilityTerms", "sociostability terms",
+						&CPSOP::LookupTables::RefreshSociostabilityTermsList,
+						&CPSOP::LookupTables::GetSociostabilityTermsList,
+						[](const std::vector<CTerm>& a_list) { GUI::Helpers::DisplayList(a_list); }
+					);
 				}
 				if (ImGui::CollapsingHeader("<:: View Area Terms ::>")) {
-					GUI::Helpers::DisplayList(CPSOPLookupTables::area_list);
+					GUI::Helpers::RenderRefreshableList(
+						"AreaTerms", "area terms",
+						&CPSOP::LookupTables::RefreshAreaTermsList,
+						&CPSOP::LookupTables::GetAreaTermsList,
+						[](const std::vector<CTerm>& a_list) { GUI::Helpers::DisplayList(a_list); }
+					);
 				}
 
 			}
@@ -628,29 +720,40 @@ namespace FattyMenu {
 			[] {
 				// Display mandate duties
 				if (ImGui::CollapsingHeader("<:: View Mandate Duties ::>")) {
-					// Display prelude
-					ImGui::TextWrapped("These duties deviate from those under the assignments section as they are conducted exclusively during their designated times.");
-
-					ImGui::Separator();
-
-					GUI::Helpers::DisplayAssignment(CPSOPLookupTables::mandate_duties_list);
+					GUI::Helpers::RenderRefreshableList(
+						"MandateDuties", "mandate duties",
+						CPSOP::LookupTables::RefreshMandateDutyAssignmentsList,
+						CPSOP::LookupTables::GetMandateDutyAssignmentsList,
+						[](const std::vector<CAssignment>& a_list) { GUI::Helpers::DisplayAssignment(a_list); },
+						[]() {
+							ImGui::TextWrapped("These duties deviate from those under the assignments section as they are conducted exclusively during their designated times.");
+						}
+					);
 				}
 
 				// Display protection duties
 				if (ImGui::CollapsingHeader("<:: View Protection Duties ::>")) {
-					// Display prelude
-					ImGui::TextWrapped("Protection teams have many daily responsibilities, with team leaders coordinating assignments to cover all duties.");
-					ImGui::TextWrapped("At least one team should serve as well-armed reinforcement near key areas.");
-					ImGui::TextWrapped("Dispatch & rank leaders are authorized to assign or reassign teams as necessary.");
-
-					ImGui::Separator();
-
-					GUI::Helpers::DisplayAssignment(CPSOPLookupTables::protection_duties_list);
+					GUI::Helpers::RenderRefreshableList(
+						"ProtectionDuties", "protection duties",
+						CPSOP::LookupTables::RefreshProtectionDutyAssignmentsList,
+						CPSOP::LookupTables::GetProtectionDutyAssignmentsList,
+						[](const std::vector<CAssignment>& a_list) { GUI::Helpers::DisplayAssignment(a_list); },
+						[]() {
+							ImGui::TextWrapped("Protection teams have many daily responsibilities, with team leaders coordinating assignments to cover all duties.");
+							ImGui::TextWrapped("At least one team should serve as well-armed reinforcement near key areas.");
+							ImGui::TextWrapped("Dispatch & rank leaders are authorized to assign or reassign teams as necessary.");
+						}
+					);
 				}
 
 				// Display duty expectations + TAC etiquette
 				if (ImGui::CollapsingHeader("<:: View Duty Expectations and TAC Etiquette ::>")) {
-					GUI::Helpers::DisplayAssignment(CPSOPLookupTables::miscellaneous_duties_list);
+					GUI::Helpers::RenderRefreshableList(
+						"DutyExpectationsTacEtiquette", "entries",		// Can't think of a better noun than "entries" lol
+						CPSOP::LookupTables::RefreshAssignmentExpectationsList,
+						CPSOP::LookupTables::GetAssignmentExpectationsList,
+						[](const std::vector<CAssignment>& a_list) { GUI::Helpers::DisplayAssignment(a_list); }
+					);
 				}
 
 				GUI::Helpers::WrappedColoredText(s_yellow_color, "The beginning and end of a duty must be communicated into TAC.");
@@ -661,7 +764,12 @@ namespace FattyMenu {
 		// Render contraband index
 		GUI::Helpers::RenderSOPSection("<:: CONTRABAND INDEX ::> ", 
 			[] {
-				DisplayContrabandIndex(CPSOPLookupTables::contraband_list);
+				GUI::Helpers::RenderRefreshableList(
+					"ContrabandCategories", "contraband categories",
+					&CPSOP::LookupTables::RefreshContrabandList,
+					&CPSOP::LookupTables::GetContrabandList,
+					[](const std::vector<CContraband>& a_list) { DisplayContrabandIndex(a_list); }
+				);
 			}
 		);
 
@@ -691,64 +799,3 @@ namespace FattyMenu {
 		);
 	}
 }
-
-
-	/* Larger logo -- too big for the menu lol
-		ImGui::Text("									 ------    ------");
-		ImGui::Text("									 ------    ------");
-		ImGui::Text("									 ------    ------");
-		ImGui::Text("									 ------    ------");
-		ImGui::Text("									 ------    ------");
-		ImGui::Text("									 ------    ------");
-		ImGui::Text("									 ------    ------");
-		ImGui::Text("									 ------    ------");
-		ImGui::Text("");
-		ImGui::Text("									 ----------------");
-		ImGui::Text("							------   ----------------   -----------------------------");
-		ImGui::Text("					   -----------   ----------------   ---------------------------------");
-		ImGui::Text("					--------------   ----------------   -----------------------------------");
-		ImGui::Text("				 -----------------   ----------------   --------------------------------------");
-		ImGui::Text("			   -------------------   ----------------   ---------------------------------------");
-		ImGui::Text("			 ---------------------   ----------------   ----------------------------------------");
-		ImGui::Text("		   -----------------------   ----------------   -----------------------------------------");
-		ImGui::Text("		 -------------------------   ----------------   ------------------------------------------");
-		ImGui::Text("		--------------------------   ----------------   -------------------------------------------");
-		ImGui::Text("	   ---------------------------   ----------------   -------------------------------------------");
-		ImGui::Text("	 -----------------------------   ----------------                         ----------------------");
-		ImGui::Text("	------------------------------   ----------------                            -------------------");
-		ImGui::Text("	------------------------------   ----------------                             ------------------");
-		ImGui::Text("   -------------------------------   ----------------                            -------------------");
-		ImGui::Text("  --------------------------         ----------------                          ---------------------");
-		ImGui::Text("  -----------------------            ----------------   -------------------------------------------");
-		ImGui::Text(" -----------------------             ----------------   -------------------------------------------");
-		ImGui::Text(" ----------------------              ----------------   ------------------------------------------");
-		ImGui::Text("----------------------               ----------------   -----------------------------------------");
-		ImGui::Text("---------------------                ----------------   ----------------------------------------");
-		ImGui::Text("--------------------                 ----------------   ---------------------------------------");
-		ImGui::Text("--------------------                 ----------------   -------------------------------------");
-		ImGui::Text("--------------------                 ----------------   ----------------------------------");
-		ImGui::Text("--------------------                 ----------------   --------------------------------");
-		ImGui::Text("--------------------                 ----------------   ---------------------------");
-		ImGui::Text(" --------------------                ----------------");
-		ImGui::Text(" ---------------------               ----------------");
-		ImGui::Text(" ---------------------               ----------------      -----  -----   -----");
-		ImGui::Text("  ----------------------             ----------------      -----  -----   -----");
-		ImGui::Text("   ----------------------            ----------------      -----  -----   -----");
-		ImGui::Text("   -------------------------         ----------------      -----  -----   -----");
-		ImGui::Text("	------------------------------   ----------------      -----  -----");
-		ImGui::Text("	 -----------------------------   ----------------      -----  -----");
-		ImGui::Text("	  ----------------------------   ----------------      -----  -----");
-		ImGui::Text("	   ---------------------------   ----------------      -----  -----");
-		ImGui::Text("		 -------------------------   ----------------      -----  -----");
-		ImGui::Text("		  ------------------------   ----------------      -----  -----");
-		ImGui::Text("			----------------------   ----------------      -----   ----");
-		ImGui::Text("			  --------------------   ----------------      -----");
-		ImGui::Text("				------------------   ----------------      -----");
-		ImGui::Text("				   ---------------   ----------------      -----");
-		ImGui::Text("					  ------------   ----------------      -----");
-		ImGui::Text("						  --------   ----------------      -----");
-		ImGui::Text("								 -   ----------------      -----");
-		ImGui::Text("														   -----");
-
-
-	*/

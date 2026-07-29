@@ -5,6 +5,7 @@
 #include "../SOP/CivilProtection/CPSOPLookupTables.h"	// Lookup tables
 
 #include <../imgui/imgui.h>								// ImGui
+#include <../imgui/imgui_internal.h>
 
 #include <functional>
 #include <string>
@@ -15,12 +16,12 @@ namespace FattyMenu {
 	namespace CPSOP {
 		/* Function Prototypes */
 
-		void DisplayCPLogo();																								// For displaying Civil Protection's logo (ASCII)
+		void DisplayCivilProtectionLogo();																					// For displaying Civil Protection's logo image
 		
 		void DisplayCodeInfo(const std::vector<CCode>& a_codes); 															// For displaying code information based on code type
 
 		void DisplayCivicRewardInfo(const std::vector<CCivicReward>& a_civic_rewards); 										// For displaying citizen rewards
-		void DisplayCivilStatusInfo();																						// For displaying civil status types and engagement directives
+		void DisplayCivilStatusInfo(const std::vector<CCivilStatus>& a_civil_statuses_list);								// For displaying civil status types and engagement directives
 		
 		void DisplayPolitiSchedule(); 																						// For displaying politi-schedule
 		
@@ -28,7 +29,7 @@ namespace FattyMenu {
 		
 		void DisplayViolationCodesTable(const std::string& a_table_label, const std::vector<CCode>& a_violation_codes); 	// For displaying violation codes
 		void DisplayViolationLevelsTable(); 																				// For displaying violation levels table
-		void DisplayContrabandIndex(const std::vector<CContraband>& a_contraband_index); 									// For displaying the contraband index
+		void DisplayContrabandIndex(const std::vector<CContraband>& a_contraband_index_categories); 						// For displaying the contraband index categories
 		void DisplayResidentialBlockTable();																				// For displaying communal punishments
 		
 		void DisplayPatrolRegions();																						// For displaying patrol regions
