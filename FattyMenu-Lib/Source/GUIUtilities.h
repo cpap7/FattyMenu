@@ -25,7 +25,20 @@ namespace FattyMenu {
 		}
 
 		namespace Helpers {
-			// TODO: Add color/fmt version of this
+			// Helper function for wrapped colored text within a table that respects the current table column's right edge
+			inline void WrappedTableCellColoredText(const ImVec4& a_color, const char* a_fmt, ...) {
+				ImGui::PushTextWrapPos(ImGui::GetCursorPosX() + ImGui::GetColumnWidth());
+				ImGui::PushStyleColor(ImGuiCol_Text, a_color);
+
+				va_list args;
+				va_start(args, a_fmt);
+				ImGui::TextV(a_fmt, args);
+				va_end(args);
+
+				ImGui::PopStyleColor();
+				ImGui::PopTextWrapPos();
+			}
+
 			// Helper function for wrapped text within a table that respects the current table column's right edge
 			inline void WrappedTableCellText(const char* a_text) {
 				ImGui::PushTextWrapPos(ImGui::GetCursorPosX() + ImGui::GetColumnWidth());
@@ -42,8 +55,7 @@ namespace FattyMenu {
 				// Apply selected color
 				ImGui::PushStyleColor(ImGuiCol_Text, a_color);
 
-				const int buffer_size = static_cast<int>(ImGui::CalcTextSize(a_fmt, nullptr, false, -1.0f).x) + 256;
-				//char* formatted_string = (char*)alloca(buffer_size);
+				//const int buffer_size = static_cast<int>(ImGui::CalcTextSize(a_fmt, nullptr, false, -1.0f).x) + 256;
 				{
 					va_list args;
 					va_start(args, a_fmt);
@@ -78,9 +90,7 @@ namespace FattyMenu {
 				// Apply selected color
 				ImGui::PushStyleColor(ImGuiCol_Text, a_color);
 
-				const int buffer_size = static_cast<int>(ImGui::CalcTextSize(a_fmt, nullptr, false, -1.0f).x) + 256;
-				//char* formatted_string = (char*)alloca(buffer_size);
-
+				//const int buffer_size = static_cast<int>(ImGui::CalcTextSize(a_fmt, nullptr, false, -1.0f).x) + 256;
 				{
 					ImGui::TextWrappedV(a_fmt, args);
 
@@ -94,7 +104,7 @@ namespace FattyMenu {
 			*/
 			template<typename T>
 			inline void DisplayListItem(const T& a_item) {
-				GUI::Helpers::WrappedBulletText("%s: %s", a_item.GetName(), a_item.GetDescription());
+				GUI::Helpers::WrappedBulletText("%s: %s", a_item.GetName().c_str(), a_item.GetDescription().c_str());
 				ImGui::Separator();
 			}
 
@@ -105,26 +115,92 @@ namespace FattyMenu {
 				}
 			}
 
+			/*  Renders a refresh button, item count and guarded display block for SOP sections loaded from disk (via JSON)
+			*	@param a_button_label		-> text on the refresh button (also used as ImGui ID)
+			*	@param a_noun				-> plural noun for the count label (e.g. "abbreviations")
+			*	@param a_refresh_fn			-> void() that reloads the list from disk
+			*	@param a_get_fn				-> returns a reference to a (possibly empty) list
+			*	@param a_display_fn			-> void(const ListType&) function that renders the list contents
+			*/
+			template<typename TRefreshFn, typename TGetFn, typename TDisplayFn>
+			inline void RenderRefreshableList(const char* a_button_label, const char* a_noun,
+				TRefreshFn a_refresh_fn, TGetFn a_get_fn, TDisplayFn a_display_fn) {
+
+				ImGui::PushID(a_button_label);
+				
+				if (ImGui::SmallButton("Refresh")) {
+					a_refresh_fn();
+				}
+				ImGui::SameLine();
+
+				auto& list = a_get_fn();
+				ImGui::TextDisabled("(%zu %s loaded)", list.size(), a_noun);
+
+				ImGui::Separator();
+
+				if (!list.empty()) {
+					a_display_fn(list);
+				}
+
+				ImGui::PopID();
+			}
+
+			/*	Renders a refresh button, item count, prelude/description section and guarded display block for SOP sections loaded from disk (via JSON)
+			*	@param a_button_label		-> text on the refresh button (also used as ImGui ID)
+			*	@param a_noun				-> plural noun for the count label (e.g. "abbreviations")
+			*	@param a_refresh_fn			-> void() function that reloads the list from disk
+			*	@param a_get_fn				-> returns a reference to a (possibly empty) list
+			*	@param a_display_fn			-> void(const ListType&) function that renders the list contents
+			*	@param a_description_fn		-> void() function that displays a prelude/description before displaying the list contents
+			*/
+			template<typename TRefreshFn, typename TGetFn, typename TDisplayFn, typename TDescriptionFn>
+			inline void RenderRefreshableList(const char* a_button_label, const char* a_noun,
+				TRefreshFn a_refresh_fn, TGetFn a_get_fn, TDisplayFn a_display_fn, TDescriptionFn a_description_fn) {
+
+				ImGui::PushID(a_button_label);
+
+				if (ImGui::SmallButton("Refresh")) {
+					a_refresh_fn();
+				}
+				ImGui::SameLine();
+
+				auto& list = a_get_fn();
+				ImGui::TextDisabled("(%zu %s loaded)", list.size(), a_noun);
+
+				ImGui::Separator();
+
+				a_description_fn();
+
+				ImGui::Separator();
+
+				if (!list.empty()) {
+					a_display_fn(list);
+				}
+
+				ImGui::PopID();
+			}
+
 			template <typename T>
 			inline void DisplayAssignment(const std::vector<T>& a_assignment_list) {
 				for (const auto& duty : a_assignment_list) {
+					// NOTE: Duty expectation details are formatted the same as CP assignments 
 					if (duty.IsForCP()) {
 						// Display assignment name and the # of required units
-						ImGui::TextWrapped("%s\n%s", duty.GetAssignmentName(), duty.GetCPUnitsRequired());
+						ImGui::TextWrapped("%s\n%s", duty.GetAssignmentName().c_str(), duty.GetCPUnitsRequired().c_str());
 
 						// Display each description
 						for (const auto& description : duty.GetAssignmentDescription()) {
-							GUI::Helpers::WrappedBulletText("%s", description);
+							GUI::Helpers::WrappedBulletText("%s", description.c_str());
 						}
 
 					}
 					else if (duty.IsForTF()) {
 						// Display assignment name and the # of required units
-						ImGui::TextWrapped("%s\nREQUIRED:%d+ units\nLENGTH IN SHIFTS:%d\nRecommended Class:%s", duty.GetAssignmentName(), duty.GetTFUnitsRequired(), duty.GetTFShiftDuration(), duty.GetTFRecommendedClass());
+						ImGui::TextWrapped("%s\nREQUIRED:%d+ units\nLENGTH IN SHIFTS:%d\nRecommended Class:%s", duty.GetAssignmentName().c_str(), duty.GetTFUnitsRequired(), duty.GetTFShiftDuration(), duty.GetTFRecommendedClass().c_str());
 
 						// Display each description
 						for (const auto& description : duty.GetAssignmentDescription()) {
-							GUI::Helpers::WrappedBulletText("%s", description);
+							GUI::Helpers::WrappedBulletText("%s", description.c_str());
 						}
 					}
 
