@@ -1,5 +1,5 @@
 #pragma once
-#include "TableRowTypes.h"
+#include "CPSOPTableRowTypes.h"
 #include <vector>
 
 namespace FattyMenu {

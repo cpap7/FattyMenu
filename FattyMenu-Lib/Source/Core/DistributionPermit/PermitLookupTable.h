@@ -1,5 +1,8 @@
 #pragma once
+
 #include "../Serialization/ContentSerializer.h"
+#include "../Serialization/ResourcePaths.h"
+
 #include "Permit.h"
 
 #include <vector>
@@ -7,8 +10,6 @@
 
 namespace FattyMenu {
 	/* Look-up Table */
-
-	const std::string c_permit_info_file_path = "FattyMenu/FattyMenu_DistributionPermitInfo.json"; // Relative to gmod.exe
 
 	// Returns a mutable list of permits that are loaded from a JSON file
 	inline std::vector<CPermit>& GetPermitList() {
