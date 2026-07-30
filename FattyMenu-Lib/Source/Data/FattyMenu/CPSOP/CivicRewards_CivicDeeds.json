@@ -1,0 +1,28 @@
+{
+    "CivicRewards": [
+        {
+            "Number": "D92-493",
+            "Description": "Turning in moderate articles of contraband (level 2)"
+        },
+        {
+            "Number": "D92-595",
+            "Description": "Turning in severe articles of contraband (level 1)"
+        },
+        {
+            "Number": "D18-303",
+            "Description": "Reporting moderate violation of offenders (anti-civil activity level 1)"
+        },
+        {
+            "Number": "D18-332",
+            "Description": "Reporting major violation offenders (socio-endangerment level 5)"
+        },
+        {
+            "Number": "D18-369",
+            "Description": "Reporting capital violation offenders (socio-endangerment level 1)"
+        },
+        {
+            "Number": "D20-102",
+            "Description": "Non-invasive aiding of a protection unit in a life-threatening situation"
+        }
+    ]
+}

@@ -1,0 +1,194 @@
+{
+    "Codes": [
+        {
+            "Name": "10-0",
+            "Description": "Use caution",
+            "CodeType": "Ten Code"
+        },
+        {
+            "Name": "10-1",
+            "Description": "You are being received poorly",
+            "CodeType": "Ten Code"
+        },
+        {
+            "Name": "10-2",
+            "Description": "You are being received clearly",
+            "CodeType": "Ten Code"
+        },
+        {
+            "Name": "10-3",
+            "Description": "Stop transmitting",
+            "CodeType": "Ten Code"
+        },
+        {
+            "Name": "10-4",
+            "Description": "Affirmative / Message received",
+            "CodeType": "Ten Code"
+        },
+        {
+            "Name": "10-6",
+            "Description": "Busy (In some cases, it could be used to mean 'going AFK' in OOC terms)",
+            "CodeType": "Ten Code"
+        },
+        {
+            "Name": "10-7",
+            "Description": "Out of service",
+            "CodeType": "Ten Code"
+        },
+        {
+            "Name": "10-8",
+            "Description": "In service",
+            "CodeType": "Ten Code"
+        },
+        {
+            "Name": "10-9",
+            "Description": "Repeat message",
+            "CodeType": "Ten Code"
+        },
+        {
+            "Name": "10-12",
+            "Description": "Standby",
+            "CodeType": "Ten Code"
+        },
+        {
+            "Name": "10-14",
+            "Description": "Convoy or escort detail",
+            "CodeType": "Ten Code"
+        },
+        {
+            "Name": "10-15",
+            "Description": "Prisoner in custody",
+            "CodeType": "Ten Code"
+        },
+        {
+            "Name": "10-19",
+            "Description": "Returning to station",
+            "CodeType": "Ten Code"
+        },
+        {
+            "Name": "10-20",
+            "Description": "Your location",
+            "CodeType": "Ten Code"
+        },
+        {
+            "Name": "10-22",
+            "Description": "Disregard",
+            "CodeType": "Ten Code"
+        },
+        {
+            "Name": "10-25",
+            "Description": "Contact with (suspect)",
+            "CodeType": "Ten Code"
+        },
+        {
+            "Name": "10-26",
+            "Description": "Detaining suspect",
+            "CodeType": "Ten Code"
+        },
+        {
+            "Name": "10-27",
+            "Description": "Check if person is of interest",
+            "CodeType": "Ten Code"
+        },
+        {
+            "Name": "10-30",
+            "Description": "Non-conformance / Danger",
+            "CodeType": "Ten Code"
+        },
+        {
+            "Name": "10-31",
+            "Description": "In pursuit",
+            "CodeType": "Ten Code"
+        },
+        {
+            "Name": "10-32",
+            "Description": "Armed suspect",
+            "CodeType": "Ten Code"
+        },
+        {
+            "Name": "10-33",
+            "Description": "Alarm",
+            "CodeType": "Ten Code"
+        },
+        {
+            "Name": "10-38",
+            "Description": "Your destination",
+            "CodeType": "Ten Code"
+        },
+        {
+            "Name": "10-41",
+            "Description": "Begin duty",
+            "CodeType": "Ten Code"
+        },
+        {
+            "Name": "10-42",
+            "Description": "End duty",
+            "CodeType": "Ten Code"
+        },
+        {
+            "Name": "10-54d",
+            "Description": "Possible dead body",
+            "CodeType": "Ten Code"
+        },
+        {
+            "Name": "10-65",
+            "Description": "Clear for assignment",
+            "CodeType": "Ten Code"
+        },
+        {
+            "Name": "10-78",
+            "Description": "Medical assistance",
+            "CodeType": "Ten Code"
+        },
+        {
+            "Name": "10-91",
+            "Description": "Dead animal / creature",
+            "CodeType": "Ten Code"
+        },
+        {
+            "Name": "10-93",
+            "Description": "Blockade (in the road)",
+            "CodeType": "Ten Code"
+        },
+        {
+            "Name": "10-96",
+            "Description": "Mentally unfit",
+            "CodeType": "Ten Code"
+        },
+        {
+            "Name": "10-97",
+            "Description": "Arrived at scene",
+            "CodeType": "Ten Code"
+        },
+        {
+            "Name": "10-99",
+            "Description": "Officer in trouble (last in squad)",
+            "CodeType": "Ten Code"
+        },
+        {
+            "Name": "10-103",
+            "Description": "Disturbance",
+            "CodeType": "Ten Code"
+        },
+        {
+            "Name": "10-103m",
+            "Description": "Disturbance by mentally unfit",
+            "CodeType": "Ten Code"
+        },
+        {
+            "Name": "10-107",
+            "Description": "Suspicious person",
+            "CodeType": "Ten Code"
+        },
+        {
+            "Name": "10-108",
+            "Description": "Officer down",
+            "CodeType": "Ten Code"
+        },
+        {
+            "Name": "10-109",
+            "Description": "Suicide",
+            "CodeType": "Ten Code"
+        }
+    ]
+}

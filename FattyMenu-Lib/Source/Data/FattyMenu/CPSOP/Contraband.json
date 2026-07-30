@@ -1,0 +1,49 @@
+{
+    "ContrabandTypes": [
+        {
+            "ViolationCode": {
+                "Name": "54",
+                "Description": "Possession of materials",
+                "ViolationCodeDescription": "Possession of minor contraband articles",
+                "ViolationCodeNote": "None",
+                "CodeType": "Violation Code"
+            },
+            "Examples": [
+                "Scrap materials (aluminum, glass, etc.)",
+                "Harmful chemicals and illicit narcotics",
+                "Ballistic materials (aramid fiber)",
+                "Concealing clothing (face wraps)"
+            ]
+        },
+        {
+            "ViolationCode": {
+                "Name": "69",
+                "Description": "Possession of resources",
+                "ViolationCodeDescription": "Possession of moderate contraband articles",
+                "ViolationCodeNote": "None",
+                "CodeType": "Violation Code"
+            },
+            "Examples": [
+                "Communication devices (handheld radios)",
+                "Non-sanctioned tools (zip ties, lockpicks)",
+                "Advanced medical equipment and rations (vials, pens, anti-fatigue rations)",
+                "Protective gear (armor, gas masks, helmets)"
+            ]
+        },
+        {
+            "ViolationCode": {
+                "Name": "95",
+                "Description": "Illegal carrying",
+                "ViolationCodeDescription": "Possession of major contraband articles",
+                "ViolationCodeNote": "Firearms Charge",
+                "CodeType": "Violation Code"
+            },
+            "Examples": [
+                "Melee weapons (knives, pipes, etc.)",
+                "Ammunition and explosive devices",
+                "Security bypass technology (EMP devices)",
+                "Stolen assets (CMB packages, resin)"
+            ]
+        }
+    ]
+}

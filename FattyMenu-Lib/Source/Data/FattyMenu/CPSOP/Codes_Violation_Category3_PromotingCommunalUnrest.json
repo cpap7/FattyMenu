@@ -1,0 +1,32 @@
+{
+    "Codes": [
+        {
+            "Name": "28",
+            "Description": "Felony incite",
+            "CodeType": "Violation Code",
+            "ViolationCodeDescription": "Encouraging or directing others to commit violations",
+            "ViolationCodeNote": "None"
+        },
+        {
+            "Name": "404",
+            "Description": "Riot",
+            "CodeType": "Violation Code",
+            "ViolationCodeDescription": "Participating in or promoting communal unrest",
+            "ViolationCodeNote": "None"
+        },
+        {
+            "Name": "407",
+            "Description": "Unlawful assembly",
+            "CodeType": "Violation Code",
+            "ViolationCodeDescription": "Unauthorized gathering posing a stability risk",
+            "ViolationCodeNote": "None"
+        },
+        {
+            "Name": "415",
+            "Description": "Civic disunity",
+            "CodeType": "Violation Code",
+            "ViolationCodeDescription": "Disturbing public order or assaulting civilians",
+            "ViolationCodeNote": "None"
+        }
+    ]
+}

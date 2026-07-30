@@ -1,0 +1,74 @@
+{
+    "Codes": [
+        {
+            "Name": "27",
+            "Description": "Attempted crime",
+            "CodeType": "Violation Code",
+            "ViolationCodeDescription": "Attempting a violation w/o successful completion",
+            "ViolationCodeNote": "None"
+        },
+        {
+            "Name": "54",
+            "Description": "Possession of materials",
+            "CodeType": "Violation Code",
+            "ViolationCodeDescription": "Possession of minor contraband articles",
+            "ViolationCodeNote": "None"
+        },
+        {
+            "Name": "62",
+            "Description": "Alarms",
+            "CodeType": "Violation Code",
+            "ViolationCodeDescription": "Knowingly making false reports to Civil Protection",
+            "ViolationCodeNote": "None"
+        },
+        {
+            "Name": "69",
+            "Description": "Possession of resources",
+            "CodeType": "Violation Code",
+            "ViolationCodeDescription": "Possession of moderate contraband articles",
+            "ViolationCodeNote": "None"
+        },
+        {
+            "Name": "91",
+            "Description": "Non-sanctioned distribution",
+            "CodeType": "Violation Code",
+            "ViolationCodeDescription": "Distributing items outside authorized distribution zones",
+            "ViolationCodeNote": "Sanctioned Distribution"
+        },
+        {
+            "Name": "99",
+            "Description": "Reckless operation",
+            "CodeType": "Violation Code",
+            "ViolationCodeDescription": "Unsafe or negligent operation of equipment",
+            "ViolationCodeNote": "None"
+        },
+        {
+            "Name": "311",
+            "Description": "Verbal indiscretion",
+            "CodeType": "Violation Code",
+            "ViolationCodeDescription": "Loitering or excessive conversation w/o civic purpose",
+            "ViolationCodeNote": "None"
+        },
+        {
+            "Name": "374b",
+            "Description": "Illegal disposal",
+            "CodeType": "Violation Code",
+            "ViolationCodeDescription": "Littering, defacement or unsanitary waste disposal",
+            "ViolationCodeNote": "None"
+        },
+        {
+            "Name": "488",
+            "Description": "Theft",
+            "CodeType": "Violation Code",
+            "ViolationCodeDescription": "Unlawful taking or scavenging of property",
+            "ViolationCodeNote": "None"
+        },
+        {
+            "Name": "647f",
+            "Description": "Civic dysfunction",
+            "CodeType": "Violation Code",
+            "ViolationCodeDescription": "Public intoxication or impairment",
+            "ViolationCodeNote": "None"
+        }
+    ]
+}

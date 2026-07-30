@@ -1,0 +1,58 @@
+{
+    "Codes": [
+        {
+            "Name": "Sociostable",
+            "Description": "",
+            "CodeType": "Override Code",
+            "OverrideCodeDescription": [
+                "Applicable to isolated, limited anti-civil actions that do not affect the wider populace",
+                "Maintained during minimal disruptions when civil order remains intact"
+            ],
+            "OverrideCodeDirectives": [
+                "No additional directives"
+            ]
+        },
+        {
+            "Name": "Unrest Procedure",
+            "Description": "",
+            "CodeType": "Override Code",
+            "OverrideCodeDescription": [
+                "Mandatory when communal unrest or riots are detected",
+                "This procedure requires a broader response and escalation of force to address widespread threats and restore order"
+            ],
+            "OverrideCodeDirectives": [
+                "Form response teams and converge on reported areas of communal unrest or active riots",
+                "Use additional lethal force to pacify or neutralize individuals participating in riots",
+                "Establish checkpoints and conduct mandated searches"
+            ]
+        },
+        {
+            "Name": "Containment Procedure",
+            "Description": "",
+            "CodeType": "Override Code",
+            "OverrideCodeDescription": [
+                "Signifies a significant breach by a foreign entity in a Combine-controlled area",
+                "Authorizes deployment of protection and stabilization teams to quell the incursion"
+            ],
+            "OverrideCodeDirectives": [
+                "Prioritize efforts on containing incursion within the compromised Combine installation",
+                "Form containment teams and converge on reported areas of infection",
+                "Use lethal force to sterilize all reported threats"
+            ]
+        },
+        {
+            "Name": "Lockdown Procedure",
+            "Description": "",
+            "CodeType": "Override Code",
+            "OverrideCodeDescription": [
+                "Enacted when restricting civic movement is necessary to achieve operational objectives",
+                "This procedure enforces compliance and serves as a communal punishment to maintain order"
+            ],
+            "OverrideCodeDirectives": [
+                "Ensure all civilians relocate to their designated tenement buildings immediately",
+                "Conduct surface sector sweeps of all areas under Civil Protection jurisdiction",
+                "Perform routine perimeter patrols to maintain security and prevent unauthorized access"
+            ]
+        }
+    ]
+}

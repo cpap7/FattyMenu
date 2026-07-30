@@ -1,0 +1,60 @@
+{
+    "Terms": [
+        {
+            "Name": "Combine Civil Code",
+            "Description": "The 'law' imposed by the Combine Civil Authority"
+        },
+        {
+            "Name": "Civic trust",
+            "Description": "The 'trust' in a citizen to be law-abiding. Crimes are a breach of civic trust"
+        },
+        {
+            "Name": "Loyalty check procedure",
+            "Description": "A performative test/instruction to gauge a citizen's obedience/status"
+        },
+        {
+            "Name": "Memory replacement",
+            "Description": "To receive a memory-altering procedure that washes away traumatic or negative sensations as part of the transhuman conversion process"
+        },
+        {
+            "Name": "Recall and recycle",
+            "Description": "Withdraw from assigned objective and face disciplinary action"
+        },
+        {
+            "Name": "Miscount",
+            "Description": "Less or more citizens than to be accounted for"
+        },
+        {
+            "Name": "Incursion",
+            "Description": "A hostile breach of a Combine-controlled area"
+        },
+        {
+            "Name": "Permissive inactive coercion",
+            "Description": "Failure of an individual to report malcompliance in the community"
+        },
+        {
+            "Name": "Viral interface bypass",
+            "Description": "Unauthorized security systems breach/hacking a Combine interface"
+        },
+        {
+            "Name": "Socio-endangerment",
+            "Description": "Actions that threaten the stability of an urban zone"
+        },
+        {
+            "Name": "Malcompliance",
+            "Description": "Disobedience or failure to cooperate"
+        },
+        {
+            "Name": "Malignancy",
+            "Description": "Organized disobedience or dissent against the Combine"
+        },
+        {
+            "Name": "Active signature imprint",
+            "Description": "A strong energy signature from a specified location"
+        },
+        {
+            "Name": "Passive signature imprint",
+            "Description": "A faint energy signature from a specified region"
+        }
+    ]
+}

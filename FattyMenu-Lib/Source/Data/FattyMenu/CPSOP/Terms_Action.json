@@ -1,0 +1,96 @@
+{
+    "Terms": [
+        {
+            "Name": "Administer",
+            "Description": "Manage or apply procedures for control or compliance"
+        },
+        {
+            "Name": "Amputate",
+            "Description": "Execute, used metaphorically to describe cutting off parts of a group or structure"
+        },
+        {
+            "Name": "Apply",
+            "Description": "Put into action or use a particular tool or procedure (e.g., apply forward pressure)"
+        },
+        {
+            "Name": "Cauterize",
+            "Description": "Take drastic or severe action to stop something harmful (e.g., an infection or rebellion)"
+        },
+        {
+            "Name": "Document",
+            "Description": "Record or observe details, possibly about citizens or locations"
+        },
+        {
+            "Name": "Examine",
+            "Description": "Inspect closely, potentially for assessment or to find faults"
+        },
+        {
+            "Name": "Inject",
+            "Description": "Introduce a substance or directive, into a system or population"
+        },
+        {
+            "Name": "Innoculate",
+            "Description": "Protect against future threats through intense security measures"
+        },
+        {
+            "Name": "Inquire",
+            "Description": "Locate and retrieve a subject for interrogation"
+        },
+        {
+            "Name": "Intercede",
+            "Description": "Intervene in situations, potentially to stop certain actions or conflicts"
+        },
+        {
+            "Name": "Interlock",
+            "Description": "Lock together, unite to form a firm cohesive structure or team"
+        },
+        {
+            "Name": "Investigate",
+            "Description": "Look into an event or anomaly more closely, gathering information"
+        },
+        {
+            "Name": "Isolate",
+            "Description": "Separate an individual from the rest of a group to take punitive action"
+        },
+        {
+            "Name": "Lock",
+            "Description": "Secure an area or mechanism, preventing entry or manipulation"
+        },
+        {
+            "Name": "Pacify",
+            "Description": "To subdue or incapacitate a target, usually via non-lethal means"
+        },
+        {
+            "Name": "Preserve",
+            "Description": "Maintain order or keep an area secure from external threats"
+        },
+        {
+            "Name": "Pressure",
+            "Description": "Apply force or pressure, likely to control or subdue an area or individuals"
+        },
+        {
+            "Name": "Prosecute",
+            "Description": "Take legal or military action against an individual or group"
+        },
+        {
+            "Name": "Restrict",
+            "Description": "Limit movement or access, implementing controls over an area or people"
+        },
+        {
+            "Name": "Search",
+            "Description": "Conduct a search for contraband, individuals, or information"
+        },
+        {
+            "Name": "Serve",
+            "Description": "Deliver a warning, command, or notice, often as part of enforcing civil code"
+        },
+        {
+            "Name": "Sterilize",
+            "Description": "Cleanse an area or remove unwanted elements, often through lethal means"
+        },
+        {
+            "Name": "Suspend",
+            "Description": "Pause or halt a particular operation or activity"
+        }
+    ]
+}

@@ -1,0 +1,24 @@
+{
+    "Terms": [
+        {
+            "Name": "Cohesive",
+            "Description": "Together / working efficiently (e.g., Block is secure and working effectively)"
+        },
+        {
+            "Name": "Cohesion",
+            "Description": "Sticking together (e.g., Officers are sticking together tightly)"
+        },
+        {
+            "Name": "Expired",
+            "Description": "Subject is deceased"
+        },
+        {
+            "Name": "Non-cohesive",
+            "Description": "Separated / working inefficiently (e.g., Squad is separated or down to the last man)"
+        },
+        {
+            "Name": "Tag",
+            "Description": "To confirm a kill or identify a target."
+        }
+    ]
+}

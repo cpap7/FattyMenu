@@ -1,0 +1,46 @@
+{
+    "Codes": [
+        {
+            "Name": "17f",
+            "Description": "Fugitive detachment",
+            "CodeType": "Violation Code",
+            "ViolationCodeDescription": "Harboring or concealing wanted individuals",
+            "ViolationCodeNote": "None"
+        },
+        {
+            "Name": "51",
+            "Description": "Non-sanctioned arson",
+            "CodeType": "Violation Code",
+            "ViolationCodeDescription": "Starting or spreading fire w/o authorization",
+            "ViolationCodeNote": "None"
+        },
+        {
+            "Name": "63s",
+            "Description": "Illegal in operation",
+            "CodeType": "Violation Code",
+            "ViolationCodeDescription": "Obstruction of authorized civic operations",
+            "ViolationCodeNote": "None"
+        },
+        {
+            "Name": "94",
+            "Description": "Weapon",
+            "CodeType": "Violation Code",
+            "ViolationCodeDescription": "Possession or use of any form of a firearm",
+            "ViolationCodeNote": "None"
+        },
+        {
+            "Name": "95",
+            "Description": "Illegal carrying",
+            "CodeType": "Violation Code",
+            "ViolationCodeDescription": "Possession of major contraband articles",
+            "ViolationCodeNote": "Firearms Charge"
+        },
+        {
+            "Name": "603",
+            "Description": "Unlawful entry",
+            "CodeType": "Violation Code",
+            "ViolationCodeDescription": "Gaining entry through force, fraud or deception",
+            "ViolationCodeNote": "None"
+        }
+    ]
+}

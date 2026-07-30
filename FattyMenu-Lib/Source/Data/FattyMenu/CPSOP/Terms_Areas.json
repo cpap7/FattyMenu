@@ -1,0 +1,116 @@
+{
+    "Terms": [
+        {
+            "Name": "Block",
+            "Description": "A small area in the city or a Combine installation or outpost"
+        },
+        {
+            "Name": "Canal block",
+            "Description": "The part of the canals that's still within the city limits"
+        },
+        {
+            "Name": "Control section",
+            "Description": "Controlled area of significance"
+        },
+        {
+            "Name": "Distribution block",
+            "Description": "Storefront or commercial building"
+        },
+        {
+            "Name": "Transit block",
+            "Description": "Bus or train station area"
+        },
+        {
+            "Name": "Polity",
+            "Description": "City or urban center"
+        },
+        {
+            "Name": "Production block",
+            "Description": "Factory or warehouse area"
+        },
+        {
+            "Name": "Residential block",
+            "Description": "Housing area, usually consisting of multiple tenement buildings"
+        },
+        {
+            "Name": "Workforce intake hub",
+            "Description": "One of the only few official channels in or out of a city, often used to take in new citizens from other cities"
+        },
+        {
+            "Name": "Deserviced area",
+            "Description": "An area which is no longer in service by the Combine"
+        },
+        {
+            "Name": "Repurposed area",
+            "Description": "An area that has been refurbished to serve a different purpose than its original"
+        },
+        {
+            "Name": "Condemned zone",
+            "Description": "A restricted area, likely one that is no longer in use"
+        },
+        {
+            "Name": "Industrial zone",
+            "Description": "An industrialized zone containing pre-occupation factories"
+        },
+        {
+            "Name": "Infested zone",
+            "Description": "An area infested by alien presence containing parasites or Xen growth"
+        },
+        {
+            "Name": "Outland zone",
+            "Description": "Areas outside of Combine-controlled cities"
+        },
+        {
+            "Name": "Quarantine zone",
+            "Description": "Restricted area infested by abundant alien presence"
+        },
+        {
+            "Name": "Terminal restriction zone",
+            "Description": "No trespass under penalty of terminal prosecution"
+        },
+        {
+            "Name": "404 zone",
+            "Description": "An area where a riot or active communal unrest is currently ongoing"
+        },
+        {
+            "Name": "Section",
+            "Description": "A large area in the city determining Civil Protection jurisdiction"
+        },
+        {
+            "Name": "Sector",
+            "Description": "A large region under Combine control/jurisdiction"
+        },
+        {
+            "Name": "Vector",
+            "Description": "The position of one point in space relative to another"
+        },
+        {
+            "Name": "Zone",
+            "Description": "A large purpose-oriented area, such as the industrial region of a city, a quarantine or the areas in between cities"
+        },
+        {
+            "Name": "Central Transport Facility",
+            "Description": "A depot housing prisoners and/or stalkers"
+        },
+        {
+            "Name": "Citadel",
+            "Description": "A Combine megastructure that houses a bulk of the Combine's assets"
+        },
+        {
+            "Name": "Hardpoint",
+            "Description": "An outlying structure or defensive position outside of a fortification"
+        },
+        {
+            "Name": "Nexus",
+            "Description": "A command center for the Combine Overwatch's forces in a given region"
+        },
+        {
+            "Name": "High priority region",
+            "Description": "An area with significant importance to the Combine"
+        },
+        {
+            "Name": "Non-patrol region",
+            "Description": "An area in which no effort is put into controlling"
+        }
+    ]
+}

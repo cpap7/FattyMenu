@@ -1,0 +1,34 @@
+{
+    "Codes": [
+        {
+            "Name": "11-6",
+            "Description": "Illegal discharge of firearms",
+            "CodeType": "Eleven Code"
+        },
+        {
+            "Name": "11-42",
+            "Description": "Medical team not required",
+            "CodeType": "Eleven Code"
+        },
+        {
+            "Name": "11-43",
+            "Description": "Medical team required",
+            "CodeType": "Eleven Code"
+        },
+        {
+            "Name": "11-44",
+            "Description": "Cleanup team required",
+            "CodeType": "Eleven Code"
+        },
+        {
+            "Name": "11-94",
+            "Description": "Pedestrian stop",
+            "CodeType": "Eleven Code"
+        },
+        {
+            "Name": "11-99",
+            "Description": "Officer needs immediate help",
+            "CodeType": "Eleven Code"
+        }
+    ]
+}

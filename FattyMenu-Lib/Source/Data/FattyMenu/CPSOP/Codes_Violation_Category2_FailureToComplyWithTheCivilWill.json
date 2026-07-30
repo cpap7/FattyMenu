@@ -1,0 +1,46 @@
+{
+    "Codes": [
+        {
+            "Name": "35",
+            "Description": "Civil privacy violation",
+            "CodeType": "Violation Code",
+            "ViolationCodeDescription": "Unauthorized intrusion, observation or harassment",
+            "ViolationCodeNote": "None"
+        },
+        {
+            "Name": "59",
+            "Description": "Movement transgression",
+            "CodeType": "Violation Code",
+            "ViolationCodeDescription": "Excessive running, jumping or unauthorized movement",
+            "ViolationCodeNote": "None"
+        },
+        {
+            "Name": "63",
+            "Description": "Criminal trespass",
+            "CodeType": "Violation Code",
+            "ViolationCodeDescription": "Entering a restricted area w/o authorization",
+            "ViolationCodeNote": "None"
+        },
+        {
+            "Name": "148",
+            "Description": "Resisting arrest",
+            "CodeType": "Violation Code",
+            "ViolationCodeDescription": "Resisting, evading or fleeing from prosecution",
+            "ViolationCodeNote": "None"
+        },
+        {
+            "Name": "507",
+            "Description": "Public non-compliance",
+            "CodeType": "Violation Code",
+            "ViolationCodeDescription": "Failure to comply w/ lawful directives",
+            "ViolationCodeNote": "None"
+        },
+        {
+            "Name": "647e",
+            "Description": "Disengaged from workforce",
+            "CodeType": "Violation Code",
+            "ViolationCodeDescription": "Deviating from assigned duties or non-corplex status",
+            "ViolationCodeNote": "None"
+        }
+    ]
+}

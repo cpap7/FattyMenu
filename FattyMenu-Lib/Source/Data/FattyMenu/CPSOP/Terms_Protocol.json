@@ -1,0 +1,24 @@
+{
+    "Terms": [
+        {
+            "Name": "Emergency code",
+            "Description": "Rules of operation during a priority emergency"
+        },
+        {
+            "Name": "Overload protocol",
+            "Description": "A directive to use maximum force to contain or neutralize the situation"
+        },
+        {
+            "Name": "Prosecution code",
+            "Description": "Rules of operation for teams called to prosecute an individual"
+        },
+        {
+            "Name": "Response code",
+            "Description": "Required form of response to a given situation and its level of urgency"
+        },
+        {
+            "Name": "Sacrifice code",
+            "Description": "Achieve the given task even if it equates to certain death"
+        }
+    ]
+}

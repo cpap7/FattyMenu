@@ -1,0 +1,52 @@
+{
+    "Terms": [
+        {
+            "Name": "Combine Overwatch",
+            "Description": "The Combine's joint humanoid military and police forces on Earth"
+        },
+        {
+            "Name": "Airwatch",
+            "Description": "An aerial support and surveillance branch"
+        },
+        {
+            "Name": "Civil Protection",
+            "Description": "A conscripted human law enforcement force"
+        },
+        {
+            "Name": "Transhuman forces",
+            "Description": "A military ground force of modified human soldiers"
+        },
+        {
+            "Name": "Synths",
+            "Description": "A conglomerate of modified species from various other worlds"
+        },
+        {
+            "Name": "Civic populace",
+            "Description": "All humans designated as citizens within a Combine-controlled city"
+        },
+        {
+            "Name": "Industrial Workforce",
+            "Description": "The Combine's humanoid civilian labor force"
+        },
+        {
+            "Name": "Engineer Core",
+            "Description": "A non-combatant technician unit that participates in the maintenance or construction of Combine technology and other infrastructure"
+        },
+        {
+            "Name": "Infestation Control",
+            "Description": "A non-combatant HAZMAT service that specializes in cleaning up areas that have been infested with alien flora and fauna from Xen"
+        },
+        {
+            "Name": "Science Core",
+            "Description": "A non-combatant human scientific division"
+        },
+        {
+            "Name": "Medical Workforce",
+            "Description": "A volunteer-sanctioned medical group organized by civilians"
+        },
+        {
+            "Name": "Security Council",
+            "Description": "The puppet civilian body utilized to oversee minor civic affairs and spread Combine-affiliated propaganda"
+        }
+    ]
+}

@@ -1,0 +1,64 @@
+{
+    "Codes": [
+        {
+            "Name": "ADW",
+            "Description": "Assault with a deadly weapon",
+            "CodeType": "Abbreviation"
+        },
+        {
+            "Name": "BOL",
+            "Description": "Be on lookout",
+            "CodeType": "Abbreviation"
+        },
+        {
+            "Name": "CPT",
+            "Description": "Civil Protection Team",
+            "CodeType": "Abbreviation"
+        },
+        {
+            "Name": "DB",
+            "Description": "Dead body",
+            "CodeType": "Abbreviation"
+        },
+        {
+            "Name": "GOA",
+            "Description": "Gone on arrival",
+            "CodeType": "Abbreviation"
+        },
+        {
+            "Name": "OC",
+            "Description": "Off course (direction)",
+            "CodeType": "Abbreviation"
+        },
+        {
+            "Name": "UPI",
+            "Description": "Unidentified person of interest",
+            "CodeType": "Abbreviation"
+        },
+        {
+            "Name": "UTL",
+            "Description": "Unable to locate",
+            "CodeType": "Abbreviation"
+        },
+        {
+            "Name": "34s",
+            "Description": "Shooting",
+            "CodeType": "Abbreviation"
+        },
+        {
+            "Name": "187",
+            "Description": "Homicide (murder)",
+            "CodeType": "Abbreviation"
+        },
+        {
+            "Name": "415b",
+            "Description": "Investigating disturbance",
+            "CodeType": "Abbreviation"
+        },
+        {
+            "Name": "505",
+            "Description": "Reckless driving",
+            "CodeType": "Abbreviation"
+        }
+    ]
+}

@@ -1,0 +1,39 @@
+{
+    "Codes": [
+        {
+            "Name": "VERBAL WARNING",
+            "Description": "A response to minor infractions, typically delivering up to 2 verbal warnings. If the misconduct persists, more severe penalties may be warranted.",
+            "CodeType": "Verdict Code"
+        },
+        {
+            "Name": "CITATION",
+            "Description": "A stern, final warning issued before considering prosecution, involving the use of 1 - 3 non-lethal strikes w/ a stun baton to subdue the suspect. It's employed when prosecution is deemed unnecessary and verbal warnings have been proven to be ineffective.",
+            "CodeType": "Verdict Code"
+        },
+        {
+            "Name": "PROSECUTION",
+            "Description": "Involves processing the suspect at the nearest Combine interface and inputting their committed violations & verdict code in the civic registrar before imprisoning them.",
+            "CodeType": "Verdict Code"
+        },
+        {
+            "Name": "TERMINAL PROSECUTION",
+            "Description": "Refers to the execution of the suspect, which takes place in a concealed location after they've been processed.",
+            "CodeType": "Verdict Code"
+        },
+        {
+            "Name": "DISASSOCIATION",
+            "Description": "Involves removing the suspect from the civic populace and holding them until they are transferred into the custody of available stabilization delegates for processing.",
+            "CodeType": "Verdict Code"
+        },
+        {
+            "Name": "AMPUTATION",
+            "Description": "Signifies summary execution of the suspect, conducted w/o processing them and away from the civic populace.",
+            "CodeType": "Verdict Code"
+        },
+        {
+            "Name": "IMMEDIATE AMPUTATION",
+            "Description": "Distinguishes the immediate execution of the suspect at the scene, conducted w/o processing them or within view of the civic populace.",
+            "CodeType": "Verdict Code"
+        }
+    ]
+}

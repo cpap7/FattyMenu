@@ -1,0 +1,80 @@
+{
+    "Terms": [
+        {
+            "Name": "Containment field",
+            "Description": "Refers to a Combine force field used to seal or separate areas"
+        },
+        {
+            "Name": "Ground unit",
+            "Description": "Refers to any Overwatch personnel operating on the ground"
+        },
+        {
+            "Name": "Protection team",
+            "Description": "Refers to a squad of metro cops"
+        },
+        {
+            "Name": "Restrictor",
+            "Description": "Refers to an antlion deterrent device (thumper)"
+        },
+        {
+            "Name": "Stabilization delegate",
+            "Description": "Refers to an individual Combine soldier"
+        },
+        {
+            "Name": "Stabilization force",
+            "Description": "Refers to a detachment or garrison of Combine soldiers"
+        },
+        {
+            "Name": "Stabilization team",
+            "Description": "Refers to a squad of Combine soldiers"
+        },
+        {
+            "Name": "Tag unit",
+            "Description": "Refers to any Combine Scanner"
+        },
+        {
+            "Name": "Technician team",
+            "Description": "Refers to a group of Combine engineers"
+        },
+        {
+            "Name": "Sterilizer",
+            "Description": "Refers to a Combine sentry gun (ground/ceiling turret)"
+        },
+        {
+            "Name": "Viscerator",
+            "Description": "Refers to an autonomous aerial weapon (manhack)"
+        },
+        {
+            "Name": "Anti-fatigue",
+            "Description": "An energy stimulant mixed into rations"
+        },
+        {
+            "Name": "Bodypack",
+            "Description": "Armor, typically a combat vest"
+        },
+        {
+            "Name": "Gene-code",
+            "Description": "Genetic markers used to restrict access to Combine equipment to certain individuals"
+        },
+        {
+            "Name": "Reproduction credit",
+            "Description": "Reward currency for both Civil Protection and the civic populace"
+        },
+        {
+            "Name": "Sterilized credit",
+            "Description": "Reward currency for both Civil Protection and the civic populace"
+        },
+        {
+            "Name": "Stim-boost",
+            "Description": "A drug that allows the user to get back into the fight quickly"
+        },
+        {
+            "Name": "Stim-dose",
+            "Description": "A medical vial or syringe which injects a substance with healing properties"
+        },
+        {
+            "Name": "Verdict",
+            "Description": "Ammunition, gunfire (also refers to type of punishment issued)"
+        }
+    ]
+}

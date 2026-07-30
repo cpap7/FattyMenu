@@ -1,0 +1,16 @@
+{
+    "CivicRewards": [
+        {
+            "Number": "T94-322",
+            "Description": "Cleaning, removing litter and disposing of trash in a specified area"
+        },
+        {
+            "Number": "T47-941",
+            "Description": "Auditing distribution blocks for contraband and other anti-civil activity"
+        },
+        {
+            "Number": "T37-584",
+            "Description": "Monitoring residential blocks for overcrowding, contraband, etc."
+        }
+    ]
+}

@@ -1,0 +1,52 @@
+{
+    "Terms": [
+        {
+            "Name": "Anti-citizen",
+            "Description": "A status bestowed to a citizen who is deemed a threat"
+        },
+        {
+            "Name": "Biotic",
+            "Description": "Living organisms, distinct from synthetic or mechanical entities (i.e., antlions, vortiguants, etc.)"
+        },
+        {
+            "Name": "Exogen",
+            "Description": "External forces, typically referring to any hostile entities outside of Combine's control"
+        },
+        {
+            "Name": "Malcompliant",
+            "Description": "An individual who is disobedient or engages in defiance"
+        },
+        {
+            "Name": "Malignant",
+            "Description": "Used to describe a criminally active or a malicious force / threat"
+        },
+        {
+            "Name": "Necrotic",
+            "Description": "Reanimated organisms, commonly referred to as zombies"
+        },
+        {
+            "Name": "Non-citizen",
+            "Description": "A status bestowed to an individual stripped of their citizenship"
+        },
+        {
+            "Name": "Non-corplex indy",
+            "Description": "A non-metroplex, unregistered individual"
+        },
+        {
+            "Name": "Parasitic/parasite",
+            "Description": "Headcrab"
+        },
+        {
+            "Name": "Person of interest",
+            "Description": "A person being monitored, sought or questioned in connection with a criminal investigation or security operation, especially as a potential suspect"
+        },
+        {
+            "Name": "Political conscript",
+            "Description": "Enslaved vortigaunts or prisoners"
+        },
+        {
+            "Name": "Virome",
+            "Description": "A pack, group or community of aliens"
+        }
+    ]
+}

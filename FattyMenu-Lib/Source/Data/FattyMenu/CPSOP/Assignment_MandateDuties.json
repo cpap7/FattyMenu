@@ -1,0 +1,27 @@
+{
+    "Assignments": [
+        {
+            "Name": "Curfew Procedure",
+            "Type": "Civil Protection",
+            "CPUnitsRequired": "RECOMMENDED: At least 3 units (team) per residential block",
+            "Description": [
+                "Conduct thorough block inspections",
+                "Ensure unemployed citizens are inside their assigned tenement building",
+                "Ensure employed citizens are inside their workstations",
+                "Direct new arrivals at WIH-3 to their assigned tenement building",
+                "Ensure new arrivals do not leave WIH-3 without a protection unit to escort them\nNOTE: Residential block inspections can be performed at any time and is not mandatory during curfews",
+                "NOTE: 40+ units (and above) may modify containment field access modes at their discretion to control civilian traffic with better precision"
+            ]
+        },
+        {
+            "Name": "Ration Intake Detail",
+            "Type": "Civil Protection",
+            "CPUnitsRequired": "RECOMMENDED: At least 3 units (team)",
+            "Description": [
+                "Execute strict oversight during communal ration distribution",
+                "Ensure citizens are:\n -> Facing forward\n -> Maintaining civil privacy\n -> Remaining silent while waiting in line",
+                "Remove citizens who do not follow directives, or who are not assigned to a housing block"
+            ]
+        }
+    ]
+}

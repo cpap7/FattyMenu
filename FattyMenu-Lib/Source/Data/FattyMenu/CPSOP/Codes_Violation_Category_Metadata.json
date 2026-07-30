@@ -1,0 +1,34 @@
+{
+    "ViolationCodeCategories": [
+        {
+            "Name": "VIOLATION OF CIVIC TRUST",
+            "Description": "Actions that undermine civic responsibility, authorized resource allocation, workforce obligations or public trust\n",
+            "TableID": "ViolationOfCivicTrustTable",
+            "Footnote": "Sanctioned distribution requires the permit holder to distribute only items corresponding to their permit inside their assigned distribution block. Units with at least 40 rank points may authorize distribution outside of their assigned block. Combine anti-fatigue rations may not be distributed whatsoever."
+        },
+        {
+            "Name": "FAILURE TO COMPLY WITH THE CIVIL WILL",
+            "Description": "Failure to obey, respect, or cooperate w / lawful directives issued by Civil Protection\n",
+            "TableID": "FailureToComplyWithTheCivilWillTable",
+            "Footnote": ""
+        },
+        {
+            "Name": "PROMOTING COMMUNAL UNREST",
+            "Description": "Actions intended to disrupt civic harmony, encourage disorder or undermine public stability\n",
+            "TableID": "PromotingCommunalUnrestTable",
+            "Footnote": ""
+        },
+        {
+            "Name": "DIVISIVE SOCIOCIDAL COUNTER-OBEYANCE",
+            "Description": "Organized resistance to authority, interference with operations, or support of anti - civil elements\n",
+            "TableID": "DivisiveSociocidalCounterObeyanceTable",
+            "Footnote": ""
+        },
+        {
+            "Name": "DESTRUCTION OF CORPORAL SOCIAL PROTECTION UNITS",
+            "Description": "Acts resulting in damage to Civil Protection personnel, assets or operational capability\n",
+            "TableID": "DestructionOfCorporalSocialProtectionUnitsTable",
+            "Footnote": ""
+        }
+    ]
+}

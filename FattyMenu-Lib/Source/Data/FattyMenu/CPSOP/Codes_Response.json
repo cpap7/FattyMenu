@@ -1,0 +1,39 @@
+{
+    "Codes": [
+        {
+            "Name": "Code 1",
+            "Description": "Non-urgent - respond at your convenience",
+            "CodeType": "Response Code"
+        },
+        {
+            "Name": "Code 2",
+            "Description": "Urgent - respond if not under assignment",
+            "CodeType": "Response Code"
+        },
+        {
+            "Name": "Code 3",
+            "Description": "Emergency - respond immediately",
+            "CodeType": "Response Code"
+        },
+        {
+            "Name": "Code 4",
+            "Description": "No further assistance required",
+            "CodeType": "Response Code"
+        },
+        {
+            "Name": "Code 7",
+            "Description": "Out of service to eat or resupply ammunition",
+            "CodeType": "Response Code"
+        },
+        {
+            "Name": "Code 12",
+            "Description": "Patrol your district and report the extent of damage",
+            "CodeType": "Response Code"
+        },
+        {
+            "Name": "Code 100",
+            "Description": "In position to intercept suspect",
+            "CodeType": "Response Code"
+        }
+    ]
+}

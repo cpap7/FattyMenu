@@ -1,0 +1,18 @@
+{
+    "Codes": [
+        {
+            "Name": "51b",
+            "Description": "Threat to property",
+            "CodeType": "Violation Code",
+            "ViolationCodeDescription": "Damage to Combine equipment, assets or infrastructure",
+            "ViolationCodeNote": "None"
+        },
+        {
+            "Name": "243",
+            "Description": "Assault on protection team",
+            "CodeType": "Violation Code",
+            "ViolationCodeDescription": "Any threat, physical contact or use of force directed against Overwatch forces",
+            "ViolationCodeNote": "None"
+        }
+    ]
+}
