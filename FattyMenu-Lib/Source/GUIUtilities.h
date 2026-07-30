@@ -1,6 +1,8 @@
 #pragma once
 #include "GUI.h"
 
+#include "Texture2D.h"
+
 #include <functional>
 #include <vector>
 #include <stdarg.h>
@@ -25,6 +27,37 @@ namespace FattyMenu {
 		}
 
 		namespace Helpers {
+
+			/*	Draws a 2D texture centered horizontally in the current content region
+			*	Shows red error text (and does nothing else) if the texture fails to load
+			*	@param a_texture		-> the texture to draw (kept alive by the caller)
+			*	@param a_scale			-> uniform draw scale
+			*	@param a_error_color	-> color used for the failure message
+			*/
+			inline bool DrawCenteredTexture(const CTexture2D& a_texture, float* a_scale,
+				const ImVec4& a_error_color = ImVec4(1.0f, 0.0f, 0.0f, 1.0f)) {
+
+				if (!a_texture.HasLoadedOK()) {
+					ImGui::TextColored(a_error_color, "Failed to load image");
+					return false;
+				}
+				
+				float scale = *a_scale;
+				ImVec2 image_size(a_texture.GetWidth() * scale, a_texture.GetHeight() * scale);
+				
+				const float available_width = ImGui::GetContentRegionAvail().x;
+				const float offset_x = (available_width - image_size.x) * 0.5f;
+				if (offset_x > 0.0f) {
+					ImGui::SetCursorPosX(ImGui::GetCursorPosX() + offset_x);
+				}
+				
+				ImGui::Image((ImTextureID)(intptr_t)a_texture.GetHandle(), image_size);
+
+				return true;
+			}
+
+
+
 			// Helper function for wrapped colored text within a table that respects the current table column's right edge
 			inline void WrappedTableCellColoredText(const ImVec4& a_color, const char* a_fmt, ...) {
 				ImGui::PushTextWrapPos(ImGui::GetCursorPosX() + ImGui::GetColumnWidth());
