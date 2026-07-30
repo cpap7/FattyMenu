@@ -2,7 +2,7 @@
 
 // DirectX9 dependencies
 #include <d3d9.h>
-#include <d3dx9tex.h>
+#include <d3dx9.h>
 #pragma comment(lib, "d3dx9")
 
 // ImGUI headers
@@ -19,43 +19,38 @@
 namespace FattyMenu {
 	// TODO: Refactor to use classes
 	// CApplication class (main coordinator w/ static singleton for accessing)
-	// CFunctionDetourManager, CWindow, CMenu, ITab, CTexture2D etc.
+	// CFunctionDetourManager, CWindow, CImGuiOverlay, IPanel etc.
 	namespace GUI {
-		inline bool g_open_imgui			= true;								// For controlling when ImGui should be shown
+		// ImGui controls
+		inline bool g_open_panels											= true;								// For controlling when the panels are shown
 
-		inline bool g_initialized				= false;						// For determining whether the ImGui menu/context finished setup & ready (or not)
-		inline bool g_setup_complete			= false;						// For determining whether the module thread + hooks setup is finished
+		// Setup tracking
+		inline bool g_initialized												= false;						// For determining whether the ImGui menu/context finished setup & ready (or not)
+		inline bool g_setup_complete											= false;						// For determining whether the module thread + hooks setup is finished
 
 		// WinAPI related variables
-		inline HWND g_window					= nullptr;						// Window handle used for manual map injection
-		inline WNDCLASSEX g_window_class		= { };
-		inline WNDPROC g_original_window_proc	= nullptr;						// For restoring the original window process
-		static HMODULE g_module					= nullptr;
-
+		inline HWND g_window													= nullptr;						// Window handle used for manual map injection
+		inline WNDCLASSEX g_window_class										= { };
+		inline WNDPROC g_original_window_proc									= nullptr;						// For restoring the original window process
+		static HMODULE g_module													= nullptr;
 
 		// DirectX9 related variables
-		inline LPDIRECT3DDEVICE9 g_d3d9_device	= nullptr;
-		inline LPDIRECT3D9 g_d3d9				= nullptr;
+		inline LPDIRECT3DDEVICE9 g_d3d9_device									= nullptr;
+		inline LPDIRECT3D9 g_d3d9												= nullptr;		
 
-		// For managing initialization state for Garry's Mod module functions
-		static bool g_gmod_initialized			= false;
-		static HWND g_gmod_window				= nullptr;						// Window handle for Garry's Mod direct loading
+		// D3DX9 related variables
+		// Alias for D3DXCreateTextureFromFileA function signature
+		using CreateTextureFn = HRESULT(__stdcall*)(
+			LPDIRECT3DDEVICE9,		// pDevice
+			LPCSTR,					// pSrcFile
+			LPDIRECT3DTEXTURE9*		// ppTexture
+		);
 
+		inline CreateTextureFn g_create_texture_fn								= nullptr;						// Function pointer to D3DX's create texture method
+		static HMODULE g_d3dx9_module_handle									= nullptr;
 
-		// Enums for determining load method (either manual map or direct load via Garry's Mod)
-		enum class ELoadMethod {
-			Unknown,
-			ManualMap,
-			GarrysModLoad
-		};
-
-		// Initial load method is set to unknown
-		inline ELoadMethod g_load_method = ELoadMethod::Unknown;
 
 		/* Function Prototypes */
-
-		// Texture loading
-		bool LoadTextureFromFile(const std::string& a_file_path, PDIRECT3DTEXTURE9* a_out_texture, int* a_out_width, int* a_out_height);
 
 		// Window class functions
 		bool InitializeWindowClass(const char* a_window_class_name) noexcept;	// Registers the window class
@@ -65,17 +60,15 @@ namespace FattyMenu {
 		bool InitializeWindow(const char* a_window_name) noexcept;				// Registers the window
 		void DestroyWindow();													// Unregisters the window
 
-		// Function prototypes for direct load via Garry's Mod
-		BOOL CALLBACK EnumWindowsCallback(HWND a_handle, LPARAM a_lparam);
-		HWND FindGameWindow();
-		void HookWindowProc(); 		// TODO: REMOVE
-
 		// DirectX9 setup and cleanup
-		bool InitializeDirectX9() noexcept;										// Sets up DirectX
-		void DestroyDirectX9() noexcept;										// Unregisters DirectX
+		bool InitializeDirectX9() noexcept;										// Sets up Direct3D9 resources
+		void DestroyDirectX9() noexcept;										// Unloads Direct3D9 resources
 
-		// Device setup
-		void InitializeDevice();												// Sets up/registers the device
+		bool InitializeD3DX9() noexcept;										// Checks if the user has DXD9 runtime dlls installed on their machine (for texture loading) and caches the function pointer
+		void DestroyD3DX9() noexcept;
+
+		// Application setup
+		void Initialize();														// Sets up/registers everything
 
 		// ImGUI setup
 		void InitializeMenu(LPDIRECT3DDEVICE9 a_d3d9_device) noexcept;			// Sets up the ImGUI menu

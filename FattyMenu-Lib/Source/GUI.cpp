@@ -1,78 +1,58 @@
 #include "GUI.h"
 
-// ImGui menu tabs
+// Main panel tabs
 #include "Core/Tabs/CPSOP.h"
 #include "Core/Tabs/TFSOP.h"
 #include "Core/Tabs/VoicelineLibrary.h"
 #include "Core/Tabs/PermitMenu.h"
 #include "Core/Tabs/Notepad.h"
 
+#include "Core/Panels/Map/Map.h"
+
 #include <tchar.h> // Message box formatting
 #include <filesystem>
 
 /* Function Prototypes */
 // ImGUI Window Process Handler
-extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND window, UINT message, WPARAM wide_param, LPARAM long_param);
+extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND a_window, UINT a_message, WPARAM a_wide_param, LPARAM a_long_param);
 
 // Window Process
-LRESULT CALLBACK WindowProcess(HWND window, UINT message, WPARAM wide_param, LPARAM long_param);
+LRESULT CALLBACK HandleWindowProcessMessages(HWND a_window, UINT a_message, WPARAM a_wide_param, LPARAM a_long_param);
 
 namespace FattyMenu {
-
-	bool GUI::LoadTextureFromFile(const std::string& a_file_path, PDIRECT3DTEXTURE9* a_out_texture, int* a_out_width, int* a_out_height) {
-		LPDIRECT3DDEVICE9 device = ImGui_ImplDX9_GetDevice(); // This is not shipped with ImGui - it'll need to be reimplemented if ImGui is updated later
-
-		// Load texture from disk
-		PDIRECT3DTEXTURE9 texture = nullptr;
-		HRESULT hr = D3DXCreateTextureFromFileA(device, a_file_path.c_str(), &texture);
-		if (hr != S_OK) {
-			return false;
-		}
-
-		// Retrieve description of texture surface so we can get its size
-		D3DSURFACE_DESC image_desc;
-		texture->GetLevelDesc(0, &image_desc);
-		
-		*a_out_texture	= texture;
-		*a_out_width	= static_cast<int>(image_desc.Width);
-		*a_out_height	= static_cast<int>(image_desc.Height);
-
-		return true;
-	}
 
 	// Sets up the window class
 	bool GUI::InitializeWindowClass(const char* a_window_class_name) noexcept {
 		// Populate the window class' attributes
-		g_window_class.cbSize = sizeof(WNDCLASSEX);			// Set the size
-		g_window_class.style = CS_HREDRAW | CS_VREDRAW;		// Set the style
-		g_window_class.lpfnWndProc = DefWindowProc;			// Set the window to be the default window process
-		g_window_class.cbClsExtra = 0;
-		g_window_class.cbWndExtra = 0;
-		g_window_class.hInstance = GetModuleHandle(NULL);	// Set the instance handle to NULL
-		g_window_class.hIcon = NULL;
-		g_window_class.hCursor = NULL;
-		g_window_class.hbrBackground = NULL;
-		g_window_class.lpszMenuName = NULL;
-		g_window_class.lpszClassName = a_window_class_name;
-		g_window_class.hIconSm = NULL;
+		g_window_class.cbSize			= sizeof(WNDCLASSEX);			
+		g_window_class.style			= CS_HREDRAW | CS_VREDRAW;		// Style
+		g_window_class.lpfnWndProc		= DefWindowProc;				// Set to be the default window process
+		g_window_class.cbClsExtra		= 0;
+		g_window_class.cbWndExtra		= 0;
+		g_window_class.hInstance		= GetModuleHandle(NULL);		// Instance handle to NULL
+		g_window_class.hIcon			= NULL;
+		g_window_class.hCursor			= NULL;
+		g_window_class.hbrBackground	= NULL;
+		g_window_class.lpszMenuName		= NULL;
+		g_window_class.lpszClassName	= a_window_class_name;
+		g_window_class.hIconSm			= NULL;
 
 		// Ensure the window class is properly registered
 		if (!(RegisterClassEx(&g_window_class))) {
-			// Return false if it isn't
 			return false;
 		}
 
-		// Window class is properly registered otherwise
+		// Window class setup successful
 		return true;
 
 	}
 
 	// Unregisters the window class
 	void GUI::DestroyWindowClass() noexcept {
-		// Call the WinAPI UnregisterClass method
+		// Destruction via WinAPI UnregisterClass method
 		UnregisterClass(
-			g_window_class.lpszClassName,						// Pass the name of the class
-			g_window_class.hInstance							// Pass the instance handle 
+			g_window_class.lpszClassName,					// Pass the name of the class
+			g_window_class.hInstance						// Pass the instance handle 
 		);
 	}
 
@@ -114,26 +94,25 @@ namespace FattyMenu {
 	// Sets up DirectX9
 	bool GUI::InitializeDirectX9() noexcept {
 		// Get the module handle to the DirectX dll
-		const HMODULE handle = GetModuleHandle("d3d9.dll");
+		const HMODULE d3d9_handle = GetModuleHandle("d3d9.dll");
 
-		// Check if the handle is null
-		if (!handle) {
+		if (!d3d9_handle) {
 			return false;
 		}
 
-		using CreateFn = LPDIRECT3D9(__stdcall*)(UINT); // Signature of DirectX's create function (CreateFn) 
+		using CreateFn = LPDIRECT3D9(__stdcall*)(UINT);										// Signature of DirectX's create function (CreateFn) 
 
 		// Declare a variable to hold the address of the create function
-		const auto create = (CreateFn)(GetProcAddress(handle, "Direct3DCreate9"));	// GetProcAddress retrieves exports of dlls		
+		const auto create_fn = (CreateFn)(GetProcAddress(d3d9_handle, "Direct3DCreate9"));	// GetProcAddress retrieves exports of dlls		
 
 		// Check if the create variable is initialized properly
-		if (!create) {
+		if (!create_fn) {
 			return false;
 		}
 
 		// Set the d3d9 pointer to the return value of the create function, 
 		// passing the d3d sdk version to the create function's arguments
-		g_d3d9 = create(D3D_SDK_VERSION);
+		g_d3d9 = create_fn(D3D_SDK_VERSION);
 
 		// Check if the d3d9 pointer was initialized
 		if (!g_d3d9) {
@@ -169,63 +148,64 @@ namespace FattyMenu {
 		return true;
 	}
 
-	// Unregisters DirectX9 
 	void GUI::DestroyDirectX9() noexcept {
 		if (g_d3d9_device) {
 			g_d3d9_device->Release();
-			g_d3d9_device = NULL;
+			g_d3d9_device = nullptr;
 		}
 
 		if (g_d3d9) {
 			g_d3d9->Release();
-			g_d3d9 = NULL;
+			g_d3d9 = nullptr;
 		}
 	}
 
-	// Helper function for populating the gm_window variable
-	BOOL CALLBACK GUI::EnumWindowsCallback(HWND handle, LPARAM lparam) {
-		DWORD wnd_pid;	// Declare a variable to hold the process id for the window
-		GetWindowThreadProcessId(handle, &wnd_pid);	// Grab the process id of the window 
-
-		// Compare the current process id with the one stored previously
-		if (GetCurrentProcessId() != wnd_pid) {
-			return TRUE;
+	bool GUI::InitializeD3DX9() noexcept {
+		const HMODULE d3dx9_module_handle = LoadLibraryA("d3dx9_43.dll"); // Load (may not be mapped yet)
+		if (!d3dx9_module_handle) {
+			return false;	// June 2010 D3D9 redist probably not installed
 		}
 
-		// Otherwise, game window is our handle
-		g_gmod_window = handle;
-		return FALSE;
+		// Look up function
+		const auto create_texture_fn = (CreateTextureFn)(GetProcAddress(d3dx9_module_handle, "D3DXCreateTextureFromFileA"));
+
+		if (!create_texture_fn) {
+			return false;
+		}
+
+		g_d3dx9_module_handle = d3dx9_module_handle;		// Cache the handle
+		g_create_texture_fn = create_texture_fn;			// Cache function ptr
+		return true;										// Setup successful
 	}
 
-	// Finds the game's window based on Garry's Mod dll load method
-	HWND GUI::FindGameWindow() {
-		g_gmod_window = nullptr;
-		EnumWindows(EnumWindowsCallback, NULL);
-		return g_gmod_window;
-	}
+	void GUI::DestroyD3DX9() noexcept {
+		if (g_d3dx9_module_handle) {
+			FreeLibrary(g_d3dx9_module_handle);
+			g_d3dx9_module_handle = nullptr;
+		}
 
-	// Hooks the window process when .dll is loaded by Garry's Mod directly
-	void GUI::HookWindowProc() {
-		if (g_window) {
-			g_original_window_proc = (WNDPROC)SetWindowLongPtr(g_window, GWLP_WNDPROC, (LONG_PTR)WindowProcess);
+		if (g_create_texture_fn) {	
+			g_create_texture_fn = nullptr;
 		}
 	}
 
-	// Sets up the device for manual map injection
-	void GUI::InitializeDevice() {
-		// Check to see the window class was initialized properly
+	void GUI::Initialize() {
+		// Set up window class, window, D3D9 & D3DX9, and throw an error if the setup has issues
+
 		if (!InitializeWindowClass("FattyMenuWndClass")) {
 			throw std::runtime_error("[FattyMenu Error] Window class could not be created.");
 		}
 
-		// Check to see the window was initialized properly
 		if (!InitializeWindow("FattyMenuWnd")) {
 			throw std::runtime_error("[FattyMenu Error] Window could not be created.");
 		}
 
-		// Check to see the DirectX was initialized properly
 		if (!InitializeDirectX9()) {
 			throw std::runtime_error("[FattyMenu Error] D3D9 device could not be created.");
+		}
+
+		if (!InitializeD3DX9()) {
+			throw std::runtime_error("[FattyMenu Error] d3dx9_43.dll could not be loaded/resolved.");
 		}
 
 		// Unregister the Window and Window Class
@@ -243,45 +223,55 @@ namespace FattyMenu {
 
 		// Temp window is destroyed at this point
 		// Thus allowing the menu window to be opened and take priority
-
-		g_window = d3d_params.hFocusWindow; // Set the menu window to the game window
+		g_window = d3d_params.hFocusWindow;						// Set the menu window to the game window
 
 		// Store the original window process
-		g_original_window_proc = (WNDPROC)(SetWindowLongPtr( // Might need to change some type-cast conversions to reinterpret_cast for readability/maintainability later
+		g_original_window_proc = (WNDPROC)(SetWindowLongPtr(	// TODO: Might need to change some type-cast conversions to reinterpret_cast for readability/maintainability later
 			g_window,
 			GWLP_WNDPROC,
-			(LONG_PTR)(WindowProcess)
+			(LONG_PTR)(HandleWindowProcessMessages)
 		));
 
-		ImGui::CreateContext(); 			// Create the ImGUI context
-		ImGui::StyleColorsDark();			// Set the style of the colors
+		ImGui::CreateContext(); 								// Create the ImGUI context
+		ImGui::StyleColorsDark();								// Set the style of the colors
+		
+		GUI::Themes::SetThemeCivilProtection();
 
-		ImGui_ImplWin32_Init(g_window);		// Pass the game's window to ImGui's initialization method
-		ImGui_ImplDX9_Init(a_d3d9_device);	// Pass the DirectX3D9 device to ImGui's initialization method
+		ImGui_ImplWin32_Init(g_window);							// Pass the game's window to ImGui's initialization method
+		ImGui_ImplDX9_Init(a_d3d9_device);						// Pass the DirectX3D9 device to ImGui's initialization method
 
 		ImGuiIO& io = ImGui::GetIO();
 		// Set the mouse cursor flag to not change
 		io.ConfigFlags |= ImGuiConfigFlags_NoMouseCursorChange; // Prevents cursor flickering at the crosshair when the menu is open in-game
 
-		g_initialized = true;			// Menu initialization is complete
+		g_initialized = true;									// Menu initialization is complete
 	}
 
 	// Unregisters everything
 	void GUI::Destroy() noexcept {
-		// Shut down the ImGui context
-		ImGui_ImplDX9_Shutdown();		// Shutdown DirectX
-		ImGui_ImplWin32_Shutdown();		// Shutdown the Window
-		ImGui::DestroyContext();
+		if (g_initialized) {
+			// Shut down ImGui
+			ImGui_ImplDX9_Shutdown();							// Shutdown DirectX
+			ImGui_ImplWin32_Shutdown();							// Shutdown the Window
+			ImGui::DestroyContext();
 
-		// Revert any previous change of the game's window process being superceded by the menu's window process
-		SetWindowLongPtr(
-			g_window,
-			GWLP_WNDPROC,
-			(LONG_PTR)(g_original_window_proc)  // Might need to change type-cast conversion to reinterpret_cast for readability/maintainability later
-		);
+			g_initialized = false;
+		}
 
-		// Unregister DirectX
-		DestroyDirectX9();
+		if (g_window && g_original_window_proc) {
+			// Revert any previous change of the game's window process being superceded by the menu's window process
+			SetWindowLongPtr(
+				g_window,
+				GWLP_WNDPROC,
+				(LONG_PTR)(g_original_window_proc)				// TODO: Might need to change type-cast conversion to reinterpret_cast for readability/maintainability later
+			);
+
+			g_original_window_proc = nullptr;
+		}
+
+		
+		DestroyDirectX9();										// Unregister DirectX
+		DestroyD3DX9();											// Shutdown D3DX9
 	}
 
 	void GUI::Render() noexcept {
@@ -290,21 +280,21 @@ namespace FattyMenu {
 		ImGui_ImplWin32_NewFrame();
 		ImGui::NewFrame();
 
-		GUI::Themes::SetThemeCivilProtection();
 		
 		//ImGui::ShowDemoWindow();
 
 		// ImGui panels begin
 
-		const std::string main_panel_header{ "FattyMenu v1.7.2 | Main Panel | RCTRL = Open or Close | END = Uninject Menu" };
-		const std::string map_panel_header{ "FattyMenu v1.7.2 | Map Panel | RCTRL = Open or Close | END = Uninject Menu" };
+		const std::string main_panel_header{ "FattyMenu v1.7.2 | Main Panel | RALT = Open or Close | END = Uninject Menu" };
+		const std::string map_panel_header{ "FattyMenu v1.7.2 | Map Panel | RALT = Open or Close | END = Uninject Menu" };
 
-		if (ImGui::Begin(map_panel_header.c_str(), &g_open_imgui)) {
+		if (ImGui::Begin(map_panel_header.c_str(), &g_open_panels)) {
+			Map::RenderMap();
 
 			ImGui::End();
 		}
 
-		if (ImGui::Begin(main_panel_header.c_str(), &g_open_imgui)) {
+		if (ImGui::Begin(main_panel_header.c_str(), &g_open_panels)) {
 			// ImGui tab bar begins
 			if (ImGui::BeginTabBar("Menu Tabs")) {
 				// Render Civil Protection operating procedures tab
@@ -332,7 +322,7 @@ namespace FattyMenu {
 				}
 
 				// Render tab for notepads
-				if (ImGui::BeginTabItem("Notepads")) {
+				if (ImGui::BeginTabItem("Notepad")) {
 					// Render general-use notepad
 					Notepad::RenderGeneralUseNotepad();
 
@@ -389,20 +379,20 @@ namespace FattyMenu {
 }
 
 /* Controls window/input priority between the menu window and game process */
-LRESULT CALLBACK WindowProcess(HWND window, UINT message, WPARAM wide_param, LPARAM long_param) {
-	// Check if the menu is toggled on or off
-	if (GetAsyncKeyState(VK_RCONTROL) & 1) {							// '& 1' -> Detect one keystroke
-		FattyMenu::GUI::g_open_imgui = !FattyMenu::GUI::g_open_imgui;	// If true, set to false & vice versa
-																		// e.g.: menu is opened -> you press the key -> it will close & vice versa
+LRESULT CALLBACK HandleWindowProcessMessages(HWND a_window, UINT a_message, WPARAM a_wide_param, LPARAM a_long_param) {
+	// Check if the main panel is toggled on or off (RALT)
+	if (GetAsyncKeyState(VK_RMENU) & 1) {													// '& 1' -> Detect one keystroke
+		FattyMenu::GUI::g_open_panels = !FattyMenu::GUI::g_open_panels;						// If true, set to false & vice versa
+																							// e.g.: menu is opened -> you press the key -> it will close & vice versa
 	}
 
 	// Pass messages to ImGUI
-	if (FattyMenu::GUI::g_open_imgui) {
-		ImGui_ImplWin32_WndProcHandler(window, message, wide_param, long_param); // Have imgui observe message so its state remains current for each frame
+	if (FattyMenu::GUI::g_open_panels) {
+		ImGui_ImplWin32_WndProcHandler(a_window, a_message, a_wide_param, a_long_param);	// Have imgui observe message so its state remains current for each frame
 		const ImGuiIO& io = ImGui::GetIO();
 
 		// Handle class of input and override so game never sees it
-		switch (message) {
+		switch (a_message) {
 			// Handle mouse input
 			case WM_MOUSEMOVE:
 			case WM_LBUTTONDOWN: case WM_LBUTTONUP: case WM_LBUTTONDBLCLK:
@@ -411,7 +401,7 @@ LRESULT CALLBACK WindowProcess(HWND window, UINT message, WPARAM wide_param, LPA
 			case WM_XBUTTONDOWN: case WM_XBUTTONUP:
 			case WM_MOUSEWHEEL:  case WM_MOUSEHWHEEL:
 				if (io.WantCaptureMouse) {
-					return 1L; // Return 1 long -> it won't call the original game process so long as the menu is open
+					return 1L;																// Return 1 long -> it won't call the original game process so long as the menu is open
 				}
 				break;
 			
@@ -432,9 +422,9 @@ LRESULT CALLBACK WindowProcess(HWND window, UINT message, WPARAM wide_param, LPA
 	// Restore input priority back to the game process
 	return CallWindowProc(
 		FattyMenu::GUI::g_original_window_proc,
-		window,
-		message,
-		wide_param,
-		long_param
+		a_window,
+		a_message,
+		a_wide_param,
+		a_long_param
 	);
 }
