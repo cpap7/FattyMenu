@@ -12,39 +12,19 @@ namespace FattyMenu {
 	static ImVec4 s_red_color		= ImVec4(1.0f, 0.0f, 0.0f, 1.0f);
 	static ImVec4 s_yellow_color	= ImVec4(1.0f, 1.0f, 0.0f, 1.0f);
 
-	void CPSOP::DisplayCivilProtectionLogo() {
-		// Texture-related - loaded once
-		static int image_width{ 0 };
-		static int image_height{ 0 };
-		static PDIRECT3DTEXTURE9 texture = nullptr;
-		const std::string file_path = "FattyMenu/Resources/CivilProtectionLogo.png";
-
-		static bool load_attempted{ false };
-		static bool load_ok{ false };
-
-		// Try loading the texture resource image from disk
-		if (!load_attempted) {
-			load_attempted = true;
-			
-			load_ok = GUI::LoadTextureFromFile(file_path, &texture, &image_width, &image_height);
-		}
-		if (!load_ok) {
-			ImGui::TextColored(s_red_color, "Failed to load image from file path: %s", file_path.c_str());
-			return;
-		}
-
-		const float image_scale = 0.5f;
-		const ImVec2 image_size = ImVec2(static_cast<float>(image_width) * image_scale, static_cast<float>(image_height) * image_scale);
-
-		// Display the image at the center of the window
-		float available_width = ImGui::GetContentRegionAvail().x;
-		float offset_x = (available_width - image_size.x) * 0.5f;
-
-		if (offset_x > 0.0f) { 
-			ImGui::SetCursorPosX(ImGui::GetCursorPosX() + offset_x);
-		}
+	void CPSOP::LoadAndDisplayCPLogoTexture() {
+		static float image_scale{ 0.5f };
+		static CTexture2D logo(c_civil_protection_logo_image_file_path);
 		
-		ImGui::Image((ImTextureID)(intptr_t)texture, image_size);
+		// Fallback for loading via manual map injection (it won't resolve the file path right away)
+		if (!GUI::Helpers::DrawCenteredTexture(logo, &image_scale)) {
+			ImGui::Text("File path in memory = %s", logo.GetFilePath().c_str());
+			ImGui::Text("Expected file path = %s", c_civil_protection_logo_image_file_path);
+
+			if (ImGui::Button("Refresh")) {
+				logo.UpdatePathAndReload(c_civil_protection_logo_image_file_path);
+			}
+		}
 	}
 
 	void CPSOP::DisplayCodeInfo(const std::vector<CCode>& a_codes_list) {
@@ -460,7 +440,8 @@ namespace FattyMenu {
 	}
 
 	void CPSOP::RenderCivilProtectionSOP() {
-		DisplayCivilProtectionLogo();
+		LoadAndDisplayCPLogoTexture();
+		
 
 		ImGui::Separator();
 

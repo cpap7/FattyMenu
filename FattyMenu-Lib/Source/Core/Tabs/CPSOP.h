@@ -16,7 +16,7 @@ namespace FattyMenu {
 	namespace CPSOP {
 		/* Function Prototypes */
 
-		void DisplayCivilProtectionLogo();																					// For displaying Civil Protection's logo image
+		void LoadAndDisplayCPLogoTexture();																					// For displaying Civil Protection's logo image
 		
 		void DisplayCodeInfo(const std::vector<CCode>& a_codes); 															// For displaying code information based on code type
 
