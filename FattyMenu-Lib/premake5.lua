@@ -28,12 +28,8 @@ project "FattyMenu-Lib"
 	   "%{IncludeDir.json}",
        "%{IncludeDir.httplib}",
        "%{IncludeDir.html_parser}",
-       "%{IncludeDir.openssl}"
-   }
-   
-   links 
-   {
-		"d3d9",
+       "%{IncludeDir.openssl}",       -- vcpkg
+       "%{IncludeDir.directx9}"       -- DirectX9
    }
    
    postbuildcommands
@@ -45,8 +41,15 @@ project "FattyMenu-Lib"
       systemversion "latest"
       toolset "v145" -- VS 2026
       defines { "FM_PLATFORM_WINDOWS" }
-      libdirs { "%{LibraryDir.openssl}" }
-      links { "ws2_32", "ole32", "winmm", "libssl", "libcrypto", "crypt32" }
+      libdirs 
+      { 
+          "%{LibraryDir.openssl}", "%{LibraryDir.directx9}"
+      }
+      links 
+      { 
+          "ws2_32", "ole32", "winmm", "libssl", "libcrypto", "crypt32",           	-- vcpkg
+          "d3d9", "d3dx9"           												-- DirectX9-related
+      }
 
    filter "configurations:Debug"
       defines { "FM_DEBUG" }
