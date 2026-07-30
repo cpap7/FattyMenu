@@ -3,7 +3,7 @@
 // ImGui dependencies
 #include <../imgui/imgui.h>
 
-#include "../DistributionPermit/PermitLookupTable.h"
+#include "../../DistributionPermit/PermitLookupTable.h"
 
 namespace FattyMenu {
 	// Contains function prototypes for displaying the distribution permit info

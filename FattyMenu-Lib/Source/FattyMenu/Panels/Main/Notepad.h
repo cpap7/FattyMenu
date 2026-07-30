@@ -2,10 +2,9 @@
 
 // ImGui dependencies
 #include <../imgui/imgui.h>
-#include <../imgui/imgui_internal.h>
 
 // GUI utilities
-#include "../../GUIUtilities.h"
+#include "../GUIUtilities.h"
 
 
 namespace FattyMenu {

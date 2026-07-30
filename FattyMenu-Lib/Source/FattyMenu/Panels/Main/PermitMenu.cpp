@@ -1,8 +1,8 @@
 #include "PermitMenu.h"
 
-#include "../Serialization/ContentSerializer.h"
+#include "../../Serialization/ContentSerializer.h"
 
-#include "../../GUIUtilities.h" // For wrapped cell text helper function
+#include "../GUIUtilities.h" // For wrapped cell text helper function
 
 namespace FattyMenu {
 	void PermitMenu::DisplayPermitInfo(const CPermit& a_permit) {

@@ -1,4 +1,4 @@
-#include "Hooks.h"
+#include "Core/Hooks.h"
 
 #include <../garrysmod_common/include/GarrysMod/Lua/Interface.h> // Garry's Mod module functions
 

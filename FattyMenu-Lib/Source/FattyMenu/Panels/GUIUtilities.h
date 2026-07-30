@@ -1,7 +1,11 @@
 #pragma once
-#include "GUI.h"
+//#include "../Core/GUI.h"
 
-#include "Texture2D.h"
+#include "../Core/Texture2D.h"
+
+#include <../imgui/imgui.h>
+#include <../imgui/imgui_internal.h>
+
 
 #include <functional>
 #include <vector>

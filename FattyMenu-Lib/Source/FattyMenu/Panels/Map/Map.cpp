@@ -1,6 +1,5 @@
 #include "Map.h"
 
-#include "../../../GUI.h"
 
 namespace FattyMenu {
 	// Colors used for highlighting text in some cases

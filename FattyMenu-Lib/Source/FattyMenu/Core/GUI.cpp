@@ -1,16 +1,17 @@
 #include "GUI.h"
 
-// Main panel tabs
-#include "Core/Tabs/CPSOP.h"
-#include "Core/Tabs/TFSOP.h"
-#include "Core/Tabs/VoicelineLibrary.h"
-#include "Core/Tabs/PermitMenu.h"
-#include "Core/Tabs/Notepad.h"
+// Main panel content
+#include "../Panels/Main/CPSOP.h"
+#include "../Panels/Main/TFSOP.h"
+#include "../Panels/Main/VoicelineLibrary.h"
+#include "../Panels/Main/PermitMenu.h"
+#include "../Panels/Main/Notepad.h"
 
-#include "Core/Panels/Map/Map.h"
+// Map panel content
+#include "../Panels/Map/Map.h"
 
-#include <tchar.h> // Message box formatting
-#include <filesystem>
+#include "../Panels/GUIUtilities.h" // ImGUI utilities
+
 
 /* Function Prototypes */
 // ImGUI Window Process Handler

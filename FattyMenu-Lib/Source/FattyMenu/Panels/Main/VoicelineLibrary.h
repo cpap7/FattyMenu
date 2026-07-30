@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../Voicelines/VoicelineLookupTable.h"
-#include "../../GUIUtilities.h"
+#include "../../Voicelines/VoicelineLookupTable.h"
+#include "../GUIUtilities.h"
 
 #include <../imgui/imgui.h>
 

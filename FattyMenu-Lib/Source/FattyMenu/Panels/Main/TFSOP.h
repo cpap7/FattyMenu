@@ -1,16 +1,14 @@
 #pragma once
-// Lambda functions
-#include <functional>
 
 // GUI utils
-#include "../../GUIUtilities.h"
+#include "../GUIUtilities.h"
+#include "../../SOP/TranshumanForces/TFSOPLookupTables.h"
 
 // ImGui dependencies
 #include <../imgui/imgui.h>
 
-// Vector lists
-#include "../SOP/TranshumanForces/TFSOPLookupTables.h"
-
+// Lambda functions
+#include <functional>
 
 namespace FattyMenu {
 	namespace TFSOP {

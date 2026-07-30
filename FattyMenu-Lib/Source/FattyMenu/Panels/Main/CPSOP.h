@@ -1,11 +1,9 @@
 #pragma once
-#include "../../GUIUtilities.h"							// GUI utils
+#include "../GUIUtilities.h"							// GUI utils
 
-#include "../SOP/CivilProtection/CPSOPTableRowData.h"	// Table row data
-#include "../SOP/CivilProtection/CPSOPLookupTables.h"	// Lookup tables
+#include "../../SOP/CivilProtection/CPSOPTableRowData.h"	// Table row data
+#include "../../SOP/CivilProtection/CPSOPLookupTables.h"	// Lookup tables
 
-#include <../imgui/imgui.h>								// ImGui
-#include <../imgui/imgui_internal.h>
 
 #include <functional>
 #include <string>

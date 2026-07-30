@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../../GUIUtilities.h"
+#include "../GUIUtilities.h"
 
 // Map image file path
 #include "../../Serialization/ResourcePaths.h"
