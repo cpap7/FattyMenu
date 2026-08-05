@@ -77,6 +77,8 @@ namespace FattyMenu {
 		style.Colors[ImGuiCol_Text]					= ImVec4(0.00f, 1.00f, 1.00f, 1.00f);
 		style.Colors[ImGuiCol_TextDisabled]			= ImVec4(0.00f, 0.40f, 0.41f, 1.00f);
 
+		style.Colors[ImGuiCol_DockingPreview]		= ImVec4(0.00f, 1.00f, 1.00f, 0.65f);
+
 		style.Colors[ImGuiCol_WindowBg]				= ImVec4(0.00f, 0.00f, 0.00f, 1.00f);
 		style.Colors[ImGuiCol_ChildBg]				= ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
 

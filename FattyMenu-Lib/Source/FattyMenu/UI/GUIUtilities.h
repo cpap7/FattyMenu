@@ -14,6 +14,12 @@
 namespace FattyMenu {
 	/* For GUI utility functions, like for changing ImGUI header colors, text formatting, etc. */
 	namespace GUI {
+		// Global variables
+		// Colors used for highlighting text in some cases
+		inline ImVec4 g_red_color		= ImVec4(1.0f, 0.0f, 0.0f, 1.0f);
+		inline ImVec4 g_green_color		= ImVec4(0.0f, 1.0f, 0.0f, 1.0f);
+		inline ImVec4 g_blue_color		= ImVec4(0.0f, 0.0f, 1.0f, 1.0f);
+		inline ImVec4 g_yellow_color	= ImVec4(1.0f, 1.0f, 0.0f, 1.0f);
 
 		namespace Themes {
 			// Function prototypes for header colors / themes
@@ -31,7 +37,6 @@ namespace FattyMenu {
 		}
 
 		namespace Helpers {
-
 			/*	Draws a 2D texture centered horizontally in the current content region
 			*	Shows red error text (and does nothing else) if the texture fails to load
 			*	@param a_texture		-> the texture to draw (kept alive by the caller)
@@ -55,12 +60,10 @@ namespace FattyMenu {
 					ImGui::SetCursorPosX(ImGui::GetCursorPosX() + offset_x);
 				}
 				
-				ImGui::Image((ImTextureID)(intptr_t)a_texture.GetHandle(), image_size);
+				ImGui::Image((ImTextureRef)a_texture.GetHandle(), image_size);
 
 				return true;
 			}
-
-
 
 			// Helper function for wrapped colored text within a table that respects the current table column's right edge
 			inline void WrappedTableCellColoredText(const ImVec4& a_color, const char* a_fmt, ...) {
@@ -221,7 +224,7 @@ namespace FattyMenu {
 			inline void DisplayAssignment(const std::vector<T>& a_assignment_list) {
 				for (const auto& duty : a_assignment_list) {
 					// NOTE: Duty expectation details are formatted the same as CP assignments 
-					if (duty.IsForCP()) {
+					if (duty.IsForCP() || duty.HasNoType()) {
 						// Display assignment name and the # of required units
 						ImGui::TextWrapped("%s\n%s", duty.GetAssignmentName().c_str(), duty.GetCPUnitsRequired().c_str());
 
