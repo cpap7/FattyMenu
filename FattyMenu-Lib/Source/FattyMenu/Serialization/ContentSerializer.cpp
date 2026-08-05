@@ -294,6 +294,10 @@ namespace FattyMenu {
 					assignment.SetTFShiftDuration(assignment_entry["TFShiftDuration"].get<uint16_t>());
 					assignment.SetTFRecommendedClass(assignment_entry["TFRecommendedClass"].get<std::string>());
 				}
+				else if (assignment.HasNoType()) { 
+					// HACK: For assignment expectations (type = None) - this is where they get displayed
+					assignment.SetCPUnitsRequired(assignment_entry["Header"].get<std::string>());
+				}
 				assignment.SetAssignmentDescription(assignment_entry["Description"].get<std::vector<std::string>>());
 
 				assignment_list.push_back(std::move(assignment));
@@ -501,6 +505,9 @@ namespace FattyMenu {
 				assignment_entry["TFUnitsRequired"]		= assignment.GetTFUnitsRequired();
 				assignment_entry["TFShiftDuration"]		= assignment.GetTFShiftDuration();
 				assignment_entry["TFRecommendedClass"]	= assignment.GetTFRecommendedClass();
+			}
+			else {
+				assignment_entry["Header"]				= assignment.GetCPUnitsRequired();
 			}
 
 			assignment_entry["Description"]				= assignment.GetAssignmentDescription();

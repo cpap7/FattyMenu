@@ -1,14 +1,14 @@
 #pragma once
 
-#include "../Serialization/ContentSerializer.h"
-#include "../Serialization/ResourcePaths.h"
+#include "ContentSerializer.h"
+#include "ResourcePaths.h"
 
-#include "Permit.h"
+#include "../DistributionPermit/Permit.h"
 
 #include <vector>
 #include <string>
 
-namespace FattyMenu {
+namespace FattyMenu::LookupTables {
 	/* Look-up Table */
 
 	// Returns a mutable list of permits that are loaded from a JSON file

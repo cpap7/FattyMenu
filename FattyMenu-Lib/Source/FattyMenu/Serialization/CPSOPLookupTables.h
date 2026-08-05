@@ -1,21 +1,19 @@
 #pragma once
-#include "../../Serialization/ContentSerializer.h"
-#include "../../Serialization/ResourcePaths.h"
+#include "ContentSerializer.h"
+#include "ResourcePaths.h"
 
 // Class definitions (Civil Protection)
-#include "../Code.h"
-#include "../Contraband.h"
-#include "../CivilStatus.h"
-#include "../CivicReward.h"
-#include "../Term.h"
-#include "../Assignment.h"
-
+#include "../SOP/Code.h"
+#include "../SOP/Contraband.h"
+#include "../SOP/CivilStatus.h"
+#include "../SOP/CivicReward.h"
+#include "../SOP/Term.h"
+#include "../SOP/Assignment.h"
 
 #include <vector>	
 
-
 namespace FattyMenu {
-	namespace CPSOP::LookupTables {
+	namespace LookupTables {
 		// ABBREVIATIONS
 
 		// Returns a mutable list of codes that are loaded from a JSON file

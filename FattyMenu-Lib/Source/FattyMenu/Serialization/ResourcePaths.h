@@ -1,13 +1,16 @@
 #pragma once
 
 #include <string>
+#include <filesystem>
 
 // For file I/O
 // Contains all resource file paths
 
+// TODO: Consider replacing these with std::filesystem::path
+
 namespace FattyMenu {
-	/* Root */
-	inline const std::string c_root														= "garrysmod/lua/bin/FattyMenu/";																// Relative to gmod.exe
+	/* Root - Relative to gmod.exe */
+	inline const std::string c_root														= "garrysmod/lua/bin/FattyMenu/";
 
 	/* Images - Loaded as Textures */
 	inline const std::string c_civil_protection_logo_image_file_path					= c_root + "Resources/CivilProtection_SOP_Logo.png";

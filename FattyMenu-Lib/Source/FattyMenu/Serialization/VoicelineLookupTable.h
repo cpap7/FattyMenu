@@ -1,15 +1,15 @@
 #pragma once
 
-#include "../Serialization/ContentSerializer.h"
-#include "../Serialization/ResourcePaths.h"
+#include "ContentSerializer.h"
+#include "ResourcePaths.h"
 
-#include "VoicelineScraper.h"
-#include "Voiceline.h"
+#include "../Voicelines/VoicelineScraper.h"
+#include "../Voicelines/Voiceline.h"
 
 #include <vector>
 #include <string>
 
-namespace FattyMenu {
+namespace FattyMenu::LookupTables {
 	/* Look-up Table */
 
 	// Returns a mutable list of voicelines that are loaded from a JSON file

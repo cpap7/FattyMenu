@@ -30,7 +30,7 @@ namespace FattyMenu {
 	inline EAssignmentType AssignmentTypeFromString(const std::string& a_assignment_type_string) {
 		if (a_assignment_type_string == "Civil Protection")			{ return EAssignmentType::CivilProtection;	}
 		else if (a_assignment_type_string == "Transhuman Forces")	{ return EAssignmentType::TranshumanForces; }
-
+		
 		return EAssignmentType::None;
 	}
 
