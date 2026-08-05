@@ -2,8 +2,8 @@
     "Assignments": [
         {
             "Name": "Duty / Mandate Expectations",
-            "Type": "Civil Protection",
-            "CPUnitsRequired": "These are what's expected of you as a unit across basically all assignments and mandates",
+            "Type": "None",
+            "Header": "These are what's expected of you as a unit across basically all assignments and mandates",
             "Description": [
                 "Loyalty checks must be common\n -> Even a regular pedestrian stop and questioning do fall under this category",
                 "Status reports must be common as well\n -> Whenever something significant happens to your PT, you will report it to others",
@@ -14,8 +14,8 @@
         },
         {
             "Name": "TAC Usage / Etiquette",
-            "Type": "Civil Protection",
-            "CPUnitsRequired": "Refer to these guidelines when you're unsure whether to radio in TAC or not\nTAC should be used in the following scenarios:",
+            "Type": "None",
+            "Header": "Refer to these guidelines when you're unsure whether to radio in TAC or not\nTAC should be used in the following scenarios:",
             "Description": [
                 "Requests directed towards other teams, team leaders, officers or Dispatch\n -> Literally any request, whether it's a call for help, info on somebody from Civic Database or lockdown of a certain region\n -> Asking other team leads for status report does not require you to be a Rank Leader\n -> Feel free to request status updates from anyone at any time",
                 "Sharing important intel you've obtained\n -> Like info on an armed person in the city, rebel group, possible sabotage or theft of PB packages, etc.",

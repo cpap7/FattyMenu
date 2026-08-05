@@ -232,13 +232,6 @@
             "FullVoiceline": "11."
         },
         {
-            "Command": "100",
-            "Factions": [
-                "Civil Protection"
-            ],
-            "FullVoiceline": "100."
-        },
-        {
             "Command": "11-44",
             "Factions": [
                 "Civil Protection"
@@ -295,6 +288,20 @@
             "FullVoiceline": "twelve"
         },
         {
+            "Command": "2",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "2."
+        },
+        {
+            "Command": "3",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "3."
+        },
+        {
             "Command": "13",
             "Factions": [
                 "Civil Protection"
@@ -314,20 +321,6 @@
                 "Civil Protection"
             ],
             "FullVoiceline": "15."
-        },
-        {
-            "Command": "17F",
-            "Factions": [
-                "Airwatch"
-            ],
-            "FullVoiceline": "17f fugitive detachment."
-        },
-        {
-            "Command": "2",
-            "Factions": [
-                "Airwatch"
-            ],
-            "FullVoiceline": "2."
         },
         {
             "Command": "16",
@@ -358,53 +351,11 @@
             "FullVoiceline": "19."
         },
         {
-            "Command": "2",
-            "Factions": [
-                "Transhuman Suppressor"
-            ],
-            "FullVoiceline": "two"
-        },
-        {
-            "Command": "2",
-            "Factions": [
-                "Transhuman Grunt"
-            ],
-            "FullVoiceline": "two"
-        },
-        {
-            "Command": "20",
-            "Factions": [
-                "Transhuman Suppressor"
-            ],
-            "FullVoiceline": "twenty"
-        },
-        {
-            "Command": "20",
-            "Factions": [
-                "Transhuman Grunt"
-            ],
-            "FullVoiceline": "twenty"
-        },
-        {
-            "Command": "3",
-            "Factions": [
-                "Airwatch"
-            ],
-            "FullVoiceline": "3."
-        },
-        {
             "Command": "20",
             "Factions": [
                 "Civil Protection"
             ],
             "FullVoiceline": "20."
-        },
-        {
-            "Command": "25 RP",
-            "Factions": [
-                "Airwatch"
-            ],
-            "FullVoiceline": "25 percent rank points."
         },
         {
             "Command": "27",
@@ -414,53 +365,18 @@
             "FullVoiceline": "27 attempted crime."
         },
         {
-            "Command": "3",
-            "Factions": [
-                "Transhuman Suppressor"
-            ],
-            "FullVoiceline": "three"
-        },
-        {
-            "Command": "3",
-            "Factions": [
-                "Transhuman Grunt"
-            ],
-            "FullVoiceline": "three"
-        },
-        {
-            "Command": "30",
-            "Factions": [
-                "Civil Protection"
-            ],
-            "FullVoiceline": "30."
-        },
-        {
-            "Command": "30",
-            "Factions": [
-                "Transhuman Suppressor"
-            ],
-            "FullVoiceline": "thirty"
-        },
-        {
-            "Command": "30",
-            "Factions": [
-                "Transhuman Grunt"
-            ],
-            "FullVoiceline": "thirty"
-        },
-        {
-            "Command": "4",
+            "Command": "28",
             "Factions": [
                 "Airwatch"
             ],
-            "FullVoiceline": "4."
+            "FullVoiceline": "28 felony incite."
         },
         {
-            "Command": "40",
+            "Command": "100",
             "Factions": [
                 "Civil Protection"
             ],
-            "FullVoiceline": "40."
+            "FullVoiceline": "100."
         },
         {
             "Command": "148",
@@ -477,6 +393,48 @@
             "FullVoiceline": "Suspect is now 187."
         },
         {
+            "Command": "1000",
+            "Factions": [
+                "Transhuman Suppressor"
+            ],
+            "FullVoiceline": "thousand"
+        },
+        {
+            "Command": "17F",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "17f fugitive detachment."
+        },
+        {
+            "Command": "2",
+            "Factions": [
+                "Transhuman Suppressor"
+            ],
+            "FullVoiceline": "two"
+        },
+        {
+            "Command": "2",
+            "Factions": [
+                "Transhuman Grunt"
+            ],
+            "FullVoiceline": "two"
+        },
+        {
+            "Command": "20",
+            "Factions": [
+                "Transhuman Suppressor"
+            ],
+            "FullVoiceline": "twenty"
+        },
+        {
+            "Command": "20",
+            "Factions": [
+                "Transhuman Grunt"
+            ],
+            "FullVoiceline": "twenty"
+        },
+        {
             "Command": "200",
             "Factions": [
                 "Civil Protection"
@@ -491,18 +449,39 @@
             "FullVoiceline": "243 assault on protection team."
         },
         {
-            "Command": "300",
+            "Command": "25 RP",
             "Factions": [
-                "Civil Protection"
+                "Airwatch"
             ],
-            "FullVoiceline": "300."
+            "FullVoiceline": "25 percent rank points."
         },
         {
-            "Command": "1000",
+            "Command": "3",
             "Factions": [
                 "Transhuman Suppressor"
             ],
-            "FullVoiceline": "thousand"
+            "FullVoiceline": "three"
+        },
+        {
+            "Command": "3",
+            "Factions": [
+                "Transhuman Grunt"
+            ],
+            "FullVoiceline": "three"
+        },
+        {
+            "Command": "30",
+            "Factions": [
+                "Transhuman Suppressor"
+            ],
+            "FullVoiceline": "thirty"
+        },
+        {
+            "Command": "30",
+            "Factions": [
+                "Transhuman Grunt"
+            ],
+            "FullVoiceline": "thirty"
         },
         {
             "Command": "34S AT",
@@ -510,6 +489,20 @@
                 "Civil Protection"
             ],
             "FullVoiceline": "All units, BOL, we have 34s at"
+        },
+        {
+            "Command": "374B",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "374b illegal disposal."
+        },
+        {
+            "Command": "4",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "4."
         },
         {
             "Command": "4",
@@ -554,6 +547,13 @@
             "FullVoiceline": "404 zone."
         },
         {
+            "Command": "415B",
+            "Factions": [
+                "Civil Protection"
+            ],
+            "FullVoiceline": "is 415b."
+        },
+        {
             "Command": "5",
             "Factions": [
                 "Airwatch"
@@ -561,11 +561,53 @@
             "FullVoiceline": "5."
         },
         {
+            "Command": "30",
+            "Factions": [
+                "Civil Protection"
+            ],
+            "FullVoiceline": "30."
+        },
+        {
+            "Command": "35",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "35 civil privacy violation."
+        },
+        {
+            "Command": "40",
+            "Factions": [
+                "Civil Protection"
+            ],
+            "FullVoiceline": "40."
+        },
+        {
+            "Command": "300",
+            "Factions": [
+                "Civil Protection"
+            ],
+            "FullVoiceline": "300."
+        },
+        {
+            "Command": "311",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "311 verbal indiscretion."
+        },
+        {
             "Command": "404",
             "Factions": [
                 "Airwatch"
             ],
             "FullVoiceline": "404 riot."
+        },
+        {
+            "Command": "407",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "407 unlawful assembly."
         },
         {
             "Command": "408",
@@ -582,11 +624,11 @@
             "FullVoiceline": "415 civic disunity."
         },
         {
-            "Command": "415B",
+            "Command": "488",
             "Factions": [
-                "Civil Protection"
+                "Airwatch"
             ],
-            "FullVoiceline": "is 415b."
+            "FullVoiceline": "488 theft."
         },
         {
             "Command": "5",
@@ -638,20 +680,6 @@
             "FullVoiceline": "51 non-sanctioned arson."
         },
         {
-            "Command": "505",
-            "Factions": [
-                "Civil Protection"
-            ],
-            "FullVoiceline": "Dispatch, we need airwatch, subject is 505."
-        },
-        {
-            "Command": "507",
-            "Factions": [
-                "Airwatch"
-            ],
-            "FullVoiceline": "507 public non-compliance."
-        },
-        {
             "Command": "51B",
             "Factions": [
                 "Airwatch"
@@ -664,6 +692,34 @@
                 "Airwatch"
             ],
             "FullVoiceline": "6."
+        },
+        {
+            "Command": "54",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "54 possession of materials."
+        },
+        {
+            "Command": "59",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "59 movement transgression."
+        },
+        {
+            "Command": "505",
+            "Factions": [
+                "Civil Protection"
+            ],
+            "FullVoiceline": "Dispatch, we need airwatch, subject is 505."
+        },
+        {
+            "Command": "507",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "507 public non-compliance."
         },
         {
             "Command": "6",
@@ -701,18 +757,25 @@
             "FullVoiceline": "sixty"
         },
         {
-            "Command": "603",
-            "Factions": [
-                "Civil Protection"
-            ],
-            "FullVoiceline": "603, unlawful entry."
-        },
-        {
             "Command": "62",
             "Factions": [
                 "Airwatch"
             ],
             "FullVoiceline": "62 alarms."
+        },
+        {
+            "Command": "603",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "603 unlawful entry."
+        },
+        {
+            "Command": "603",
+            "Factions": [
+                "Civil Protection"
+            ],
+            "FullVoiceline": "603, unlawful entry."
         },
         {
             "Command": "63",
@@ -741,6 +804,13 @@
                 "Airwatch"
             ],
             "FullVoiceline": "647e disengaged from workforce."
+        },
+        {
+            "Command": "647F",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "647f civic dysfunction."
         },
         {
             "Command": "7",
@@ -773,6 +843,13 @@
         {
             "Command": "70",
             "Factions": [
+                "Civil Protection"
+            ],
+            "FullVoiceline": "70."
+        },
+        {
+            "Command": "70",
+            "Factions": [
                 "Transhuman Suppressor"
             ],
             "FullVoiceline": "seventy"
@@ -794,6 +871,13 @@
         {
             "Command": "8",
             "Factions": [
+                "Transhuman Suppressor"
+            ],
+            "FullVoiceline": "eight"
+        },
+        {
+            "Command": "8",
+            "Factions": [
                 "Transhuman Grunt"
             ],
             "FullVoiceline": "eight"
@@ -804,20 +888,6 @@
                 "Airwatch"
             ],
             "FullVoiceline": "9."
-        },
-        {
-            "Command": "70",
-            "Factions": [
-                "Civil Protection"
-            ],
-            "FullVoiceline": "70."
-        },
-        {
-            "Command": "8",
-            "Factions": [
-                "Transhuman Suppressor"
-            ],
-            "FullVoiceline": "eight"
         },
         {
             "Command": "80",
@@ -848,6 +918,13 @@
             "FullVoiceline": "90."
         },
         {
+            "Command": "91",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "91 non-sanctioned distribution."
+        },
+        {
             "Command": "94",
             "Factions": [
                 "Airwatch"
@@ -867,13 +944,6 @@
                 "Airwatch"
             ],
             "FullVoiceline": "99 reckless operation."
-        },
-        {
-            "Command": "603",
-            "Factions": [
-                "Airwatch"
-            ],
-            "FullVoiceline": "603 unlawful entry."
         },
         {
             "Command": "ABOVE",
@@ -1133,6 +1203,13 @@
                 "Female Citizen"
             ],
             "FullVoiceline": "They're always saying something's about to blow. I ain't buying it this time."
+        },
+        {
+            "Command": "AIRWATCH AUGMENTATION",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "Airwatch augmentation force."
         },
         {
             "Command": "ALERT",
@@ -2052,6 +2129,13 @@
             "FullVoiceline": "Assent."
         },
         {
+            "Command": "ASSET SECURITY",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "Asset security oversight."
+        },
+        {
             "Command": "ASSIST ASSIST",
             "Factions": [
                 "Transhuman Ordinal"
@@ -2332,6 +2416,13 @@
             "FullVoiceline": "We have been trapped... in the dark."
         },
         {
+            "Command": "BEGIN",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "Begin."
+        },
+        {
             "Command": "BEGIN HOSTILE SUPPRESSION",
             "Factions": [
                 "Transhuman Ordinal"
@@ -2451,6 +2542,13 @@
             "FullVoiceline": "Holding for biodat upload."
         },
         {
+            "Command": "BIOTIC",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "Biotic."
+        },
+        {
             "Command": "BLADE",
             "Factions": [
                 "Transhuman Soldier"
@@ -2512,6 +2610,13 @@
                 "Civil Protection"
             ],
             "FullVoiceline": "Block is holding, cohesive."
+        },
+        {
+            "Command": "BLOCK INSPECTION",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "Block inspection."
         },
         {
             "Command": "BLOCKING CLEAR",
@@ -3053,6 +3158,13 @@
             "FullVoiceline": "Certainly"
         },
         {
+            "Command": "CF FAILURE",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "Containment field failure detected. Deploy technician teams and report."
+        },
+        {
             "Command": "CHANGE IS IN THE AIR",
             "Factions": [
                 "Female Citizen"
@@ -3536,6 +3648,13 @@
             "FullVoiceline": "All units cluster on target."
         },
         {
+            "Command": "CODE",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "Code."
+        },
+        {
             "Command": "CODE 100",
             "Factions": [
                 "Civil Protection"
@@ -3935,6 +4054,13 @@
             "FullVoiceline": "We are receiving conflicting data."
         },
         {
+            "Command": "CONSCRIPT CUSTODY",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "Conscript custody oversight."
+        },
+        {
             "Command": "CONSTANT OBSTACLES",
             "Factions": [
                 "Vortigaunt"
@@ -4150,6 +4276,13 @@
                 "Transhuman Soldier"
             ],
             "FullVoiceline": "Containment proceeding."
+        },
+        {
+            "Command": "CONTAINMENT FIELD",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "Containment field."
         },
         {
             "Command": "CONTAINMENT PROCEEDING",
@@ -4731,6 +4864,13 @@
                 "Transhuman Ordinal"
             ],
             "FullVoiceline": "Death ineffective."
+        },
+        {
+            "Command": "DECONTAMINATION",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "Decontamination team."
         },
         {
             "Command": "DEDICATE",
@@ -5655,6 +5795,13 @@
                 "Transhuman Ordinal"
             ],
             "FullVoiceline": "Escalating force on primary target."
+        },
+        {
+            "Command": "ESCORT",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "Escort."
         },
         {
             "Command": "ESTABLISH NEW CP",
@@ -6593,6 +6740,13 @@
                 "Transhuman Grunt"
             ],
             "FullVoiceline": "Ugh... Free parasitics inbound."
+        },
+        {
+            "Command": "FREED BIOTIC",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "Freed biotic."
         },
         {
             "Command": "FRESH CONTACT AT SECTOR",
@@ -8961,6 +9115,13 @@
             "FullVoiceline": "Hut."
         },
         {
+            "Command": "HVT",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "High value target."
+        },
+        {
             "Command": "HVT CONTAINED",
             "Factions": [
                 "Transhuman Soldier"
@@ -9276,6 +9437,27 @@
             "FullVoiceline": "Indeed."
         },
         {
+            "Command": "INDUSTRIAL MANAGEMENT",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "Industrial management."
+        },
+        {
+            "Command": "INDUSTRIAL WORKER",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "Industrial worker."
+        },
+        {
+            "Command": "INDUSTRIAL WORKFORCE",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "Industrial workforce."
+        },
+        {
             "Command": "INEFFECTIVE",
             "Factions": [
                 "Transhuman Charger"
@@ -9330,6 +9512,13 @@
                 "Transhuman Ordinal"
             ],
             "FullVoiceline": "Infestation confirmed."
+        },
+        {
+            "Command": "INFESTATION CONTROL",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "Infestation control worker."
         },
         {
             "Command": "INITIATE CONDITION SHADOW",
@@ -10232,7 +10421,7 @@
             "Factions": [
                 "Airwatch"
             ],
-            "FullVoiceline": "Stabilization team: failure to treat identified local outbreak will force team recall and recycle."
+            "FullVoiceline": "Local outbreak."
         },
         {
             "Command": "LOCATION",
@@ -10324,6 +10513,13 @@
                 "Civil Protection"
             ],
             "FullVoiceline": "All units, lock your position!"
+        },
+        {
+            "Command": "LOCKDOWN PROCEDURE",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "Lockdown procedure."
         },
         {
             "Command": "LOOK AT THEM",
@@ -10590,6 +10786,13 @@
                 "Civil Protection"
             ],
             "FullVoiceline": "Malignant."
+        },
+        {
+            "Command": "MALIGNANT COUNT",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "Malignant count."
         },
         {
             "Command": "MAN DOWN",
@@ -12545,6 +12748,13 @@
             "FullVoiceline": "Over there!"
         },
         {
+            "Command": "OVERSIGHT",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "Oversight."
+        },
+        {
             "Command": "OVERWATCH",
             "Factions": [
                 "Transhuman Soldier"
@@ -13854,6 +14064,13 @@
             "FullVoiceline": "Protection team."
         },
         {
+            "Command": "PTL",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "Protection team leader."
+        },
+        {
             "Command": "PTM",
             "Factions": [
                 "Airwatch"
@@ -14195,6 +14412,13 @@
                 "Airwatch"
             ],
             "FullVoiceline": "Team: recalibrate socioscan."
+        },
+        {
+            "Command": "RECALL",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "Recall."
         },
         {
             "Command": "RECALL ASSIST",
@@ -14827,6 +15051,13 @@
             "FullVoiceline": "Requesting target location."
         },
         {
+            "Command": "RESEARCH TEAM",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "Research team."
+        },
+        {
             "Command": "RESERVE ACTION",
             "Factions": [
                 "Transhuman Suppressor"
@@ -14902,6 +15133,20 @@
                 "Airwatch"
             ],
             "FullVoiceline": "Restricted incursion in progress."
+        },
+        {
+            "Command": "RESTRICTED PATROL",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "Restricted patrol protocol."
+        },
+        {
+            "Command": "RESTRICTED ZONE SWEEP",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "Restricted zone sector sweep."
         },
         {
             "Command": "RESULTS IMPENDING",
@@ -15315,6 +15560,13 @@
                 "Vortigaunt"
             ],
             "FullVoiceline": "A wind from below bears the scent of extract. The stuff we seek lies at the bottom of this pit."
+        },
+        {
+            "Command": "SCIENTIST",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "Scientist."
         },
         {
             "Command": "SCREAM",
@@ -16493,6 +16745,20 @@
             "FullVoiceline": "Uh, roger that, we'll run standard loyalty check procedure 243, my 10-22 intake station, over."
         },
         {
+            "Command": "STANDBY",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "Standby."
+        },
+        {
+            "Command": "STANDBY READOUT",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "Standby for readout."
+        },
+        {
             "Command": "STANDING BACK",
             "Factions": [
                 "Transhuman Suppressor"
@@ -16645,6 +16911,13 @@
                 "Transhuman Grunt"
             ],
             "FullVoiceline": "Target sterilized."
+        },
+        {
+            "Command": "STERILIZER",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "Sterilizer."
         },
         {
             "Command": "STICK",
@@ -16962,6 +17235,13 @@
             "FullVoiceline": "Sundown."
         },
         {
+            "Command": "SUPERVISORY DETAIL",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "Supervisory detail."
+        },
+        {
             "Command": "SUPPOSED TO DO",
             "Factions": [
                 "Female Citizen"
@@ -17032,6 +17312,13 @@
             "FullVoiceline": "Weeeee suuuurge!"
         },
         {
+            "Command": "SURVEILLANCE DEVICE",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "Surveillance device."
+        },
+        {
             "Command": "SURVIVAL MARK",
             "Factions": [
                 "Transhuman Suppressor"
@@ -17100,6 +17387,13 @@
                 "Civil Protection"
             ],
             "FullVoiceline": "Suspend."
+        },
+        {
+            "Command": "SUSPEND ILLEGAL",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "Suspend illegal transmission."
         },
         {
             "Command": "SUSPENDING FIRE",
@@ -17284,6 +17578,13 @@
             "FullVoiceline": "Tag one parasitic."
         },
         {
+            "Command": "TAG UNIT",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "Tag unit."
+        },
+        {
             "Command": "TAKE A LOOK",
             "Factions": [
                 "Male Citizen"
@@ -17310,13 +17611,6 @@
                 "Transhuman Suppressor"
             ],
             "FullVoiceline": "Take cover."
-        },
-        {
-            "Command": "TAKE HIM DOWN",
-            "Factions": [
-                "Civil Protection"
-            ],
-            "FullVoiceline": "Take him down!"
         },
         {
             "Command": "TAKE HIS CROWBAR",
@@ -17975,6 +18269,20 @@
                 "Female Citizen"
             ],
             "FullVoiceline": "It's gonna tear us apart!"
+        },
+        {
+            "Command": "TECHNICIAN",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "Technician."
+        },
+        {
+            "Command": "TECHNICIAN TEAM",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "Technician team."
         },
         {
             "Command": "TEN",
@@ -20595,6 +20903,13 @@
             "FullVoiceline": "Individual, you are now charged with multiple level five anti-civil activity violations. Please cooperate with ground protection team. Ground protection team: alert. Code: Engage. Isolate. Neutralize."
         },
         {
+            "Command": "~ NECROTIC PRESENCE",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "Attention, occupants. Necrotic presence detected in this community. Move with caution. Report all suspicious activity to a local protection team, immediately."
+        },
+        {
             "Command": "~ OPERATION ENGAGEMENT",
             "Factions": [
                 "Airwatch"
@@ -20616,7 +20931,35 @@
             "FullVoiceline": "Attention, residents. This block contains potential civil infection. Inform. Co-operate. Assemble."
         },
         {
-            "Command": "~ RATIONS DEDUCTED",
+            "Command": "~ RATIONS DEDUCTED 1",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "Attention, occupants. Your block is now charged with permissive inactive coersion. One ration unit deducted."
+        },
+        {
+            "Command": "~ RATIONS DEDUCTED 2",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "Attention, occupants. Your block is now charged with permissive inactive coersion. Two ration units deducted."
+        },
+        {
+            "Command": "~ RATIONS DEDUCTED 3",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "Attention, occupants. Your block is now charged with permissive inactive coersion. Three ration units deducted."
+        },
+        {
+            "Command": "~ RATIONS DEDUCTED 4",
+            "Factions": [
+                "Airwatch"
+            ],
+            "FullVoiceline": "Attention, occupants. Your block is now charged with permissive inactive coersion. Four ration units deducted."
+        },
+        {
+            "Command": "~ RATIONS DEDUCTED 5",
             "Factions": [
                 "Airwatch"
             ],
