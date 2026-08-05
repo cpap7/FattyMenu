@@ -1,4 +1,5 @@
 #pragma once
+#include "Base.h"
 
 #include <string>
 
@@ -23,8 +24,7 @@ namespace FattyMenu {
 	public:
 		CTexture2D(const std::string& a_file_path);
 
-		CTexture2D(const CTexture2D& a_other)				= delete;
-		CTexture2D& operator=(const CTexture2D& a_other)	= delete;
+		FM_UNCOPYABLE_CLASS(CTexture2D);
 		
 		CTexture2D(CTexture2D&& a_other) noexcept;
 		CTexture2D& operator=(CTexture2D&& a_other) noexcept;

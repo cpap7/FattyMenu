@@ -1,5 +1,6 @@
 #include "Texture2D.h"
-#include "GUI.h"
+
+#include "Application.h"
 
 // ImGUI headers
 #include <../imgui/imgui.h>
@@ -88,8 +89,10 @@ namespace FattyMenu {
 			return; // Should never reach this point
 		}
 
+		auto& app = CApplication::GetInstance();
+		
 		// Load texture from disk
-		HRESULT hr = GUI::g_create_texture_fn(device, m_file_path.c_str(), &m_texture_handle);
+		HRESULT hr = app.GetD3DX9Loader().CreateTexture()(device, m_file_path.c_str(), &m_texture_handle);
 		if (hr != S_OK) {
 			return;
 		}
