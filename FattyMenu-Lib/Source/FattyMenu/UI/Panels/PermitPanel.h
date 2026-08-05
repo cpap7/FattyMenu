@@ -1,17 +1,24 @@
 #pragma once
+#include "../Panel.h"
+
+#include "../../Serialization/PermitLookupTable.h"
 
 // ImGui dependencies
 #include <../imgui/imgui.h>
 
-#include "../../DistributionPermit/PermitLookupTable.h"
-
 namespace FattyMenu {
 	// Contains function prototypes for displaying the distribution permit info
-	namespace PermitMenu {
+	class CPermitPanel : public IPanel {
+	public:
+		CPermitPanel()	= default;
+		~CPermitPanel() = default;
+
+		virtual void OnRender(bool* a_p_open) override;
+
+	private:
 		void DisplayPermitInfo(const CPermit& a_permit); 		// Displays permit info after clicking a collapsible header
 		void DisplayPackagesTable(const CPermit& a_permit); 	// Displays package info for each permit 
 
-		void RenderPermitMenu(); 								// Renders the collapsible headers
-
-	}
+		void DisplayDistributionPermitHeaders(); 				// Renders the collapsible headers
+	};
 }

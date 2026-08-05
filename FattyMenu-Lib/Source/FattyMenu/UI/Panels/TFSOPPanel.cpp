@@ -1,8 +1,24 @@
-#include "TFSOP.h"
+#include "TFSOPPanel.h"
 
 namespace FattyMenu {
+	CTFSOPPanel::CTFSOPPanel() {
+		// TODO: Logo texture unique ptr gets loaded here
+	}
 	
-	void TFSOP::DisplayTFLogo() {
+	CTFSOPPanel::~CTFSOPPanel() {
+		// TODO: Logo texture unique ptr calls .reset here
+	}
+
+	void CTFSOPPanel::OnRender(bool* a_p_open) {
+		if (!a_p_open || !*a_p_open) { return; } // Check if it's nullptr or false 
+
+		if (ImGui::Begin("Transhuman Forces SOP", a_p_open)) {
+			DisplayTranshumanForcesSOPContent();
+		}
+		ImGui::End();
+	}
+	
+	void CTFSOPPanel::DisplayTFLogo() {
 		ImGui::Text("                                          :");
 		ImGui::Text("                                         :::");
 		ImGui::Text("                                        :::::");
@@ -47,24 +63,24 @@ namespace FattyMenu {
 		ImGui::Text("::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
 	}
 
-	void TFSOP::DisplayTFProtocols(const std::vector<CProtocol>& a_protocols_list) {
+	void CTFSOPPanel::DisplayTFProtocols(const std::vector<CProtocol>& a_protocols_list) {
 		// TODO
 	}
 
-	void TFSOP::DisplayTFCodes(const std::vector<CTerm>& a_codes_list) {
+	void CTFSOPPanel::DisplayTFCodes(const std::vector<CTerm>& a_codes_list) {
 		// TODO
 	}
 	
-	void TFSOP::DisplayTFTerms(const std::vector<CTerm>& a_terms_list) {
+	void CTFSOPPanel::DisplayTFTerms(const std::vector<CTerm>& a_terms_list) {
 		// TODO
 	}
 	
-	void TFSOP::DisplayTFDuties(const std::vector<CAssignment>& a_duties_list) {
+	void CTFSOPPanel::DisplayTFDuties(const std::vector<CAssignment>& a_duties_list) {
 		// TODO
 	}
 
 
-	void TFSOP::RenderTranshumanForcesSOP() {
+	void CTFSOPPanel::DisplayTranshumanForcesSOPContent() {
 		// Collapsing headers render info once the user clicks on them
 		if (ImGui::CollapsingHeader("<:: DISPLAY TRANSHUMAN FORCES LOGO ::>")) {
 			// Print the ASCII art logo
@@ -100,7 +116,5 @@ namespace FattyMenu {
 			}
 		});
 		*/
-
-
 	}
 }

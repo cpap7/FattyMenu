@@ -1,4 +1,4 @@
-#include "VoicelineLibrary.h"
+#include "VoicelineLibraryPanel.h"
 
 #include <algorithm>
 #include <cctype>
@@ -40,7 +40,31 @@ namespace FattyMenu {
 		}
 	}
 
-	void VoicelineLibrary::DisplaySearchFilterControls() {
+	void CVoicelineLibraryPanel::OnRender(bool* a_p_open) {
+		if (!a_p_open || !*a_p_open) { return; } // Check if it's nullptr or false 
+
+		if (ImGui::Begin("Voiceline Library", a_p_open)) {
+			DisplayVoicelineLibraryHeader();
+		}
+		ImGui::End();
+	}
+
+	void CVoicelineLibraryPanel::DisplayVoicelineLibraryHeader() {
+		// Refresh button
+		if (ImGui::Button("Refresh Voiceline Entries")) {
+			LookupTables::RefreshVoicelines();
+		}
+		ImGui::SameLine();
+		ImGui::TextDisabled("(%zu loaded)", LookupTables::GetVoicelines().size());
+
+		ImGui::Separator();
+
+		DisplaySearchFilterControls();
+		DisplayVoicelines();
+	}
+
+
+	void CVoicelineLibraryPanel::DisplaySearchFilterControls() {
 		// Search box
 		ImGui::SetNextItemWidth(-1.0f); // Stretch to available width
 		ImGui::InputTextWithHint("##voiceline_search", "Search command or voiceline...", g_search_buffer, IM_ARRAYSIZE(g_search_buffer));
@@ -77,9 +101,9 @@ namespace FattyMenu {
 		ImGui::Separator();
 	}
 	
-	void VoicelineLibrary::DisplayVoicelines() {
+	void CVoicelineLibraryPanel::DisplayVoicelines() {
 		// Display only when populated
-		const std::vector<CVoiceline>& voicelines = GetVoicelines();
+		const std::vector<CVoiceline>& voicelines = LookupTables::GetVoicelines();
 		if (voicelines.empty()) {
 			return;
 		}
@@ -145,20 +169,5 @@ namespace FattyMenu {
 			);
 		}
 	}
-
-	/* Function for rendering the menu in the tab */
-	void VoicelineLibrary::RenderVoicelineLibraryMenu() {
-		// Refresh button
-		if (ImGui::Button("Refresh Voiceline Entries")) {
-			RefreshVoicelines();
-		}
-		ImGui::SameLine();
-		ImGui::TextDisabled("(%zu loaded)", GetVoicelines().size());
-
-		ImGui::Separator();
-
-		VoicelineLibrary::DisplaySearchFilterControls();
-
-		VoicelineLibrary::DisplayVoicelines();
-	}
+	
 }
