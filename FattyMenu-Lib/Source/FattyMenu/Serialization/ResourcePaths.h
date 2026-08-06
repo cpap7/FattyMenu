@@ -12,10 +12,12 @@ namespace FattyMenu {
 	/* Root - Relative to gmod.exe */
 	inline const std::string c_root														= "garrysmod/lua/bin/FattyMenu/";
 
+	/* User config */
+	inline const std::string c_user_config_file_path									= c_root + "UserConfig.ini";
+
 	/* Images - Loaded as Textures */
 	inline const std::string c_civil_protection_logo_image_file_path					= c_root + "Resources/CivilProtection_SOP_Logo.png";
 	inline const std::string c_map_image_file_path										= c_root + "Resources/CivilProtection_SOP_Map.png";
-
 
 	/* Distribution Permit Info */
 	inline const std::string c_permit_info_file_path									= c_root + "DistributionPermit/DistributionPermitInfo.json";
