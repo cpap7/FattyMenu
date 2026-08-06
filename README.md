@@ -3,24 +3,25 @@
 
 This repository contains the source code to a little side-project I've been working on while playing Project Synapse. 
 
-FattyMenu is a lightweight, .dll file that can be loaded onto Garry's Mod via the game itself, or via manual map injection. 
+FattyMenu is a Direct3D9-specific ImGui menu that serves as a "**F**ast, **A**ll-in-one, **T**rusty **T**oolset for **Y**ou."
+
+It's packaged under a simple .dll file & folder that can be loaded onto Garry's Mod via the game itself, or via manual map injection. 
 It uses in-game render hooks to create an ImGui window containing useful gameplay information relevant to the Combine factions on the server.
 
 # Content
-The menu itself contains the following tabs: 
+The menu itself contains the following in the form of dockable in-game panels: 
 
 - An in-game version of roughly ~80% of the Civil Protection SOP (missing a few tables and verbose sections)
 
-- A built-in library containing all the voicelines across each class on the server (except Transhuman Soldier and Ordinal, still WIP)
+- A built-in library containing all the voicelines across each class on the server, which can be searched through in-game. Voiceline entries can be configured and hot-reloaded via a .JSON file
 
-- Distribution permit info, including prerequisite civic point count & costs for permits, alongside costs for their associate packages
+- Distribution permit info, including prerequisite civic point count & costs for permits, alongside costs for their associated packages
 
-- Notepads for regular note-taking
+- A notepad utility panel for taking notes in-game
 
-The code itself uses classes as containers for data organization purposes, and separate UI files for each tab. Should be easy to navigate given the project's overall structure. 
+- A panel containing a map provided by the SOP
 
-The UI tabs are managed under 
-``GUI.cpp.``  
+- A config settings panel, which can be used to control which panels get shown and the scale of the each image used within each panel
 
 # Compatibility
 This menu works with the following operating systems and versions of Garry's Mod:
@@ -29,13 +30,13 @@ This menu works with the following operating systems and versions of Garry's Mod
 if the .dll is recompiled as Release x86 in Visual Studio. Project Synapse shouldn't be played on the 32-bit version of Garry's Mod anyhow.
 - Windows 11, Garry's Mod x86-64 branch
 
+Unfortunately for macOS and Linux users, this will not work for you as of right now. This may change in the future.
+
 # Installation / Setup
 ## Prelude
-As of version 1.7.1, the now comes shipped with configurable JSON files located within a ``FattyMenu`` folder. This folder will need to be placed within the same directory as ``gmod.exe``
-- ``gmod.exe`` can be found under ``steamapps\common\GarrysMod``. The folder must be placed like so:
-![alt text](https://puu.sh/KQpCM/1d589274f9.png)
-- NOTE: For those unaware of how JSON files work, within these files, the names on the left hand side (highlighted in yellow) should NOT be changed. However, the values to the right of them CAN be changed (highlighted in green and red). Entries with ``{},`` can be added to- or subtracted from- an entry.
-![alt text](https://puu.sh/KQpD2/ec2d52a968.png)
+As of v1.8.0, you will need to download the ```Microsoft's DirectX End-User Runtimes (June 2010)``` prior to installation.
+This is so the menu can load custom images as textures.
+Download it ![here](https://www.microsoft.com/en-ca/download/details.aspx?id=8109)
 
 The .dll file can be either injected or loaded by Garry's Mod directly.
 - Note: You will need to ensure the game is running on ``Borderless Window`` mode first. Otherwise, you will run into more bugs.
@@ -47,9 +48,9 @@ The .dll file can be either injected or loaded by Garry's Mod directly.
 ## Direct Load via Garry's Mod
 - The more popular/convenient method for loading the menu
 1) Download the latest version of FattyMenu under the 'Releases' tab of this repository.
-2) Rename the ``FattyMenu.dll`` file to ``gmsv_fattymenu_win64.dll`` (or use the one provided with the download, up to you) 
-3) Navigate to your ``garrysmod > lua > bin `` folder and drop it in there
-- Note: If there is no bin folder present, create one
+2) Navigate to your ``garrysmod > lua > bin `` folder, then drag and drop the ```FattyMenu``` folder and ``gmsv_fattymenu_win64.dll`` file in there.
+- Note: If there is no bin folder present, create one.
+- You could rename the ``FattyMenu.dll`` file to ``gmsv_fattymenu_win64.dll``, or use the one provided with the download (that's up to you) 
 4) Navigate over to ``garrysmod > lua > menu `` and open up ``menu.lua`` in a text editor (i.e., Notepad++)
 5) At the bottom of the file, copy and paste this: ``require("fattymenu")`` and save the file
 6) Start Garry's Mod. The menu should load.
@@ -71,6 +72,7 @@ The .dll file can be either injected or loaded by Garry's Mod directly.
 ## Injection
 - Less convenient, but it's supported. The following steps should allow you to use the menu in-game. 
 1) Download the latest version of FattyMenu.dll under the 'Releases' tab of this repository. FattyMenu.dll can be loaded in-game using any injector that supports manual map injection.
+- Before injecting, ensure you've placed the ```FattyMenu``` folder in your ``garrysmod > lua > bin `` folder and have 
 - For this tutorial we'll be using Xenos, as it's open source and fairly easy to use. Download the latest version of Xenos Injector here:
 ``
 https://github.com/DarthTon/Xenos/releases/tag/2.3.2
@@ -104,10 +106,10 @@ https://github.com/DarthTon/Xenos/releases/tag/2.3.2
 - Close the injector
 
 # Controls
-- RCTRL key -> opens or closes the menu
+- R-ALT key -> opens or closes the menu
 - END key -> uninjects the menu
 - C key -> pressing this in-game allows you to navigate the menu without needing to press escape. Very handy if you're simply browsing the in-game SOP, voiceline library or distribution permit info. 
-- Pressing escape to access the menu is preferable if you're writing notes. 
+- Pressing escape to access the menu might be preferable if you're writing notes or searching through the voiceline library 
 
 # FAQ
 Will this get me banned from the server?
@@ -141,22 +143,26 @@ The following are included for convenience:
 - ```html_parser``` - For parsing raw HTML files from disk
 - ```http_lib``` - For making http requests for voiceline data. Requires openssl
 - ```imgui``` - Immediate mode graphical user interface library for the menu
-- ```json``` - Serialization file format
+- ```json``` - File format used for serializing most of the content within this tool
 - ```minhook``` - For function detouring, mainly for EndScene & Reset function calls for Garry's Mod, which uses Direct3D9 for rendering
+- ```inifile-cpp``` - For serializing user config-specific files
 
-The following must be installed via vcpkg:
-- ```openssl``` - Dependency for http_lib. Run the following command in cmd or powershell to install & compile it: ```vcpkg install openssl:x64-windows-static-md```
+The following must be installed via external means:
+- ```openssl``` - Dependency for http_lib. You must already have vcpkg installed. Then, run the following command in cmd or powershell to install & compile it: ```vcpkg install openssl:x64-windows-static-md```
+- ```Microsoft's DirectX End-User Runtimes (June 2010)``` - This is so the menu can load custom images as textures. Download it ![here](https://www.microsoft.com/en-ca/download/details.aspx?id=8109)
+
+# Project Structure
+Under ```FattyMenu-Lib``` you'll find 3 folders:
+- ```Data``` - Contains the most up-to-date data loaded in by the menu at runtime
+- ```Source``` - Contains FattyMenu-specific source files (obviously)
+- ```Vendor``` - Contains vendor source files. The inclusion of these files is managed with premake, specifically via the ```External.lua``` and ```premake5.lua``` files
 
 # Developer Roadmap
 - Include a built-in SOP and AOP for Transhuman and Airwatch classes, respectively. Might not be needed, but it would be nice to have.
 
-- Rework rendering methods for the SOP using a cleaner approach. 
+- Include search / filtering functions for the SOP panel
 
-- Include search / filtering functions for the SOP tab
-
-- Add a settings tab for configurable keybinds, and setting different themes (i.e., one for transhuman)
-
-- Add additional support for other operating systems (for MAC and Linux users specifically)
+- Add configurable keybinds, and settings for different themes (i.e., one for Transhuman Forces)
 
 # Contributing
 Pull requests are welcome. For major changes, please either message me on Discord or open an issue 
