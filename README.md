@@ -36,7 +36,7 @@ Unfortunately for macOS and Linux users, this will not work for you as of right 
 ## Prelude
 As of v1.8.0, you will need to download the ```Microsoft's DirectX End-User Runtimes (June 2010)``` prior to installation.
 This is so the menu can load custom images as textures.
-Download it ![here](https://www.microsoft.com/en-ca/download/details.aspx?id=8109)
+Download it [here](https://www.microsoft.com/en-ca/download/details.aspx?id=8109)
 
 The .dll file can be either injected or loaded by Garry's Mod directly.
 - Note: You will need to ensure the game is running on ``Borderless Window`` mode first. Otherwise, you will run into more bugs.
@@ -149,7 +149,7 @@ The following are included for convenience:
 
 The following must be installed via external means:
 - ```openssl``` - Dependency for http_lib. You must already have vcpkg installed. Then, run the following command in cmd or powershell to install & compile it: ```vcpkg install openssl:x64-windows-static-md```
-- ```Microsoft's DirectX End-User Runtimes (June 2010)``` - This is so the menu can load custom images as textures. Download it ![here](https://www.microsoft.com/en-ca/download/details.aspx?id=8109)
+- ```Microsoft's DirectX End-User Runtimes (June 2010)``` - This is so the menu can load custom images as textures. Download it [here](https://www.microsoft.com/en-ca/download/details.aspx?id=8109)
 
 # Project Structure
 Under ```FattyMenu-Lib``` you'll find 3 folders:
