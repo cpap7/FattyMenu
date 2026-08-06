@@ -40,10 +40,11 @@ Download it [here](https://www.microsoft.com/en-ca/download/details.aspx?id=8109
 
 The .dll file can be either injected or loaded by Garry's Mod directly.
 - Note: You will need to ensure the game is running on ``Borderless Window`` mode first. Otherwise, you will run into more bugs.
-- Once loaded, you should be greeted with a menu looking like this:
-![alt text](https://puu.sh/Kt6Jj/f5062ebfcb.jpg)
-- In-game, I've found having it off to the right works best
-![alt text](https://puu.sh/Kt6Jq/05c9c24f2a.jpg)
+- Once loaded, you should be greeted with an overlay at the top looking like this:
+![alt text](https://raw.githubusercontent.com/cpap7/FattyMenu/refs/heads/master/Screenshots/fattymenu180_1.png)
+
+- You can then set up the different panels in whichever configuration you find best. For example:
+![alt text](https://raw.githubusercontent.com/cpap7/FattyMenu/refs/heads/master/Screenshots/fattymenu180_2.png)
 
 ## Direct Load via Garry's Mod
 - The more popular/convenient method for loading the menu
@@ -67,7 +68,7 @@ The .dll file can be either injected or loaded by Garry's Mod directly.
 - For example: ``C:\Program Files (x86)\Steam\steamapps\common\GarrysMod\garrysmod\lua\bin``
 10) You could also add the file itself to the exclusions list just in case
 - For example: ``C:\Program Files (x86)\Steam\steamapps\common\GarrysMod\garrysmod\lua\bin\gmsv_fattymenu_win64.dll``
-![alt text](https://puu.sh/KtqCT/ffcfd1c47a.png)
+![alt text](https://raw.githubusercontent.com/cpap7/FattyMenu/refs/heads/master/Screenshots/exclusions.png)
 
 ## Injection
 - Less convenient, but it's supported. The following steps should allow you to use the menu in-game. 
@@ -83,12 +84,12 @@ https://github.com/DarthTon/Xenos/releases/tag/2.3.2
 
 5) Once the injector is opened, navigate over to the 'Advanced' button and click on it. Change the injection type to Manual map, then check off 'No exception support,' 'Manually resolve imports,' 'Ignore TLS,' and 'Erase PE headers.' In other words, it should look like this:
 
-![alt text](https://puu.sh/Kt6GG/ec592af606.png)
+![alt text](https://raw.githubusercontent.com/cpap7/FattyMenu/refs/heads/master/Screenshots/manualmap1.png)
 
 5) Press the 'OK' button at the bottom right.
 
 6) Next, go to the 'Add' button and select FattyMenu.dll. The injector UI should now look like this:
-![alt text](https://puu.sh/Kt6HZ/5dc30ea9cc.png)
+![alt text](https://raw.githubusercontent.com/cpap7/FattyMenu/refs/heads/master/Screenshots/manualmap2.png)
 
 7) Boot up Garry's Mod (x86-64 branch), and wait for it to load to the main menu.
 
