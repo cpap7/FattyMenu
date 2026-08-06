@@ -28,6 +28,7 @@ project "FattyMenu-Lib"
 	   "%{IncludeDir.json}",
        "%{IncludeDir.httplib}",
        "%{IncludeDir.html_parser}",
+       "%{IncludeDir.inifile_cpp}",
        "%{IncludeDir.openssl}",       -- vcpkg
        "%{IncludeDir.directx9}"       -- DirectX9
    }
