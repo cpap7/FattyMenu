@@ -5,7 +5,7 @@
 
 #include "../UI/GUIUtilities.h"
 
-
+#include "../Serialization/UserConfigSerializer.h"
 
 #include <d3d9.h>
 #include <d3dx9.h>
@@ -39,7 +39,7 @@ namespace FattyMenu {
 		m_game_window_handle = d3d_params.hFocusWindow;	
 
 		// Store original wndproc
-		m_original_window_proc = (WNDPROC)(SetWindowLongPtr(		// TODO: Might need to change some type-cast conversions to reinterpret_cast for readability/maintainability later
+		m_original_window_proc = (WNDPROC)(SetWindowLongPtr(		// TODO: Clarify type-cast conversions to for readability/maintainability later
 			m_game_window_handle,
 			GWLP_WNDPROC,
 			(LONG_PTR)(CApplication::WndProc)
@@ -60,18 +60,25 @@ namespace FattyMenu {
 		ImGui::StyleColorsDark();									// Set the style of the colors
 		GUI::Themes::SetThemeCivilProtection();
 
+		CUserConfigSerializer::LoadUserConfig(m_user_config);
 		RegisterPanels();
 	}
 
 	void CImGuiOverlay::RegisterPanels() {
 		// Register panels
-		m_cpsop_panel				= std::make_unique<CCPSOPPanel>();
-		m_credits_panel				= std::make_unique<CCreditsPanel>();
-		m_map_panel					= std::make_unique<CMapPanel>();
+		// View section
+		m_cpsop_panel				= std::make_unique<CCPSOPPanel>(&m_user_config.m_image_config.m_cpsop_image_scale);
+		m_map_panel					= std::make_unique<CMapPanel>(&m_user_config.m_image_config.m_location_readout_image_scale);
 		m_notepad_panel				= std::make_unique<CNotepadPanel>();
 		m_permit_panel				= std::make_unique<CPermitPanel>();
 		//m_tfsop_panel				= std::make_unique<CTFSOPPanel>();
 		m_voiceline_library_panel	= std::make_unique<CVoicelineLibraryPanel>();
+
+		// About section
+		m_credits_panel				= std::make_unique<CCreditsPanel>();
+
+		// Settings section
+		m_config_settings_panel		= std::make_unique<CConfigSettingsPanel>(m_user_config);
 	}
 
 	void CImGuiOverlay::Shutdown() noexcept {
@@ -88,23 +95,27 @@ namespace FattyMenu {
 			SetWindowLongPtr(
 				m_game_window_handle,
 				GWLP_WNDPROC,
-				(LONG_PTR)(m_original_window_proc)				// TODO: Might need to change type-cast conversion to reinterpret_cast for readability/maintainability later
+				(LONG_PTR)(m_original_window_proc)				// TODO: Clarify type-cast conversions to for readability/maintainability later
 			);
 
 			m_original_window_proc = nullptr;
 		}
 
+		CUserConfigSerializer::SaveUserConfig(m_user_config);
 		UnregisterPanels();
 	}
 
 	void CImGuiOverlay::UnregisterPanels() {
 		// LIFO
+		m_config_settings_panel.reset();
+
+		m_credits_panel.reset();
+
 		m_voiceline_library_panel.reset();
 		//m_tfsop_panel.reset();
 		m_permit_panel.reset();
 		m_notepad_panel.reset();
 		m_map_panel.reset();
-		m_credits_panel.reset();
 		m_cpsop_panel.reset();
 	}
 
@@ -115,18 +126,26 @@ namespace FattyMenu {
 
 		ImGui::DockSpaceOverViewport(0, ImGui::GetMainViewport(), ImGuiDockNodeFlags_PassthruCentralNode);
 
+		//ImGui::ShowDemoWindow();
+
 		// Render overlays
 		RenderMenuBar();
-		RenderVersionWindow(&m_panel_state_controller.m_open_version_overlay);
+		RenderVersionWindow(&m_user_config.m_panel_state_config.m_open_version_overlay);
 
 		// Render panels
-		m_cpsop_panel->OnRender(&m_panel_state_controller.m_open_cpsop_panel);
-		m_credits_panel->OnRender(&m_panel_state_controller.m_open_credits_panel);
-		m_map_panel->OnRender(&m_panel_state_controller.m_open_map_panel);
-		m_notepad_panel->OnRender(&m_panel_state_controller.m_open_notepad_panel);
-		m_permit_panel->OnRender(&m_panel_state_controller.m_open_permit_panel);
-		//m_tfsop_panel->OnRender(&m_panel_state_controller.m_open_tfsop_panel);
-		m_voiceline_library_panel->OnRender(&m_panel_state_controller.m_open_voiceline_library_panel);
+		// View section
+		m_cpsop_panel->OnRender(&m_user_config.m_panel_state_config.m_open_cpsop_panel);
+		m_map_panel->OnRender(&m_user_config.m_panel_state_config.m_open_location_readout_panel);
+		m_notepad_panel->OnRender(&m_user_config.m_panel_state_config.m_open_notepad_panel);
+		m_permit_panel->OnRender(&m_user_config.m_panel_state_config.m_open_permit_panel);
+		//m_tfsop_panel->OnRender(&m_user_config.m_panel_state_config.m_open_tfsop_panel);
+		m_voiceline_library_panel->OnRender(&m_user_config.m_panel_state_config.m_open_voiceline_library_panel);
+
+		// About section
+		m_credits_panel->OnRender(&m_user_config.m_panel_state_config.m_open_credits_panel);
+
+		// Settings section
+		m_config_settings_panel->OnRender(&m_user_config.m_panel_state_config.m_open_settings_panel);
 
 		ImGui::EndFrame();
 		ImGui::Render();
@@ -148,23 +167,28 @@ namespace FattyMenu {
 			}
 
 			if (ImGui::BeginMenu("View")) {
-				ImGui::MenuItem("Show Location Readout",			nullptr,			&m_panel_state_controller.m_open_map_panel);
-				ImGui::MenuItem("Show Civil Protection SOP",		nullptr,			&m_panel_state_controller.m_open_cpsop_panel);
-				ImGui::MenuItem("Show Voiceline Library",			nullptr,			&m_panel_state_controller.m_open_voiceline_library_panel);
-				ImGui::MenuItem("Show Distribution Permit Info",	nullptr,			&m_panel_state_controller.m_open_permit_panel);
-				ImGui::MenuItem("Show Notepad",						nullptr,			&m_panel_state_controller.m_open_notepad_panel);
+				ImGui::MenuItem("Show Civil Protection SOP",		nullptr,			&m_user_config.m_panel_state_config.m_open_cpsop_panel);
+				ImGui::MenuItem("Show Location Readout",			nullptr,			&m_user_config.m_panel_state_config.m_open_location_readout_panel);
+				ImGui::MenuItem("Show Notepad",						nullptr,			&m_user_config.m_panel_state_config.m_open_notepad_panel);
+				ImGui::MenuItem("Show Voiceline Library",			nullptr,			&m_user_config.m_panel_state_config.m_open_voiceline_library_panel);
+				ImGui::MenuItem("Show Distribution Permit Info",	nullptr,			&m_user_config.m_panel_state_config.m_open_permit_panel);
 
 				ImGui::EndMenu(); // View
 			}
 
 			if (ImGui::BeginMenu("About")) {
-				ImGui::MenuItem("Version", nullptr, &m_panel_state_controller.m_open_version_overlay);
+				ImGui::MenuItem("Show Version Overlay",				nullptr,			&m_user_config.m_panel_state_config.m_open_version_overlay);
 
 				ImGui::Separator();
 
-				ImGui::MenuItem("Credits", nullptr, &m_panel_state_controller.m_open_credits_panel);
+				ImGui::MenuItem("Show Credits",						nullptr,			&m_user_config.m_panel_state_config.m_open_credits_panel);
 
 				ImGui::EndMenu(); // About
+			}
+
+			if (ImGui::BeginMenu("Settings")) {
+				ImGui::MenuItem("Show Config Settings",				nullptr,			&m_user_config.m_panel_state_config.m_open_settings_panel);
+				ImGui::EndMenu();
 			}
 
 			ImGui::EndMainMenuBar();
@@ -204,19 +228,24 @@ namespace FattyMenu {
 
 		ImGui::SetNextWindowBgAlpha(0.35f); // Transparent background
 		if (ImGui::Begin("##VersionOverlay", a_p_open, window_flags)) {
-			ImGui::Text(FM_VERSION_LONG);
-			ImGui::Separator();
-			ImGui::Text("R-ALT = Open or Close | END KEY = Unload");
 
+			ImGui::Text(FM_VERSION_LONG);
+			if (ImGui::IsItemHovered()) {
+				ImGui::SetTooltip("Press right-click to reposition or hide this overlay");
+			}
+			
+			ImGui::Separator();
+			
+			ImGui::Text("R-ALT = Open or Close | END KEY = Unload");
 			if (ImGui::IsItemHovered()) {
 				ImGui::SetTooltip("Press right-click to reposition or hide this overlay");
 			}
 
 			if (ImGui::BeginPopupContextWindow()) {
-				if (ImGui::MenuItem("Top-left",		nullptr, location == 0))		{ location = 0;			}
-				if (ImGui::MenuItem("Top-right",	nullptr, location == 1))		{ location = 1;			}
-				if (ImGui::MenuItem("Bottom-left",	nullptr, location == 2))		{ location = 2;			}
-				if (ImGui::MenuItem("Bottom-right", nullptr, location == 3))		{ location = 3;			}
+				if (ImGui::MenuItem("Top-left",		nullptr, location == 0))		{ location	= 0;		}
+				if (ImGui::MenuItem("Top-right",	nullptr, location == 1))		{ location	= 1;		}
+				if (ImGui::MenuItem("Bottom-left",	nullptr, location == 2))		{ location	= 2;		}
+				if (ImGui::MenuItem("Bottom-right", nullptr, location == 3))		{ location	= 3;		}
 				if (a_p_open && ImGui::MenuItem("Hide"))							{ *a_p_open = false;	}
 				ImGui::EndPopup();
 			}
@@ -230,6 +259,11 @@ namespace FattyMenu {
 	
 	void CImGuiOverlay::CreateDeviceObjects() {
 		ImGui_ImplDX9_CreateDeviceObjects();
+	}
+
+	void CImGuiOverlay::Toggle() noexcept { 
+		m_is_open = !m_is_open; // press key -> open -> press key -> close etc.
+		CUserConfigSerializer::SaveUserConfig(m_user_config);
 	}
 
 	LRESULT CImGuiOverlay::HandleWndProcMessages(HWND a_window, UINT a_message, WPARAM a_wide_param, LPARAM a_long_param) {
