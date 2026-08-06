@@ -15,11 +15,11 @@
 namespace FattyMenu {
 	class CMapPanel : public IPanel {
 	private:
-		std::unique_ptr<CTexture2D> m_map_texture = nullptr; // { c_map_image_file_path };
-		float m_image_scale{ 0.45f };
+		std::unique_ptr<CTexture2D> m_map_texture	= nullptr;
+		float* m_image_scale						= nullptr; // Non-owning; points into SImageConfig via CImGuiOverlay
 	
 	public:
-		CMapPanel();
+		explicit CMapPanel(float* a_image_scale);
 		~CMapPanel();
 
 		virtual void OnRender(bool* a_p_open) override;		

@@ -7,7 +7,8 @@
 */
 namespace FattyMenu {
 	
-	CCPSOPPanel::CCPSOPPanel() {
+	CCPSOPPanel::CCPSOPPanel(float* a_image_scale) 
+		: m_image_scale(a_image_scale) {
 		m_logo_texture = std::make_unique<CTexture2D>(c_civil_protection_logo_image_file_path);
 	}
 	
@@ -36,7 +37,7 @@ namespace FattyMenu {
 	
 	void CCPSOPPanel::DisplayCPLogoTexture() {
 		// Fallback for loading via manual map injection (might not resolve the file path right away)
-		if (!GUI::Helpers::DrawCenteredTexture(*m_logo_texture, &m_image_scale)) {
+		if (!GUI::Helpers::DrawCenteredTexture(*m_logo_texture, m_image_scale)) {
 			ImGui::Text("File path in memory = %s", m_logo_texture->GetFilePath().c_str());
 			ImGui::Text("Expected file path = %s", c_civil_protection_logo_image_file_path);
 

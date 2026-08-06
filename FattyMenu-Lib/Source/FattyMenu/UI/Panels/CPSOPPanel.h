@@ -15,11 +15,11 @@ namespace FattyMenu {
 
 	class CCPSOPPanel : public IPanel {
 	private:
-		std::unique_ptr<CTexture2D> m_logo_texture = nullptr;
-		float m_image_scale{ 0.5f };
+		std::unique_ptr<CTexture2D> m_logo_texture	= nullptr;
+		float* m_image_scale						= nullptr; // Non-owning; points into SImageConfig via CImGuiOverlay
 
 	public:
-		CCPSOPPanel();
+		explicit CCPSOPPanel(float* a_image_scale);
 		~CCPSOPPanel();
 
 		virtual void OnRender(bool* a_p_open) override;
