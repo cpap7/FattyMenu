@@ -10,9 +10,13 @@ namespace FattyMenu {
         if (!a_p_open || !*a_p_open) { return; } // Nullptr or false
 
         if (ImGui::Begin("Settings", a_p_open)) {
+            GUI::Helpers::WrappedColoredText(GUI::g_yellow_color, "All settings listed below will be saved automatically when FattyMenu is either toggled on or off, or if it's unloaded.");
+            
+            ImGui::Separator();
+
             auto& panels = m_user_config.m_panel_state_config;
             auto& images = m_user_config.m_image_config;
-
+            
             if (ImGui::CollapsingHeader("Panel & Overlay Settings", ImGuiTreeNodeFlags_DefaultOpen)) {
                 ImGui::Checkbox("Show Civil Protection SOP",        &panels.m_open_cpsop_panel);
                 ImGui::Checkbox("Show Location Readout",            &panels.m_open_location_readout_panel);
